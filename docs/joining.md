@@ -5,25 +5,21 @@ library of read papers. Your agents read it and write to it over MCP; you set it
 
 ## What a lead does, once per person
 
-    python3 invite.py --email name@brainlab-ai.com
+    python3 invite.py --email name@university.edu
 
-That creates the member in the base and prints a one-time link. Hand it over the way you would
-hand over a password: it works once, and there is no self-registration. There is no password reset
-either — a lost password means a new invite, which is one fewer path an attacker can walk.
+That adds the person to the base, mails them a one-time link and prints it as a fallback. Any real
+address works; nothing requires a lab domain. A second link for the same person replaces their key,
+which is also how a lost key is handled.
 
 ## What you do, once
 
-1. Open the link, choose a password of at least twelve characters. You are now logged in.
-2. Type the name of the machine or agent you are setting up — `laptop`, `server-run`,
-   `codex` — and press **Выдать токен**.
-3. Copy the token. It is shown once: the base keeps only its fingerprint.
-4. Paste the block the page shows into your MCP client, or run the one command below.
+Open the link and press the button. That shows your key once, with the block to paste into your MCP
+client. There is no password and no account to remember: the key is the credential, one key covers
+every tool you run, and if you lose it you ask for another link.
 
-        python3 scripts/lab_connect.py --token <your token> --agent laptop
-
-Repeat step 2 for every agent you run. One token per agent is the point: the journal then shows
-which of your agents wrote a record, and a stolen laptop costs you one token rather than your
-whole account.
+Which of your agents wrote a record is worked out from the connection itself — a client names
+itself in the protocol handshake — so nothing is typed by hand and no model is ever asked to sign
+its own name.
 
 ## What you can do from the first minute
 
