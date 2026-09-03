@@ -1,6 +1,6 @@
 ---
 name: create-project
-description: Create or initialize a research project when the user says "create project", "new project", "setup project", or asks to set up a paper, code repository, and Obsidian hub. For Brain Lab projects, also invoke lab-project-onboarding so the private local project is idempotently bound to shared Lab Knowledge MCP and a Yonote project view whose Kanban is participants_only by default.
+description: Create or initialize a research project when the user says "create project", "new project", "заведи проект", "setup project", or asks to set up a paper, code repository, and Obsidian hub — including when a call analysis reports that the call starts a work the catalogue does not have. Always prove first that the project does not already exist under a different name, in all five places at once. For Brain Lab projects, also invoke lab-project-onboarding so the private local project is idempotently bound to shared Lab Knowledge MCP and a Yonote project view whose Kanban is participants_only by default.
 ---
 
 # Create Project
@@ -12,6 +12,31 @@ Create the private working layer first. For a Brain Lab project, continue with
 `general/Knowledge/obsidian-conventions.md` (темы в `Papers/`, смайлики и
 цвета папок, что нельзя создавать). Папке нового проекта нужен смайлик и цвет
 своей темы.
+
+## 0. Prove the project does not already exist
+
+**Никогда не заводить проект, не убедившись, что его нет.** Проверять по СМЫСЛУ, а не по имени:
+та же работа лежит под слагом `tsd-lora`, под названием «Низкоранговая адаптация с TSD» или под
+фамилией студента, и совпадения строк не будет. Один и тот же проект в двух местах потом не
+склеить — ни доски, ни гипотезы, ни задачи.
+
+Пять мест, все пять обязательны:
+
+1. **Каталог Brain Call** — `~/Staff/BRAIn Lab/claude-brainlab/services/lab-knowledge/data/projects.json`.
+   Прочитать `slug`, `legacy_labels`, `display_title`, `summary` каждой записи и сравнить по теме.
+2. **Lab Knowledge MCP** — `search_lab` со `scope: lab` по двум-трём разным формулировкам темы
+   (название, метод, задача). Поиск отвечает по смыслу, поэтому спрашивать надо словами, а не слагом.
+3. **Хранилище Obsidian** — `Papers/**`, `Projects/**`, `Staff/**`. Смотреть не только имена папок:
+   `rg` по названию метода и по фамилиям участников внутри карточек проектов.
+4. **Файловая система** — `~/Papers`, `~/Projects`, `~/Staff`. Папка без карточки в хранилище — тоже
+   существующий проект, просто заброшенный.
+5. **Yonote** — страницы коллекции по названию темы, через тот же брокер, что и онбординг.
+
+Нашлось похожее — **остановиться и показать владельцу**: что нашлось, где, чем похоже и чем
+отличается. Решает он. Ни одного из пяти мест не пропускать молча: «я посмотрел по имени, не нашёл»
+— это не проверка, а её имитация.
+
+Ничего не нашлось — сказать об этом одной строкой в предпросмотре, назвав, где именно искал.
 
 ## 1. Collect one project specification
 
@@ -120,12 +145,46 @@ The onboarding result must provide stable references for:
 Write those returned references into the private project card. Do not store a shared Yonote
 token, duplicate tasks, hypotheses, evidence, or decisions in Obsidian.
 
+## 3а. Когда проект заводится по итогам созвона
+
+Разбор созвона умеет сказать, что созвон начинает работу, которой в каталоге нет: в предложении
+о месте появляется `new_work` со слагом, названием и одной фразой о сути, а сам созвон при этом
+привязан к теме. Это готовая спецификация — не спрашивать её заново:
+
+- `new_work.slug` → слаг проекта, `new_work.title` → `display_title`, `new_work.summary` → `summary`;
+- `match_theme_slug` → тема, под которой работа живёт (`theme`, `theme_slug`);
+- участники — из состава созвона, включая гостей с плиток; человека, которого нет в каталоге
+  лаборатории, завести в `~/.config/brain-call/directory.json`, а не хардкодить в общий репозиторий;
+- корень файловой системы и репозитории созвон не знает — их спросить.
+
+Проверку из раздела 0 это НЕ отменяет: модель предлагает слаг по разговору и о соседних работах
+лаборатории не знает.
+
+После того как проект заведён, вернуться к созвону и перепривязать его к новой работе
+(`brain_call.py --rebind MANIFEST --to-slug <slug>`), иначе разбор так и останется на теме, а
+задачам будет некуда лечь: доска принадлежит работе.
+
 ## 4. Verify and report
 
 Verify the local folders, repository state, Obsidian mapping, and every returned shared ID/link.
 For lab projects, rerun the shared resolution step to prove it returns the same project, page,
-and board rather than creating duplicates. Report created, reused, skipped, and blocked items
-separately.
+and board rather than creating duplicates.
+
+Отчёт — таблицей по местам, а не рассказом. Каждое место называет своё состояние и свой адрес:
+
+| место | состояние | адрес |
+|---|---|---|
+| Obsidian `Papers/<тема>/<slug>/` | создано / было | путь в хранилище |
+| `~/Papers/<slug>/` | создано / было | путь |
+| `obsidian-projects.json` | запись добавлена / была | — |
+| каталог Brain Call `projects.json` | запись добавлена / была | слаг и код |
+| Lab Knowledge | проект создан / найден | `project_id` |
+| Yonote страница | создана / найдена | ссылка |
+| Yonote доска | создана / найдена | ссылка |
+| участники | заведены / были | имена |
+
+Место, до которого не дошли, называется отдельной строкой «не сделано» с причиной. Молчание о
+месте читается как «сделано» и однажды оставит проект без доски.
 
 ## Safety
 
