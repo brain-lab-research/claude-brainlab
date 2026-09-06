@@ -1,6 +1,6 @@
 ---
 name: presentation
-description: This skill should be used when the user asks to create presentation slides, rewrite or polish a Beamer deck, prepare a lecture or conference talk, fix slide layout, improve mathematical slides, use terminal style, make slides clearer, combine or split slides, or otherwise work on a presentation in LaTeX Beamer.
+description: This skill should be used when the user asks to create presentation slides, rewrite or polish a Beamer deck, prepare a lecture or conference talk, fix slide layout, improve mathematical slides, use the lab style or terminal style, make slides clearer, combine or split slides, or otherwise work on a presentation in LaTeX Beamer.
 version: 0.1.0
 ---
 
@@ -90,22 +90,77 @@ Produce slides that are:
 - `Overfull \hbox` is an error.
 - `Overfull \vbox` is an error.
 - `Frame text is shrunk` is usually an error.
+- **A clean log does not mean the deck is clean.** A `tcolorbox` inside `columns` that runs past the
+  bottom of a frame is silently cut by the page edge: no warning, `latexmk` exits 0. Never report a
+  deck as done without running `scripts/check_overflow.py` on the built PDF and getting
+  `all pages fit`. It also catches tables running off the right edge.
 - Fix in this order:
   1. cut redundant text
-  2. split the frame
-  3. rebalance columns
-  4. shorten captions or side notes
-  5. move technical detail to a proof or backup frame
+  2. drop the least load-bearing box
+  3. shrink the figure
+  4. rebalance columns
+  5. split the frame
 - Do not rely on heavy shrink as the default solution.
+- Capacity on 16:9 at 10pt (frame body ~205 pt): a column holds a figure **or** three short boxes,
+  not both; a full-width figure leaves room for at most two boxes under it; six boxes on one frame
+  is a guaranteed cut.
 
-### 8. Terminal Style
+### 8. Lab Style — The Default
 
-- If the user asks for `terminal style` or `терминальный стиль`, use the local example deck `examples/terminal-style-mini.tex` as the authoritative compact reference.
-- Interpret it as: `\usetheme{metropolis}`, `aspectratio=169`, dark background (`#0D1117`), dark card/title background (`#161B22`), green accent (`#00FF88`), blue secondary accent (`#58A6FF`), orange theorem/proof accent (`#FF7B54`), red problem accent (`#FF6B6B`), monospace bold title and frame title, section-divider slides in the same visual language, compact `tcolorbox` blocks, and a clean plain-style final slide.
-- Title slide is rich, not bare: top `// tag` line, thin rules, title, blue subtitle, a colored author line (presenting author orange-bold, co-authors muted), a colored affiliation line (home lab orange, rest muted), and one or two short terminal command lines (`$ run --...` green, `$ git clone ...` blue). Optional QR-code row when links exist. Mirror this layout.
-- Box color convention: `mathbox` (neutral, gray) for equations/tables; `ideabox` (green) for ideas/results/takeaways; `thmbox` (orange) for theorems/lemmas/assumptions; `bluebox` (blue) for secondary notes; `probbox` (red) for problems/pitfalls. Proofs: green `// proof` lead-in, long proofs split across slides.
-- Figures are mandatory for diversifying a text-heavy deck. Always wrap figures in a white `figcard` panel (define `\figcard{path}`) — raw figures on the dark canvas look broken. Pull/copy the paper's figures into the deck's `figures/`; if a needed figure does not exist, generate a clean one (matplotlib, white background, accent-matched line colors). For Russian decks use `[T2A]{fontenc}` + `lmodern`.
-- Follow the tone and structure of that mini deck rather than copying exact slide text.
+Every deck for this lab uses the BRAIn Lab house style unless the user explicitly asks for
+something else. Authoritative compact reference: `examples/lab-style-mini.tex`, with
+`examples/lab-style-notes.md` for the mandatory traits.
+
+- Palette comes from two sources: the poster template
+  `~/Papers/finished papers/kawasaki/poster/brainposter.sty` and, decisive for slides, the lab deck
+  `~/Projects/huawei_optimizers/Talk3_Efficient_Pretraining_30min.pptx`:
+  `plum` `#854C65` (full-bleed background of title / section / closing frames, and heading colour on
+  content frames), `cream` `#FAF8F1` (content background, and text on plum), `amber` `#FFD183`
+  (headings on plum), `amberink` `#A9741A` (amber readable on cream), `ink` `#1F1B18`,
+  `red` `#B0453F` (problems), `muted` `#8C8078`.
+- **Never a white background** — cream `#FAF8F1`. Plain white looks flat and does not sit with the
+  rest of the palette. Figures go in white cards on the cream ground, which then read as cards.
+- The deck's rhythm is the alternation of full-bleed plum frames and cream content frames. That
+  alternation is what makes it look designed. Use the `plumframe` environment for the plum ones.
+- `\usetheme{metropolis}`, `aspectratio=169`, serif `lmodern` — **not** monospace.
+- Frame title: plum text on cream plus a thin plum rule at **text** width. Turn the theme progress
+  bar off (`progressbar=none`): it spans the whole page, looks coarser and breaks overflow checking.
+- Title slide: **typography only** — no logo, no author line, no `$ run --...` lines. Large amber
+  title, thin amber rule, cream subtitle, date bottom-left and `BRAIn Lab` bottom-right.
+- Box convention: `mathbox` white card (equations, tables), `ideabox` faint plum (ideas, results),
+  `thmbox` amber (theorems, stable facts, surprising findings), `probbox` faint red (problems).
+  All four carry `fontupper=\small`; without it three boxes never fit a column.
+- `\fcap{...}` for figure captions must contain `\par` inside the group, otherwise `\scriptsize`
+  does not control the leading and the caption renders oversized.
+
+### 9. Figures — Find Before You Draw
+
+- **A figure from the paper always beats a hand-rolled schematic.** Before generating anything in
+  matplotlib, pull the original: check `Literature/**/_attachments/<arxiv-id>/` first (the
+  `paper-ingest` skill already extracted figures for some papers), then
+  `curl -sL https://arxiv.org/e-print/<id>` and untar. `grep -rhoE 'includegraphics\[[^]]*\]\{[^}]*\}' *.tex`
+  shows which figures the paper itself actually uses.
+- Crop only with `pdfcrop --margins 3`. Do not set a CropBox by hand (pymupdf and pdfTeX disagree
+  about CropBox vs MediaBox and the figure lands offset). To take one panel of a multi-panel figure,
+  narrow the MediaBox first, then `pdfcrop`.
+- Do not squeeze a portrait figure into a 16:9 frame whole: cut out the wide fragment that carries
+  the idea.
+- Own figures, when no source figure exists: matplotlib, white background, serif fonts,
+  `mathtext.fontset=cm`, palette colours above — use `#5E8797` for lines, because `#9DE1FC` itself
+  is unreadable on white.
+
+### 10. Terminal Style — Only On Request
+
+- Use it only when the user asks for `terminal style` or `терминальный стиль`. It is a slide theme,
+  not the lab's identity: anything representing the lab uses the palette above.
+- Authoritative reference: `examples/terminal-style-mini.tex`, traits in `examples/terminal-style-notes.md`.
+- Interpret it as: `\usetheme{metropolis}`, `aspectratio=169`, dark background (`#0D1117`), dark
+  card/title background (`#161B22`), green accent (`#00FF88`), blue secondary (`#58A6FF`), orange
+  theorem accent (`#FF7B54`), red problem accent (`#FF6B6B`), monospace bold titles, section
+  dividers in the same visual language, compact `tcolorbox` blocks, clean plain final slide.
+- Title slide there is rich: top `// tag` line, thin rules, title, blue subtitle, coloured author and
+  affiliation lines, one or two `$ run --...` / `$ git clone ...` lines, optional QR row.
+- Figures on the dark canvas must sit in a **white** `figcard` panel, otherwise they look broken.
 
 ## Preferred Output Shape For Theory Decks
 
@@ -121,5 +176,8 @@ Produce slides that are:
 Load only what is needed:
 - `references/beamer-workflow.md` - compile-and-fix workflow for Beamer
 - `references/user-presentation-preferences.md` - detailed user-specific rules for mathematical slides, feedback handling, notation, and layout
-- `examples/terminal-style-mini.tex` - compact style anchor for terminal-style Beamer decks
+- `examples/lab-style-mini.tex` - **default** style anchor: BRAIn Lab house style
+- `examples/lab-style-notes.md` - mandatory visual traits of the lab style, figure sourcing, frame capacity
+- `scripts/check_overflow.py` - detects frames whose content is silently cut by the page edge; run it before calling a deck done
+- `examples/terminal-style-mini.tex` - style anchor for the dark terminal theme, only when asked
 - `examples/terminal-style-notes.md` - mandatory visual traits of terminal style in short form
