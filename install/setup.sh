@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # setup.sh — backup-aware installer for claude-brainlab.
 #
-# Copies skills/, commands/, agents/, hooks/, scripts/, rules/, CLAUDE.md
+# Copies skills/, commands/, agents/, hooks/, scripts/, rules/, autoresearch/, CLAUDE.md
 # into ~/.claude/. Existing user files that differ are backed up first to a
 # timestamped folder. Renders settings.json from settings.json.template using
 # values from .env.
@@ -60,7 +60,7 @@ backup_if_exists() {
 }
 
 # ── Components to install ──
-COMPONENTS=(skills commands agents hooks scripts rules)
+COMPONENTS=(skills commands agents hooks scripts rules autoresearch)
 
 echo "→ Installing claude-brainlab into $CLAUDE_HOME"
 echo "  Backups will go to: $BACKUP_DIR"

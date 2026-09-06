@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Лаунчер autoresearch: ставит PYTHONPATH на ~/.claude (родитель пакета) и запускает CLI.
+# Использование: ar <cmd> [--project PATH] ...   (cmd: init|migrate|status|select|dedup|scoop|meta|evolve|draft|round)
+export PYTHONPATH="$HOME/.claude${PYTHONPATH:+:$PYTHONPATH}"
+exec python3 -m autoresearch.orchestrator "$@"
