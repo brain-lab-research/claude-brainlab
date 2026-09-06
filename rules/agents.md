@@ -11,6 +11,6 @@
 Always launch independent agents in parallel, not sequentially.
 
 ## Available agents (~/.claude/agents/)
-Research: `literature-reviewer`, `rebuttal-writer`, `paper-miner`, `kaggle-miner`
+Research: `literature-reviewer`, `paper-miner`, `kaggle-miner`
 Dev: `architect`, `build-error-resolver`, `code-reviewer`, `refactor-cleaner`, `tdd-guide`, `bug-analyzer`, `dev-planner`
 Design: `ui-sketcher`, `story-generator`

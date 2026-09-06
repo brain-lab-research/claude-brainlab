@@ -59,8 +59,6 @@ The core research loop: get a paper into your library with a real, audited note.
   weakness skeleton in chat first, then writes one review file per paper in the
   Summary / Strengths-Weaknesses / Questions / Limitations format. Handles prompt
   injection inside PDFs safely. Venue-agnostic. *Fires on:* "review this paper" or a handed PDF.
-- **`paper-self-review`** — QA checklist for your own paper before submission:
-  completeness, structure, quality. *Fires on:* "self-review before submission".
 - **`review-response`** — Systematic rebuttal workflow: analyze reviewer comments →
   professional response. *Fires on:* "write rebuttal / respond to reviewers".
 - **`research-ideation`** — Research startup: brainstorm ideas, 5W1H, gap analysis,
@@ -89,9 +87,6 @@ The core research loop: get a paper into your library with a real, audited note.
   Russian prose by default, and treats overflow/heavy shrink as errors. Ships a built-in
   **terminal style** (dark, monospace, bright-green accent). *Fires on:* "make slides /
   rewrite this deck / use terminal style".
-- **`post-acceptance`** — Conference-prep workflow after acceptance: Beamer talk, poster,
-  promo content; routes terminal-style requests to the same canonical example as
-  `presentation`. *Fires on:* "prepare conference presentation / make a poster".
 - **`paper-to-social`** ⭐ — Turn a paper into copy-paste-ready social posts (Telegram,
   Twitter/X, Habr), with figures pulled from the arXiv version, in your own voice (never
   AI-sounding). *Fires on:* "make a post about this paper / promote this paper".
