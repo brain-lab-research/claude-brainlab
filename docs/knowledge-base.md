@@ -1,6 +1,6 @@
 # Feeding the shared knowledge base
 
-The lab runs a shared knowledge service (Lab Knowledge MCP, 52 tools) that holds two corpora side by
+The lab runs a shared knowledge service (Lab Knowledge MCP, 59 tools) that holds two corpora side by
 side: the lab's own records — hypotheses, experiments, evidence, derivations, decisions — and the
 library of read papers with the claims those papers make. Search answers over both.
 
