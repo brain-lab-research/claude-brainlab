@@ -61,6 +61,8 @@ services/lab-knowledge.stale-20260813/
 INTERNAL.md
 services/lab-knowledge/
 services/lab-site/
+# Полный Lab Atlas собирается локально из приватных project dossiers и bindings.
+docs/lab-atlas/
 scripts/brain_call*
 scripts/braincall-app/
 scripts/braincall-capture/
@@ -86,3 +88,10 @@ tests/test_brain_call*
 task_plan.md
 scratch/
 .env.bak-*
+services/lab-portal/mail-key
+services/lab-portal/portal.db*
+services/lab-portal/guide.md
+# Приглашение человека идёт через личный ssh-хост, файл менеджерского токена и публичный
+# адрес кабинета — этому в публичном репозитории места нет.
+scripts/invite_person.sh
+scripts/send_via_mail_app.py
