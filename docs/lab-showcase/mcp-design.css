@@ -408,3 +408,17 @@
   .map-index-topics button{grid-template-columns:1fr;padding-left:24px}
   .map-index-topics span{grid-row:3}
 }
+/* Служба не ответила: говорим это прямо над ответом по снимку, а не подменяем молча. */
+.mcp-warn{margin:0 0 20px;padding:14px 16px;border:1px solid rgba(212,160,80,.4);
+  border-radius:6px;background:rgba(212,160,80,.06);color:#d8bd8c;font-size:12.5px;
+  line-height:1.6}
+/* Хвост выдачи: то, что кросс-энкодер поставил вдвое ниже лучшего. Не прячем совсем — иногда
+   нужное лежит там, — но и не мешаем с ответом. */
+.answer-weak{margin-top:18px;border-top:1px solid #2d352e}
+.answer-weak>summary{padding:14px 0;color:#8e988c;font:9.5px var(--mono);letter-spacing:.06em;
+  text-transform:uppercase;cursor:pointer;list-style:none}
+.answer-weak>summary::-webkit-details-marker{display:none}
+.answer-weak>summary:before{content:"+ ";color:#6f7a6d}
+.answer-weak[open]>summary:before{content:"− "}
+.answer-weak>summary:hover{color:#c3cbc0}
+.answer-weak .src-claims{margin-top:0;opacity:.85}

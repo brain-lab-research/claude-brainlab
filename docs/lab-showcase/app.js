@@ -624,12 +624,25 @@
     catch{liveOk=false}
     return liveOk;
   }
+  // Туннель к brain_lab рвётся под нагрузкой сервера: прокси это видит и поднимает его
+  // заново, но запрос, попавший в разрыв, уже провалился. Одна такая осечка не значит, что
+  // службы нет, поэтому запрос повторяется — к моменту повтора туннель обычно уже живой.
   async function liveSearch(q,types=ANSWER_TYPES){
     const url=`${PROXY}/search?q=${encodeURIComponent(q)}&limit=${MCP_CALL.limit}&mode=${MCP_CALL.mode}`
       +(types.length?`&types=${encodeURIComponent(types.join(","))}`:"");
-    const r=await fetch(url,{cache:"no-store"});
-    if(!r.ok)throw new Error(`служба ответила ${r.status}`);
-    return r.json();
+    let last=null;
+    for(let attempt=0;attempt<3;attempt++){
+      if(attempt)await new Promise(done=>setTimeout(done,1500*attempt));
+      try{
+        const r=await fetch(url,{cache:"no-store"});
+        if(r.ok)return r.json();
+        last=new Error(`служба ответила ${r.status}`);
+        // 502 и 503 — это разрыв туннеля или перегруженный сервер, их имеет смысл повторить.
+        // Остальные коды означают, что вопрос не тот, и повтор ничего не изменит.
+        if(r.status!==502&&r.status!==503)break;
+      }catch(error){last=error}
+    }
+    throw last||new Error("служба недоступна");
   }
   // Переходы рисуются всегда в области результатов, а не в том блоке, откуда нажали:
   // иначе чипы обзора подменяли сами себя и после первого перехода исчезали.
@@ -685,6 +698,29 @@
     const top=box.getBoundingClientRect().top+scrollY-120;
     window.scrollTo({top:Math.max(0,top),behavior:"smooth"});
   }
+  // Снимок и служба отвечают по-разному, а показывать их надо одинаково. Здесь записи
+  // снимка приводятся к форме ответа службы: род, идентификатор, заголовок, текст, оценка.
+  // Оценки у снимка нет — вместо неё ставится пусто, и на карточке её просто не видно.
+  function snapshotItems(q){
+    const out=[];
+    for(const x of baseSearch(q,MCP_CALL.limit)){
+      const r=x.r||x;
+      out.push({entity_type:r.k,entity_id:r.id||r.code||"",title:r.t||"",
+                snippet:r.s||"",score:null,extra:{}});
+    }
+    for(const x of libSearch(q,8)){
+      const p=x.p||x;
+      // У статьи в снимке показываем её самое длинное разобранное утверждение: именно оно
+      // отвечает на вопрос, а не название статьи.
+      const claim=(p.c||[]).slice().sort((a,b)=>(b.s||"").length-(a.s||"").length)[0];
+      out.push({entity_type:"paper_claim",entity_id:p.id,
+                title:`${p.t} — ${claim?claim.s:p.sr||p.s||""}`,
+                snippet:claim?claim.s:(p.sr||p.s||""),score:null,
+                extra:{paper_id:p.id,library_folder:p.f,arxiv_id:p.ax}});
+    }
+    return out;
+  }
+
   async function runSearch(q){
     const box=$("mcp-results"),found=$("mcp-found"),call=$("mcp-call-line");if(!box)return;
     const seq=++mcpSeq;
@@ -704,12 +740,18 @@
       if(call)call.innerHTML=`<p class="mcp-call is-local">Ответ собран из карты базы, без вызова службы: по имени темы ранжировать отдельные утверждения нечем.</p>`;
       bindResults(box);scrollToResults();return;
     }
+    // liveOk===null — состояние «не проверяли или последняя попытка сорвалась»: пробуем
+    // службу. false ставится только когда health явно не ответил при загрузке страницы.
     if(liveOk===false){
       // Снимок ищет словами, и это не то, что делает агент: об этом сказано прямо.
-      const rows=[...baseSearch(q,MCP_CALL.limit).map(x=>({html:baseCard(x,q)})),
-                  ...libSearch(q,8).map(x=>({html:libCard(x,q)}))];
-      if(found)found.textContent=rows.length?`${rows.length} по снимку`:"ничего";
-      box.innerHTML=rows.length?rows.map(r=>r.html).join("")
+      // Ветка снимка отдавала ленту разрозненных карточек — ровно то, на что владелец
+      // жаловался с самого начала: «выглядит супер непонятно без какого-то контекста».
+      // Служба падает часто (общий сервер), и в эти минуты витрина не должна выглядеть
+      // хуже, чем обычно. Поэтому снимок приводится к тому же виду, что живой ответ:
+      // источник сверху, его записи внутри.
+      const items=snapshotItems(q);
+      if(found)found.textContent=items.length?`${items.length} по снимку`:"ничего";
+      box.innerHTML=items.length?answerPage(items,q)
         :`<p class="mcp-empty">По снимку ничего не нашлось, и это ожидаемо: снимок ищет словами, а не по смыслу. Поднимите живой поиск, и та же строка уйдёт в службу так, как её отправляет агент.</p>`;
       bindResults(box);scrollToResults();return;
     }
@@ -722,18 +764,45 @@
       if(!el){clearInterval(clock);return}
       el.textContent=`${Math.round((Date.now()-started)/1000)} с`},500);
     try{
-      const data=await liveSearch(q);
+      let data=await liveSearch(q);
+      // Служба считает вектор вопроса отдельным сервисом эмбеддингов. Под нагрузкой сервера
+      // он отвечает от 0.9 до 6 секунд, и когда не успевает, служба МОЛЧА переходит на поиск
+      // по словам: в логе это «semantic search degraded to lexical». На русском запросе это
+      // катастрофа — «прогрев» по словам не находит warmup и выдаёт случайный шум с оценками
+      // 0.03 вместо 0.5. Снаружи это видно по matched_by: у здорового ответа там semantic и
+      // rerank, у деградировавшего — только lexical. Такой ответ показывать нельзя, его надо
+      // переспросить: деградация случайна и со второй попытки обычно не повторяется.
+      const degraded=d=>{const xs=d.items||[];
+        return xs.length>0&&xs.every(x=>!(x.matched_by||[]).some(m=>m==="semantic"||m==="rerank"))};
+      let lexicalOnly=degraded(data);
+      if(lexicalOnly){
+        const el=$("mcp-wait-clock");
+        if(el)el.textContent="векторный поиск не успел, спрашиваю ещё раз";
+        try{const again=await liveSearch(q);if(!degraded(again)){data=again;lexicalOnly=false}}
+        catch{/* оставляем первый ответ: он хуже, но это ответ */}
+      }
       clearInterval(clock);
       if(seq!==mcpSeq)return;
       const items=data.items||[];
       if(found)found.textContent=`${items.length} записей, порядок службы`;
-      box.innerHTML=items.length?answerPage(items,q)
-        : `<p class="mcp-empty">Служба по этому вопросу ничего не нашла. База знает только то, что кто-то записал явно.</p>`;
+      const warn=lexicalOnly
+        ? `<p class="mcp-warn">Служба отвечала без векторного поиска: сервис эмбеддингов не успел, и она перешла на совпадение слов. На русском запросе это даёт мимо: в базе термины записаны латиницей. Спросите ещё раз — обычно со второй попытки вектор считается.</p>`
+        : "";
+      box.innerHTML=items.length?warn+answerPage(items,q)
+        : warn+`<p class="mcp-empty">Служба по этому вопросу ничего не нашла. База знает только то, что кто-то записал явно.</p>`;
       bindResults(box);scrollToResults();
     }catch(error){
       clearInterval(clock);
       if(seq!==mcpSeq)return;
-      liveOk=false;syncLiveBadge();runSearch(q);
+      // Показываем ответ по снимку, но службу мёртвой не объявляем: следующий вопрос снова
+      // пойдёт в неё. Раньше одна осечка сажала витрину на снимок до перезагрузки страницы,
+      // и человек этого не замечал — он видел просто плохие ответы.
+      liveOk=null;syncLiveBadge();
+      const items=snapshotItems(q);
+      box.innerHTML=`<p class="mcp-warn">Служба не ответила (${esc(String(error.message||error))}). Ниже — ответ по локальному снимку: он ищет словами, а не по смыслу. Следующий вопрос снова уйдёт в службу.</p>`
+        +(items.length?answerPage(items,q):"");
+      if(found)found.textContent=`${items.length} по снимку`;
+      bindResults(box);scrollToResults();
     }
   }
   // ============ Карта темы: ответ на широкий запрос ============
@@ -1009,7 +1078,28 @@
     return {key:"loose",kind:"loose",id:"",title:"Записи без проекта",folder:""};
   }
 
+  // Служба отдаёт двадцать записей, но отвечают на вопрос обычно первые пять-восемь: дальше
+  // идёт хвост, где оценка кросс-энкодера падает вдвое и запись уже про другое. Владелец,
+  // увидев такой хвост: «че за хуйня вылезает?» — и это справедливо, потому что на запрос
+  // про прогрев в ответе стояло «Метод устойчив к T/K».
+  //
+  // Поэтому ответ режется по самой оценке службы: то, что слабее половины лучшего, уходит
+  // под раскрытие. Порог относительный, потому что абсолютные значения у разных вопросов
+  // разные: на «прогрев» лучший 0.42, на «Muon» 0.47.
+  function splitByScore(items){
+    const scored=items.filter(x=>typeof x.score==="number");
+    if(scored.length<4)return [items,[]];
+    const best=Math.max(...scored.map(x=>x.score));
+    const floor=best*0.5;
+    const strong=items.filter(x=>typeof x.score!=="number"||x.score>=floor);
+    // Если порог срезал почти всё, значит выдача ровная и резать нечего.
+    if(strong.length<3)return [items,[]];
+    return [strong,items.filter(x=>!strong.includes(x))];
+  }
+
   function answerPage(items,q){
+    const [items_,weak]=splitByScore(items);
+    items=items_;
     const groups=[],index={};
     items.forEach((x,i)=>{
       const src=answerSource(x);
@@ -1032,9 +1122,15 @@
       || b.items.length-a.items.length
       || a.best-b.best);
     const cards=groups.map(g=>sourceGroup(g,q));
-    if(cards.length<=ANSWER_SOURCES)return head+cards.join("");
+    // Хвост показываем отдельно и честно называем: это то, что служба поставила заметно
+    // ниже. Прятать его совсем нельзя — иногда нужное лежит именно там.
+    const weakBlock=weak.length
+      ? `<details class="answer-weak"><summary>Ещё ${esc(String(weak.length))} ${esc(plural(weak.length,["запись","записи","записей"]))}, которые служба поставила заметно ниже</summary>
+         <ol class="src-claims">${weak.map((x,i)=>claimRow(x,q,items.length+i+1)).join("")}</ol></details>`
+      : "";
+    if(cards.length<=ANSWER_SOURCES)return head+cards.join("")+weakBlock;
     return head+cards.slice(0,ANSWER_SOURCES).join("")+
-      `<details class="answer-rest"><summary>Ещё ${esc(String(cards.length-ANSWER_SOURCES))} источников по порядку службы</summary>${cards.slice(ANSWER_SOURCES).join("")}</details>`;
+      `<details class="answer-rest"><summary>Ещё ${esc(String(cards.length-ANSWER_SOURCES))} источников по порядку службы</summary>${cards.slice(ANSWER_SOURCES).join("")}</details>`+weakBlock;
   }
 
   // Источник и его утверждения. Аннотация стоит сразу: владелец «сделай так, чтобы в
