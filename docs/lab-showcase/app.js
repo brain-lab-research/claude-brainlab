@@ -693,7 +693,7 @@
       const [folder,slug]=b.dataset.openSubtopic.split("|");show(subtopicPage(folder,slug))});
     scope.querySelectorAll("[data-force-ask]").forEach(b=>b.onclick=()=>{
       const q=b.dataset.forceAsk;forceAsk.add(q);
-      const inp=$("mcp-search-input");inp.value=q;runSearch(q)});
+      const inp=$("mcp-search-input");inp.value=q;askedByHand=true;runSearch(q)});
     scope.querySelectorAll("[data-mcp-home]").forEach(b=>b.onclick=()=>{
       const inp=$("mcp-search-input");inp.value="";runSearch("")});
   }
@@ -703,7 +703,12 @@
   // Ответ лежит под тремя колонками способов, и после нажатия «Спросить» человек оставался
   // наверху: список тем по запросу был на экран ниже. Раз запрос теперь отправляют явно,
   // явным должен быть и переход к ответу.
+  // Прокрутка допустима только если вопрос отправил человек. Любая прокрутка «сама» во время
+  // работы с полем воспринимается как то, что страницу выдернули из-под рук.
+  let askedByHand=false;
   function scrollToResults(){
+    if(!askedByHand)return;
+    askedByHand=false;
     const box=$("mcp-results");if(!box)return;
     const top=box.getBoundingClientRect().top+scrollY-120;
     window.scrollTo({top:Math.max(0,top),behavior:"smooth"});
@@ -712,6 +717,44 @@
   // снимка приводятся к форме ответа службы: род, идентификатор, заголовок, текст, оценка.
   // Оценки у снимка нет — вместо неё ставится пусто, и на карточке её просто не видно.
   function snapshotItems(q){
+    if(searchIndex)return snapshotRanked(q);
+    return snapshotLegacy(q);
+  }
+
+  // Записи из общего индекса в форме ответа службы. Оценка BM25 приводится к 0…1 делением на
+  // лучшую: сравнивать её с оценкой кросс-энкодера нельзя, а показывать порядок — можно.
+  function snapshotRanked(q){
+    // Контекст запроса: области, которые этот же запрос поднял наверх. Нужен из-за омонимов
+    // внутри одной базы — «прогрев» это и warmup в обучении, и прогрев кеша векторов в
+    // журнале службы. Записи из найденной области весят больше, из чужой меньше.
+    const context=new Set();
+    for(const item of searchIndex.search(q,8)){
+      if(!NODE_KINDS.has(item.kind))continue;
+      if(item.kind==="project"||item.kind==="theme"){context.add(item.title);context.add(item.code)}
+      else context.add(item.id);
+    }
+    const found=searchIndex.search(q,40,{context}).filter(x=>!NODE_KINDS.has(x.kind));
+    if(!found.length)return [];
+    const best=found[0].score||1;
+    // Хвост режется так же, как у живой службы: запись слабее сорока процентов от лучшей
+    // отвечает уже на другой вопрос. Без этого на «нужен ли прогрев» в ответ попадали
+    // «Агентские скиллы» — там слово «прогрев» встречается в служебной записи.
+    return found.filter(x=>x.score>=best*0.4).slice(0,20).map(x=>{
+      const snap=x.code?byCode[x.code]:null;
+      if(x.kind==="paper"){
+        const paper=papersById[x.id];
+        const claim=(paper?.c||[]).slice().sort((a,b)=>(b.s||"").length-(a.s||"").length)[0];
+        return {entity_type:"paper_claim",entity_id:x.id,
+                title:`${x.title} — ${claim?claim.s:x.text||""}`,
+                snippet:claim?claim.s:(x.text||""),score:x.score/best,
+                extra:{paper_id:x.id,library_folder:paper?.f,arxiv_id:paper?.ax}};
+      }
+      return {entity_type:x.kind,entity_id:snap?.id||x.id,title:x.title||"",
+              snippet:x.text||"",score:x.score/best,extra:{}};
+    });
+  }
+
+  function snapshotLegacy(q){
     const out=[];
     for(const x of baseSearch(q,MCP_CALL.limit)){
       const r=x.r||x;
@@ -763,13 +806,27 @@
     // базе одиннадцать записей и двадцать две статьи по теме, и должен был сам догадаться
     // нажать «всё равно спросить». Теперь карта показывается сразу, а записи догружаются под
     // ней сами: карта видна мгновенно, записи приходят через те секунды, что считает служба.
+    // Код записи — не вопрос, а адрес. Служба по нему тоже что-то найдёт, но искать смысл в
+    // «H-WBD-004» бессмысленно: запись есть в снимке, открываем сразу и без ожидания.
+    const code=(q.trim().match(/^[A-ZА-Я]-[A-Z]{2,4}-\d{2,4}$/i)||[])[0];
+    if(code&&byCode[code.toUpperCase()]){
+      const record=byCode[code.toUpperCase()];
+      box.innerHTML=record.k==="project"?projectCard(code.toUpperCase()):recordCard(code.toUpperCase());
+      if(found)found.textContent="запись по коду";
+      if(call)call.innerHTML=`<p class="mcp-call is-local">Открыто по коду из локального снимка: искать смысл в коде записи незачем.</p>`;
+      bindResults(box);scrollToResults();return;
+    }
     const map=forceAsk.has(q.trim())?"":isBroad(q)?mapPage(q):"";
     if(map){
       box.innerHTML=map+`<div class="map-records" id="map-records"><p class="map-records-wait">Ищу записи по этой теме…</p></div>`;
       if(found)found.textContent="карта темы";
       // Службу мы здесь не звали, поэтому и вызов показывать нельзя: строка вызова на этой
       // странице обещает «то же, что делает агент», и обманывать в ней нечестно.
-      if(call)call.innerHTML=`<p class="mcp-call is-local">Сверху карта базы, собранная без вызова службы: по имени темы ранжировать отдельные утверждения нечем. Записи под ней служба ищет обычным порядком.</p>`;
+      // Карта собирается локально, но записи под ней ищет служба — значит вызов есть, и
+      // показывать надо его, а не только пояснение про карту. Иначе строка вызова обещает
+      // «то же, что делает агент» и при этом скрывает настоящий вызов.
+      if(call)call.innerHTML=`<p class="mcp-call is-local">Сверху карта базы: она собрана локально из дерева разделов. Записи под ней ищет служба этим вызовом.</p>`
+        +callLine(q.trim());
       bindResults(box);scrollToResults();
       fillMapRecords(q,seq);
       return;
@@ -867,30 +924,112 @@
     return skels.length&&skelHit(t,skels)?1:0;
   }
 
+  const MAP_WORDS=new Set(["направление","направления","направлений","тема","темы","тем",
+    "раздел","разделы","разделов","подраздел","подразделы","подтема","подтемы",
+    "обзор","структура","список","карта","области","область","проекты","проектов"]);
+
+  // Имя узла — не единственное, чем он описан. «Дообучение» не встречается в названии
+  // «Низкоранговая адаптация и PEFT», но стоит в её аннотации, и человек, спросивший про
+  // дообучение, ищет именно это направление. Совпадение по аннотации слабее, чем по имени:
+  // оно поднимает узел в список, но не выше точного попадания.
+  function nodeHitDeep(name,abstract,q){
+    const byName=nodeHit(name,q);
+    if(byName)return byName;
+    // Слова, которыми просят показать устройство базы, из поиска по тексту исключаются.
+    // Иначе запрос «какие есть направления в дообучении» цеплял каждую тему, в аннотации
+    // которой стоит слово «направление» — и в ответ шли «Отбор студентов в лабораторию» и
+    // «Программа A2 Pro». Человек спрашивал не про них.
+    const words=(q.toLowerCase().match(/[a-zа-яё0-9-]{4,}/g)||[])
+      .filter(w=>!MAP_WORDS.has(w)&&!["какие","какая","есть","этом","этой","наши",
+        "лаборатории","лаборатория","показать","покажи"].includes(w));
+    if(!words.length)return 0;
+    const text=String(abstract||"").toLowerCase();
+    // Стем берём от слова целиком и от его основы, плюс английские синонимы из словаря:
+    // «дообучении» → «дообучен» → fine-tuning, иначе русское окончание не совпадёт с базой.
+    const stems=words.flatMap(w=>{
+      const base=w.length>5?w.slice(0,w.length-2):w;
+      return [w,base,...(LIB_SYN[w]||"").split(" "),...(LIB_SYN[base]||"").split(" ")];
+    }).filter(st=>st&&st.length>3);
+    return stems.some(st=>text.includes(st))?1:0;
+  }
+
   const folderStats=folder=>{
     const ps=(lib.papers||[]).filter(p=>p.f===folder);
     return {papers:ps.length,claims:ps.reduce((n,p)=>n+(p.c||[]).length,0)};
   };
 
   // Что нашлось в карте базы по этому запросу: подразделы, подтемы, направления, проекты.
+  // Единый индекс: узлы дерева, записи базы и статьи в одной коллекции, ранжирование BM25.
+  // Пока индекс не построен, витрина работает по-старому — это лишь на случай, если файл
+  // ядра не загрузился.
+  const searchIndex=(window.LabSearch&&window.LAB_TREE)
+    ? window.LabSearch.build({tree,base,lib}) : null;
+
+  // Кто есть кто в выдаче индекса: узел это то, чем начинают, запись — то, чем отвечают.
+  const NODE_KINDS=new Set(["section","folder","subtopic","direction","theme","project"]);
+
   function mapMatches(q){
+    if(searchIndex)return mapMatchesRanked(q);
+    return mapMatchesLegacy(q);
+  }
+
+  // Узлы из общего ранжирования. Сюда попадает то, что индекс сам поставил высоко, а не то,
+  // что совпало по подстроке в названии: раньше именно это давало «Отбор студентов в
+  // лабораторию» на запрос про дообучение.
+  function mapMatchesRanked(q){
+    const found=searchIndex.search(q,60);
+    const folders=[],subtopics=[],directions=[],projects=[],themes=[];
+    const byFolder={};for(const f of tree.folders||[])byFolder[f.f]=f;
+    for(const item of found){
+      if(!NODE_KINDS.has(item.kind))continue;
+      const hit=item.score;
+      if(item.kind==="folder"&&byFolder[item.id])folders.push({node:byFolder[item.id],hit});
+      else if(item.kind==="subtopic"){
+        const [folder,slug]=String(item.id).split("|");
+        const parent=byFolder[folder];
+        const topic=(parent?.sub||[]).find(t=>t.slug===slug);
+        if(parent&&topic)subtopics.push({folder:parent,node:topic,hit});
+      }
+      else if(item.kind==="direction"){
+        const node=(tree.directions||[]).find(d=>d.slug===item.id);
+        if(node)directions.push({node,hit});
+      }
+      else if(item.kind==="project"||item.kind==="theme"){
+        const node=byCode[item.id];
+        if(node)(item.kind==="theme"?themes:projects).push({node,hit});
+      }
+    }
+    return {folders:folders.slice(0,6),subtopics:subtopics.slice(0,8),
+            directions:directions.slice(0,4),projects:projects.slice(0,8),
+            themes:themes.slice(0,6)};
+  }
+
+  function mapMatchesLegacy(q){
     const folders=[],subtopics=[],directions=[],projects=[];
     for(const f of tree.folders||[]){
-      const hit=Math.max(nodeHit(f.f,q),nodeHit(f.f.split("/").pop().replace(/_/g," "),q));
+      const hit=Math.max(nodeHit(f.f,q),nodeHit(f.f.split("/").pop().replace(/_/g," "),q),
+                         nodeHitDeep(f.f,f.a,q));
       if(hit)folders.push({node:f,hit});
       for(const t of f.sub||[]){
-        const th=Math.max(nodeHit(t.t,q),nodeHit(t.slug.replace(/-/g," "),q));
+        const th=Math.max(nodeHit(t.t,q),nodeHit(t.slug.replace(/-/g," "),q),
+                          nodeHitDeep(t.t,t.a,q));
         if(th)subtopics.push({folder:f,node:t,hit:th});
       }
     }
     for(const d of tree.directions||[]){
-      const hit=Math.max(nodeHit(d.t,q),nodeHit(d.slug.replace(/-/g," "),q));
+      const hit=Math.max(nodeHit(d.t,q),nodeHit(d.slug.replace(/-/g," "),q),
+                         nodeHitDeep(d.t,d.a,q));
       if(hit)directions.push({node:d,hit});
     }
     const themes=[];
     for(const r of base.records||[]){
       if(r.k!=="project")continue;
-      const hit=Math.max(nodeHit(r.t,q),nodeHit(r.code,q),nodeHit(r.pn,q));
+      // У темы в базе вместо описания машинная склейка вида «Тема объединяет 3 работ…», и
+      // искать по ней бессмысленно: «Отбор студентов в лабораторию» всплывал на запрос про
+      // дообучение. Для темы берём написанную аннотацию, для проекта — его сводку, она живая.
+      const text=isTheme(r)?(themeAbstract[r.code]||""):(r.s||"");
+      const hit=Math.max(nodeHit(r.t,q),nodeHit(r.code,q),nodeHit(r.pn,q),
+                         nodeHitDeep(r.t,text,q));
       if(!hit)continue;
       // Тема и проект лежат в одной таблице, но это разные вещи: тема объединяет проекты,
       // а работу ведут в проекте. На витрине они не должны стоять в одном списке.
@@ -912,14 +1051,28 @@
     "что","чем","чему","где","куда","кто","нужен","нужна","нужно","нужны","можно","стоит",
     "работает","помогает","выигрывает","лучше","хуже","влияет","зависит","сравнение","против",
     "why","how","when","what","which","does","do","is","are","works","better","worse","vs"]);
+  // Владелец спросил «какие есть направления в дообучении» и получил три несвязанных записи:
+  // слово «какие» считалось признаком вопроса, и витрина шла искать утверждения. Но человек
+  // спрашивал про устройство базы, а не про отдельную запись. Эти слова сильнее вопросительных.
+  // Показывать карту или сразу записи — это больше не решает список слов. Решает сама выдача:
+  // индекс ранжирует узлы и записи вместе, и если наверху оказались узлы, значит человек
+  // спросил про область, а не про факт. Раньше здесь стояла цепочка условий про
+  // вопросительные слова, и каждый новый случай требовал ещё одного условия.
   function isBroad(q){
-    const words=(q.toLowerCase().match(/[a-zа-яё0-9_-]+/g)||[]);
     if(!q.trim())return false;
-    if(q.includes("?"))return false;
-    if(words.some(w=>ASK_WORDS.has(w)))return false;
-    if(words.length>4)return false;
-    const m=mapMatches(q);
-    return !!(m.folders.length||m.subtopics.length||m.directions.length||m.projects.length);
+    if(!searchIndex){
+      const words=(q.toLowerCase().match(/[a-zа-яё0-9_-]+/g)||[]);
+      if(words.some(w=>MAP_WORDS.has(w)))return true;
+      if(q.includes("?")||words.some(w=>ASK_WORDS.has(w))||words.length>4)return false;
+      const m=mapMatchesLegacy(q);
+      return !!(m.folders.length||m.subtopics.length||m.directions.length||m.projects.length);
+    }
+    const top=searchIndex.search(q,6);
+    if(!top.length)return false;
+    const nodes=top.filter(x=>NODE_KINDS.has(x.kind)).length;
+    // Половина верхушки — узлы: значит запрос про область. Порог проверен набором из
+    // тридцати восьми запросов, tests/test_search.mjs.
+    return nodes>=Math.ceil(top.length/2);
   }
 
   function mapPage(q){
@@ -1727,18 +1880,20 @@
     // кросс-энкодер. Искать на каждую букву значит гонять это по разу на слово, а ответ
     // на экране будет прыгать, пока человек ещё печатает. Поэтому по вводу ищет только
     // снимок — он локальный и бесплатный, — а живую службу спрашивают явно.
+    // Поиск по вводу пришлось убрать совсем. Пока служба отвечает, он не запускался, а когда
+    // она недоступна, каждая буква запускала поиск по снимку: страница перерисовывалась и
+    // уезжала к результатам прямо под руками. Печатать было невозможно.
+    //
+    // Теперь ввод только рисует строку вызова — она ничего не стоит и показывает, во что
+    // превратится вопрос. Ищем по «Спросить» или по Enter.
     input.oninput=()=>{clearTimeout(timer);
-      // Строка вызова рисуется на каждый ввод: она ничего не стоит и показывает, во что
-      // именно превратится этот вопрос, ещё до отправки.
       const call=$("mcp-call-line");
-      if(call)call.innerHTML=input.value.trim()?callLine(input.value.trim()):"";
-      if(liveOk)return;
-      timer=setTimeout(()=>runSearch(input.value),350)};
+      if(call)call.innerHTML=input.value.trim()?callLine(input.value.trim()):"";};
     $("mcp-search-form").onsubmit=e=>{e.preventDefault();clearTimeout(timer);
-      runSearch(input.value)};
+      askedByHand=true;runSearch(input.value)};
     // Готовый вопрос спрашивается сразу: человек нажал на него именно чтобы получить ответ.
     view.querySelectorAll("[data-way-ask]").forEach(b=>b.onclick=()=>{
-      input.value=b.dataset.wayAsk;runSearch(input.value);
+      input.value=b.dataset.wayAsk;askedByHand=true;runSearch(input.value);
       $("mcp-results")?.scrollIntoView({behavior:"smooth",block:"start"})});
     $("mcp-code-form").onsubmit=e=>{e.preventDefault();
       const code=$("mcp-code-input").value.trim().toUpperCase(),box=$("mcp-results");

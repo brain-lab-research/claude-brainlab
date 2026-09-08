@@ -68,6 +68,10 @@
        утверждениями. Собирается scripts/build_tree.py. -->
   <script src="data/atlas-tree.js"></script>
   <script src="data/demo-flag.js"></script>
+  <!-- Ядро поиска: один индекс на узлы дерева, записи базы и статьи, ранжирование BM25.
+       Отдельный файл, потому что его гоняет набор проверок tests/test_search.mjs без
+       браузера — 38 запросов за секунду, поэтому качество меряется, а не обсуждается. -->
+  <script src="search-core.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
