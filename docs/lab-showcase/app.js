@@ -999,9 +999,16 @@
         if(node)(item.kind==="theme"?themes:projects).push({node,hit});
       }
     }
-    return {folders:folders.slice(0,6),subtopics:subtopics.slice(0,8),
-            directions:directions.slice(0,4),projects:projects.slice(0,8),
-            themes:themes.slice(0,6)};
+    // Двадцать восемь узлов на один запрос человек не читает: после первой трети идёт хвост,
+    // где оценка вдвое ниже лучшей и узел уже про другое. Режем по доле от лучшего, как и
+    // записи, и только потом применяем потолки по родам.
+    const all=[...folders,...subtopics,...directions,...projects,...themes];
+    const best=all.reduce((n,x)=>Math.max(n,x.hit),0);
+    const keep=(xs,n)=>{const strong=xs.filter(x=>x.hit>=best*0.45);
+      return (strong.length?strong:xs.slice(0,1)).slice(0,n)};
+    return {folders:keep(folders,4),subtopics:keep(subtopics,6),
+            directions:keep(directions,3),projects:keep(projects,5),
+            themes:keep(themes,4)};
   }
 
   function mapMatchesLegacy(q){
@@ -1171,9 +1178,12 @@
     return `<div class="map-index">
       ${counts.length?`<p class="map-index-counts">${counts.join(" · ")}</p>`:""}
       ${topics.length?`<div class="map-index-topics">
-        <p class="overline">Темы по запросу${topics[0]?` · ${esc(topics[0].folder)}`:""}</p>
+        <p class="overline">Темы по запросу${
+          new Set(topics.map(t=>t.folder)).size===1?` · ${esc(topics[0].folder)}`:""}</p>
         <ol>${topics.map(({folder,topic})=>`<li><button type="button" data-open-subtopic="${esc(folder)}|${esc(topic.slug)}">
-          <strong>${esc(topic.t)}</strong><span>${esc(String(topic.p.length))} ${esc(plural(topic.p.length,["статья","статьи","статей"]))}</span>
+          <strong>${esc(topic.t)}</strong><span>${
+          new Set(topics.map(t=>t.folder)).size===1?"":esc(folder.split("/").pop().replace(/_/g," "))+" · "
+        }${esc(String(topic.p.length))} ${esc(plural(topic.p.length,["статья","статьи","статей"]))}</span>
           <em>${esc(shorten(unmark(topic.a||""),150))}</em></button></li>`).join("")}</ol>
       </div>`:""}
     </div>`;
