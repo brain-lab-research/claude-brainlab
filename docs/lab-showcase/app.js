@@ -677,6 +677,14 @@
   // «Всё равно спросить утверждения» — запрос, для которого человек сознательно отказался от
   // карты темы. Помним такие, иначе кнопка не сработает: карта перехватит его снова.
   const forceAsk=new Set();
+  // Ответ лежит под тремя колонками способов, и после нажатия «Спросить» человек оставался
+  // наверху: список тем по запросу был на экран ниже. Раз запрос теперь отправляют явно,
+  // явным должен быть и переход к ответу.
+  function scrollToResults(){
+    const box=$("mcp-results");if(!box)return;
+    const top=box.getBoundingClientRect().top+scrollY-120;
+    window.scrollTo({top:Math.max(0,top),behavior:"smooth"});
+  }
   async function runSearch(q){
     const box=$("mcp-results"),found=$("mcp-found"),call=$("mcp-call-line");if(!box)return;
     const seq=++mcpSeq;
@@ -694,7 +702,7 @@
       // Службу мы здесь не звали, поэтому и вызов показывать нельзя: строка вызова на этой
       // странице обещает «то же, что делает агент», и обманывать в ней нечестно.
       if(call)call.innerHTML=`<p class="mcp-call is-local">Ответ собран из карты базы, без вызова службы: по имени темы ранжировать отдельные утверждения нечем.</p>`;
-      bindResults(box);return;
+      bindResults(box);scrollToResults();return;
     }
     if(liveOk===false){
       // Снимок ищет словами, и это не то, что делает агент: об этом сказано прямо.
@@ -703,7 +711,7 @@
       if(found)found.textContent=rows.length?`${rows.length} по снимку`:"ничего";
       box.innerHTML=rows.length?rows.map(r=>r.html).join("")
         :`<p class="mcp-empty">По снимку ничего не нашлось, и это ожидаемо: снимок ищет словами, а не по смыслу. Поднимите живой поиск, и та же строка уйдёт в службу так, как её отправляет агент.</p>`;
-      bindResults(box);return;
+      bindResults(box);scrollToResults();return;
     }
     // Кросс-энкодер отвечает 6-14 секунд, и на такой паузе молчащий экран читается как
     // зависание. Счётчик показывает, что ответа ждут, и заодно называет обе стадии.
@@ -721,7 +729,7 @@
       if(found)found.textContent=`${items.length} записей, порядок службы`;
       box.innerHTML=items.length?answerPage(items,q)
         : `<p class="mcp-empty">Служба по этому вопросу ничего не нашла. База знает только то, что кто-то записал явно.</p>`;
-      bindResults(box);
+      bindResults(box);scrollToResults();
     }catch(error){
       clearInterval(clock);
       if(seq!==mcpSeq)return;
@@ -814,17 +822,21 @@
   function mapPage(q){
     const m=mapMatches(q);
     const parts=[];
-    // Владелец: «помни ещё, что вместе со статьями должны быть проекты лаборатории, и они
-    // должны выделяться… они должны быть важными». Поэтому своя работа идёт первой, чужие
-    // статьи — после неё.
-    if(m.projects.length){
-      parts.push(`<section class="map-group is-lead"><p class="overline">Проекты лаборатории</p>${
-        m.projects.map(({node})=>projectTeaser(node)).join("")}</section>`);
-    }
-    if(m.themes.length){
-      parts.push(`<section class="map-group"><p class="overline">Темы лаборатории</p>${
-        m.themes.map(({node})=>themeTeaser(node)).join("")}</section>`);
-    }
+    // Владелец: «где мой список тем по мюону? че за хуйня вылезает?» — на запрос «muon»
+    // подраздел библиотеки с шестью подтемами стоял ниже шести проектов, за тремя тысячами
+    // пикселей прокрутки, и его просто не было видно.
+    //
+    // Раньше своя работа шла первой всегда. Но «muon» — точное имя подраздела и лишь
+    // вхождение в названия проектов, а точное совпадение сильнее. Теперь порядок задаёт
+    // сила совпадения, и только при равной силе проекты идут первыми.
+    const strength=xs=>xs.reduce((n,x)=>Math.max(n,x.hit),0);
+    const groups=[];
+    if(m.projects.length)groups.push({rank:strength(m.projects),own:0,
+      html:`<section class="map-group is-lead"><p class="overline">Проекты лаборатории</p>${
+        m.projects.map(({node})=>projectTeaser(node)).join("")}</section>`});
+    if(m.themes.length)groups.push({rank:strength(m.themes),own:1,
+      html:`<section class="map-group"><p class="overline">Темы лаборатории</p>${
+        m.themes.map(({node})=>themeTeaser(node)).join("")}</section>`});
     if(m.folders.length||m.subtopics.length){
       const rows=m.folders.map(({node})=>{
         const st=folderStats(node.f);
@@ -847,7 +859,8 @@
           <p class="map-node-abstract">${esc(unmark(node.a||""))}</p>
           <div class="map-node-go"><button type="button" data-open-subtopic="${esc(folder.f)}|${esc(node.slug)}">Открыть подтему →</button></div>
         </article>`).join("");
-      parts.push(`<section class="map-group"><p class="overline">Разделы библиотеки</p>${rows}${loose}</section>`);
+      groups.push({rank:Math.max(strength(m.folders),strength(m.subtopics)),own:2,
+        html:`<section class="map-group"><p class="overline">Разделы библиотеки</p>${rows}${loose}</section>`});
     }
     if(m.directions.length){
       parts.push(`<section class="map-group"><p class="overline">Научные направления лаборатории</p>${
@@ -864,12 +877,47 @@
             ${list?`<div class="map-node-subs"><b>Проекты</b>${list}</div>`:""}
           </article>`}).join("")}</section>`);
     }
+    // Сильное совпадение выше слабого: «muon» — точное имя подраздела и лишь вхождение в
+    // названия проектов. При равной силе своя работа идёт первой.
+    groups.sort((a,b)=>b.rank-a.rank||a.own-b.own);
+    const body=[...groups.map(g=>g.html),...parts].join("");
     return `<div class="map-answer">
       <div class="map-head">
         <p class="map-lead"><b>«${esc(q.trim())}»</b> — это тема, а не вопрос, поэтому вот что по ней есть в базе. Начните с аннотации, а за отдельными утверждениями идите внутрь.</p>
         <button class="map-force" type="button" data-force-ask="${esc(q.trim())}">Всё равно спросить утверждения у службы →</button>
       </div>
-      ${parts.join("")||`<p class="mcp-empty">В карте базы такой темы нет. Спросите службу словами.</p>`}</div>`;
+      ${mapIndex(m,q)}
+      ${body||`<p class="mcp-empty">В карте базы такой темы нет. Спросите службу словами.</p>`}</div>`;
+  }
+
+  // Оглавление ответа. Владелец искал «muon» и не нашёл список подтем: подраздел с шестью
+  // подтемами стоял ниже шести проектов, за 3300 пикселями прокрутки. Оглавление ставит то,
+  // ради чего задан широкий запрос, на первый экран: сколько чего нашлось и сразу — сами
+  // подтемы, потому что это и есть ответ на вопрос «что тут есть по этой теме».
+  function mapIndex(m,q=""){
+    const counts=[];
+    if(m.projects.length)counts.push(`<b>${esc(String(m.projects.length))}</b> ${esc(plural(m.projects.length,["проект","проекта","проектов"]))}`);
+    if(m.themes.length)counts.push(`<b>${esc(String(m.themes.length))}</b> ${esc(plural(m.themes.length,["тема","темы","тем"]))}`);
+    if(m.folders.length)counts.push(`<b>${esc(String(m.folders.length))}</b> ${esc(plural(m.folders.length,["подраздел","подраздела","подразделов"]))}`);
+    if(m.directions.length)counts.push(`<b>${esc(String(m.directions.length))}</b> ${esc(plural(m.directions.length,["направление","направления","направлений"]))}`);
+    // Подтемы найденных подразделов плюс подтемы, совпавшие сами: это тот самый список,
+    // который человек и хочет увидеть по имени темы.
+    const seen=new Set(),topics=[];
+    for(const {node} of m.folders)
+      for(const t of node.sub||[]){const key=node.f+"|"+t.slug;
+        if(!seen.has(key)){seen.add(key);topics.push({folder:node.f,topic:t})}}
+    for(const {folder,node} of m.subtopics){const key=folder.f+"|"+node.slug;
+      if(!seen.has(key)){seen.add(key);topics.push({folder:folder.f,topic:node})}}
+    if(!counts.length&&!topics.length)return "";
+    return `<div class="map-index">
+      ${counts.length?`<p class="map-index-counts">${counts.join(" · ")}</p>`:""}
+      ${topics.length?`<div class="map-index-topics">
+        <p class="overline">Темы по запросу${topics[0]?` · ${esc(topics[0].folder)}`:""}</p>
+        <ol>${topics.map(({folder,topic})=>`<li><button type="button" data-open-subtopic="${esc(folder)}|${esc(topic.slug)}">
+          <strong>${esc(topic.t)}</strong><span>${esc(String(topic.p.length))} ${esc(plural(topic.p.length,["статья","статьи","статей"]))}</span>
+          <em>${esc(shorten(unmark(topic.a||""),150))}</em></button></li>`).join("")}</ol>
+      </div>`:""}
+    </div>`;
   }
 
   // Проект в списке: аннотация и состав сразу, без перехода. Владелец: «должна быть инфа,

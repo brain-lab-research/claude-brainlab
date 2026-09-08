@@ -377,3 +377,34 @@
 /* Поле проекта, которое в базе хранится массивом, читается списком, а не строкой JSON. */
 .project-about .field-list{margin:0;padding-left:16px;display:grid;gap:6px}
 .project-about .field-list li{color:inherit;font-size:inherit;line-height:1.6}
+
+/* ============================================================================
+   Оглавление ответа на широкий запрос
+   ============================================================================
+   Владелец искал «muon» и не увидел списка подтем: подраздел с шестью подтемами стоял за
+   шестью проектами, ниже трёх тысяч пикселей прокрутки. Оглавление ставит его на первый
+   экран — и это не украшение, а сам ответ: по имени темы человек спрашивает «что тут есть».
+   Подтемы даны строками с аннотацией, потому что выбирают по смыслу, а не по названию. */
+.map-index{margin:0 0 8px;padding:18px 0 4px}
+.map-index-counts{display:flex;flex-wrap:wrap;gap:4px 18px;margin:0 0 20px;
+  color:#8e988c;font:9.5px var(--mono);letter-spacing:.05em;text-transform:uppercase}
+.map-index-counts b{margin-right:5px;color:var(--lime);font:500 14px var(--body);letter-spacing:0}
+.map-index-topics>.overline{margin:0 0 6px;color:#7f8a7c}
+.map-index-topics ol{margin:0;padding:0;list-style:none;display:grid;gap:0;
+  counter-reset:topic}
+.map-index-topics li{counter-increment:topic}
+.map-index-topics button{display:grid;grid-template-columns:1fr auto;gap:2px 18px;width:100%;
+  padding:13px 0 13px 30px;border:0;border-top:1px solid rgba(231,239,230,.08);
+  background:none;text-align:left;cursor:pointer;position:relative}
+.map-index-topics button:before{content:counter(topic);position:absolute;left:0;top:15px;
+  color:#5f6a5d;font:9.5px var(--mono);font-variant-numeric:tabular-nums}
+.map-index-topics strong{color:#e6ede3;font:500 14.5px/1.35 var(--body);letter-spacing:-.005em}
+.map-index-topics span{color:#798376;font:9.5px var(--mono);white-space:nowrap;
+  font-variant-numeric:tabular-nums}
+.map-index-topics em{grid-column:1/-1;color:#8e988c;font-style:normal;font-size:12.5px;
+  line-height:1.6;max-width:82ch}
+.map-index-topics button:hover strong{color:var(--lime)}
+@media (max-width:620px){
+  .map-index-topics button{grid-template-columns:1fr;padding-left:24px}
+  .map-index-topics span{grid-row:3}
+}
