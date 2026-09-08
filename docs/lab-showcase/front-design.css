@@ -1,0 +1,256 @@
+/* ============ Первый экран: спутники встроены, числа под картой ============
+   Владелец: «я бы везде убрал это как кнопки, тоже в дизайн надо встроить, чтобы было не
+   так перегружено». Под каждой из восьми точек висела гроздь пилюль с ромбиком: восемь
+   групп кнопок вокруг восьми карточек, и они спорили с самими точками.
+
+   Спутники остаются там же, где были — они висят под карточкой и не делают кольцо выше, —
+   но перестают выглядеть объектами: ни рамки, ни фона, ни радиуса. Точка слева, имя
+   моношрифтом, подсветка на наведении. Нажимается по-прежнему всё.
+
+   Раскладку задаёт refinements.css: три колонки и position:absolute. Здесь она сохранена
+   намеренно, иначе столбец из трёх строк под каждой точкой растянул бы кольцо. */
+
+#overview .node-satellites{gap:2px 14px}
+#overview .node-satellites button{
+  display:grid!important;grid-template-columns:6px 1fr;align-items:start;gap:7px;
+  min-height:0;padding:6px 0;overflow:hidden;
+  border:0;border-top:1px solid color-mix(in srgb,var(--node) 24%,transparent);
+  border-radius:0;background:none;
+  color:#9aa397;font:9px/1.35 var(--mono);text-align:left;
+  transition:color .16s ease,border-color .16s ease}
+/* Точка вместо ромбика: спутник, а не элемент управления. */
+#overview .node-satellites button:before{
+  content:"";width:4px;height:4px;margin:4px 0 0;border:0;border-radius:50%;
+  background:color-mix(in srgb,var(--node) 65%,transparent);transform:none}
+#overview .node-satellites button small{display:none}
+#overview .node-satellites button>span,
+#overview .node-satellites button{white-space:normal;overflow-wrap:anywhere}
+#overview .node-satellites button:hover,
+#overview .node-satellites button:focus-visible{
+  color:var(--node);border-top-color:var(--node);background:none;outline:none}
+#overview .node-satellites button:hover:before{background:var(--node)}
+/* «Все 12 →» — сноска группы, а не такая же строка. */
+#overview .node-satellites .more{
+  color:color-mix(in srgb,var(--node) 80%,#8f978d);letter-spacing:.04em}
+#overview .node-satellites .more:before{opacity:0}
+
+/* ============ Числа под картой ============
+   Числа — это то, что система произвела, и на первом экране их не было вовсе. Внутрь
+   круга их ставить нельзя: там по орбите стоят Obsidian, MemPalace и Yonote, и числа
+   наехали прямо на них. Поэтому это тихая строка под картой, перед установкой. */
+.loop-tally{width:min(100%,var(--max));margin:0 auto;padding:20px 0 0;
+  border-top:1px solid var(--line);
+  display:flex;flex-wrap:wrap;align-items:baseline;gap:10px 34px}
+.loop-tally span{display:inline-flex;align-items:baseline;gap:8px;color:var(--muted);
+  font:9px var(--mono);letter-spacing:.07em;text-transform:uppercase}
+.loop-tally b{color:var(--ink);font:500 22px/1 var(--display);letter-spacing:-.03em;
+  font-variant-numeric:tabular-nums}
+.loop-tally .is-lit b{color:var(--lime)}
+.loop-tally em{flex:1;min-width:220px;color:#7e867c;font-style:normal;font-size:11.5px;
+  line-height:1.55;text-align:right}
+
+@media (max-width:820px){
+  #overview .node-satellites{gap:2px 10px}
+  #overview .node-satellites button{font-size:9px}
+  .loop-tally{gap:10px 20px}
+  .loop-tally em{text-align:left;min-width:100%}
+}
+
+/* ============ Примеры: шесть путей ============
+   Заголовок каждого примера уже несёт структуру «от … до …», поэтому она и держит
+   раскладку: слева откуда, справа что остаётся. Нумерации нет — это не последовательность,
+   а шесть независимых маршрутов, и различает их род записи слева. */
+.examples-page{width:min(100%,1180px);margin:auto}
+.examples-head h1{margin-top:14px;font:500 clamp(38px,5vw,62px)/.95 var(--display);
+  letter-spacing:-.055em;text-wrap:balance}
+.examples-head>p:last-child{margin-top:18px;max-width:620px;color:var(--muted);
+  font-size:14px;line-height:1.7}
+.paths{list-style:none;margin:44px 0 0;padding:0}
+.path{display:grid;grid-template-columns:150px minmax(0,1fr);gap:26px;
+  padding:30px 0;border-top:1px solid var(--line)}
+.path:last-child{border-bottom:1px solid var(--line)}
+.path-kind span{color:var(--lime);font:9px var(--mono);letter-spacing:.1em;text-transform:uppercase}
+.path-body h2{font-weight:400;max-width:30ch}
+/* «от …» уходит в тон подписи, «до …» несёт вес: путь читается сверху вниз, без стрелок. */
+.path-body h2 em{display:block;color:var(--muted);font:400 clamp(16px,1.7vw,21px)/1.25 var(--display);
+  font-style:normal;letter-spacing:-.025em}
+.path-body h2 b{display:block;position:relative;margin-top:6px;padding-left:19px;color:var(--ink);
+  font:500 clamp(21px,2.5vw,31px)/1.12 var(--display);letter-spacing:-.04em;text-wrap:balance}
+.path-body h2.is-journey b:before{content:"";position:absolute;left:2px;top:.44em;
+  width:9px;height:9px;border-right:1.5px solid var(--lime);border-bottom:1.5px solid var(--lime);
+  transform:rotate(45deg)}
+.path-body h2:not(.is-journey) b{padding-left:0}
+.path-body>p{margin-top:15px;max-width:70ch;color:#aab2a7;font-size:13.5px;line-height:1.72}
+.path-outcome{margin-top:14px;padding-left:15px;
+  border-left:2px solid color-mix(in srgb,var(--lime) 55%,transparent);
+  color:var(--ink)!important;font-size:13.5px}
+.path-body button{margin-top:20px;padding:10px 14px;border:1px solid var(--line-strong);
+  border-radius:8px;background:none;color:var(--ink);font:9px var(--mono);letter-spacing:.06em;
+  text-transform:uppercase;cursor:pointer}
+.path-body button:hover{border-color:var(--lime);color:var(--lime)}
+@media (max-width:760px){
+  .path{grid-template-columns:1fr;gap:12px;padding:24px 0}
+  .path-body h2{grid-template-columns:1fr}
+  .path-body h2 i{grid-column:1;grid-row:auto}
+}
+
+/* ============ Досье инструментов: метка вместо пилюли ============
+   В списке из двенадцати строк «можно забрать» стояло зелёной пилюлей в каждой, и столбик
+   этих пилюль читался громче самих названий. Метка — это факт о строке, а не элемент
+   управления, поэтому теперь это точка и слово, и уезжает она вправо, к раскрытию.
+   Колонка типа больше не рвётся на четыре строки: у неё своя ширина и свой кегль. */
+/* Тип уходит надстрочником над названием, а не в узкую колонку: «доска в obsidian и
+   ночной архиватор» рвалось там на четыре строки. */
+@media (min-width:621px){
+  .tool summary{grid-template-columns:minmax(210px,.46fr) 1fr auto 24px;gap:4px 20px;
+    align-items:center}
+  .tool summary>.tool-type{grid-column:1;grid-row:1;align-self:end}
+  .tool summary>strong{grid-column:1;grid-row:2;align-self:start}
+  .tool summary>.tool-role{grid-column:2;grid-row:1/span 2}
+  .tool summary>.take-badge{grid-column:3;grid-row:1/span 2}
+  .tool summary>.tool-toggle{grid-column:4;grid-row:1/span 2}
+}
+.tool summary>.tool-type{font-size:8.5px;line-height:1.35;letter-spacing:.06em;color:#8a9187}
+.take-badge{align-self:center;justify-self:end;margin:0;padding:0;border:0!important;border-radius:0;
+  background:none!important;font:8.5px var(--mono);letter-spacing:.05em;text-transform:uppercase;
+  white-space:nowrap}
+.take-badge:before{content:"";display:inline-block;width:5px;height:5px;margin-right:6px;
+  border-radius:50%;vertical-align:middle}
+.take-badge.is-open{color:#3f7a2e!important}
+.take-badge.is-open:before{background:#3f7a2e}
+.take-badge.is-gated{color:#8a5f1c!important}
+.take-badge.is-gated:before{background:#8a5f1c}
+.take-badge.is-closed{color:#7f867c!important}
+.take-badge.is-closed:before{background:#a8afa4}
+
+/* ============ Диалог поиска ============
+   Результат читался стеной моношрифта: `.search-item` не задаёт семейство и наследовал его
+   от подписи группы, где стоит `font:8px var(--mono)`. Заодно текст шёл без ограничения по
+   длине, и одна запись занимала семь строк подряд. */
+.search-item{font-family:var(--body)}
+.search-item strong{display:block;font:500 13.5px/1.35 var(--body);letter-spacing:-.01em;
+  text-transform:none}
+.search-item p{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;
+  overflow:hidden;margin-top:6px;color:#a7afa4;font:12px/1.6 var(--body);text-transform:none}
+.search-item i{margin-top:8px}
+/* Подсказки задач — строки, а не гроздь пилюль: их читают, а не выбирают глазами по форме. */
+.search-results .search-group>div{display:grid!important;gap:0!important}
+.search-results .search-group>div>button{padding:8px 0;border:0;border-radius:0;background:none;
+  border-bottom:1px solid rgba(231,239,230,.07);color:#c3cbc0;font:12.5px var(--body);
+  text-align:left;text-transform:none;letter-spacing:0}
+.search-results .search-group>div>button:before{content:"→ ";color:var(--muted)}
+.search-results .search-group>div>button:hover{color:var(--lime);background:none}
+/* Родной крестик очистки рядом с крестиком диалога читался как два одинаковых действия. */
+.search-head input[type="search"]::-webkit-search-cancel-button{display:none}
+
+/* ============ Как используется поверхность памяти ============
+   Четыре шага стояли четырьмя одинаковыми прямоугольниками с кружком номера, хотя это
+   одна последовательность: материал появился, исследователь его оформил, часть показали
+   человеку, подтверждённое ушло в общую базу. Рамки убраны, шаги связаны линией — теперь
+   видно, что это один путь, а номер держит порядок, который в нём есть по-настоящему. */
+.surface-flow>article{position:relative;display:grid;grid-template-columns:34px 1fr;
+  align-items:baseline;gap:14px;padding:15px 0 15px 2px;
+  border:0!important;border-radius:0!important;background:none!important;box-shadow:none!important}
+.surface-flow>article+article{border-top:1px solid rgba(20,23,19,.14)!important}
+.surface-flow>article>span{position:relative;z-index:1;display:grid;place-items:center;
+  width:26px;height:26px;border:1px solid rgba(20,23,19,.2);border-radius:50%;
+  background:var(--warm);color:#6a7168;font:9px var(--mono)}
+/* Линия между кружками: путь, а не четыре отдельные плитки. */
+.surface-flow>article:not(:last-child):after{content:"";position:absolute;left:15px;top:38px;
+  width:1px;height:calc(100% - 24px);
+  background:linear-gradient(to bottom,rgba(20,23,19,.22),rgba(20,23,19,.06))}
+.surface-flow>article>strong{font:500 14.5px/1.5 var(--body);letter-spacing:-.005em}
+@media (max-width:760px){
+  .surface-flow>article{grid-template-columns:26px 1fr;gap:11px}
+  .surface-flow>article:not(:last-child):after{left:12px}
+}
+
+/* ============ Контроль качества: правила строками ============
+   Четыре правила стояли в трёх колонках, поэтому четвёртое оставалось одно в ряду рядом с
+   пустотой на треть экрана. Число правил у разделов разное — четыре, пять, шесть, — и любая
+   сетка из плиток оставит дырку. Строка не оставит: правило слева, пример справа, и это
+   работает при любом их числе.
+
+   Заодно ушла заливка с акцентной полоской у каждой карточки: правило — это то, что читают,
+   а не объект, который берут. */
+.control-grid{display:grid!important;grid-template-columns:1fr!important;gap:0!important;
+  margin-top:30px!important}
+.control-grid>.control{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);
+  gap:8px 40px;padding:22px 0!important;
+  border:0!important;border-top:1px solid rgba(20,23,19,.16)!important;border-radius:0!important;
+  background:none!important;font-size:inherit!important}
+.control-grid>.control:last-child{border-bottom:1px solid rgba(20,23,19,.16)!important}
+.control-grid>.control>small{grid-column:1;color:#7c8479;font:8.5px var(--mono);
+  letter-spacing:.09em;text-transform:uppercase}
+.control-grid>.control>h3{grid-column:1;margin-top:5px;
+  font:500 clamp(17px,1.8vw,21px)/1.25 var(--display);letter-spacing:-.03em;text-wrap:balance}
+.control-grid>.control>p{grid-column:1;margin-top:10px;max-width:60ch;color:#565d54;
+  font-size:13px;line-height:1.7}
+/* «Например» — не подпись внутри плитки, а второй столбец: случай рядом с правилом. */
+.control-grid>.control>div{grid-column:2;grid-row:1/span 3;align-self:start;
+  padding-left:20px;border-left:2px solid color-mix(in srgb,var(--accent) 45%,transparent)}
+.control-grid>.control>div b{display:block;margin-bottom:7px;color:#7c8479;font:8.5px var(--mono);
+  letter-spacing:.09em;text-transform:uppercase}
+.control-grid>.control .source-link{grid-column:1;margin-top:14px;justify-self:start}
+@media (max-width:820px){
+  .control-grid>.control{grid-template-columns:1fr;gap:6px}
+  .control-grid>.control>div{grid-column:1;grid-row:auto;margin-top:14px}
+}
+/* Ссылка на исходник внутри правила — это ссылка, а не кнопка рядом с текстом. */
+.control-grid>.control .source-link{padding:0;border:0;border-radius:0;background:none;
+  color:#3f4a3d;font:9px var(--mono);letter-spacing:.06em;
+  text-decoration:underline;text-decoration-color:rgba(20,23,19,.25);text-underline-offset:4px}
+.control-grid>.control .source-link:hover{background:none;color:#20241f;
+  text-decoration-color:var(--accent)}
+
+/* ============ Что уходит в базу: тип шага уходит к имени операции ============
+   Тип шага — навык, операция MCP, скрипт — стоял последней строкой под описанием и читался
+   обрывком: описание кончилось, а под ним мелким кеглем ещё одно слово. Место для него уже
+   было: левая колонка, где стоит имя операции, и она пустовала ниже первой строки. */
+.tomcp-steps>li{align-items:start!important}
+.tomcp-steps>li>code{grid-column:1;grid-row:1}
+.tomcp-steps>li>div{grid-column:2;grid-row:1/span 2}
+/* Первая строка сетки — по высоте чипа, вторая забирает остаток, иначе тип уезжает
+   к середине высокого шага (у record_paper_claim в описании четыре пункта). */
+.tomcp-steps>li{grid-template-rows:auto 1fr}
+.tomcp-steps>li>small{grid-column:1;grid-row:2;align-self:start;margin:4px 0 0;color:#7c8479;
+  font:8.5px/1.4 var(--mono);letter-spacing:.07em;text-transform:uppercase}
+@media (max-width:760px){.tomcp-steps>li>small{grid-column:1;grid-row:auto}}
+
+/* ============ Круг этапа на карте раздела ============
+   «Эксперименты» занимало 130px в контейнере ровно 130px, а круг на высоте этой строки уже
+   сужается — буквы выходили за окружность и читались обрезанными. Боковой отступ больше
+   вертикального, потому что горизонтальная хорда там короче диаметра. */
+.process-hub{padding:18px 27px!important}
+.process-hub strong{font-size:19px!important;line-height:1.2!important;letter-spacing:-.02em}
+/* Слово «Остаётся» стояло у каждой из шести строк. Подпись у списка одна — она называет
+   весь список, а не повторяется в каждой его строке. */
+.outcome-nodes>.overline{margin:2px 0 4px;color:#7c8479}
+
+/* ============ Ссылка на исходник — ссылка, а не кнопка ============
+   Владелец: «вот тут я бы везде убрал это как кнопки, тоже в дизайн надо встроить, чтобы
+   было не так перегружено». Ссылка на GitHub или на файл никуда не отправляет форму и
+   ничего не запускает — она открывает исходник. Рамка вокруг неё врала о весе действия и
+   на плотных страницах давала россыпь одинаковых коробочек.
+
+   Цвет берётся от currentColor, поэтому одна запись работает и на светлом, и на тёмном:
+   в тёмных блоках вокруг ссылки светлый текст, в светлых — тёмный. */
+.source-link{padding:0!important;border:0!important;border-radius:0!important;
+  background:none!important;text-decoration:underline;text-underline-offset:4px;
+  text-decoration-color:color-mix(in srgb,currentColor 32%,transparent);
+  text-decoration-thickness:1px;gap:7px!important}
+.source-link:hover,.source-link:focus-visible{
+  text-decoration-color:var(--accent);box-shadow:none!important;transform:none!important}
+.source-link>i,.source-link>span[aria-hidden]{opacity:.6}
+
+/* ============ Два выделенных навыка ============
+   Рядом стояли две одинаково весомые коробки: «что делает и как поставить» и «исходник».
+   Действий два, но вес у них разный — первое открывает досье прямо здесь, второе уводит
+   на GitHub. Кнопка остаётся у первого, второе становится ссылкой. */
+.spotlight-actions{align-items:center;gap:18px!important}
+.spotlight-actions>a{align-self:center;display:inline-flex;align-items:center;
+  min-height:0;height:auto;line-height:1.2;margin:0!important;padding:0;border:0;border-radius:0;background:none;
+  color:#3f4a3d;font:9px var(--mono);letter-spacing:.06em;text-transform:uppercase;
+  text-decoration:underline;text-underline-offset:4px;
+  text-decoration-color:rgba(20,23,19,.26)}
+.spotlight-actions>a:hover{color:#181c17;text-decoration-color:var(--accent);background:none}
