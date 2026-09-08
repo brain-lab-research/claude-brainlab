@@ -422,3 +422,7 @@
 .answer-weak[open]>summary:before{content:"− "}
 .answer-weak>summary:hover{color:#c3cbc0}
 .answer-weak .src-claims{margin-top:0;opacity:.85}
+/* Записи под картой темы: карта отвечает «что тут есть», записи — «покажи». */
+.map-records{margin-top:36px;padding-top:22px;border-top:1px solid #2d352e}
+.map-records>.overline{margin:0 0 6px;color:#7f8a7c}
+.map-records-wait{margin:0;color:#8e988c;font-size:12.5px;line-height:1.6}
