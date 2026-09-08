@@ -1,4 +1,3 @@
-/* Данные карты. Один объект, редактируется как JSON. */
 window.RESEARCH_LOOP={
  "shared": {
   "id": "memory",
@@ -48,7 +47,10 @@ window.RESEARCH_LOOP={
     ],
     "inside": [
      "проверяет ключ до разбора запроса",
-     "ищет по связям, а не только по словам",
+     "смысл вопроса считает multilingual-e5-large: 1024 числа на запись, модель работает в самой службе, без внешних вызовов",
+     "слова ищет полнотекстовым индексом Postgres сразу двумя словарями, русским и английским: термины в базе латиницей, а спрашивают по-русски",
+     "два списка сливает в один, дотягивает соседей по графу связей и переставляет кросс-энкодером jina-reranker-v2",
+     "переставляет не всё подряд, а первые 60 кандидатов по 400 знаков каждый: дальше выигрыш не окупает секунды",
      "сохраняет запись вместе с автором, источником и кодом",
      "возвращает записанное обратно, чтобы было видно, что легло в базу"
     ],
@@ -65,11 +67,14 @@ window.RESEARCH_LOOP={
     "limits": [
      "не заменяет Obsidian, MemPalace или Yonote",
      "чужая статья и выполненная задача не считаются нашим результатом",
-     "предпросмотр и подтверждение человека обеспечивает вызывающий workflow"
+     "предпросмотр и подтверждение человека обеспечивает вызывающий workflow",
+     "ответ идёт 7-13 секунд: столько занимает вектор вопроса и переранжирование",
+     "вектор пересчитывается, когда меняется текст записи: ключ включает отпечаток текста, устаревший вектор отдать нельзя",
+     "если модель не поднялась, служба честно отвечает по словам и пробует снова через минуту"
     ],
     "links": [
      {
-      "label": "Публичное руководство · 44-tool snapshot",
+      "label": "Публичное руководство: снимок, когда вызовов было 44; сейчас в службе 59, читающих 17",
       "url": "https://github.com/Vepricov/claude-brainlab/blob/main/docs/knowledge-base.md"
      },
      {
@@ -85,7 +90,7 @@ window.RESEARCH_LOOP={
     "purpose": "Общая база отвечает, что лаборатория предполагала, как это проверяла, что получила и какое решение приняла.",
     "capabilities": [
      "сначала проверяет личность и права",
-     "ищет совпадения и связанные записи",
+     "ищет по смыслу и по словам одновременно, потом переставляет ответ кросс-энкодером",
      "проверяет обязательные данные и допустимые связи",
      "сохраняет запись вместе с автором и событием аудита"
     ],
@@ -145,7 +150,13 @@ window.RESEARCH_LOOP={
       "Утверждение статьи",
       "Явные связи и источники"
      ]
-    }
+    },
+    "storage": [
+     "Postgres на brain_lab: вся база 244 МБ, из них 103 МБ векторы",
+     "17 895 векторов: утверждения статей 8202, разделы статей 3928, измерения 1180, наши утверждения 1072, прогоны 1037, статьи 551",
+     "векторы держатся и в памяти службы, до 30 тысяч штук: иначе каждый поиск тянул бы из базы четыре тысячи векторов",
+     "схема базы версии 34, каждое изменение отдельной миграцией"
+    ]
    },
    {
     "id": "obsidian-project-memory",
@@ -476,7 +487,7 @@ window.RESEARCH_LOOP={
       "url": "https://github.com/Vepricov/claude-brainlab/blob/main/docs/knowledge-base.md"
      },
      {
-      "label": "Публичное руководство · 44-tool snapshot",
+      "label": "Публичное руководство: снимок, когда вызовов было 44; сейчас в службе 59, читающих 17",
       "url": "https://github.com/Vepricov/claude-brainlab/blob/main/docs/knowledge-base.md"
      }
     ],
@@ -1502,7 +1513,7 @@ window.RESEARCH_LOOP={
      ],
      "links": [
       {
-       "label": "Публичное руководство · 44-tool snapshot",
+       "label": "Публичное руководство: снимок, когда вызовов было 44; сейчас в службе 59, читающих 17",
        "url": "https://github.com/Vepricov/claude-brainlab/blob/main/docs/knowledge-base.md"
       }
      ]
@@ -1529,7 +1540,7 @@ window.RESEARCH_LOOP={
      ],
      "links": [
       {
-       "label": "Публичное руководство · 44-tool snapshot",
+       "label": "Публичное руководство: снимок, когда вызовов было 44; сейчас в службе 59, читающих 17",
        "url": "https://github.com/Vepricov/claude-brainlab/blob/main/docs/knowledge-base.md"
       }
      ]
@@ -1556,7 +1567,7 @@ window.RESEARCH_LOOP={
      ],
      "links": [
       {
-       "label": "Публичное руководство · 44-tool snapshot",
+       "label": "Публичное руководство: снимок, когда вызовов было 44; сейчас в службе 59, читающих 17",
        "url": "https://github.com/Vepricov/claude-brainlab/blob/main/docs/knowledge-base.md"
       }
      ]
@@ -1614,7 +1625,7 @@ window.RESEARCH_LOOP={
      ],
      "links": [
       {
-       "label": "Публичное руководство · 44-tool snapshot",
+       "label": "Публичное руководство: снимок, когда вызовов было 44; сейчас в службе 59, читающих 17",
        "url": "https://github.com/Vepricov/claude-brainlab/blob/main/docs/knowledge-base.md"
       },
       {
@@ -1647,7 +1658,7 @@ window.RESEARCH_LOOP={
      ],
      "links": [
       {
-       "label": "Публичное руководство · 44-tool snapshot",
+       "label": "Публичное руководство: снимок, когда вызовов было 44; сейчас в службе 59, читающих 17",
        "url": "https://github.com/Vepricov/claude-brainlab/blob/main/docs/knowledge-base.md"
       }
      ]
@@ -1847,7 +1858,7 @@ window.RESEARCH_LOOP={
      ],
      "links": [
       {
-       "label": "Публичное руководство · 44-tool snapshot",
+       "label": "Публичное руководство: снимок, когда вызовов было 44; сейчас в службе 59, читающих 17",
        "url": "https://github.com/Vepricov/claude-brainlab/blob/main/docs/knowledge-base.md"
       }
      ],
@@ -1886,7 +1897,7 @@ window.RESEARCH_LOOP={
      ],
      "links": [
       {
-       "label": "Публичное руководство · 44-tool snapshot",
+       "label": "Публичное руководство: снимок, когда вызовов было 44; сейчас в службе 59, читающих 17",
        "url": "https://github.com/Vepricov/claude-brainlab/blob/main/docs/knowledge-base.md"
       }
      ],
@@ -1924,7 +1935,7 @@ window.RESEARCH_LOOP={
      ],
      "links": [
       {
-       "label": "Публичное руководство · 44-tool snapshot",
+       "label": "Публичное руководство: снимок, когда вызовов было 44; сейчас в службе 59, читающих 17",
        "url": "https://github.com/Vepricov/claude-brainlab/blob/main/docs/knowledge-base.md"
       }
      ],
@@ -1957,7 +1968,7 @@ window.RESEARCH_LOOP={
      ],
      "links": [
       {
-       "label": "Публичное руководство · 44-tool snapshot",
+       "label": "Публичное руководство: снимок, когда вызовов было 44; сейчас в службе 59, читающих 17",
        "url": "https://github.com/Vepricov/claude-brainlab/blob/main/docs/knowledge-base.md"
       }
      ],
@@ -1966,7 +1977,7 @@ window.RESEARCH_LOOP={
    ],
    "sources": [
     {
-     "label": "Публичное руководство · 44-tool snapshot",
+     "label": "Публичное руководство: снимок, когда вызовов было 44; сейчас в службе 59, читающих 17",
      "url": "https://github.com/Vepricov/claude-brainlab/blob/main/docs/knowledge-base.md"
     },
     {
