@@ -11,11 +11,14 @@
   <link rel="stylesheet" href="map-shapes.css">
   <link rel="stylesheet" href="mcp-design.css">
   <link rel="stylesheet" href="front-design.css">
+  <link rel="stylesheet" href="memory-map.css">
+  <link rel="stylesheet" href="obsidian-setup.css">
+  <link rel="stylesheet" href="search-workspace.css">
 </head>
 <body>
   <header class="topbar">
     <button class="brand" id="home" type="button"><span class="brand-sign"><i></i><i></i></span><span><b>BRAIn Lab</b><small>Research system</small></span></button>
-    <nav class="view-switch" aria-label="Режим просмотра"><button class="active" data-view="loop" type="button">Система</button><button data-view="mcp-live" type="button">Живой MCP</button><button data-view="examples" type="button">Примеры</button></nav>
+    <nav class="view-switch" aria-label="Режим просмотра"><button class="active" data-view="loop" type="button">Система</button><button data-view="mcp-live" type="button">Учебная база</button><button data-view="examples" type="button">Маршруты</button></nav>
     <button class="search-open" id="search-open" type="button"><span>Найти процесс или инструмент</span><kbd>⌘ K</kbd></button>
   </header>
 
@@ -72,6 +75,8 @@
        Отдельный файл, потому что его гоняет набор проверок tests/test_search.mjs без
        браузера — 38 запросов за секунду, поэтому качество меряется, а не обсуждается. -->
   <script src="search-core.js"></script>
+  <script src="memory-map.js"></script>
+  <script src="obsidian-setup.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

@@ -112,13 +112,7 @@
 .answer-tally b{margin-right:5px;color:var(--lime);font:500 15px var(--body);letter-spacing:0}
 .answer-gist{margin:11px 0 0;color:#c3cbc0;font-size:13.5px;line-height:1.6}
 /* Остальное — под раскрытием: лента из двадцати пяти карточек не просматривается глазами. */
-.answer-rest{margin-top:8px;border-top:1px solid #2d352e}
-.answer-rest>summary{padding:15px 0;color:#8e988c;font:9.5px var(--mono);letter-spacing:.07em;
   text-transform:uppercase;cursor:pointer;list-style:none}
-.answer-rest>summary::-webkit-details-marker{display:none}
-.answer-rest>summary:before{content:"+ ";color:var(--lime)}
-.answer-rest[open]>summary:before{content:"− "}
-.answer-rest>summary:hover{color:#dfe6dc}
 /* Ожидание живого ответа: 6-14 секунд — это долго, поэтому пауза названа и посчитана. */
 .mcp-wait{display:flex;align-items:baseline;justify-content:space-between;gap:24px;
   margin:0;padding:20px 0;border-bottom:1px solid #2d352e}
@@ -414,14 +408,7 @@
   line-height:1.6}
 /* Хвост выдачи: то, что кросс-энкодер поставил вдвое ниже лучшего. Не прячем совсем — иногда
    нужное лежит там, — но и не мешаем с ответом. */
-.answer-weak{margin-top:18px;border-top:1px solid #2d352e}
-.answer-weak>summary{padding:14px 0;color:#8e988c;font:9.5px var(--mono);letter-spacing:.06em;
   text-transform:uppercase;cursor:pointer;list-style:none}
-.answer-weak>summary::-webkit-details-marker{display:none}
-.answer-weak>summary:before{content:"+ ";color:#6f7a6d}
-.answer-weak[open]>summary:before{content:"− "}
-.answer-weak>summary:hover{color:#c3cbc0}
-.answer-weak .src-claims{margin-top:0;opacity:.85}
 /* Записи под картой темы: карта отвечает «что тут есть», записи — «покажи». */
 .map-records{margin-top:36px;padding-top:22px;border-top:1px solid #2d352e}
 .map-records>.overline{margin:0 0 6px;color:#7f8a7c}

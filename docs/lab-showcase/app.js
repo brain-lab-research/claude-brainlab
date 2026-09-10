@@ -20,7 +20,7 @@
   function toolVisual(t){if(!t.visual?.nodes?.length)return"";return `<div class="tool-map ${esc(t.visual.kind||"path")}"><span>${esc(t.visual.label||"Как устроено")}</span><ol>${t.visual.nodes.map((node,index)=>`<li><i>${String(index+1).padStart(2,"0")}</i><span>${esc(node)}</span></li>`).join("")}</ol></div>`}
   const previewIds={literature:["paperscout","paper-ingest","alphaxiv-mcp"],ideation:["research-ideation","grill-me","lab-knowledge-hypothesis"],calls:["brain-call","call-notes","yonote-call"],experiments:["hermes","experiment-log","run-monitoring"],results:["results-analysis","results-report","evidence-mcp"],writing:["astar-paper-review","review-response","ml-paper-writing"],presentation:["presentation-skill","paper-to-social"],"paper-qa":["literature-reviewer","citation-verification"]};
   const supportPreviewIds={access:["server-access-bot","server-fleet","server-status"]};
-  function previews(p){const ids=previewIds[p.id]||[],picked=ids.map(id=>(p.tools||[]).find(t=>t.id===id)).filter(Boolean),shown=[...picked,...(p.tools||[]).filter(t=>!picked.includes(t))].slice(0,3);return `${shown.slice(0,2).map(t=>`<button data-open="${esc(p.id)}" data-tool="${esc(t.id)}" type="button"><small>${esc(t.type||"tool")}</small>${esc(t.title)}</button>`).join("")}${(p.tools||[]).length>2?`<button class="more" data-open="${esc(p.id)}" type="button">Все ${p.tools.length} →</button>`:""}`}
+  function previews(p){const ids=p.mapFeatured||previewIds[p.id]||[],picked=ids.map(id=>(p.tools||[]).find(t=>t.id===id)).filter(Boolean),shown=[...picked,...(p.tools||[]).filter(t=>!picked.includes(t))].slice(0,3);return `${shown.slice(0,2).map(t=>`<button data-open="${esc(p.id)}" data-tool="${esc(t.id)}" type="button"><small>${esc(t.type||"tool")}</small>${esc(t.title)}</button>`).join("")}${(p.tools||[]).length>2?`<button class="more" data-open="${esc(p.id)}" type="button">Все ${p.tools.length} →</button>`:""}`}
 
   // Одна установка на весь набор. Владелец: «нужно, чтобы человек мог условно одной
   // кнопкой себе его скачать полностью». Стоит на первом экране, под опорными разделами.
@@ -84,6 +84,7 @@
   }
   function openQuickTool(processId,toolId,trigger){
     const process=byId[processId],tool=process?.tools?.find(x=>x.id===toolId);if(!tool)return;
+    if(process.constellation){openProcess(processId,toolId);return}
     let dialog=$("quick-tool-dialog");if(!dialog){dialog=document.createElement("dialog");dialog.id="quick-tool-dialog";dialog.className="quick-tool-dialog";document.body.append(dialog)}
     const story=toolStory(tool),source=links(tool.links||[]);dialog.innerHTML=`<article class="quick-tool-card" style="--accent:${esc(process.color||"#b9ff66")}"><button class="quick-close" type="button" aria-label="Закрыть">×</button><small>${esc(process.title)} · ${esc(tool.type||"Инструмент")}</small><h2 tabindex="-1">${esc(tool.title)}</h2><p>${esc(story.value)}</p><section><b>Что дает</b>${story.outcomes.slice(0,3).map(x=>`<span>${esc(x)}</span>`).join("")}</section><section><b>Что умеет</b>${story.capabilities.slice(0,4).map(x=>`<span>${esc(x)}</span>`).join("")}</section>${toolVisual(tool)}<footer>${source}<button data-full-map type="button">Открыть карту «${esc(process.title)}» →</button></footer></article>`;
     dialog.querySelector(".quick-close").onclick=()=>dialog.close();dialog.querySelector("[data-full-map]").onclick=()=>{dialog.close();openProcess(processId,toolId)};dialog.onclick=e=>{if(e.target===dialog)dialog.close()};dialog.addEventListener("close",()=>trigger?.focus({preventScroll:true}),{once:true});dialog.showModal();dialog.querySelector("h2")?.focus({preventScroll:true})
@@ -214,7 +215,7 @@
   const TAKEABLE=new Set(["toolkit-skill","toolkit-command","toolkit-agent","toolkit-qa","mempalace","zotero","source-only","connector-unpackaged","hermes"]);
   const takeBadge=t=>{const k=t.adoption?.kind||"internal";
     return TAKEABLE.has(k)?`<span class="take-badge is-open">можно забрать</span>`:k==="privileged"?`<span class="take-badge is-gated">по заявке</span>`:`<span class="take-badge is-closed">внутреннее</span>`};
-  function toolCard(t){const story=toolStory(t);return `<details class="tool" id="tool-${esc(t.id)}"><summary><span class="tool-type">${esc(t.type||"Инструмент")}</span>${takeBadge(t)}<strong>${esc(t.title)}</strong><span class="tool-role">${esc(story.value)}</span><i class="tool-toggle">+</i></summary><div class="tool-body">${toolValue(t)}<details class="tool-mechanics"><summary>Как работает внутри</summary><div>${toolVisual(t)}<dl class="tool-spec">${spec("Что нужно на вход",t.inputs)}${spec("Как устроено внутри",t.inside)}${spec("Где и как хранится",t.storage)}${spec("Куда сохраняет",t.writes)}${spec("Что важно проверить",t.gates)}${spec("Ограничения",arr(t.limits))}</dl></div></details>${setup(t)}</div></details>`}
+  function toolCard(t){if(t.status==='in-development')return `<details class="tool tool-pending" id="tool-${esc(t.id)}"><summary>В доработке</summary><p class="sky-pending">В доработке</p></details>`;const story=toolStory(t);return `<details class="tool" id="tool-${esc(t.id)}"><summary><span class="tool-type">${esc(t.type||"Инструмент")}</span>${takeBadge(t)}<strong>${esc(t.title)}</strong><span class="tool-role">${esc(story.value)}</span><i class="tool-toggle">+</i></summary><div class="tool-body">${window.LAB_OBSIDIAN_SETUP?.render(t.id)||""}${toolValue(t)}<details class="tool-mechanics"><summary>Как работает внутри</summary><div>${toolVisual(t)}<dl class="tool-spec">${spec("Что нужно на вход",t.inputs)}${spec("Как устроено внутри",t.inside)}${spec("Где и как хранится",t.storage)}${spec("Куда сохраняет",t.writes)}${spec("Что важно проверить",t.gates)}${spec("Ограничения",arr(t.limits))}</dl></div></details>${setup(t)}</div></details>`}
   // Владелец: «команды не нужны, оставляем только навыки, потому что по факту это дубликат».
   function related(p){const ids=new Set(p.registryProcessIds||[]);return (registry.capabilities||[]).filter(c=>c.type!=="command"&&arr(c.process_ids).some(id=>ids.has(id)))}
   function capCard(c){return `<button class="capability" data-capability="${esc(c.id)}" type="button"><span>${esc(capType(c.type))}</span><strong>${esc(c.title_ru||c.name)}</strong><p>${esc(c.description_ru||c.description||"")}</p><i>Подробно →</i></button>`}
@@ -284,7 +285,92 @@
     return `<section class="process-section gallery" id="gallery"><div class="gallery-head"><p class="section-label">Как это выглядит</p><h2>Учебные примеры из навыка</h2></div>
       <div class="gallery-grid">${g.map(x=>`<figure><img src="${esc(x.src)}" alt="${esc(x.caption||"")}" loading="lazy" width="1200" height="675"><figcaption><strong>${esc(x.caption||"")}</strong>${x.note?`<span>${esc(x.note)}</span>`:""}</figcaption></figure>`).join("")}</div></section>`;
   }
-  function page(p){const map=p.id==="memory"?knowledgeArchitecture(p):`${compactSectionMap(p)}`;return `<div class="process-shell${p.id==="memory"?" memory-shell":""}" style="--accent:${esc(p.color||"#426aff")}"><button class="back-button" data-back type="button">← Вернуться к общей карте</button><header class="process-hero compact"><div class="process-index">${esc(p.number)}</div><div class="process-title"><h1 tabindex="-1">${esc(p.title)}</h1><p class="verb">${esc(p.verb)}</p></div><div class="process-purpose"><p>${esc(p.purpose)}</p></div></header><nav class="process-jump" aria-label="Разделы процесса"><a href="#map">Карта раздела</a>${p.pipeline?'<a href="#pipeline">Как это устроено внутри</a>':""}${p.spotlight?'<a href="#spotlight">Пользуйтесь только этим</a>':""}${p.toMcp?'<a href="#mcp">Что уходит в базу</a>':""}${(p.gallery||[]).length?'<a href="#gallery">Как это выглядит</a>':""}<a href="#tools">Досье инструментов</a></nav>${map}${pipelineBlock(p)}${spotlightBlock(p)}${toMcpBlock(p)}${galleryBlock(p)}${controls(p)}${tools(p)}${implementation(p)}${nav(p)}</div>`}
+  function skyName(t){return t.skyTitle||(t.id==='paperscout'?'Hermes Agent':t.skillId||t.title)}
+  function skyKind(t){return t.skillId?'skill':/Агент|Среда/.test(t.type||'')||t.id==='hermes'?'agent':/MCP|Интеграция|Хук/.test(t.type||'')?'connection':'system'}
+  function skyNode(t,p,index){
+    const major=p.mapFeatured.includes(t.id),kind=skyKind(t);
+    return `<button class="sky-node${major?' is-major':''}${index===0?' is-anchor':''}" data-skill="${esc(t.id)}" data-kind="${kind}" type="button" aria-haspopup="dialog" title="${esc(toolStory(t).value)}"><i class="star-pin" aria-hidden="true"></i><span><strong>${esc(skyName(t))}</strong>${t.status==='in-development'?'<span class="sky-pending">В доработке</span>':major?`<span class="sky-node-description">${esc(t.skySummary||t.catalogSummary||compactRole(toolStory(t).value))}</span>`:''}</span></button>`;
+  }
+  function externalBranch(t){
+    if(!t.externalResources?.length)return '';
+    return `<aside class="sky-external" data-external-from="${esc(t.id)}" aria-label="Сторонние сервисы для ${esc(skyName(t))}"><h3>Сторонние сервисы</h3>${t.externalResources.map(link=>
+      `<a href="${esc(link.url)}" target="_blank" rel="noopener"><i class="external-pin" aria-hidden="true"></i><span>${esc(link.label)} <b aria-hidden="true">↗</b>${link.note?`<small>${esc(link.note)}</small>`:''}</span></a>`).join('')}</aside>`;
+  }
+  function constellationPage(p){
+    const c=p.constellation,byTool=Object.fromEntries(p.tools.map(t=>[t.id,t])),cores=c.cores||[{toolId:c.core,area:'core',caption:c.caption}];
+    const groups=c.groups.map((g,i)=>`<section class="sky-cluster" data-area="${esc(g.area)}" data-orbit="${esc(g.core||c.core)}" style="grid-area:${esc(g.area)};--cluster:${i}">${g.externalFrom?externalBranch(byTool[g.externalFrom]):''}<h2>${esc(g.title)}</h2><div>${g.toolIds.map((id,index)=>skyNode(byTool[id],p,index)+externalBranch(byTool[id])).join('')}</div></section>`).join('');
+    const notes=[p.knowledgeModel?`<details class="chapter-note knowledge-chapter"><summary>Записи и связи в общей базе <i aria-hidden="true">+</i></summary>${knowledgeArchitecture(p).replace('id="map"','id="knowledge-map"')}</details>`:'',p.toMcp?`<details class="chapter-note"><summary>Связь с общей базой <i aria-hidden="true">+</i></summary>${toMcpBlock(p)}</details>`:'',arr(p.controls).length||p.example?`<details class="chapter-note"><summary>Проверки и границы работы <i aria-hidden="true">+</i></summary>${controls(p)}</details>`:'',p.pipeline||p.implementation?`<details class="chapter-note"><summary>Внутреннее устройство <i aria-hidden="true">+</i></summary>${pipelineBlock(p)}${implementation(p)}</details>`:''].join('');
+    const signal=p.id==='calls'?`<span class="core-signal" aria-hidden="true">${[15,27,42,23,52,34,19,44,26,38,16].map(h=>`<i style="height:${h}px"></i>`).join('')}</span>`:'<span class="core-moons" aria-hidden="true"><i></i><i></i><i></i></span>';
+    const bodies=cores.map((entry,i)=>{const core=byTool[entry.toolId];return `<button class="sky-core" data-skill="${esc(core.id)}" data-core style="grid-area:${esc(entry.area)};--orbit-angle:${-65+i*43}deg" type="button" aria-haspopup="dialog"><span class="core-orbit" aria-hidden="true"></span>${signal}<span class="core-copy"><small>${esc(core.type||'Система')}</small><strong>${esc(skyName(core))}</strong><span>${esc(entry.caption)}</span>${c.cores?'':'<em>Открыть инструмент ↗</em>'}</span></button>`}).join('');
+    return `<div class="process-shell sky-shell" style="--accent:${esc(p.color)}" data-chapter="${esc(p.id)}">
+      <button class="back-button" data-back type="button">← Общая карта</button>
+      <header class="sky-heading"><div><p class="sky-eyebrow">Созвездие ${esc(p.number)} · исследовательская система</p><h1 tabindex="-1">${esc(p.title)}</h1><p>${esc(p.verb)}</p></div><p class="sky-intro">${esc(p.purpose)}</p></header>
+      <div class="sky-frame"><section class="sky-map${c.cores?' has-peers':''}" id="map" data-system="${esc(p.id)}" aria-label="Созвездие инструментов: ${esc(p.title)}">
+        <svg class="sky-lines" aria-hidden="true"></svg><div class="sky-dust" aria-hidden="true"></div>
+        ${bodies}${groups}<span class="sky-count" aria-label="Инструментов: ${p.tools.length}">${p.tools.length}</span>
+      </section></div>
+      ${galleryBlock(p)}<section class="chapter-notes" aria-label="Подробности процесса">${notes}</section>${nav(p)}
+      <dialog class="skill-dialog" aria-labelledby="skill-dialog-title"></dialog>
+    </div>`;
+  }
+  function drawConstellation(root,p){
+    const map=root.querySelector('.sky-map'),svg=map?.querySelector('.sky-lines');if(root.hidden||!map||!svg)return;
+    const frame=map.parentElement;
+    if(matchMedia('(min-width:1024px)').matches){
+      const available=innerHeight-(frame.getBoundingClientRect().top+scrollY)-16;
+      const scale=Math.min(1,Math.max(1,available)/map.offsetHeight);
+      map.style.setProperty('--sky-scale',scale);
+      frame.style.height=`${map.offsetHeight*scale}px`;
+    }else{map.style.removeProperty('--sky-scale');frame.style.removeProperty('height')}
+    const box=map.getBoundingClientRect();
+    const point=pin=>{const r=pin.getBoundingClientRect();return {x:r.left-box.left+r.width/2,y:r.top-box.top+r.height/2}};
+    const cores=Object.fromEntries([...map.querySelectorAll('[data-core]')].map(e=>[e.dataset.skill,{...point(e),radius:e.getBoundingClientRect().width/2}]));
+    const rim=(core,target)=>{const dx=target.x-core.x,dy=target.y-core.y,length=Math.hypot(dx,dy)||1;return {x:core.x+dx/length*core.radius,y:core.y+dy/length*core.radius}};
+    const line=(a,b,kind,control)=>`<path class="${kind}" d="M${a.x.toFixed(1)},${a.y.toFixed(1)} ${control?`Q${control.x.toFixed(1)},${control.y.toFixed(1)} `:'L'}${b.x.toFixed(1)},${b.y.toFixed(1)}"/>`;
+    let paths='';
+    for(const [from,to] of p.constellation.links||[]){
+      const a=cores[from],b=cores[to];
+      // Bow long horizontal links around the helper clusters between the main bodies.
+      const control=Math.abs(a.y-b.y)<1&&Math.abs(a.x-b.x)>a.radius+b.radius+200?{x:(a.x+b.x)/2,y:a.y+(a.y<box.height/2?-160:160)}:null;
+      paths+=line(rim(a,control||b),rim(b,control||a),'sky-peer-link',control);
+    }
+    for(const group of map.querySelectorAll('.sky-cluster')){
+      const stars=[...group.querySelectorAll('.star-pin')].map(point);if(!stars.length)continue;
+      paths+=line(rim(cores[group.dataset.orbit],stars[0]),stars[0],'sky-ray');
+      for(let i=1;i<stars.length;i++)paths+=line(stars[i-1],stars[i],'sky-thread');
+    }
+    for(const branch of map.querySelectorAll('[data-external-from]')){
+      const parent=map.querySelector(`[data-skill="${CSS.escape(branch.dataset.externalFrom)}"]`);
+      const origin=cores[branch.dataset.externalFrom]||{...point(parent.querySelector('.star-pin')),radius:4};
+      const stars=[...branch.querySelectorAll('.external-pin')].map(point);
+      paths+=line(rim(origin,stars[0]),stars[0],'sky-external-ray');
+      for(let i=1;i<stars.length;i++)paths+=line(stars[i-1],stars[i],'sky-external-thread');
+    }
+    svg.setAttribute('viewBox',`0 0 ${box.width} ${box.height}`);svg.innerHTML=paths;
+  }
+  let skyResizeObserver=null,skyResizeHandler=null;
+  function bindSkillCatalog(root,p){
+    skyResizeObserver?.disconnect();
+    if(skyResizeHandler)window.removeEventListener('resize',skyResizeHandler);
+    skyResizeHandler=()=>drawConstellation(root,p);
+    window.addEventListener('resize',skyResizeHandler);
+    skyResizeObserver=new ResizeObserver(skyResizeHandler);
+    skyResizeObserver.observe(root);
+    const sky=root.querySelector('.sky-map');if(sky)skyResizeObserver.observe(sky);
+    const dialog=root.querySelector('.skill-dialog');if(!dialog)return;
+    let trigger=null;
+    root.querySelectorAll('[data-skill]').forEach(button=>button.addEventListener('click',()=>{
+      const t=(p.tools||[]).find(x=>x.id===button.dataset.skill);if(!t)return;
+      trigger=button;dialog.innerHTML=`<article style="--accent:${esc(p.color)}"><button type="button" class="skill-dialog-close" aria-label="Закрыть карточку">×</button><header class="skill-dialog-head"><span>${esc(t.type||'Инструмент')} · ${esc(p.title)}</span><h2 id="skill-dialog-title" tabindex="-1">${esc(skyName(t))}</h2><p class="skill-dialog-name">${esc(t.cardTitle||t.type)}</p>${t.status==='in-development'?'':`<p class="skill-dialog-description">${esc(toolStory(t).value)}</p>`}</header>${t.adoption?.invoke?`<p class="skill-invoke"><span>${t.skillId?"Вызов навыка":"Как запустить"}</span><code>${esc(t.adoption.invoke)}</code></p>`:''}${toolCard(t)}</article>`;
+      dialog.querySelector('.tool').open=true;
+      dialog.querySelector('.skill-dialog-close').onclick=()=>dialog.close();
+      replaceHash(`${p.id}/${t.id}`);dialog.showModal();dialog.scrollTop=0;dialog.querySelector('h2').focus({preventScroll:true});
+    }));
+    dialog.addEventListener('click',e=>{if(e.target===dialog){const r=dialog.getBoundingClientRect();if(e.clientX<r.left||e.clientX>r.right||e.clientY<r.top||e.clientY>r.bottom)dialog.close()}});
+    dialog.addEventListener('close',()=>{if(root.hidden||!dialog.isConnected)return;replaceHash(p.id);trigger?.focus({preventScroll:true})});
+  }
+
+  function page(p){if(p.id==="memory"&&window.LAB_MEMORY_MAP)return window.LAB_MEMORY_MAP.render(p,model.processes);if(p.constellation)return constellationPage(p);const map=p.id==="memory"?knowledgeArchitecture(p):`${compactSectionMap(p)}`;return `<div class="process-shell${p.id==="memory"?" memory-shell":""}" style="--accent:${esc(p.color||"#426aff")}"><button class="back-button" data-back type="button">← Вернуться к общей карте</button><header class="process-hero compact"><div class="process-index">${esc(p.number)}</div><div class="process-title"><h1 tabindex="-1">${esc(p.title)}</h1><p class="verb">${esc(p.verb)}</p></div><div class="process-purpose"><p>${esc(p.purpose)}</p></div></header><nav class="process-jump" aria-label="Разделы процесса"><a href="#map">Карта раздела</a>${p.pipeline?'<a href="#pipeline">Как это устроено внутри</a>':""}${p.spotlight?'<a href="#spotlight">Пользуйтесь только этим</a>':""}${p.toMcp?'<a href="#mcp">Что уходит в базу</a>':""}${(p.gallery||[]).length?'<a href="#gallery">Как это выглядит</a>':""}<a href="#tools">Досье инструментов</a></nav>${map}${pipelineBlock(p)}${spotlightBlock(p)}${toMcpBlock(p)}${galleryBlock(p)}${controls(p)}${tools(p)}${implementation(p)}${nav(p)}</div>`}
   function bind(root,p){root.querySelectorAll("[data-back]").forEach(b=>b.onclick=showOverview);root.querySelectorAll("[data-open]").forEach(b=>b.onclick=()=>openProcess(b.dataset.open,b.dataset.tool));root.querySelectorAll("[data-capability]").forEach(b=>b.onclick=()=>showCapability(b.dataset.capability));root.querySelectorAll(".process-jump a").forEach(a=>a.onclick=e=>{e.preventDefault();root.querySelector(a.getAttribute("href"))?.scrollIntoView({behavior:"smooth"})});if(p){const focus=root.querySelector(".map-focus"),toolsById=Object.fromEntries((p.tools||[]).map(t=>[t.id,t])),reset=()=>{root.querySelectorAll(".section-map-canvas button").forEach(x=>x.classList.remove("is-dim","is-active"));focus?.classList.remove("is-open");if(focus)focus.innerHTML=focusDefault(p);replaceHash(p.id)};root.querySelectorAll("[data-focus-tool]").forEach(b=>b.onclick=()=>{root.querySelectorAll(".map-tool").forEach(x=>x.classList.toggle("is-dim",x!==b));b.classList.remove("is-dim");b.classList.add("is-active");if(focus){focus.innerHTML=focusTool(toolsById[b.dataset.focusTool]);focus.classList.add("is-open")}replaceHash(`${p.id}/${b.dataset.focusTool}`)});root.querySelector("[data-map-reset]")?.addEventListener("click",reset);root.querySelectorAll("[data-map-title]").forEach(b=>b.onclick=()=>{root.querySelectorAll(".section-map-canvas button").forEach(x=>x.classList.remove("is-dim","is-active"));b.classList.add("is-active");replaceHash(p.id)});root.onclick=e=>{const dossier=e.target.closest("[data-open-dossier]"),openSetup=e.target.closest("[data-open-setup]");if(e.target.closest("[data-reset-focus]"))reset();if(dossier||openSetup){const id=(dossier||openSetup).dataset.openDossier||(dossier||openSetup).dataset.openSetup,d=root.querySelector(`#tool-${CSS.escape(id)}`);if(d){d.open=true;let focusTarget=d.querySelector("summary"),scrollTarget=d;if(openSetup){const s=root.querySelector(`#setup-${CSS.escape(id)}`);if(s){s.open=true;focusTarget=s.querySelector("summary");scrollTarget=s}}focus?.classList.remove("is-open");scrollTarget.scrollIntoView({behavior:"smooth",block:"start"});focusTarget?.focus({preventScroll:true})}}}}}
 
   function relationIndex(p){
@@ -297,6 +383,8 @@
   }
 
   function bindGraphMap(root,p){
+    if(p.id==="memory"&&window.LAB_MEMORY_MAP){bindSkillCatalog(root,p);window.LAB_MEMORY_MAP.bind(root);return}
+    if(p.constellation){bindSkillCatalog(root,p);drawConstellation(root,p);if(p.knowledgeModel)bindKnowledgeMap(root,p);return}
     if(p.id==="memory"){bindKnowledgeMap(root,p);return}
     const scope=root.querySelector(".section-overview"),focus=scope?.querySelector(".graph-focus");if(!scope||!focus)return;
     const {map,index}=relationIndex(p),tools=Object.fromEntries((p.tools||[]).map(t=>[t.id,t])),stages=Object.fromEntries(map.stages.map(x=>[x.id,x])),destinations=Object.fromEntries(map.destinations.map(x=>[x.id,x])),outcomes=Object.fromEntries(map.outcomes.map(x=>[x.id,x])),qas=Object.fromEntries(qualityProcesses().map(x=>[x.id,x]));let lastTrigger=null;
@@ -321,12 +409,12 @@
     let lastTrigger=null;
     scope.querySelectorAll("[data-knowledge]").forEach(x=>{x.setAttribute("aria-pressed","false");x.setAttribute("aria-controls","knowledge-inspector")});
     const reset=(returnFocus=false)=>{scope.querySelectorAll("[data-knowledge]").forEach(x=>{x.classList.remove("is-active","is-related","is-muted");x.setAttribute("aria-pressed","false")});focus.classList.remove("is-open");focus.innerHTML=``;if(returnFocus)lastTrigger?.focus()};
-    scope.addEventListener("click",e=>{if(e.target.closest("[data-reset-knowledge]")){reset(true);return}const tech=e.target.closest("[data-open-knowledge-tech]");if(tech){const details=scope.querySelector(".knowledge-technical");if(details){details.open=true;details.scrollIntoView({behavior:"smooth",block:"start"});details.querySelector("summary")?.focus()}return}const jump=e.target.closest("[data-knowledge-jump]");if(jump){const target=jump.dataset.knowledgeJump;if(target.startsWith("process:")){openProcess(target.slice(8));return}const targetNode=scope.querySelector(`[data-knowledge="${CSS.escape(target)}"]`);targetNode?.click();targetNode?.focus({preventScroll:true});return}const button=e.target.closest("[data-knowledge]");if(!button)return;lastTrigger=button;const key=button.dataset.knowledge,[kind,id]=key.split(":"),term=(model.shared?.glossary||[]).find(x=>x.id===id||x.id.replace("foreign-","")===id),item=groups[kind]?.[id]||{title:button.querySelector("strong")?.textContent||id,detail:term?.meaning||button.querySelector("span,small")?.textContent||""},connectionObjects=arr(item.connections).filter(x=>x&&typeof x==="object"&&x.to),relatedKeys=new Set(connectionObjects.map(x=>x.to));for(const [groupName,items] of Object.entries(groups))for(const [itemId,candidate] of Object.entries(items))if(arr(candidate.connections).some(x=>x?.to===key))relatedKeys.add(`${groupName}:${itemId}`);if(key==="boundary:mcp")scope.querySelectorAll("[data-knowledge]").forEach(x=>relatedKeys.add(x.dataset.knowledge));scope.querySelectorAll("[data-knowledge]").forEach(x=>{const active=x.dataset.knowledge===key,related=relatedKeys.has(x.dataset.knowledge);x.classList.toggle("is-active",active);x.classList.toggle("is-related",!active&&related);x.classList.toggle("is-muted",!active&&!related);x.setAttribute("aria-pressed",String(active))});const kindLabel={object:"Тип общей записи",flow:"Шаг безопасной публикации",read:"Шаг безопасного чтения",guard:"Обязательное правило",bridge:"Связь внешнего источника с нашей работой",producer:"Источник информации",consumer:"Потребитель знания",corpus:"Раздел общей базы",boundary:"Компонент системы",personal:"Отдельный личный слой"}[kind]||"Часть системы",connections=arr(item.related||item.connections||item.usedBy).map(x=>typeof x==="string"?{label:x}:x),clickableConnections=connections.filter(x=>x.to),notes=connections.filter(x=>!x.to),targetTitle=target=>scope.querySelector(`[data-knowledge="${CSS.escape(target)}"] strong`)?.textContent||target.replace(/^\w+:/,"");focus.innerHTML=`<div class="focus-head"><small>${esc(kindLabel)}</small><button data-reset-knowledge type="button" aria-label="Закрыть карточку">×</button><h3 tabindex="-1">${esc(item.label||item.title_ru||item.title||id)}</h3><p>${esc(item.detail||item.summary||item.action||item.plain||"")}</p></div><div class="focus-detail-grid">${focusList("Что находится внутри",item.contains)}${focusList("Кто и как получает доступ",item.access)}${focusList("Что происходит",item.behavior)}${focusList("Обязательные данные",item.required)}</div>${clickableConnections.length?`<div class="focus-related"><b>Перейти к связанному узлу</b>${clickableConnections.map(x=>`<button data-knowledge-jump="${esc(x.to)}" type="button"><small>${esc(x.label||"Связь")}</small>${esc(targetTitle(x.to))}</button>`).join("")}</div>`:""}${notes.length?`<div class="focus-notes"><b>Важно</b>${notes.map(x=>`<p>${esc(x.label||x.name||x.role||"")}</p>`).join("")}</div>`:""}${item.operations?.length?`<div class="focus-operations"><b>Настоящие инструменты MCP</b>${arr(item.operations).map(x=>`<code>${esc(x)}</code>`).join("")}</div>`:""}<div class="map-focus-actions"><button data-open-knowledge-tech type="button">Подключение и техническая схема</button>${links(item.links||[],item.title||id)}</div>`;focus.classList.add("is-open");if(matchMedia("(max-width:1100px)").matches)focus.scrollIntoView({behavior:"smooth",block:"nearest"})});
+    scope.addEventListener("click",e=>{if(e.target.closest("[data-reset-knowledge]")){reset(true);return}const tech=e.target.closest("[data-open-knowledge-tech]");if(tech){const details=scope.querySelector(".knowledge-technical");if(details){details.open=true;details.scrollIntoView({behavior:"smooth",block:"start"});details.querySelector("summary")?.focus()}return}const jump=e.target.closest("[data-knowledge-jump]");if(jump){const target=jump.dataset.knowledgeJump;if(target.startsWith("process:")){openProcess(target.slice(8));return}const targetNode=scope.querySelector(`[data-knowledge="${CSS.escape(target)}"]`);targetNode?.click();targetNode?.focus({preventScroll:true});return}const button=e.target.closest("[data-knowledge]");if(!button)return;lastTrigger=button;const key=button.dataset.knowledge,[kind,id]=key.split(":"),term=(model.shared?.glossary||[]).find(x=>x.id===id||x.id.replace("foreign-","")===id),item=groups[kind]?.[id]||{title:button.querySelector("strong")?.textContent||id,detail:term?.meaning||button.querySelector("span,small")?.textContent||""},connectionObjects=arr(item.connections).filter(x=>x&&typeof x==="object"&&x.to),relatedKeys=new Set(connectionObjects.map(x=>x.to));for(const [groupName,items] of Object.entries(groups))for(const [itemId,candidate] of Object.entries(items))if(arr(candidate.connections).some(x=>x?.to===key))relatedKeys.add(`${groupName}:${itemId}`);if(key==="boundary:mcp")scope.querySelectorAll("[data-knowledge]").forEach(x=>relatedKeys.add(x.dataset.knowledge));scope.querySelectorAll("[data-knowledge]").forEach(x=>{const active=x.dataset.knowledge===key,related=relatedKeys.has(x.dataset.knowledge);x.classList.toggle("is-active",active);x.classList.toggle("is-related",!active&&related);x.classList.toggle("is-muted",!active&&!related);x.setAttribute("aria-pressed",String(active))});const kindLabel={object:"Тип общей записи",flow:"Шаг безопасной публикации",read:"Шаг безопасного чтения",guard:"Обязательное правило",bridge:"Связь внешнего источника с нашей работой",producer:"Источник информации",consumer:"Потребитель знания",corpus:"Раздел общей базы",boundary:"Компонент системы",personal:"Отдельный личный слой"}[kind]||"Часть системы",connections=arr(item.related||item.connections||item.usedBy).map(x=>typeof x==="string"?{label:x}:x),clickableConnections=connections.filter(x=>x.to),notes=connections.filter(x=>!x.to),targetTitle=target=>scope.querySelector(`[data-knowledge="${CSS.escape(target)}"] strong`)?.textContent||target.replace(/^\w+:/,"");focus.innerHTML=`<div class="focus-head"><small>${esc(kindLabel)}</small><button data-reset-knowledge type="button" aria-label="Закрыть карточку">×</button><h3 tabindex="-1">${esc(item.label||item.title_ru||item.title||id)}</h3><p>${esc(item.detail||item.summary||item.action||item.plain||"")}</p></div><div class="focus-detail-grid">${focusList("Что находится внутри",item.contains)}${focusList("Кто и как получает доступ",item.access)}${focusList("Что происходит",item.behavior)}${focusList("Обязательные данные",item.required)}</div>${clickableConnections.length?`<div class="focus-related"><b>Перейти к связанному узлу</b>${clickableConnections.map(x=>`<button data-knowledge-jump="${esc(x.to)}" type="button"><small>${esc(x.label||"Связь")}</small>${esc(targetTitle(x.to))}</button>`).join("")}</div>`:""}${notes.length?`<div class="focus-notes"><b>Важно</b>${notes.map(x=>`<p>${esc(x.label||x.name||x.role||"")}</p>`).join("")}</div>`:""}${item.operations?.length?`<div class="focus-operations"><b>Настоящие инструменты MCP</b>${arr(item.operations).map(x=>`<code>${esc(x)}</code>`).join("")}</div>`:""}<div class="map-focus-actions"><button data-open-knowledge-tech type="button">Подключение и техническая схема</button>${links(item.links||[],item.title||id)}</div>`;focus.classList.add("is-open");focus.querySelector("h3")?.focus({preventScroll:true});if(matchMedia("(max-width:1100px)").matches)focus.scrollIntoView({behavior:"smooth",block:"nearest"})});
     const closeFocusPanel=()=>{if(focus.classList.contains("is-open"))reset(true)};document.addEventListener("keydown",e=>{if(e.key==="Escape"&&focus.classList.contains("is-open")){e.preventDefault();closeFocusPanel()}});document.addEventListener("pointerdown",e=>{if(!focus.classList.contains("is-open"))return;if(focus.contains(e.target)||(e.target.closest&&e.target.closest("[data-node],[data-knowledge],[data-surface-process]")))return;closeFocusPanel()},true);
   }
   function sourceButtons(items=[]){return `<div class="special-links">${items.map(x=>{const url=safe(x.url);return url?`<a href="${esc(url)}" target="_blank" rel="noopener">${esc(x.label)} <span>↗</span></a>`:""}).join("")}</div>`}
-  function hidePrimaryViews(){$("overview").hidden=true;$("process-view").hidden=true;$("dykaf-view").hidden=true;$("mcp-live-view").hidden=true;$("examples-view").hidden=true}
-  function showSurface(id,navigate=true){const s=systemData.surfaces?.[id];if(!s)return;if(navigate)updateHash(`surface/${id}`);hidePrimaryViews();active("none");const view=$("process-view");view.hidden=false;view.innerHTML=`<div class="process-shell surface-page" style="--accent:#b9ff66"><button class="back-button" data-back type="button">← Вернуться к общей карте</button><header class="surface-hero"><p>${esc(s.kicker)}</p><span>${esc(s.number)}</span><h1 tabindex="-1">${esc(s.title)}</h1><strong>${esc(s.promise)}</strong></header><section class="surface-map" aria-label="Карта ${esc(s.title)}"><div class="surface-orbit"><div class="surface-center"><small>Отвечает за</small><strong>${esc(s.title)}</strong><span>${esc(s.promise)}</span></div>${s.owns.map((x,i)=>`<article style="--i:${i}"><small>Хранит ${String(i+1).padStart(2,"0")}</small><strong>${esc(x)}</strong></article>`).join("")}</div>${s.facts?.length?`<div class="surface-facts">${s.facts.map(x=>`<span>${esc(x)}</span>`).join("")}</div>`:""}<div class="surface-flow"><p>Как используется</p>${s.path.map((x,i)=>`<article><span>${String(i+1).padStart(2,"0")}</span><strong>${esc(x)}</strong></article>`).join("")}</div>${s.routes?.length?`<nav class="surface-routes" aria-label="Связанные карты">${s.routes.map(x=>`<button data-surface-process="${esc(x.process)}" data-surface-tool="${esc(x.tool||"")}" type="button"><small>${esc(x.kind||"Связанная карта")}</small><strong>${esc(x.title)}</strong><span>${esc(x.text||"")}</span><i>Открыть →</i></button>`).join("")}</nav>`:""}</section><section class="surface-boundary"><div><p>Это место не заменяет</p>${s.doesNotOwn.map(x=>`<span>${esc(x)}</span>`).join("")}</div><div><p>Связь с общей системой</p><span>Обмен идёт через ссылки и явные сценарии. Изменяемая копия у каждого типа данных остаётся одна.</span>${sourceButtons(s.links)}</div></section></div>`;view.querySelector("[data-back]").onclick=showOverview;view.querySelectorAll("[data-surface-process]").forEach(b=>b.onclick=()=>openProcess(b.dataset.surfaceProcess,b.dataset.surfaceTool));window.scrollTo({top:0,behavior:"instant"});view.querySelector("h1")?.focus({preventScroll:true})}
+  function hidePrimaryViews(){document.querySelectorAll('.skill-dialog[open]').forEach(d=>d.close());$("overview").hidden=true;$("process-view").hidden=true;$("dykaf-view").hidden=true;$("mcp-live-view").hidden=true;$("examples-view").hidden=true}
+  function showSurface(id,navigate=true){const s=systemData.surfaces?.[id];if(!s)return;if(navigate)updateHash(`surface/${id}`);hidePrimaryViews();active("none");const view=$("process-view");view.hidden=false;if(id==="obsidian"&&window.LAB_OBSIDIAN_SETUP){view.innerHTML=`<div class="process-shell surface-page obsidian-page"><button class="back-button" data-back type="button">← Вернуться к общей карте</button>${window.LAB_OBSIDIAN_SETUP.page()}</div>`;view.querySelector("[data-back]").onclick=showOverview;window.scrollTo({top:0,behavior:"instant"});view.querySelector("h1")?.focus({preventScroll:true});return}view.innerHTML=`<div class="process-shell surface-page" style="--accent:#b9ff66"><button class="back-button" data-back type="button">← Вернуться к общей карте</button><header class="surface-hero"><p>${esc(s.kicker)}</p><span>${esc(s.number)}</span><h1 tabindex="-1">${esc(s.title)}</h1><strong>${esc(s.promise)}</strong></header><section class="surface-map" aria-label="Карта ${esc(s.title)}"><div class="surface-orbit"><div class="surface-center"><small>Отвечает за</small><strong>${esc(s.title)}</strong><span>${esc(s.promise)}</span></div>${s.owns.map((x,i)=>`<article style="--i:${i}"><small>Хранит ${String(i+1).padStart(2,"0")}</small><strong>${esc(x)}</strong></article>`).join("")}</div>${s.facts?.length?`<div class="surface-facts">${s.facts.map(x=>`<span>${esc(x)}</span>`).join("")}</div>`:""}<div class="surface-flow"><p>Как используется</p>${s.path.map((x,i)=>`<article><span>${String(i+1).padStart(2,"0")}</span><strong>${esc(x)}</strong></article>`).join("")}</div>${s.routes?.length?`<nav class="surface-routes" aria-label="Связанные карты">${s.routes.map(x=>`<button data-surface-process="${esc(x.process)}" data-surface-tool="${esc(x.tool||"")}" type="button"><small>${esc(x.kind||"Связанная карта")}</small><strong>${esc(x.title)}</strong><span>${esc(x.text||"")}</span><i>Открыть →</i></button>`).join("")}</nav>`:""}</section><section class="surface-boundary"><div><p>Это место не заменяет</p>${s.doesNotOwn.map(x=>`<span>${esc(x)}</span>`).join("")}</div><div><p>Связь с общей системой</p><span>Обмен идёт через ссылки и явные сценарии. Изменяемая копия у каждого типа данных остаётся одна.</span>${sourceButtons(s.links)}</div></section></div>`;view.querySelector("[data-back]").onclick=showOverview;view.querySelectorAll("[data-surface-process]").forEach(b=>b.onclick=()=>openProcess(b.dataset.surfaceProcess,b.dataset.surfaceTool));window.scrollTo({top:0,behavior:"instant"});view.querySelector("h1")?.focus({preventScroll:true})}
   // ============ Страница MCP: поиск по содержимому базы ============
   // Владелец: «я должен написать, когда выигрывает Muon… по этим связям… нужно максимально
   // информативно показать путь от объекта: как статья добавляется, как раскладывается на
@@ -537,7 +625,12 @@
   // двух. Теперь страница спрашивает живой search_lab через локальный прокси, режим
   // semantic, и получает настоящие оценки близости по эмбеддингам службы. Снимок остаётся
   // запасным вариантом, когда прокси не запущен, и об этом честно написано на странице.
+  const demo=window.LAB_DEMO||null;
   const PROXY="http://127.0.0.1:8799";
+  async function proxyFetch(url, options){
+    if(demo)throw new Error("Live MCP is unavailable in the public demo");
+    return fetch(url, options);
+  }
   // Живой ответ несёт тип, оценку и отрывок. Поля записи и её связи берём из снимка по
   // первым восьми знакам идентификатора: так карточка остаётся подробной.
   const snapById={};for(const r of base.records||[])if(r.id)snapById[r.id]=r;
@@ -621,16 +714,39 @@
   // рода, которые несут ответ: наши утверждения, измерения, доказательства, правила и
   // утверждения, вынутые из статей. Статья целиком становится карточкой, куда переходят
   // с утверждения, а не результатом поиска.
-  const ANSWER_TYPES=["hypothesis","evidence","derivation","decision","paper_claim"];
+  // Родов у ответа не выбираем. Так было не всегда: витрина просила у службы только
+  // утверждения — гипотезы, измерения, выкладки, решения и утверждения статей, — а статью
+  // целиком не просила вовсе. Владелец: «зачем то высвечивается Narrowing the Focus… а
+  // например fantastic optimizers вообще не вышла! Там еще много других статей и вообще
+  // ничего не вышло! … Надо сделать статьи как проекты чтобы хорошо в поиске высвечивались».
+  //
+  // Так и было устроено: статья попадала в выдачу только через какое-нибудь своё
+  // утверждение, поэтому у «Benchmarking Optimizers» всплывала цитата про прогрев, а
+  // «Fantastic Pretraining Optimizers» не всплывала никак. Замер 10-09-2026 на запросе «как
+  // выбрать оптимизатор в претрейне»: без фильтра служба ставит эти статьи на 3, 6 и 7
+  // места целыми карточками, с фильтром их в ответе нет совсем.
+  //
+  // Теперь спрашиваем всё, что служба умеет искать, и она же решает порядок. Статья, проект,
+  // подраздел и подтема приходят такими же полноправными ответами, как утверждение.
+  const ANSWER_TYPES=[];
+  // Режим один: смысловой поиск с переранжировкой кросс-энкодером. Быстрый режим (только
+  // полнотекстовый Postgres) был убран по требованию владельца: «мне быстрый поиск прям не
+  // нравится, удали его вообще с сайта». Замер 09-09-2026 на тридцати настоящих вопросах
+  // объясняет, почему выбор здесь и не нужен: первый ответ попадал по теме 21 раз из 30 за
+  // 1.1 секунды у быстрого и 27 из 30 за 7.5 секунды у тщательного. Шесть лишних секунд
+  // против шести правильных ответов — выбор в пользу правильного, и делать его каждый раз
+  // заново человеку незачем.
   const MCP_CALL={mode:"semantic",scope:"all",limit:20};
-  let liveOk=null,mcpSeq=0;
+  let liveOk=demo?false:null,mcpSeq=0;
   function callLine(q){
+    if(demo)return `<p class="mcp-call is-local">Поиск по учебным данным в браузере</p>`;
     const args=`query: "${q}", mode: "${MCP_CALL.mode}", scope: "${MCP_CALL.scope}", `
-      +`limit: ${MCP_CALL.limit},\n         entity_types: [${ANSWER_TYPES.map(t=>`"${t}"`).join(", ")}]`;
+      +`limit: ${MCP_CALL.limit}`;
     return `<pre class="mcp-call"><code>search_lab(${esc(args)})</code></pre>`;
   }
   async function liveHealth(){
-    try{const r=await fetch(`${PROXY}/health`,{cache:"no-store"});liveOk=r.ok}
+    if(demo){liveOk=false;return false}
+    try{const r=await proxyFetch(`${PROXY}/health`,{cache:"no-store"});liveOk=r.ok}
     catch{liveOk=false}
     return liveOk;
   }
@@ -644,7 +760,7 @@
     for(let attempt=0;attempt<3;attempt++){
       if(attempt)await new Promise(done=>setTimeout(done,1500*attempt));
       try{
-        const r=await fetch(url,{cache:"no-store"});
+        const r=await proxyFetch(url,{cache:"no-store"});
         if(r.ok)return r.json();
         last=new Error(`служба ответила ${r.status}`);
         // 502 и 503 — это разрыв туннеля или перегруженный сервер, их имеет смысл повторить.
@@ -691,15 +807,9 @@
     scope.querySelectorAll("[data-open-section]").forEach(b=>b.onclick=()=>show(sectionPage(b.dataset.openSection)));
     scope.querySelectorAll("[data-open-subtopic]").forEach(b=>b.onclick=()=>{
       const [folder,slug]=b.dataset.openSubtopic.split("|");show(subtopicPage(folder,slug))});
-    scope.querySelectorAll("[data-force-ask]").forEach(b=>b.onclick=()=>{
-      const q=b.dataset.forceAsk;forceAsk.add(q);
-      const inp=$("mcp-search-input");inp.value=q;askedByHand=true;runSearch(q)});
     scope.querySelectorAll("[data-mcp-home]").forEach(b=>b.onclick=()=>{
       const inp=$("mcp-search-input");inp.value="";runSearch("")});
   }
-  // «Всё равно спросить утверждения» — запрос, для которого человек сознательно отказался от
-  // карты темы. Помним такие, иначе кнопка не сработает: карта перехватит его снова.
-  const forceAsk=new Set();
   // Ответ лежит под тремя колонками способов, и после нажатия «Спросить» человек оставался
   // наверху: список тем по запросу был на экран ниже. Раз запрос теперь отправляют явно,
   // явным должен быть и переход к ответу.
@@ -774,22 +884,6 @@
     return out;
   }
 
-  // Записи под картой. Идут отдельно и не мешают карте: она уже на экране, а это дозагрузка.
-  async function fillMapRecords(q,seq){
-    const box=$("map-records");if(!box)return;
-    let items=[];
-    if(liveOk!==false){
-      try{const data=await liveSearch(q);items=data.items||[]}
-      catch{items=snapshotItems(q)}
-    }else items=snapshotItems(q);
-    if(seq!==mcpSeq||!$("map-records"))return;
-    const target=$("map-records");
-    target.innerHTML=items.length
-      ? `<p class="overline">Записи по этой теме</p>`+answerPage(items,q)
-      : `<p class="map-records-wait">По этой теме отдельных записей не нашлось — смотрите разделы выше.</p>`;
-    bindResults(target);
-  }
-
   async function runSearch(q){
     const box=$("mcp-results"),found=$("mcp-found"),call=$("mcp-call-line");if(!box)return;
     const seq=++mcpSeq;
@@ -799,15 +893,6 @@
       if(found)found.textContent="";
       return;
     }
-    // Широкий запрос («Muon», «lora_base») отвечается картой темы и не идёт в службу:
-    // ранжировать по нему отдельные утверждения нечем, их сотни и все про то же самое.
-    // Карта отвечает на «что тут есть», но не отвечает на «покажи записи». Раньше на этом
-    // всё и заканчивалось: по запросу «нижние оценки» человек получал два узла карты, хотя в
-    // базе одиннадцать записей и двадцать две статьи по теме, и должен был сам догадаться
-    // нажать «всё равно спросить». Теперь карта показывается сразу, а записи догружаются под
-    // ней сами: карта видна мгновенно, записи приходят через те секунды, что считает служба.
-    // Код записи — не вопрос, а адрес. Служба по нему тоже что-то найдёт, но искать смысл в
-    // «H-WBD-004» бессмысленно: запись есть в снимке, открываем сразу и без ожидания.
     const code=(q.trim().match(/^[A-ZА-Я]-[A-Z]{2,4}-\d{2,4}$/i)||[])[0];
     if(code&&byCode[code.toUpperCase()]){
       const record=byCode[code.toUpperCase()];
@@ -816,21 +901,18 @@
       if(call)call.innerHTML=`<p class="mcp-call is-local">Открыто по коду из локального снимка: искать смысл в коде записи незачем.</p>`;
       bindResults(box);scrollToResults();return;
     }
-    const map=forceAsk.has(q.trim())?"":isBroad(q)?mapPage(q):"";
-    if(map){
-      box.innerHTML=map+`<div class="map-records" id="map-records"><p class="map-records-wait">Ищу записи по этой теме…</p></div>`;
-      if(found)found.textContent="карта темы";
-      // Службу мы здесь не звали, поэтому и вызов показывать нельзя: строка вызова на этой
-      // странице обещает «то же, что делает агент», и обманывать в ней нечестно.
-      // Карта собирается локально, но записи под ней ищет служба — значит вызов есть, и
-      // показывать надо его, а не только пояснение про карту. Иначе строка вызова обещает
-      // «то же, что делает агент» и при этом скрывает настоящий вызов.
-      if(call)call.innerHTML=`<p class="mcp-call is-local">Сверху карта базы: она собрана локально из дерева разделов. Записи под ней ищет служба этим вызовом.</p>`
-        +callLine(q.trim());
-      bindResults(box);scrollToResults();
-      fillMapRecords(q,seq);
-      return;
-    }
+    /* Развилки «карта или записи» здесь больше нет.
+     *
+     * Витрина решала её сама, своим списком слов, и решала иначе, чем служба: на «как
+     * выбирать направления в zo» она подменяла верный ответ службы локальным оглавлением.
+     * Владелец: «как то не консистентно, давай делать всезде одинаково! выглядит как
+     * костыль именно на этот запрос». Правило перенесено в службу целиком
+     * (`_asks_for_structure` в retrieval.py) — там оно одно и для человека, и для агента.
+     *
+     * Раздел, подраздел и подтема теперь приходят от службы такими же ответами, как
+     * утверждение, и рисуются карточкой узла со своим содержимым. Спуск по дереву руками
+     * никуда не делся: он в блоке «Смотреть по разделам» и доступен всегда.
+     */
     // liveOk===null — состояние «не проверяли или последняя попытка сорвалась»: пробуем
     // службу. false ставится только когда health явно не ответил при загрузке страницы.
     if(liveOk===false){
@@ -843,7 +925,7 @@
       const items=snapshotItems(q);
       if(found)found.textContent=items.length?`${items.length} по снимку`:"ничего";
       box.innerHTML=items.length?answerPage(items,q)
-        :`<p class="mcp-empty">По снимку ничего не нашлось, и это ожидаемо: снимок ищет словами, а не по смыслу. Поднимите живой поиск, и та же строка уйдёт в службу так, как её отправляет агент.</p>`;
+        :demo?`<p class="mcp-empty">В учебном наборе нет ответа. Попробуйте один из примеров выше.</p>`:`<p class="mcp-empty">По снимку ничего не нашлось, и это ожидаемо: снимок ищет словами, а не по смыслу. Поднимите живой поиск, и та же строка уйдёт в службу так, как её отправляет агент.</p>`;
       bindResults(box);scrollToResults();return;
     }
     // Кросс-энкодер отвечает 6-14 секунд, и на такой паузе молчащий экран читается как
@@ -888,7 +970,7 @@
       // Показываем ответ по снимку, но службу мёртвой не объявляем: следующий вопрос снова
       // пойдёт в неё. Раньше одна осечка сажала витрину на снимок до перезагрузки страницы,
       // и человек этого не замечал — он видел просто плохие ответы.
-      liveOk=null;syncLiveBadge();
+      liveOk=demo?false:null;syncLiveBadge();
       const items=snapshotItems(q);
       box.innerHTML=`<p class="mcp-warn">Служба не ответила (${esc(String(error.message||error))}). Ниже — ответ по локальному снимку: он ищет словами, а не по смыслу. Следующий вопрос снова уйдёт в службу.</p>`
         +(items.length?answerPage(items,q):"");
@@ -906,8 +988,42 @@
   // про Muon, и любое отдельное утверждение вырвано из контекста. А узел дерева отвечает на
   // тот вопрос, который человек на самом деле задал: что здесь есть и с чего начинать.
   const tree=window.LAB_TREE||{sections:[],folders:[],directions:[],themes:[]};
-  const treeFolders={};for(const f of tree.folders||[])treeFolders[f.f]=f;
-  const treeSections={};for(const x of tree.sections||[])treeSections[x.name]=x;
+  let treeFolders={};for(const f of tree.folders||[])treeFolders[f.f]=f;
+  let treeSections={};for(const x of tree.sections||[])treeSections[x.name]=x;
+
+  /* Форма библиотеки берётся у службы, а файл рядом со страницей — только запасной.
+   *
+   * Пока форма жила файлом, человек на витрине и агент через MCP видели разное: у агента
+   * подтем не было вовсе. Теперь они лежат в базе (миграция 035), и страница спрашивает их
+   * тем же вызовом, каким спросил бы агент, — library_tree. Файл остаётся ровно на случай,
+   * когда службы нет: тогда витрина честно говорит «снимок» и рисует последнее известное.
+   *
+   * Идентификаторы статей служба отдаёт целиком, а снимок библиотеки на странице хранит
+   * первые восемь знаков. Укорачиваем, иначе дерево ссылается на статьи, которых на
+   * странице «нет».
+   */
+  async function treeFromService(){
+    const answer=await proxyFetch(`${PROXY}/tool?name=library_tree&args=${
+      encodeURIComponent(JSON.stringify({full:true}))}`,{cache:"no-store"});
+    if(!answer.ok)throw new Error(`служба ответила ${answer.status}`);
+    const payload=await answer.json();
+    if(!Array.isArray(payload.sections))throw new Error("служба вернула не дерево");
+    const short=id=>String(id).slice(0,8);
+    const folders=[],sections=[];
+    for(const section of payload.sections){
+      sections.push({name:section.slug,abstract:section.abstract,
+        folders:(section.folders||[]).map(f=>f.folder)});
+      for(const folder of section.folders||[]){
+        folders.push({
+          f:folder.folder,a:folder.abstract,
+          sub:(folder.subtopic_list||[]).map(t=>
+            ({slug:t.slug,t:t.title,a:t.abstract,p:(t.papers||[]).map(short)})),
+          rest:(folder.papers_outside_subtopics||[]).map(short),
+        });
+      }
+    }
+    return {...tree,sections,folders};
+  }
   const themeAbstract={};for(const x of tree.themes||[])themeAbstract[x.code]=x.a;
   const dirOf={};for(const d of tree.directions||[])for(const raw of d.raw||[])dirOf[raw]=d;
   const isTheme=r=>(r.f||[]).some(f=>f[0]==="род"&&f[1]==="theme");
@@ -962,91 +1078,38 @@
   // Единый индекс: узлы дерева, записи базы и статьи в одной коллекции, ранжирование BM25.
   // Пока индекс не построен, витрина работает по-старому — это лишь на случай, если файл
   // ядра не загрузился.
-  const searchIndex=(window.LabSearch&&window.LAB_TREE)
+  let searchIndex=(window.LabSearch&&window.LAB_TREE)
     ? window.LabSearch.build({tree,base,lib}) : null;
 
-  // Кто есть кто в выдаче индекса: узел это то, чем начинают, запись — то, чем отвечают.
+  /* Подменить дерево на то, что отдала служба, и пересобрать всё, что от него зависит.
+   *
+   * Собирается заново индекс поиска и два указателя, по которым страница открывает узлы.
+   * Делается один раз при заходе на раздел MCP: дерево меняется редко, а лишний вызов на
+   * каждое действие стоил бы секунды на пустом месте.
+   */
+  let treeIsLive=false;
+  async function adoptServiceTree(){
+    if(treeIsLive)return true;
+    try{
+      const fresh=await treeFromService();
+      tree.sections=fresh.sections;tree.folders=fresh.folders;
+      treeFolders={};for(const f of tree.folders)treeFolders[f.f]=f;
+      treeSections={};for(const x of tree.sections)treeSections[x.name]=x;
+      if(window.LabSearch)searchIndex=window.LabSearch.build({tree,base,lib});
+      treeIsLive=true;
+      return true;
+    }catch(error){
+      // Службы нет — работаем по снимку, и плашка об этом уже говорит. Молчать нельзя,
+      // но и ломать страницу из-за дерева тоже: поиск по записям от него не зависит.
+      console.warn("дерево библиотеки взято из снимка:",error.message);
+      return false;
+    }
+  }
+
+  // Кто есть кто в выдаче локального индекса. Нужно только запасной ветке по снимку: она
+  // берёт узлы как контекст запроса, а отвечает записями. К развилке «карта или записи»
+  // отношения не имеет — та живёт в службе.
   const NODE_KINDS=new Set(["section","folder","subtopic","direction","theme","project"]);
-
-  function mapMatches(q){
-    if(searchIndex)return mapMatchesRanked(q);
-    return mapMatchesLegacy(q);
-  }
-
-  // Узлы из общего ранжирования. Сюда попадает то, что индекс сам поставил высоко, а не то,
-  // что совпало по подстроке в названии: раньше именно это давало «Отбор студентов в
-  // лабораторию» на запрос про дообучение.
-  function mapMatchesRanked(q){
-    const found=searchIndex.search(q,60);
-    const folders=[],subtopics=[],directions=[],projects=[],themes=[];
-    const byFolder={};for(const f of tree.folders||[])byFolder[f.f]=f;
-    for(const item of found){
-      if(!NODE_KINDS.has(item.kind))continue;
-      const hit=item.score;
-      if(item.kind==="folder"&&byFolder[item.id])folders.push({node:byFolder[item.id],hit});
-      else if(item.kind==="subtopic"){
-        const [folder,slug]=String(item.id).split("|");
-        const parent=byFolder[folder];
-        const topic=(parent?.sub||[]).find(t=>t.slug===slug);
-        if(parent&&topic)subtopics.push({folder:parent,node:topic,hit});
-      }
-      else if(item.kind==="direction"){
-        const node=(tree.directions||[]).find(d=>d.slug===item.id);
-        if(node)directions.push({node,hit});
-      }
-      else if(item.kind==="project"||item.kind==="theme"){
-        const node=byCode[item.id];
-        if(node)(item.kind==="theme"?themes:projects).push({node,hit});
-      }
-    }
-    // Двадцать восемь узлов на один запрос человек не читает: после первой трети идёт хвост,
-    // где оценка вдвое ниже лучшей и узел уже про другое. Режем по доле от лучшего, как и
-    // записи, и только потом применяем потолки по родам.
-    const all=[...folders,...subtopics,...directions,...projects,...themes];
-    const best=all.reduce((n,x)=>Math.max(n,x.hit),0);
-    const keep=(xs,n)=>{const strong=xs.filter(x=>x.hit>=best*0.45);
-      return (strong.length?strong:xs.slice(0,1)).slice(0,n)};
-    return {folders:keep(folders,4),subtopics:keep(subtopics,6),
-            directions:keep(directions,3),projects:keep(projects,5),
-            themes:keep(themes,4)};
-  }
-
-  function mapMatchesLegacy(q){
-    const folders=[],subtopics=[],directions=[],projects=[];
-    for(const f of tree.folders||[]){
-      const hit=Math.max(nodeHit(f.f,q),nodeHit(f.f.split("/").pop().replace(/_/g," "),q),
-                         nodeHitDeep(f.f,f.a,q));
-      if(hit)folders.push({node:f,hit});
-      for(const t of f.sub||[]){
-        const th=Math.max(nodeHit(t.t,q),nodeHit(t.slug.replace(/-/g," "),q),
-                          nodeHitDeep(t.t,t.a,q));
-        if(th)subtopics.push({folder:f,node:t,hit:th});
-      }
-    }
-    for(const d of tree.directions||[]){
-      const hit=Math.max(nodeHit(d.t,q),nodeHit(d.slug.replace(/-/g," "),q),
-                         nodeHitDeep(d.t,d.a,q));
-      if(hit)directions.push({node:d,hit});
-    }
-    const themes=[];
-    for(const r of base.records||[]){
-      if(r.k!=="project")continue;
-      // У темы в базе вместо описания машинная склейка вида «Тема объединяет 3 работ…», и
-      // искать по ней бессмысленно: «Отбор студентов в лабораторию» всплывал на запрос про
-      // дообучение. Для темы берём написанную аннотацию, для проекта — его сводку, она живая.
-      const text=isTheme(r)?(themeAbstract[r.code]||""):(r.s||"");
-      const hit=Math.max(nodeHit(r.t,q),nodeHit(r.code,q),nodeHit(r.pn,q),
-                         nodeHitDeep(r.t,text,q));
-      if(!hit)continue;
-      // Тема и проект лежат в одной таблице, но это разные вещи: тема объединяет проекты,
-      // а работу ведут в проекте. На витрине они не должны стоять в одном списке.
-      (isTheme(r)?themes:projects).push({node:r,hit});
-    }
-    const rank=(a,b)=>b.hit-a.hit;
-    return {folders:folders.sort(rank).slice(0,6),subtopics:subtopics.sort(rank).slice(0,8),
-            directions:directions.sort(rank).slice(0,4),projects:projects.sort(rank).slice(0,8),
-            themes:themes.sort(rank).slice(0,6)};
-  }
 
   // Широкий ли запрос. Вопрос («нужен ли прогрев», «когда выигрывает Muon») спрашивают у
   // службы: там ответ — утверждение. Имя темы («Muon», «lora_base») спрашивают у карты.
@@ -1054,140 +1117,7 @@
   // Поэтому регулярка с \b(ли|почему|…)\b на русский вопрос не срабатывала вообще, и
   // «нужен ли прогрев» уходило в карту темы вместо службы. Сравниваем по словам, а не
   // регуляркой с границами.
-  const ASK_WORDS=new Set(["ли","почему","зачем","когда","как","какой","какая","какие","каких",
-    "что","чем","чему","где","куда","кто","нужен","нужна","нужно","нужны","можно","стоит",
-    "работает","помогает","выигрывает","лучше","хуже","влияет","зависит","сравнение","против",
-    "why","how","when","what","which","does","do","is","are","works","better","worse","vs"]);
-  // Владелец спросил «какие есть направления в дообучении» и получил три несвязанных записи:
-  // слово «какие» считалось признаком вопроса, и витрина шла искать утверждения. Но человек
-  // спрашивал про устройство базы, а не про отдельную запись. Эти слова сильнее вопросительных.
-  // Показывать карту или сразу записи — это больше не решает список слов. Решает сама выдача:
-  // индекс ранжирует узлы и записи вместе, и если наверху оказались узлы, значит человек
-  // спросил про область, а не про факт. Раньше здесь стояла цепочка условий про
-  // вопросительные слова, и каждый новый случай требовал ещё одного условия.
-  function isBroad(q){
-    if(!q.trim())return false;
-    if(!searchIndex){
-      const words=(q.toLowerCase().match(/[a-zа-яё0-9_-]+/g)||[]);
-      if(words.some(w=>MAP_WORDS.has(w)))return true;
-      if(q.includes("?")||words.some(w=>ASK_WORDS.has(w))||words.length>4)return false;
-      const m=mapMatchesLegacy(q);
-      return !!(m.folders.length||m.subtopics.length||m.directions.length||m.projects.length);
-    }
-    const top=searchIndex.search(q,6);
-    if(!top.length)return false;
-    const nodes=top.filter(x=>NODE_KINDS.has(x.kind)).length;
-    // Половина верхушки — узлы: значит запрос про область. Порог проверен набором из
-    // тридцати восьми запросов, tests/test_search.mjs.
-    return nodes>=Math.ceil(top.length/2);
-  }
-
-  function mapPage(q){
-    const m=mapMatches(q);
-    const parts=[];
-    // Владелец: «где мой список тем по мюону? че за хуйня вылезает?» — на запрос «muon»
-    // подраздел библиотеки с шестью подтемами стоял ниже шести проектов, за тремя тысячами
-    // пикселей прокрутки, и его просто не было видно.
-    //
-    // Раньше своя работа шла первой всегда. Но «muon» — точное имя подраздела и лишь
-    // вхождение в названия проектов, а точное совпадение сильнее. Теперь порядок задаёт
-    // сила совпадения, и только при равной силе проекты идут первыми.
-    const strength=xs=>xs.reduce((n,x)=>Math.max(n,x.hit),0);
-    const groups=[];
-    if(m.projects.length)groups.push({rank:strength(m.projects),own:0,
-      html:`<section class="map-group is-lead"><p class="overline">Проекты лаборатории</p>${
-        m.projects.map(({node})=>projectTeaser(node)).join("")}</section>`});
-    if(m.themes.length)groups.push({rank:strength(m.themes),own:1,
-      html:`<section class="map-group"><p class="overline">Темы лаборатории</p>${
-        m.themes.map(({node})=>themeTeaser(node)).join("")}</section>`});
-    if(m.folders.length||m.subtopics.length){
-      const rows=m.folders.map(({node})=>{
-        const st=folderStats(node.f);
-        const subs=(node.sub||[]).map(t=>
-          `<button type="button" data-open-subtopic="${esc(node.f)}|${esc(t.slug)}">${esc(t.t)}<span>${esc(String(t.p.length))}</span></button>`).join("");
-        return `<article class="map-node">
-          <header><span class="map-node-kind">подраздел библиотеки</span>
-            <code>${esc(node.f)}</code>
-            <span class="map-node-count">${esc(String(st.papers))} статей · ${esc(String(st.claims))} утверждений</span></header>
-          <p class="map-node-abstract">${esc(unmark(node.a||""))}</p>
-          ${subs?`<div class="map-node-subs"><b>Подтемы</b>${subs}</div>`:""}
-          <div class="map-node-go"><button type="button" data-open-folder="${esc(node.f)}">Открыть все статьи подраздела →</button></div>
-        </article>`}).join("");
-      const loose=m.subtopics.filter(x=>!m.folders.some(f=>f.node.f===x.folder.f)).map(({folder,node})=>
-        `<article class="map-node is-sub">
-          <header><span class="map-node-kind">подтема</span>
-            <code>${esc(folder.f)}</code>
-            <span class="map-node-count">${esc(String(node.p.length))} статей</span></header>
-          <h3>${esc(node.t)}</h3>
-          <p class="map-node-abstract">${esc(unmark(node.a||""))}</p>
-          <div class="map-node-go"><button type="button" data-open-subtopic="${esc(folder.f)}|${esc(node.slug)}">Открыть подтему →</button></div>
-        </article>`).join("");
-      groups.push({rank:Math.max(strength(m.folders),strength(m.subtopics)),own:2,
-        html:`<section class="map-group"><p class="overline">Разделы библиотеки</p>${rows}${loose}</section>`});
-    }
-    if(m.directions.length){
-      parts.push(`<section class="map-group"><p class="overline">Научные направления лаборатории</p>${
-        m.directions.map(({node})=>{
-          const projects=(base.records||[]).filter(r=>r.k==="project"&&
-            (r.f||[]).some(f=>f[0]==="направление"&&(node.raw||[]).includes(f[1])));
-          const list=projects.slice(0,10).map(p=>
-            `<button type="button" data-open-record="${esc(p.code)}">${esc(p.t)}<span>${esc(String((p.hy||[]).length))}</span></button>`).join("");
-          return `<article class="map-node is-dir">
-            <header><span class="map-node-kind">направление</span>
-              <span class="map-node-count">${esc(String(projects.length))} проектов</span></header>
-            <h3>${esc(node.t)}</h3>
-            <p class="map-node-abstract">${esc(unmark(node.a||""))}</p>
-            ${list?`<div class="map-node-subs"><b>Проекты</b>${list}</div>`:""}
-          </article>`}).join("")}</section>`);
-    }
-    // Сильное совпадение выше слабого: «muon» — точное имя подраздела и лишь вхождение в
-    // названия проектов. При равной силе своя работа идёт первой.
-    groups.sort((a,b)=>b.rank-a.rank||a.own-b.own);
-    const body=[...groups.map(g=>g.html),...parts].join("");
-    // Если по теме в карте ничего нет, отвечать «в карте базы такой темы нет» — тупик:
-    // человек спросил, а витрина не поискала. Возвращаем пусто, и вызывающий уходит в поиск.
-    if(!body)return "";
-    return `<div class="map-answer">
-      <div class="map-head">
-        <p class="map-lead"><b>«${esc(q.trim())}»</b> — это тема, а не вопрос, поэтому вот что по ней есть в базе. Начните с аннотации, а за отдельными утверждениями идите внутрь.</p>
-        <button class="map-force" type="button" data-force-ask="${esc(q.trim())}">Всё равно спросить утверждения у службы →</button>
-      </div>
-      ${mapIndex(m,q)}
-      ${body}</div>`;
-  }
-
-  // Оглавление ответа. Владелец искал «muon» и не нашёл список подтем: подраздел с шестью
-  // подтемами стоял ниже шести проектов, за 3300 пикселями прокрутки. Оглавление ставит то,
-  // ради чего задан широкий запрос, на первый экран: сколько чего нашлось и сразу — сами
-  // подтемы, потому что это и есть ответ на вопрос «что тут есть по этой теме».
-  function mapIndex(m,q=""){
-    const counts=[];
-    if(m.projects.length)counts.push(`<b>${esc(String(m.projects.length))}</b> ${esc(plural(m.projects.length,["проект","проекта","проектов"]))}`);
-    if(m.themes.length)counts.push(`<b>${esc(String(m.themes.length))}</b> ${esc(plural(m.themes.length,["тема","темы","тем"]))}`);
-    if(m.folders.length)counts.push(`<b>${esc(String(m.folders.length))}</b> ${esc(plural(m.folders.length,["подраздел","подраздела","подразделов"]))}`);
-    if(m.directions.length)counts.push(`<b>${esc(String(m.directions.length))}</b> ${esc(plural(m.directions.length,["направление","направления","направлений"]))}`);
-    // Подтемы найденных подразделов плюс подтемы, совпавшие сами: это тот самый список,
-    // который человек и хочет увидеть по имени темы.
-    const seen=new Set(),topics=[];
-    for(const {node} of m.folders)
-      for(const t of node.sub||[]){const key=node.f+"|"+t.slug;
-        if(!seen.has(key)){seen.add(key);topics.push({folder:node.f,topic:t})}}
-    for(const {folder,node} of m.subtopics){const key=folder.f+"|"+node.slug;
-      if(!seen.has(key)){seen.add(key);topics.push({folder:folder.f,topic:node})}}
-    if(!counts.length&&!topics.length)return "";
-    return `<div class="map-index">
-      ${counts.length?`<p class="map-index-counts">${counts.join(" · ")}</p>`:""}
-      ${topics.length?`<div class="map-index-topics">
-        <p class="overline">Темы по запросу${
-          new Set(topics.map(t=>t.folder)).size===1?` · ${esc(topics[0].folder)}`:""}</p>
-        <ol>${topics.map(({folder,topic})=>`<li><button type="button" data-open-subtopic="${esc(folder)}|${esc(topic.slug)}">
-          <strong>${esc(topic.t)}</strong><span>${
-          new Set(topics.map(t=>t.folder)).size===1?"":esc(folder.split("/").pop().replace(/_/g," "))+" · "
-        }${esc(String(topic.p.length))} ${esc(plural(topic.p.length,["статья","статьи","статей"]))}</span>
-          <em>${esc(shorten(unmark(topic.a||""),150))}</em></button></li>`).join("")}</ol>
-      </div>`:""}
-    </div>`;
-  }
+  //
 
   // Проект в списке: аннотация и состав сразу, без перехода. Владелец: «должна быть инфа,
   // кто над этим проектом работал, чтобы видно было и на сайте, и агенту».
@@ -1241,7 +1171,16 @@
     derivation:["выкладка","выкладки","выкладок"],
     decision:["решение","решения","решений"],
     project:["проект","проекта","проектов"],
-    paper:["статья","статьи","статей"]};
+    paper:["статья","статьи","статей"],
+    // Эти рода в ответ попадают редко, и без форм в сводке выходило «3 термин».
+    term:["термин","термина","терминов"],
+    journal:["запись журнала","записи журнала","записей журнала"],
+    resource:["ресурс","ресурса","ресурсов"],
+    library_folder:["подраздел библиотеки","подраздела библиотеки","подразделов библиотеки"],
+    library_subtopic:["подтема библиотеки","подтемы библиотеки","подтем библиотеки"],
+    source:["источник","источника","источников"],
+    source_ref:["источник","источника","источников"],
+    paper_chunk:["раздел статьи","раздела статьи","разделов статей"]};
   function plural(n,forms){
     if(!forms)return "";
     const a=Math.abs(n)%100,b=a%10;
@@ -1251,7 +1190,6 @@
     return forms[2];
   }
   const ANSWER_ORDER=["hypothesis","paper_claim","evidence","experiment","derivation","decision","project"];
-  const ANSWER_SOURCES=6;
 
   // Владелец: «логичнее было бы, чтобы в поиске выскакивал сразу проект или статья, с которой
   // находилось нужное утверждение, а не просто оно оторванное. Потому что сейчас выглядит
@@ -1266,40 +1204,61 @@
   // живого ответа не находил статью вообще, и авторы с аннотацией не подхватывались.
   const shortId=v=>String(v||"").slice(0,8);
   function answerSource(x){
-    if(x.entity_type==="paper_claim"){
-      const e=x.extra||{};
-      const whole=String(x.title||""),cut=whole.indexOf(" — ");
-      return {key:"paper:"+(shortId(e.paper_id)||whole),kind:"paper",id:shortId(e.paper_id),
+    const e=x.extra||{};
+    const whole=String(x.title||""),cut=whole.indexOf(" — ");
+    // Статья, её раздел и её утверждение — один источник: сама статья. Раньше витрина
+    // просила у службы только утверждения, поэтому статья попадала сюда исключительно
+    // через них. Теперь служба отдаёт и статью целиком, и её разделы, и они обязаны
+    // сойтись в одну карточку, а не встать тремя подряд.
+    if(x.entity_type==="paper"){
+      const id=shortId(x.entity_id);
+      return {key:"paper:"+(id||whole),kind:"paper",id,
+              title:whole,folder:e.library_folder||""};
+    }
+    if(x.entity_type==="paper_claim"||x.entity_type==="paper_chunk"){
+      const id=shortId(e.paper_id);
+      return {key:"paper:"+(id||(cut>0?whole.slice(0,cut):whole)),kind:"paper",id,
               title:cut>0?whole.slice(0,cut):whole,folder:e.library_folder||""};
     }
+    // Узлы библиотеки приходят от службы такими же ответами, как записи: развилки «карта
+    // или записи» на витрине больше нет, решает служба. Узел — сам себе источник.
+    if(x.entity_type==="library_folder")
+      return {key:"folder:"+whole,kind:"folder",id:whole,title:whole,folder:whole};
+    if(x.entity_type==="library_subtopic"){
+      const folder=e.library_folder||e.folder||"",slug=e.section||e.slug||"";
+      const snippet=String(x.snippet||"");
+      return {key:"subtopic:"+folder+"|"+(slug||whole),kind:"subtopic",
+              id:folder+"|"+slug,title:whole,folder,
+              abstract:snippet.startsWith(whole)?snippet.slice(whole.length).trim():snippet};
+    }
     const snap=snapById[String(x.entity_id||"").slice(0,8)];
+    if(x.entity_type==="project"){
+      const code=snap?.code||snap?.pj||"";
+      return {key:"project:"+(code||whole),kind:"project",id:code,title:whole,folder:""};
+    }
     if(snap?.pj)return {key:"project:"+snap.pj,kind:"project",id:snap.pj,
                         title:snap.pn||snap.pj,folder:""};
     return {key:"loose",kind:"loose",id:"",title:"Записи без проекта",folder:""};
   }
 
-  // Служба отдаёт двадцать записей, но отвечают на вопрос обычно первые пять-восемь: дальше
-  // идёт хвост, где оценка кросс-энкодера падает вдвое и запись уже про другое. Владелец,
-  // увидев такой хвост: «че за хуйня вылезает?» — и это справедливо, потому что на запрос
-  // про прогрев в ответе стояло «Метод устойчив к T/K».
-  //
-  // Поэтому ответ режется по самой оценке службы: то, что слабее половины лучшего, уходит
-  // под раскрытие. Порог относительный, потому что абсолютные значения у разных вопросов
-  // разные: на «прогрев» лучший 0.42, на «Muon» 0.47.
-  function splitByScore(items){
-    const scored=items.filter(x=>typeof x.score==="number");
-    if(scored.length<4)return [items,[]];
-    const best=Math.max(...scored.map(x=>x.score));
-    const floor=best*0.5;
-    const strong=items.filter(x=>typeof x.score!=="number"||x.score>=floor);
-    // Если порог срезал почти всё, значит выдача ровная и резать нечего.
-    if(strong.length<3)return [items,[]];
-    return [strong,items.filter(x=>!strong.includes(x))];
-  }
+  // Попал ли сам источник, или только что-то внутри него. Статья, найденная целиком, не
+  // должна выглядеть как статья, у которой «0 утверждений по запросу»: она и есть ответ.
+  const SELF_HIT=new Set(["paper","project","library_folder","library_subtopic"]);
 
+  /* Ответ витрины — ответ службы, без изъятий и без перестановок.
+   *
+   * Здесь стояли две собственные надстройки. Первая резала выдачу по оценке: всё слабее
+   * половины лучшего пряталось под раскрытие. Вторая сворачивала всё после шестого
+   * источника. Обе прятали, а не удаляли, и обе появились по делу — владелец про хвост
+   * выдачи: «че за хуйня вылезает?».
+   *
+   * Но это было решение витрины поверх решения кросс-энкодера, и у агента такого нет.
+   * Владелец: «проверь также что нет приколов типо фильтрация или что то в этом роде… прям
+   * убрать надо все! достало уже это». Убраны обе. Витрина показывает ровно то, что
+   * вернула служба, в том порядке, в каком она вернула. Сколько записей просить — это
+   * параметр вызова (`limit`), он виден в строке вызова и одинаков для человека и агента.
+   */
   function answerPage(items,q){
-    const [items_,weak]=splitByScore(items);
-    items=items_;
     const groups=[],index={};
     items.forEach((x,i)=>{
       const src=answerSource(x);
@@ -1310,55 +1269,83 @@
     const parts=[...ANSWER_ORDER.filter(k=>by[k]),...Object.keys(by).filter(k=>!ANSWER_ORDER.includes(k))];
     const tally=parts.map(k=>`<span><b>${esc(String(by[k].length))}</b> ${esc(plural(by[k].length,ANSWER_FORMS[k])||KIND[k]||k)}</span>`).join("");
     const ours=(by.hypothesis||[]).length+(by.evidence||[]).length+(by.experiment||[]).length;
-    const theirs=(by.paper_claim||[]).length;
+    const theirs=(by.paper_claim||[]).length+(by.paper||[]).length;
     const gist=ours&&theirs?`Отвечает и своя работа, и разобранные статьи.`
       :ours?`Отвечает своя работа: записи из прогонов и измерений.`
       :theirs?`В своей работе ответа нет — отвечают разобранные статьи.`:"";
     const head=`<div class="answer-head"><p class="answer-tally">${tally}</p>${gist?`<p class="answer-gist">${esc(gist)}</p>`:""}</div>`;
-    // Владелец: «проекты лаборатории… должны выделяться и быть важными». При прочих равных
-    // проект встаёт выше статьи, дальше — у кого больше попаданий, дальше — порядок службы.
-    groups.sort((a,b)=>
-      (a.src.kind==="project"?0:1)-(b.src.kind==="project"?0:1)
-      || b.items.length-a.items.length
-      || a.best-b.best);
-    const cards=groups.map(g=>sourceGroup(g,q));
-    // Хвост показываем отдельно и честно называем: это то, что служба поставила заметно
-    // ниже. Прятать его совсем нельзя — иногда нужное лежит именно там.
-    const weakBlock=weak.length
-      ? `<details class="answer-weak"><summary>Ещё ${esc(String(weak.length))} ${esc(plural(weak.length,["запись","записи","записей"]))}, которые служба поставила заметно ниже</summary>
-         <ol class="src-claims">${weak.map((x,i)=>claimRow(x,q,items.length+i+1)).join("")}</ol></details>`
-      : "";
-    if(cards.length<=ANSWER_SOURCES)return head+cards.join("")+weakBlock;
-    return head+cards.slice(0,ANSWER_SOURCES).join("")+
-      `<details class="answer-rest"><summary>Ещё ${esc(String(cards.length-ANSWER_SOURCES))} источников по порядку службы</summary>${cards.slice(ANSWER_SOURCES).join("")}</details>`+weakBlock;
+    // Порядок источников — порядок службы, и только он. Раньше здесь проект безусловно
+    // поднимался над статьёй: владелец просил, чтобы «проекты лаборатории выделялись». Но
+    // выделять надо видом, а не местом: подъём означал второе ранжирование поверх
+    // кросс-энкодера. Проект по-прежнему виден сразу — плашкой, кодом и составом, — но
+    // стоит там, куда его поставила служба.
+    groups.sort((a,b)=>a.best-b.best);
+    return head+groups.map(g=>sourceGroup(g,q)).join("");
   }
 
   // Источник и его утверждения. Аннотация стоит сразу: владелец «сделай так, чтобы в
   // выпадающем проекте (статье) писалось еще и аннотация его».
+  const SRC_KIND={project:"проект лаборатории",paper:"статья",
+    folder:"подраздел библиотеки",subtopic:"подтема библиотеки",loose:"без источника"};
+
   function sourceGroup(group,q){
     const {src,items}=group;
     const snap=src.kind==="project"?byCode[src.id]:null;
     const paper=src.kind==="paper"?papersById[src.id]:null;
-    const abstract=unmark(src.kind==="project"?(snap?.s||""):shorten(paper?.sr||paper?.s||paper?.ab||"",320));
+    const node=src.kind==="folder"?treeFolders[src.id]:null;
+    const [subFolder,subSlug]=src.kind==="subtopic"?String(src.id).split("|"):[];
+    const topic=src.kind==="subtopic"
+      ? ((treeFolders[subFolder]?.sub)||[]).find(t=>t.slug===subSlug) : null;
+    // Родные записи источника показываем только тогда, когда сам источник и есть ответ:
+    // подраздел раскрывается подтемами, подтема — своими статьями. Это тот самый спуск,
+    // ради которого раньше держали отдельную карту, только теперь его открывает служба.
+    const children=src.kind==="folder"
+      ? (node?.sub||[]).map(t=>`<button type="button" data-open-subtopic="${esc(src.id)}|${esc(t.slug)}">${esc(t.t)}<span>${esc(String(t.p.length))}</span></button>`).join("")
+      : src.kind==="subtopic"
+      ? (topic?.p||[]).map(id=>papersById[id]).filter(Boolean)
+          .sort((a,b)=>(b.c||[]).length-(a.c||[]).length).slice(0,8)
+          .map(p=>`<button type="button" data-open-paper="${esc(p.id)}">${esc(p.t)}${p.y?`<span>${esc(String(p.y))}</span>`:""}</button>`).join("")
+      : "";
+    const abstract=unmark(
+      src.kind==="project"?(snap?.s||"")
+      :src.kind==="folder"?shorten(node?.a||"",320)
+      :src.kind==="subtopic"?shorten(topic?.a||src.abstract||"",320)
+      :shorten(paper?.sr||paper?.s||paper?.ab||"",320));
     const who=snap?.who||{};
     const team=[...(who.leads||[]),...(who.members||[])];
     const meta=src.kind==="project"
       ? [snap?.st,(snap?.f||[]).find(f=>f[0]==="направление")?.[1]].filter(Boolean).join(" · ")
+      : src.kind==="folder"
+      ? `${(node?.sub||[]).length} подтем`
+      : src.kind==="subtopic"
+      ? [subFolder,topic?`${(topic.p||[]).length} ${plural((topic.p||[]).length,["статья","статьи","статей"])}`:""].filter(Boolean).join(" · ")
       : [paper?.au?authorLine(paper.au):"",paper?.y,src.folder].filter(Boolean).join(" · ");
     const open=src.kind==="project"
       ? `<button type="button" data-open-record="${esc(src.id)}">Открыть проект: аннотация, все утверждения, терминология →</button>`
-      : src.id?`<button type="button" data-open-paper="${esc(src.id)}">Открыть статью: аннотация и все её утверждения →</button>`:"";
+      : src.kind==="folder"
+      ? `<button type="button" data-open-folder="${esc(src.id)}">Открыть подраздел: все статьи по подтемам →</button>`
+      : src.kind==="subtopic"&&topic
+      ? `<button type="button" data-open-subtopic="${esc(subFolder)}|${esc(subSlug)}">Открыть подтему: все её статьи →</button>`
+      : src.kind==="paper"&&src.id
+      ? `<button type="button" data-open-paper="${esc(src.id)}">Открыть статью: аннотация и все её утверждения →</button>`:"";
+    // Строки утверждений — только те, что не сам источник: карточка статьи, найденной
+    // целиком, не должна показывать саму себя ещё и строкой внутри себя.
+    const rows=items.filter(({item})=>!SELF_HIT.has(item.entity_type));
+    const count=rows.length
+      ? `${rows.length} ${plural(rows.length,["утверждение по запросу","утверждения по запросу","утверждений по запросу"])}`
+      : "нашлось целиком";
     return `<article class="src-group is-${esc(src.kind)}">
       <header>
-        <span class="src-kind">${esc(src.kind==="project"?"проект лаборатории":src.kind==="paper"?"статья":"без источника")}</span>
+        <span class="src-kind">${esc(SRC_KIND[src.kind]||src.kind)}</span>
         ${src.kind==="project"&&src.id?`<code>${esc(src.id)}</code>`:""}
-        <span class="src-count">${esc(String(items.length))} ${esc(plural(items.length,["утверждение по запросу","утверждения по запросу","утверждений по запросу"]))}</span>
+        <span class="src-count">${esc(count)}</span>
       </header>
       <h3>${esc(src.title||"")}</h3>
       ${meta?`<p class="src-meta">${esc(meta)}</p>`:""}
       ${abstract?`<p class="src-abstract">${esc(abstract)}</p>`:""}
       ${team.length?`<p class="src-team"><b>${esc(who.leads?.length?"Ведёт":"Работали")}</b> ${esc((who.leads||[]).join(", "))}${who.members?.length?` · <b>с</b> ${esc((who.members||[]).join(", "))}`:""}</p>`:""}
-      <ol class="src-claims">${items.map(({item,place})=>claimRow(item,q,place)).join("")}</ol>
+      ${children?`<div class="src-children">${children}</div>`:""}
+      ${rows.length?`<ol class="src-claims">${rows.map(({item,place})=>claimRow(item,q,place)).join("")}</ol>`:""}
       ${open?`<div class="src-go">${open}</div>`:""}
     </article>`;
   }
@@ -1469,10 +1456,30 @@
     const terms=(base.terms||[]).slice(0,40).map(t=>
       `<button type="button" data-open-term="${esc(t.t)}">${esc(t.t.replace(/_/g," "))}<span>${esc(String(t.n))}</span></button>`).join("");
     const subtopics=(tree.folders||[]).reduce((n,f)=>n+(f.sub||[]).length,0);
-    return `<details class="mcp-browse" id="mcp-browse"><summary>Смотреть по разделам, не спрашивая <span>${esc(String((tree.directions||[]).length))} направлений · ${esc(String((tree.sections||[]).length))} разделов · ${esc(String((lib.folders||[]).length))} подразделов · ${esc(String(subtopics))} подтем</span></summary>
+    return `<details class="mcp-browse" id="mcp-browse"><summary>Смотреть по разделам, не спрашивая <span>${esc(String((tree.directions||[]).length))} направлений · ${esc(String((tree.sections||[]).length))} разделов · ${esc(String((tree.folders||[]).length))} подразделов · ${esc(String(subtopics))} подтем</span></summary>
       <section><b>Направления лаборатории</b><p>Своя работа: направление объединяет темы, тема — проекты, у проекта свои утверждения, состав и терминология.</p><div class="browse-tree">${dirs}</div></section>
       <section><b>Разделы библиотеки</b><p>Чужие работы в вашей же раскладке. Большие подразделы разбиты на подтемы, у каждого узла аннотация.</p><div class="browse-tree">${sections}</div></section>
       <section><b>Термины</b><p>Поперечная ось: сколько раз термин встречается в утверждениях статей, наших утверждениях и измерениях.</p><div class="mcp-chips is-terms">${terms}</div></section></details>`;
+  }
+
+  /* Перерисовать обзор, когда дерево пришло от службы.
+   *
+   * Обзор рисуется сразу по снимку: ждать ответа службы с пустой страницей хуже, чем
+   * секунду показывать последнее известное. Когда ответ пришёл, узлы могли уже раскрыть
+   * руками, поэтому раскрытое запоминаем по подписи и возвращаем как было.
+   */
+  function redrawBrowse(){
+    const old=$("mcp-browse");
+    if(!old)return;
+    const wasOpen=old.open;
+    const opened=new Set([...old.querySelectorAll("details[open]")]
+      .map(d=>d.querySelector("summary b")?.textContent||"").filter(Boolean));
+    old.outerHTML=browseBlock();
+    const fresh=$("mcp-browse");
+    fresh.open=wasOpen;
+    if(opened.size)fresh.querySelectorAll("details").forEach(d=>{
+      if(opened.has(d.querySelector("summary b")?.textContent||""))d.open=true});
+    bindResults(fresh);
   }
 
   // Карточка статьи: аннотация и все её утверждения по родам. Владелец: «я должен мочь
@@ -1713,7 +1720,8 @@
   // здесь их можно вызвать руками и увидеть сырой ответ, ровно как его видит агент.
   let agentTools=[];
   async function loadAgentTools(){
-    try{const r=await fetch(`${PROXY}/tools`,{cache:"no-store"});agentTools=(await r.json()).tools||[]}
+    if(demo)return;
+    try{const r=await proxyFetch(`${PROXY}/tools`,{cache:"no-store"});agentTools=(await r.json()).tools||[]}
     catch{agentTools=[]}
     const box=$("mcp-agent-tools");
     if(box)box.innerHTML=agentTools.length
@@ -1724,18 +1732,18 @@
     const out=$("mcp-agent-out");if(out)out.textContent="спрашиваю службу…";
     try{
       const url=`${PROXY}/tool?name=${encodeURIComponent(name)}&args=${encodeURIComponent(args)}`;
-      const r=await fetch(url,{cache:"no-store"});
+      const r=await proxyFetch(url,{cache:"no-store"});
       const data=await r.json();
       if(out)out.textContent=JSON.stringify(data,null,1).slice(0,20000);
     }catch(error){if(out)out.textContent=String(error)}
   }
   function syncLiveBadge(){
     const badge=$("mcp-live-badge");if(!badge)return;
-    badge.className=`mcp-live-badge ${liveOk?"is-live":"is-snapshot"}`;
+    badge.className=`mcp-live-badge ${!demo&&liveOk?"is-live":"is-snapshot"}`;
     // В публичной сборке живой службы нет и быть не может: там выдуманная лаборатория.
     // Предлагать поднять прокси к чужому серверу нечестно, поэтому текст другой.
-    badge.innerHTML=liveOk
-      ? `<b>живая служба</b><span>тот же вызов, что делают агенты лаборатории: lab-knowledge на brain_lab, порядок задаёт кросс-энкодер</span>`
+    badge.innerHTML=!demo&&liveOk
+      ? `<b>живая служба</b><span>Поиск по смыслу. Тот же ответ и порядок, что получают агенты.</span>`
       : demo
       ? `<b>показательная сборка</b><span>${esc(demo.lab||"выдуманная лаборатория")}: одно направление, один проект, восемь статей. Данные выдуманы, живой службы здесь нет. У себя ставите ту же витрину на свою базу и получаете эту страницу на своих записях.</span>`
       // Раньше здесь стояло «Поднять: python3 scripts/mcp-proxy.py». Это требование к
@@ -1755,7 +1763,7 @@
     const both=hyp.filter(r=>r.sup==="proof_and_numbers").length;
     const open=hyp.filter(r=>r.sup==="open").length;
     const count=k=>(base.records||[]).filter(r=>r.k===k).length;
-    return `<section class="tally" aria-label="Что лежит в общей базе">
+    return `<section class="tally" aria-label="Состав снимка базы"><p class="tally-caption">В доступном снимке базы</p>
       <div class="tally-row">
         <div class="is-their"><b>${esc(String((lib.papers||[]).length))}</b><span>статей разобрано</span></div>
         <div class="is-their"><b>${esc(String(claims))}</b><span>утверждений из статей</span></div>
@@ -1765,7 +1773,7 @@
         <div class="is-our"><b>${esc(String(count("derivation")))}</b><span>доказательств</span></div>
       </div>
       <p class="tally-note"><b class="is-our">${esc(String(both))}</b> утверждений закрыты и выкладкой, и числами.
-        Всё, что ниже, читает ту же базу, что и агенты лаборатории.</p>
+        ${demo?"Это выдуманные учебные записи, а не результаты лаборатории.":"Всё, что ниже, читает ту же базу, что и агенты лаборатории."}</p>
       ${openBlock(hyp)}
     </section>`;
   }
@@ -1810,7 +1818,6 @@
   // Публичная сборка витрины показывает выдуманную лабораторию, поэтому вопросы-примеры и
   // код записи в форме берутся из её данных: иначе демонстрация предлагает спросить про
   // Muon у базы, в которой Muon нет, и выглядит сломанной.
-  const demo=window.LAB_DEMO||null;
   const WAY_QUESTIONS=demo?.hints||["нужен ли прогрев и когда он помогает","когда выигрывает Muon",
     "что мы знаем про квантование по кривизне","где метод не сработал"];
   const CODE_EXAMPLE=demo?.code||"H-WBD-001";
@@ -1826,28 +1833,28 @@
     const most=Math.max(1,...areas.map(a=>a.n));
     const recent=(base.records||[]).filter(r=>r.k==="hypothesis"&&r.code&&r.sup==="proof_and_numbers").slice(0,4);
     return `<div class="ways">
-      <section class="way"><span>Один вопрос</span>
-        <h3>Спросить словами</h3>
-        <p>Служба считает вектор вопроса и переранжирует ответ кросс-энкодером. Отвечают утверждения и измерения, а не список статей. Ответ идёт 6-14 секунд, поэтому вопрос отправляется по «Спросить», а не на каждую букву.</p>
+      <section class="way way-search"><span>Поиск по общей базе</span>
+        <h3>Что хотите узнать?</h3>
+        <p>${demo?"Поиск по словам в учебном наборе. Вопрос остаётся в браузере, подключение к MCP не используется.":"Задайте вопрос своими словами. В ответе — утверждения, результаты и их источники."}</p>
         <div class="way-body">
           <form class="way-form" id="mcp-search-form" role="search">
             <label class="sr-only" for="mcp-search-input">Вопрос к общей базе</label>
-            <input id="mcp-search-input" type="search" autocomplete="off" placeholder="нужен ли прогрев">
+            <input id="mcp-search-input" type="search" autocomplete="off" placeholder="Например, когда помогает прогрев?">
             <button type="submit">Спросить</button></form>
           <div class="way-examples">${WAY_QUESTIONS.map(q=>`<button type="button" data-way-ask="${esc(q)}">${esc(q)}</button>`).join("")}</div>
         </div></section>
 
-      <section class="way"><span>Целая область</span>
-        <h3>Изучить раздел</h3>
-        <p>У раздела есть аннотация, внутри подразделы, у больших подразделов — подтемы. Так до статьи можно дойти, не спрашивая, а у каждой статьи её разобранные утверждения с дословными цитатами.</p>
+      <section class="way way-explore"><span>От общего к частному</span>
+        <h3>Пройти по темам</h3>
+        <p>Раздел → подтема → статья → утверждения.</p>
         <div class="way-body"><div class="way-areas">
           ${areas.map(a=>`<button class="way-area" type="button" data-open-section="${esc(a.name)}">
             <span>${esc(a.name)}</span><i style="width:${Math.round(a.n/most*100)}%"></i><em>${esc(String(a.n))}</em></button>`).join("")}
         </div></div></section>
 
-      <section class="way"><span>Одна запись</span>
+      <section class="way way-record"><span>Есть ссылка или код?</span>
         <h3>Открыть по коду</h3>
-        <p>У каждой записи есть код и постоянная ссылка. По ней видно все поля, чем утверждение закрыто и с чем связано в базе.</p>
+        <p>Откройте запись, её основания и связи.</p>
         <div class="way-body">
           <form class="way-code" id="mcp-code-form">
             <label class="sr-only" for="mcp-code-input">Код записи</label>
@@ -1862,27 +1869,27 @@
     hidePrimaryViews();active("mcp-live");
     const view=$("mcp-live-view");
     view.hidden=false;
-    view.innerHTML=`<div class="special-shell mcp-page">
-      <header class="mcp-hero"><p>Живая служба · ${esc(m.verifiedAt)}</p><h1>Спросите общую базу</h1>
-        <strong>Общая память лаборатории: что уже проверяли, чем это закончилось и на какие чужие работы опирались. Спросите словами, откройте целую область или одну запись по коду. Отвечает та же служба, которой пользуются агенты, и порядок задаёт кросс-энкодер, а не совпадение слов.</strong>
+    view.innerHTML=`<div class="special-shell mcp-page knowledge-workspace">
+      <header class="mcp-hero"><p>${demo?"Учебная база":"Lab Knowledge · BRAIn Lab"}</p><h1>Спросите лабораторию<span aria-hidden="true">.</span></h1>
+        <strong>${demo?"Выдуманный проект и восемь учебных статей. Посмотрите связи между записями, откройте область или найдите запись по коду.":"Что уже проверяли, чем это закончилось и на какие работы опирались."}</strong>
         ${sourceButtons(m.links)}</header>
       <div class="mcp-live-badge" id="mcp-live-badge"></div>
-      ${tallyBlock()}
       ${waysBlock()}
       <output id="mcp-found" class="mcp-found"></output>
       <div id="mcp-call-line"></div>
       <div id="mcp-results"></div>
+      ${tallyBlock()}
       ${browseBlock()}
-      ${mcpPipeline()}
-      <details class="for-agents" id="mcp-agent"><summary>Для агентов: те же 17 читающих вызовов службы</summary>
+      ${demo?'':mcpPipeline()}
+      ${demo?'':`<details class="for-agents" id="mcp-agent"><summary>Для агентов: те же 17 читающих вызовов службы</summary>
         <p>Человеку это не нужно: выше то же самое обычными словами. Ничего не меняют, писать со страницы нельзя.</p>
-        <p class="agent-map">Карта базы, по которой построена навигация выше — разделы, подразделы, подтемы, направления и их аннотации — лежит рядом файлом: <code>docs/lab-atlas/data/atlas-tree.json</code>. Агенту она отвечает на тот же вопрос, что человеку: с чего начинать, если запрос широкий.</p>
+        <p class="agent-map">Карта базы, по которой построена навигация выше — разделы, подразделы, подтемы и их аннотации — приходит из самой службы: <code>library_tree</code>, с <code>full: true</code> ещё и подтемы со статьями. Агенту она отвечает на тот же вопрос, что человеку: с чего начинать, если запрос широкий.</p>
         <div class="mcp-chips" id="mcp-agent-tools"></div>
         <form class="agent-form" id="mcp-agent-form">
           <label>вызов<input id="mcp-agent-name" value="list_themes" autocomplete="off"></label>
           <label>аргументы<input id="mcp-agent-args" value="{}" autocomplete="off"></label>
           <button type="submit">Вызвать</button></form>
-        <pre class="agent-out" id="mcp-agent-out">Ответ появится здесь.</pre></details>
+        <pre class="agent-out" id="mcp-agent-out">Ответ появится здесь.</pre></details>`}
       </div>`;
     const input=$("mcp-search-input");
     let timer=0;
@@ -1934,47 +1941,87 @@
       bindResults(box);
     }else runSearch("");
     liveHealth().then(()=>{syncLiveBadge();if(input.value.trim())runSearch(input.value)});
+    // Форму базы спрашиваем у службы тем же вызовом, каким её спросил бы агент. Снимок на
+    // странице остаётся только запасным: если службы нет, обзор рисуется по нему.
+    adoptServiceTree().then(live=>{if(live)redrawBrowse()});
     window.scrollTo({top:0,behavior:"instant"});
     input.focus({preventScroll:true});
   }
-  // ============ Примеры: шесть путей, а не шесть плиток ============
-  // Шесть одинаковых прямоугольников с одним радиусом сообщали только «здесь шесть чего-то».
-  // Но в самих заголовках уже стоит структура: «от найденной работы до проверенного
-  // утверждения», «от разговора до решений». Это путь, и он читается как путь: откуда,
-  // чем, и что остаётся в конце. Рода записи слева — то, что различает пути между собой,
-  // поэтому нумерации нет: это не последовательность, а шесть независимых маршрутов.
-  function showExamples(navigate=true){
-    if(navigate)updateHash("examples");
+  // Journey links retain the selected stage when returning from a tool dossier.
+  function showExamples(navigate=true,journeyId="",stageId=""){
+    const journeys=systemData.journeys||[];
+    if(!navigate)[,journeyId,stageId]=location.hash.slice(1).split("/");
+    const journey=journeys.find(x=>x.id===journeyId)||journeys[0];
+    if(!journey)return;
+    const stage=journey.stages.find(x=>x.id===stageId)||journey.stages[0];
+    if(navigate)updateHash(`examples/${journey.id}/${stage.id}`);
     hidePrimaryViews();active("examples");
     const view=$("examples-view");view.hidden=false;
-    const examples=systemData.examples||[];
-    const splitTitle=t=>{
-      const m=String(t).match(/^От\s+(.+?)\s+до\s+(.+)$/i);
-      return m?[m[1],m[2]]:[null,t];
+    const pathFor=([from,to])=>{
+      const a=journey.stages[from].point,b=journey.stages[to].point,m=(a[0]+b[0])/2;
+      return `M ${a[0]} ${a[1]} C ${m} ${a[1]}, ${m} ${b[1]}, ${b[0]} ${b[1]}`;
     };
-    view.innerHTML=`<div class="special-shell examples-page">
-      <header class="examples-head">
-        <p class="overline">Выходы инструментов</p>
-        <h1>Что остаётся после работы</h1>
-        <p>Шесть путей через систему. У каждого видно, с чего он начинается, чем идёт и что остаётся в общей базе, когда он закончен.</p>
-      </header>
-      <ol class="paths">${examples.map(x=>{
-        const [from,to]=splitTitle(x.title);
-        return `<li class="path"><div class="path-kind"><span>${esc(x.kind)}</span></div>
-          <div class="path-body">
-            ${from?`<h2 class="is-journey"><em>от ${esc(from)}</em><b>до ${esc(to)}</b></h2>`
-                  :`<h2><b>${esc(to)}</b></h2>`}
-            <p>${esc(x.text)}</p>
-            <p class="path-outcome">${esc(x.outcome)}</p>
-            <button data-example-process="${esc(x.id)}" data-example-tool="${esc(x.tool||"")}" type="button">Открыть инструмент</button>
-          </div></li>`}).join("")}</ol></div>`;
-    view.querySelectorAll("[data-example-process]").forEach(b=>b.onclick=()=>
-      openProcess(b.dataset.exampleProcess,b.dataset.exampleTool));
+    view.innerHTML=`<div class="special-shell examples-page" style="--journey-color:${esc(journey.color)}">
+      <nav class="journey-choices" aria-label="Исследовательские маршруты">${journeys.map(x=>
+        `<a href="#examples/${esc(x.id)}/${esc(x.stages[0].id)}" data-journey="${esc(x.id)}"${x===journey?' aria-current="page"':""}>${esc(x.label)}</a>`).join("")}</nav>
+      <header class="journey-head"><p class="overline">Маршруты</p><h1>${esc(journey.title)}</h1><p>${esc(journey.intro)}</p></header>
+      <div class="journey-body">
+        <div class="journey-chart">
+          <div class="journey-map" data-journey-map="${esc(journey.id)}">
+            <svg class="journey-lines" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+              ${journey.edges.map(edge=>`<path class="journey-thread" d="${pathFor(edge)}"/><path class="journey-direction" d="${pathFor(edge)}" pathLength="100"/>`).join("")}
+            </svg>
+            <ol class="journey-stages" aria-label="Этапы маршрута">${journey.stages.map((x,i)=>
+              `<li style="--stage-x:${x.point[0]}%;--stage-y:${x.point[1]}%"${journey.id==="share"&&i>1?' class="journey-branch"':""}>
+                <button type="button" class="journey-star${i===0||i===journey.stages.length-1||(journey.id==="share"&&i===2)?' is-endpoint':""}" data-stage="${esc(x.id)}" aria-pressed="${x===stage}" aria-controls="journey-detail">
+                  <span class="journey-orb" aria-hidden="true"><i></i></span><strong>${esc(x.title)}</strong><small>${esc(x.caption)}</small>
+                </button></li>`).join("")}</ol>
+          </div>
+          <p class="journey-note">${esc(journey.note)}</p>
+        </div>
+        <section id="journey-detail" class="journey-detail" aria-labelledby="journey-stage-title"></section>
+      </div></div>`;
+    function selectStage(id,navigate=false){
+      const selected=journey.stages.find(x=>x.id===id);if(!selected)return;
+      if(navigate)updateHash(`examples/${journey.id}/${id}`);
+      view.querySelectorAll("[data-stage]").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.stage===id)));
+      const detail=view.querySelector(".journey-detail");
+      detail.innerHTML=`<p class="journey-stage-label">${esc(selected.caption)}</p>
+        <h2 id="journey-stage-title" tabindex="-1">${esc(selected.title)}</h2><p class="journey-action">${esc(selected.action)}</p>
+        <dl><dt>С чем начать</dt><dd>${esc(selected.inputs)}</dd><dt>Перед следующим шагом</dt><dd>${esc(selected.check)}</dd></dl>
+        <nav class="journey-tools" aria-label="Инструменты этапа">${selected.tools.map(ref=>{
+          const tool=byId[ref.process].tools.find(t=>t.id===ref.tool);
+          return `<a href="#${esc(ref.process)}/${esc(ref.tool)}" data-journey-process="${esc(ref.process)}" data-journey-tool="${esc(ref.tool)}">${esc(skyName(tool))}<span aria-hidden="true">↗</span></a>`;
+        }).join("")}</nav>`;
+      detail.querySelectorAll("[data-journey-tool]").forEach(a=>a.onclick=e=>{
+        e.preventDefault();
+        replaceHash(`examples/${journey.id}/${id}`);
+        openProcess(a.dataset.journeyProcess,a.dataset.journeyTool);
+      });
+    }
+    selectStage(stage.id);
+    view.querySelectorAll("[data-journey]").forEach(a=>a.onclick=e=>{
+      e.preventDefault();showExamples(true,a.dataset.journey);
+      requestAnimationFrame(()=>view.querySelector('[data-journey][aria-current="page"]')?.focus({preventScroll:true}));
+    });
+    view.querySelectorAll("[data-stage]").forEach(b=>{
+      b.onclick=()=>{
+        selectStage(b.dataset.stage,true);
+        if(innerWidth<760){view.querySelector(".journey-detail").scrollIntoView({block:"start",behavior:"instant"});view.querySelector("#journey-stage-title").focus({preventScroll:true})}
+      };
+      b.onkeydown=e=>{
+        const buttons=[...view.querySelectorAll("[data-stage]")],index=buttons.indexOf(b);
+        const next=e.key==="Home"?0:e.key==="End"?buttons.length-1:["ArrowRight","ArrowDown"].includes(e.key)?(index+1)%buttons.length:["ArrowLeft","ArrowUp"].includes(e.key)?(index+buttons.length-1)%buttons.length:-1;
+        if(next<0)return;e.preventDefault();buttons[next].focus();selectStage(buttons[next].dataset.stage,true);
+      };
+    });
     window.scrollTo({top:0,behavior:"instant"});
   }
   function active(v){document.querySelectorAll("[data-view]").forEach(b=>{const selected=b.dataset.view===v;b.classList.toggle("active",selected);b.setAttribute("aria-pressed",String(selected))});if(v==="mcp-live"||v==="examples")requestAnimationFrame(()=>{const heading=document.querySelector(`#${v==="mcp-live"?"mcp-live-view":"examples-view"} h1`);if(heading){heading.tabIndex=-1;heading.focus({preventScroll:true})}})}
   function openProcess(id,toolId,navigate=true){const p=byId[id];if(!p)return;if(toolId&&!p.tools?.some(t=>t.id===toolId)){toolId="";replaceHash(id)}if(navigate)updateHash(`${id}${toolId?`/${toolId}`:""}`);hidePrimaryViews();$("process-view").hidden=false;$("process-view").innerHTML=page(p);bind($("process-view"),p);bindGraphMap($("process-view"),p);active("none");window.scrollTo({top:0,behavior:"instant"});$("process-view").querySelector("h1")?.focus({preventScroll:true});if(toolId)setTimeout(()=>{
-    const view=$("process-view"),node=view.querySelector(`[data-node="tool:${CSS.escape(toolId)}"]`);
+    const view=$("process-view"),skill=view.querySelector(`[data-skill="${CSS.escape(toolId)}"]`);
+    if(skill){let parent=skill.parentElement;while(parent&&parent!==view){if(parent.tagName==='DETAILS')parent.open=true;parent=parent.parentElement}skill.click();return}
+    const node=view.querySelector(`[data-node="tool:${CSS.escape(toolId)}"]`);
     if(node){node.click();return}
     // На карте теперь только самое важное, но ссылка на любой инструмент обязана работать:
     // если его узла нет, раскрываем его пункт в досье и подводим к нему.
@@ -1983,7 +2030,9 @@
       card.querySelector("summary")?.focus({preventScroll:true})}
   },50)}
 function fitLoopMap(){const map=document.querySelector("#overview .loop-map");if(!map)return;
-  if(innerWidth<821||innerWidth<=1200){map.style.removeProperty("--map-scale");return}
+  // Ниже 1261 карта раскладывается в колонку средствами CSS, масштабировать нечего.
+  if(innerWidth<821||innerWidth<=1260){map.style.removeProperty("--map-scale");
+    map.style.removeProperty("margin-left");return}
   // Карта нарисована под 760 пикселей высоты. Свободное место — окно минус шапка, заголовок и
   // поля; берём реальную высоту заголовка, а не константы вёрстки, иначе замер разъедется при
   // первой же правке шрифта.
@@ -1991,14 +2040,25 @@ function fitLoopMap(){const map=document.querySelector("#overview .loop-map");if
   // ровно под свободное место, и внизу не остаётся пустоты, а сверху ничего не срезается.
   map.style.setProperty("--map-scale","1");
   const top=map.getBoundingClientRect().top;
-  const room=(map.parentElement||document.body).getBoundingClientRect().width;
+  // Свободное место по ширине — это содержимое родителя, без его полей. Раньше здесь стоял
+  // getBoundingClientRect().width, а он считает вместе с полями: на 1280 это 1280 вместо
+  // 1177, масштаб выходил 0.883 вместо 0.812, и карта шириной ровно в окно уезжала под
+  // поля с обеих сторон. У .overview стоит overflow:hidden, поэтому наружу это выглядело не
+  // как прокрутка, а как отрезанные карточки «Созвоны» и «Эксперименты».
+  const host=map.parentElement||document.body;
+  const pad=getComputedStyle(host);
+  const room=host.clientWidth-parseFloat(pad.paddingLeft)-parseFloat(pad.paddingRight);
   // Ниже 0.85 текст на карте становится нечитаемым (замер: 6.8 пикселя на 1440×900), поэтому
   // сильнее не ужимаем, а переходим в две колонки — там кегль остаётся прежним.
   const wanted=Math.min(1,(innerHeight-top-24)/628,room/1450);
-  if(wanted<.85){map.style.removeProperty("--map-scale");document.getElementById("overview")?.classList.add("map-stacked");return}
+  if(wanted<.80){map.style.removeProperty("--map-scale");document.getElementById("overview")?.classList.add("map-stacked");return}
   document.getElementById("overview")?.classList.remove("map-stacked");
   const scale=wanted;
-  map.style.setProperty("--map-scale",scale.toFixed(3))}
+  map.style.setProperty("--map-scale",scale.toFixed(3));
+  // Отсчёт масштаба идёт от левого верхнего угла, поэтому центрируем сами: свободное место
+  // за вычетом уменьшенной карты, пополам. Иначе карта прижата к левому полю, а на узких
+  // экранах правым краем уходила за окно.
+  map.style.marginLeft=`${Math.max(0,(room-1450*scale)/2).toFixed(1)}px`}
 addEventListener("resize",fitLoopMap);
   function showOverview(navigate=true){requestAnimationFrame(fitLoopMap);if(navigate)updateHash("loop");hidePrimaryViews();$("overview").hidden=false;active("loop");window.scrollTo({top:0,behavior:"instant"})}
   const processNames={"agent-orchestration":"нужно поручить работу отдельному агенту","code-engineering":"нужно изменить или проверить код","discussion":"нужно разобрать обсуждение","experiment-design":"нужно спроектировать проверку идеи","experiment-run":"нужно провести эксперимент","external-review":"нужна независимая проверка","knowledge-maintenance":"нужно сохранить или восстановить знание","literature-discovery":"нужно найти релевантные статьи","literature-ingest":"нужно добавить статью в библиотеку","presentation":"нужно подготовить научный доклад","project-lifecycle":"нужно создать, связать или закрыть проект","publication":"нужно подготовить результат к публикации","research-direction":"нужно уточнить исследовательское направление","results":"нужно разобраться в результатах","theory":"нужно проверить теоретическое рассуждение","writing":"нужно написать или проверить научный текст"};
@@ -2008,7 +2068,7 @@ addEventListener("resize",fitLoopMap);
   function capSources(c){const own=arr(c.github_urls);if(own.length)return own;const query=encodeURIComponent(c.name||c.source_path||"");return [{label:`Найти ${c.name||"исходник"} в repository`,url:`https://github.com/Vepricov/claude-brainlab/search?q=${query}&type=code`,canonical:true}]}
   function capDetails(c){const story=capabilityStory(c);return `<div class="search-group capability-dossier"><p class="section-label">${esc(capType(c.type))}</p><h2>${esc(humanCapabilityTitle(c))}</h2><p>${esc(story.purpose)}</p><div class="tool-value"><section class="tool-outcome"><b>После подключения</b><span>${esc(story.after)}</span>${story.outcomes.map(x=>`<span>${esc(x)}</span>`).join("")}</section>${focusList("Что позволяет сделать",story.capabilities.slice(0,4))}</div><details class="tool-mechanics"><summary>Условия и ограничения</summary><dl class="tool-spec">${spec("Что понадобится",c.inputs_ru||c.inputs)}${spec("Что проверить",c.quality_gates_ru||c.quality_gates)}${spec("Ограничения",c.known_limitations_ru||c.known_limitations)}</dl></details><div class="tool-links">${links(capSources(c))}</div></div>`}
   function showCapability(id){const c=(registry.capabilities||[]).find(x=>x.id===id);if(!c)return;$("search-input").value="";$("search-results").innerHTML=capDetails(c);if(!$("search-dialog").open)$("search-dialog").showModal();const heading=$("search-results").querySelector("h2");if(heading){heading.tabIndex=-1;heading.focus()}}
-  function searchItems(){return [...all.map(p=>({kind:"Процесс",key:p.id,title:p.title,text:`${p.verb} ${p.purpose} ${arr(p.when).join(" ")} ${arr(p.outcomes).join(" ")}`,go:()=>openProcess(p.id)})),...all.flatMap(p=>(p.tools||[]).map(t=>{const story=toolStory(t);return {kind:"Инструмент",key:t.id,title:t.title,text:`${p.title} ${story.value} ${story.capabilities.join(" ")} ${story.useCases.join(" ")} ${story.outcomes.join(" ")}`,go:()=>openQuickTool(p.id,t.id)}})),...(registry.capabilities||[]).filter(c=>c.type!=="command").map(c=>({kind:"Полный реестр",key:c.name||c.id,title:humanCapabilityTitle(c),text:`${c.name||""} ${capabilityStory(c).purpose} ${arr(c.process_ids).join(" ")}`,go:()=>showCapability(c.id)}))].filter(x=>!`${x.title} ${x.text}`.toLowerCase().includes("dykaf"))}
+  function searchItems(){return [...all.map(p=>({kind:"Процесс",key:p.id,title:p.title,text:`${p.verb} ${p.purpose} ${arr(p.when).join(" ")} ${arr(p.outcomes).join(" ")}`,go:()=>openProcess(p.id)})),...all.flatMap(p=>(p.tools||[]).filter(t=>!(p.id==="memory"&&t.skillId&&(model.processes||[]).some(ch=>ch.tools.some(x=>x.skillId===t.skillId)))).map(t=>{const story=toolStory(t);return {kind:"Инструмент",key:t.skillId||t.id,title:t.skillId||t.title,text:`${p.title} ${t.cardTitle||""} ${story.value} ${story.capabilities.join(" ")} ${story.useCases.join(" ")} ${story.outcomes.join(" ")}`,go:()=>openQuickTool(p.id,t.id)}})),...(registry.capabilities||[]).filter(c=>c.type!=="command"&&c.type!=="skill").map(c=>({kind:"Полный реестр",key:c.name||c.id,title:humanCapabilityTitle(c),text:`${c.name||""} ${capabilityStory(c).purpose} ${arr(c.process_ids).join(" ")}`,go:()=>showCapability(c.id)}))].filter(x=>!`${x.title} ${x.text}`.toLowerCase().includes("dykaf"))}
   const searchExamples=["разобрать созвон","найти статьи про метод","запустить эксперимент через Hermes","проверить цитату","добавить доступ к серверу","ответить рецензентам"];
   const searchConcepts=[{words:["созвон","разговор","встреч","аудио"],expand:["brain call","call-notes","transcript","решения","задачи"]},{words:["стать","литератур","paper","arxiv"],expand:["paper-search","paper-ingest","literature","zotero","alphaxiv"]},{words:["эксперимент","запуск","обучен","run"],expand:["hermes","experiment","monitoring","protocol","gpu"]},{words:["цитат","ссылк","bibtex"],expand:["citation-verification","paperclaim","references.bib","проверка статей"]},{words:["сервер","доступ","gpu","аккаунт"],expand:["server access bot","managed host","credentials","mlsub"]},{words:["rebuttal","реценз","ответ"],expand:["review-response","writing","paper-self-review"]}];
   const searchIntents={"разобрать созвон":["calls","brain-call","call-notes"],"найти статьи про метод":["literature","paper-search","paperscout"],"запустить эксперимент через Hermes":["experiments","hermes","hermes-experiment-launch"],"проверить цитату":["paper-qa","citation-verification","literature-reviewer"],"добавить доступ к серверу":["access","server-access-bot","hermes-add-user"],"ответить рецензентам":["writing","review-response","rebuttal-command","rebuttal-writer"]};
@@ -2016,13 +2076,13 @@ addEventListener("resize",fitLoopMap);
   function renderSearch(q=""){const s=q.trim(),items=searchItems(),exact=items.filter(item=>item.key?.toLowerCase()===s.toLowerCase()),ranked=(exact.length?exact:items.map(item=>({...item,score:s?searchScore(item,s):0})).filter(item=>!s||item.score>0).sort((a,b)=>b.score-a.score||a.title.localeCompare(b.title,"ru")).slice(0,s?15:18)),groups=ranked.reduce((a,x)=>((a[x.kind]||=[]).push(x),a),{}),examples=`<div class="search-examples"><span>Попробуйте описать задачу</span>${searchExamples.map(x=>`<button data-search-example="${esc(x)}" type="button">${esc(x)}</button>`).join("")}</div>`;$("search-results").innerHTML=examples+(ranked.length?Object.entries(groups).map(([kind,xs])=>`<section class="search-group"><h3>${esc(kind)} <span>${xs.length}</span></h3>${xs.map((x,i)=>`<button class="search-item" data-key="${esc(kind)}-${i}" type="button"><strong>${esc(x.title)}</strong><p>${esc(x.text)}</p><i>Открыть →</i></button>`).join("")}</section>`).join(""):`<p class="empty-search">Совпадений нет. Опишите действие другими словами.</p>`);$("search-results").querySelectorAll("[data-search-example]").forEach(b=>b.onclick=()=>{$("search-input").value=b.dataset.searchExample;renderSearch(b.dataset.searchExample)});Object.entries(groups).forEach(([kind,xs])=>xs.forEach((x,i)=>{const b=document.querySelector(`[data-key="${CSS.escape(`${kind}-${i}`)}"]`);if(b)b.onclick=()=>{$("search-dialog").close();x.go()}}))}
   function openSearch(){renderSearch();if(!$("search-dialog").open)$("search-dialog").showModal();requestAnimationFrame(()=>$("search-input").focus())}
 
-
   renderLoop();renderToolkit();fitLoopMap();$("home").onclick=showOverview;$("search-open").onclick=openSearch;$("search-input").oninput=e=>renderSearch(e.target.value);document.querySelectorAll("[data-view]").forEach(b=>b.onclick=()=>b.dataset.view==="mcp-live"?showMcpLive():b.dataset.view==="examples"?showExamples():showOverview());document.addEventListener("keydown",e=>{if((e.metaKey||e.ctrlKey)&&e.key.toLowerCase()==="k"){e.preventDefault();openSearch()}});
   // Разделы слились, но ссылки на прежние адреса могли уже разойтись по чатам.
   const MOVED={"paper-qa":"writing","orchestration":"experiments","engineering":"experiments","access":"projects"};
   let [initial,initialTool]=location.hash.slice(1).split("/");if(MOVED[initial])initial=MOVED[initial];if(initial==="mcp-live")showMcpLive(false);else if(initial==="examples")showExamples(false);else if(initial==="surface")showSurface(initialTool,false);else if(byId[initial])openProcess(initial,initialTool);
   const routeLocation=()=>{let [route,tool]=location.hash.slice(1).split("/");if(MOVED[route])route=MOVED[route];if(route==="mcp-live")showMcpLive(false);else if(route==="examples")showExamples(false);else if(route==="surface")showSurface(tool,false);else if(byId[route])openProcess(route,tool,false);else showOverview(false)};
   window.addEventListener("popstate",routeLocation);
+  document.addEventListener("click",e=>{if(e.target.closest("[data-obsidian-surface]")){e.preventDefault();showSurface("obsidian")}});
 
   // Клик мимо окна поиска закрывает его: у нативного dialog фон входит в сам элемент,
   // поэтому попадание вне рамки контента приходится считать вручную.
