@@ -185,7 +185,7 @@
   .sp-footer{grid-template-columns:1fr}
 }
 @media(max-width:540px){
-  #process-view:has(.sp-page){padding:82px 0 0}#process-view .sp-shell{padding-left:22px;padding-right:22px;padding-bottom:35px}
+  #process-view:has(.sp-page){padding:130px 0 0}#process-view .sp-shell{padding-left:22px;padding-right:22px;padding-bottom:35px}
   .sp-shell>.back-button{font-size:11px;margin:6px 0 20px}.sp-hero{align-items:start;gap:0;padding-bottom:27px}.sp-hero>div:first-child{position:relative;z-index:1}
   .sp-hero h1{font-size:45px;margin:13px 0 17px}.sp-hero p{font-size:18px}.sp-hero>.sp-emblem{position:absolute;right:0;top:10px;width:88px;height:88px;opacity:.22}.sp-emblem>span{font-size:38px}
   .sp-label{font-size:9px}.sp-page h2{font-size:29px}.sp-page h3{font-size:23px}
