@@ -1684,6 +1684,19 @@
       <dl>${xs.map(t=>`<div><dt>${esc(t.t||"")}</dt><dd>${esc(shorten(t.s||"",400))}</dd></div>`).join("")}</dl></details>`;
   }
 
+  function projectWorkspace(pr){
+    if(field(pr,"род")==="theme")return "";
+    const workspace=window.LAB_PROJECT_WORKSPACES?.projects?.[field(pr,"слаг")];
+    const safeUrl=value=>{try{const u=new URL(value);return u.protocol==="https:"&&!u.username&&!u.password?u.href:""}catch{return ""}};
+    const links=[["Страница проекта",workspace?.page_url],["Общая доска задач",workspace?.board_url]]
+      .map(([label,value])=>[label,safeUrl(value)]).filter(([,url])=>url);
+    const tasks=demo?(workspace?.example_tasks||[]):[];
+    return `<section class="project-workspace" aria-label="Работа команды"><div class="project-workspace-heading"><div><span>Работа команды</span><h3>Задачи проекта</h3></div>${links.length?`<nav aria-label="Ссылки проекта">${links.map(([label,url])=>`<a href="${esc(url)}" target="_blank" rel="noopener">${esc(label)} ↗</a>`).join("")}</nav>`:""}</div>
+      <p>${demo?"Пример общей доски: человек остаётся исполнителем, Hermes помогает выполнять порученную ему работу.":links.length?"Задачи, исполнители и сроки — на общей доске Yonote. Hermes может выполнять задачи, назначенные его владельцу.":!window.LAB_PROJECT_WORKSPACES?"Загружаю ссылки на Yonote…":window.LAB_PROJECT_WORKSPACES.unavailable?"Ссылки на Yonote сейчас не загрузились.":"Доска Yonote пока не привязана к этому проекту."}</p>
+      ${tasks.length?`<ul class="project-task-preview">${tasks.map(t=>`<li><span class="project-task-state">${esc(t.status)}</span><strong>${esc(t.title)}</strong><span>${esc(t.assignee)}</span></li>`).join("")}</ul><small>Учебный пример. Карточки выдуманы; действия с настоящей доской здесь недоступны.</small>`:""}
+      ${!demo&&links.length?"<small>Смена статусов через Hermes ещё проходит проверку. Ссылка открывает исходную доску.</small>":""}</section>`;
+  }
+
   function projectCard(code,q=""){
     const pr=byCode[code];
     if(!pr||pr.k!=="project")return recordCard(code,q);
@@ -1706,6 +1719,7 @@
       <h2>${mark(pr.t||"",q)}</h2>
       ${pr.s?`<p class="paper-abstract">${mark(pr.s,q)}</p>`:""}
       ${teamBlock(pr)}
+      ${projectWorkspace(pr)}
       ${about.length?`<dl class="project-about">${about.map(f=>`<div><dt>${esc(f[0])}</dt><dd>${fieldValue(f[1])}</dd></div>`).join("")}</dl>`:""}
       ${termsBlock(code)}
       <div class="paper-counts">${PROJECT_PARTS.map(([k,label])=>{const n=own.filter(r=>r.k===k).length;
@@ -1966,6 +1980,11 @@
     window.scrollTo({top:0,behavior:"instant"});
     input.focus({preventScroll:true});
   }
+    showMcpLive.refreshWorkspace=()=>{
+      const article=$("mcp-results")?.querySelector(".paper-page[data-project]");
+      const pr=byCode[article?.dataset.project],panel=article?.querySelector(".project-workspace");
+      if(pr&&panel)panel.outerHTML=projectWorkspace(pr);
+    };
     return showMcpLive;
   }
 
@@ -1986,12 +2005,17 @@
     return snapshotLoads.get(src);
   }
   function prepareMcpWorkspace(){
-    if(!mcpLoading)mcpLoading=Promise.all([
-      loadSnapshot("data/library-snapshot.js","LAB_LIBRARY"),
-      loadSnapshot("data/base-snapshot.js","LAB_BASE"),
-      loadSnapshot("data/atlas-tree.js","LAB_TREE"),
-    ]).then(()=>{mcpRenderer=createMcpWorkspace();renderTally()})
-      .catch(error=>{mcpLoading=null;throw error});
+    if(!mcpLoading){
+      loadSnapshot("data/project-workspaces.js","LAB_PROJECT_WORKSPACES")
+        .catch(()=>{window.LAB_PROJECT_WORKSPACES={projects:{},unavailable:true}})
+        .then(()=>mcpRenderer?.refreshWorkspace());
+      mcpLoading=Promise.all([
+        loadSnapshot("data/library-snapshot.js","LAB_LIBRARY"),
+        loadSnapshot("data/base-snapshot.js","LAB_BASE"),
+        loadSnapshot("data/atlas-tree.js","LAB_TREE"),
+      ]).then(()=>{mcpRenderer=createMcpWorkspace();renderTally()})
+        .catch(error=>{mcpLoading=null;throw error});
+    }
     return mcpLoading;
   }
   async function showMcpLive(navigate=true){
