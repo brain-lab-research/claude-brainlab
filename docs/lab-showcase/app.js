@@ -2097,7 +2097,9 @@
     if(card){card.open=true;card.scrollIntoView({behavior:"smooth",block:"start"});
       card.querySelector("summary")?.focus({preventScroll:true})}
   },50)}
-function fitLoopMap(){const map=document.querySelector("#overview .loop-map");if(!map)return;
+function fitLoopMap(){const overview=document.getElementById("overview"),map=overview?.querySelector(".loop-map");if(!map||overview.hidden)return;
+  // Measure the orbit afresh, including when returning from a narrower fallback layout.
+  overview.classList.remove("map-stacked");
   // Ниже 1261 карта раскладывается в колонку средствами CSS, масштабировать нечего.
   if(innerWidth<821||innerWidth<=1260){map.style.removeProperty("--map-scale");
     map.style.removeProperty("margin-left");return}
@@ -2107,7 +2109,7 @@ function fitLoopMap(){const map=document.querySelector("#overview .loop-map");if
   // Меряем от реальной верхней кромки карты, а не от суммы констант: так масштаб получается
   // ровно под свободное место, и внизу не остаётся пустоты, а сверху ничего не срезается.
   map.style.setProperty("--map-scale","1");
-  const top=map.getBoundingClientRect().top;
+  const top=map.getBoundingClientRect().top+scrollY;
   // Свободное место по ширине — это содержимое родителя, без его полей. Раньше здесь стоял
   // getBoundingClientRect().width, а он считает вместе с полями: на 1280 это 1280 вместо
   // 1177, масштаб выходил 0.883 вместо 0.812, и карта шириной ровно в окно уезжала под
