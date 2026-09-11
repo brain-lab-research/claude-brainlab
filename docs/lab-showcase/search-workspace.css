@@ -157,3 +157,9 @@
   .knowledge-workspace .src-abstract{font-size:14px}
   .knowledge-workspace .mcp-wait{flex-direction:column;align-items:flex-start;gap:12px}
 }
+/* Snapshot loading does not block navigation to the rest of the Atlas. */
+.mcp-load-state{display:flex;flex-wrap:wrap;align-items:center;gap:16px;margin:38px 0 22px;padding:28px 0;border-block:1px solid #adc98c33;color:#c6d8b5}
+.mcp-load-state>span{font-size:32px;color:#c8e79b}
+.mcp-load-state p{font:14px/1.7 var(--body);max-width:650px;margin:0}
+.mcp-load-state button{padding:10px 15px;border:1px solid #bfdc9555;border-radius:4px;background:#20301c;color:#d7e8c5;font:13px/1.5 var(--body);cursor:pointer}
+.mcp-load-state button:focus-visible{outline:2px solid #c8e79b;outline-offset:4px}
