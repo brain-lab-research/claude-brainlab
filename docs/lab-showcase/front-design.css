@@ -599,12 +599,21 @@ html .dossier.dossier {
   overflow-wrap: anywhere;
 }
 html .dossier.dossier-dialog .dossier { min-height: 0; }
-html .dossier.dossier .dossier-close {
+html .dossier.dossier .dossier-toolbar {
   position: sticky;
-  top: 12px;
-  float: right;
+  top: 0;
   z-index: 3;
-  margin: -28px -32px 0 12px;
+  display: flex;
+  justify-content: flex-end;
+  margin: -46px -52px 14px;
+  padding: 6px 20px;
+  background: #12212a;
+  border-bottom: 1px solid #405762;
+}
+html .dossier.dossier .dossier-close {
+  position: static;
+  float: none;
+  margin: 0;
   width: 44px;
   height: 44px;
   border: 1px solid #617581;
@@ -662,7 +671,7 @@ html .dossier-dialog[open] { animation: dossier-appear 150ms ease-out; }
 @media (max-width: 720px) {
   html dialog.dossier-dialog:is(.skill-dialog,.quick-tool-dialog) { width: calc(100vw - 20px); max-height: calc(100dvh - 20px); border-radius: 14px; }
   html .dossier.dossier { padding: 28px 22px; font-size: 15px; }
-  html .dossier.dossier .dossier-close { margin: -16px -10px 0 8px; }
+  html .dossier.dossier .dossier-toolbar { margin: -28px -22px 0; padding: 6px 12px; }
   html .dossier.dossier .dossier-head { padding-right: 10px; padding-top: 20px; }
   html .dossier.dossier .dossier-kicker { padding-right: 24px; font-size: 10px; }
   html .dossier.dossier .dossier-lead { font-size: 18px; }
