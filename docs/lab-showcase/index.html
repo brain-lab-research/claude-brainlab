@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="memory-map.css">
   <link rel="stylesheet" href="obsidian-setup.css?v=workspaces-20260911">
   <link rel="stylesheet" href="surface-pages.css?v=workspaces-20260911">
-  <link rel="stylesheet" href="search-workspace.css">
+  <link rel="stylesheet" href="search-workspace.css?v=lazy-snapshots-20260911">
 </head>
 <body>
   <header class="topbar">
@@ -62,16 +62,11 @@
     <div class="search-results" id="search-results"></div>
   </dialog>
 
+  <script src="data/demo-flag.js"></script>
   <script src="data/atlas-public.js"></script>
   <script src="data/research-loop-data.js"></script>
   <script src="data/system-examples.js"></script>
-  <script src="data/library-snapshot.js"></script>
-  <script src="data/base-snapshot.js"></script>
-  <!-- Дерево библиотеки и направлений: аннотации разделов, подразделов, подтем. Нужно, чтобы
-       на широкий запрос вида «Muon» витрина отвечала картой темы, а не отдельными
-       утверждениями. Собирается scripts/build_tree.py. -->
-  <script src="data/atlas-tree.js"></script>
-  <script src="data/demo-flag.js"></script>
+  <!-- Scientific snapshots load on demand when the search workspace opens. -->
   <!-- Ядро поиска: один индекс на узлы дерева, записи базы и статьи, ранжирование BM25.
        Отдельный файл, потому что его гоняет набор проверок tests/test_search.mjs без
        браузера — 38 запросов за секунду, поэтому качество меряется, а не обсуждается. -->
@@ -79,6 +74,6 @@
   <script src="memory-map.js"></script>
   <script src="surface-pages.js?v=workspaces-20260911"></script>
   <script src="obsidian-setup.js?v=workspaces-20260911"></script>
-  <script src="app.js?v=workspaces-20260911"></script>
+  <script src="app.js?v=lazy-snapshots-20260911"></script>
 </body>
 </html>

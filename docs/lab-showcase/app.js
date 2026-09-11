@@ -46,9 +46,14 @@
     document.querySelectorAll("#overview [data-open]").forEach(b=>b.onclick=()=>b.dataset.tool?openQuickTool(b.dataset.open,b.dataset.tool,b):openProcess(b.dataset.open));
     document.querySelectorAll("#overview [data-surface]").forEach(b=>b.onclick=()=>showSurface(b.dataset.surface));
     $("knowledge-core").onclick=()=>openProcess("memory");
-    // Числа берутся из снимка базы: на первом экране должно быть видно, что там не пусто.
+    renderTally();
+  }
+  function renderTally(){
     const tally=$("loop-tally");
-    if(tally){
+    if(!tally)return;
+    const base=window.LAB_BASE,lib=window.LAB_LIBRARY;
+    tally.hidden=!(base&&lib);
+    if(base&&lib){
       const n=k=>(base.records||[]).filter(r=>r.k===k).length;
       const both=(base.records||[]).filter(r=>r.k==="hypothesis"&&r.sup==="proof_and_numbers").length;
       const rows=[[n("hypothesis"),"утверждений",""],[n("experiment"),"прогонов",""],
@@ -413,7 +418,8 @@
     const closeFocusPanel=()=>{if(focus.classList.contains("is-open"))reset(true)};document.addEventListener("keydown",e=>{if(e.key==="Escape"&&focus.classList.contains("is-open")){e.preventDefault();closeFocusPanel()}});document.addEventListener("pointerdown",e=>{if(!focus.classList.contains("is-open"))return;if(focus.contains(e.target)||(e.target.closest&&e.target.closest("[data-node],[data-knowledge],[data-surface-process]")))return;closeFocusPanel()},true);
   }
   function sourceButtons(items=[]){return `<div class="special-links">${items.map(x=>{const url=safe(x.url);return url?`<a href="${esc(url)}" target="_blank" rel="noopener">${esc(x.label)} <span>↗</span></a>`:""}).join("")}</div>`}
-  function hidePrimaryViews(){window.LAB_SURFACE_PAGES?.disconnect();document.querySelectorAll('.skill-dialog[open]').forEach(d=>d.close());$("overview").hidden=true;$("process-view").hidden=true;$("dykaf-view").hidden=true;$("mcp-live-view").hidden=true;$("examples-view").hidden=true}
+  let navigationRevision=0;
+  function hidePrimaryViews(){navigationRevision++;window.LAB_SURFACE_PAGES?.disconnect();document.querySelectorAll('.skill-dialog[open]').forEach(d=>d.close());$("overview").hidden=true;$("process-view").hidden=true;$("dykaf-view").hidden=true;$("mcp-live-view").hidden=true;$("examples-view").hidden=true}
   function showSurface(id,navigate=true){
     if(!systemData.surfaces?.[id])return;
     if(navigate)updateHash(`surface/${id}`);
@@ -426,6 +432,8 @@
     window.scrollTo({top:0,behavior:"instant"});
     view.querySelector("h1")?.focus({preventScroll:true});
   }
+  // The existing MCP renderer and all its indexes are initialized only after data arrives.
+  function createMcpWorkspace(){
   // ============ Страница MCP: поиск по содержимому базы ============
   // Владелец: «я должен написать, когда выигрывает Muon… по этим связям… нужно максимально
   // информативно показать путь от объекта: как статья добавляется, как раскладывается на
@@ -1957,6 +1965,55 @@
     adoptServiceTree().then(live=>{if(live)redrawBrowse()});
     window.scrollTo({top:0,behavior:"instant"});
     input.focus({preventScroll:true});
+  }
+    return showMcpLive;
+  }
+
+  let mcpRenderer=null,mcpLoading=null;
+  const snapshotLoads=new Map();
+  function loadSnapshot(src,globalName){
+    if(window[globalName])return Promise.resolve();
+    if(!snapshotLoads.has(src)){
+      const promise=new Promise((resolve,reject)=>{
+        const script=document.createElement("script");
+        script.src=src;script.async=true;
+        script.onload=()=>window[globalName]?resolve():reject(new Error("Snapshot did not initialize"));
+        script.onerror=()=>{script.remove();reject(new Error("Snapshot could not be loaded"))};
+        document.head.appendChild(script);
+      }).catch(error=>{snapshotLoads.delete(src);throw error});
+      snapshotLoads.set(src,promise);
+    }
+    return snapshotLoads.get(src);
+  }
+  function prepareMcpWorkspace(){
+    if(!mcpLoading)mcpLoading=Promise.all([
+      loadSnapshot("data/library-snapshot.js","LAB_LIBRARY"),
+      loadSnapshot("data/base-snapshot.js","LAB_BASE"),
+      loadSnapshot("data/atlas-tree.js","LAB_TREE"),
+    ]).then(()=>{mcpRenderer=createMcpWorkspace();renderTally()})
+      .catch(error=>{mcpLoading=null;throw error});
+    return mcpLoading;
+  }
+  async function showMcpLive(navigate=true){
+    if(mcpRenderer){mcpRenderer(navigate);return}
+    if(navigate)updateHash("mcp-live");
+    hidePrimaryViews();active("mcp-live");
+    const revision=navigationRevision,view=$("mcp-live-view");
+    view.hidden=false;
+    view.innerHTML=`<div class="special-shell mcp-page knowledge-workspace">
+      <header class="mcp-hero"><p>${window.LAB_DEMO?"Учебная база":"Lab Knowledge · BRAIn Lab"}</p><h1>Спросите лабораторию<span aria-hidden="true">.</span></h1></header>
+      <div class="mcp-load-state" data-mcp-loading><span aria-hidden="true">◌</span><p role="status">Загружаем библиотеку и записи для поиска…</p></div>
+      <button class="back-button" data-loading-back type="button">← Вернуться к общей карте</button></div>`;
+    view.querySelector("[data-loading-back]").onclick=showOverview;
+    window.scrollTo({top:0,behavior:"instant"});
+    try{
+      await prepareMcpWorkspace();
+      if(revision===navigationRevision)mcpRenderer(false);
+    }catch(error){
+      if(revision!==navigationRevision)return;
+      view.querySelector("[data-mcp-loading]").innerHTML=`<p role="alert">Не удалось загрузить данные. Проверьте соединение и попробуйте ещё раз.</p><button type="button" data-mcp-retry>Повторить загрузку</button>`;
+      view.querySelector("[data-mcp-retry]").onclick=()=>showMcpLive(false);
+    }
   }
   // Journey links retain the selected stage when returning from a tool dossier.
   function showExamples(navigate=true,journeyId="",stageId=""){
