@@ -34,6 +34,8 @@ py -3 install.py --vault "$env:USERPROFILE\My Research" --owner "Researcher"
 4. В Obsidian выберите **Open folder as vault / Открыть папку как хранилище** и укажите созданную папку. Разрешите community plugins для этого vault. При необходимости перезапустите только это окно Obsidian.
 5. Откройте `START HERE.md`. Рабочее пространство «Старт» восстановит две доски, Calendar и `general/todo.md`. Если оно не открылось автоматически: палитра команд → Workspaces → Load workspace → «Старт».
 
+Для первой файловой задачи: палитра команд → **Operon: Create New Operon Task** → название → **Pick a Template → Task** (`Operon/Templates/Task.md`) → **File**. Шаблон подставляет имя из `--owner`; задача получает собственный ID и статус «Надо».
+
 Интерфейс Obsidian можно переключить на русский в настройках. Статусы досок уже русские. Mac/Windows/Linux используют одинаковые файлы vault. На мобильном Obsidian Zotero Integration недоступен: этот плагин предназначен для настольной версии.
 
 ## Что получится
