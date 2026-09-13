@@ -1,6 +1,6 @@
 /* Public setup guide. Diagram examples never read personal notes or queues. */
 window.LAB_OBSIDIAN_SETUP = (() => {
-  const repository = 'https://github.com/Vepricov/claude-brainlab/tree/codex/obsidian-setup/obsidian-setup';
+  const repository = 'https://github.com/brain-lab-research/claude-brainlab/tree/main/obsidian-setup';
   const plugins = [['Operon','3.0.1','Задачи и доски'],['Dataview','0.5.68','Представления в заметках'],['Homepage','4.4.0','Стартовый экран'],['Templater','2.19.1','Шаблоны и запуск'],['Calendar','1.5.10','Ежедневные заметки'],['Next TOC','2.4.0','Оглавление документа'],['Iconic','1.1.8','Иконки'],['File Color','1.1.0','Цвета файлов'],['Style Settings','1.0.9','Настройки темы'],['Multi-Column Markdown','0.9.1','Колонки в заметках'],['Banners','1.3.3','Баннеры'],['Checklist','2.2.14','Список чекбоксов'],['Tasks','7.23.1','Запросы к задачам'],['Zotero Integration','3.2.1','Импорт из своего Zotero']];
   function setup() {
     const {header, node, wires, section} = window.LAB_SURFACE_PAGES;
@@ -32,7 +32,7 @@ window.LAB_OBSIDIAN_SETUP = (() => {
       </section>
       <section class="sp-section sp-setup-details">
         ${section('Повторить у себя', 'Один набор на GitHub.', 'Настройки, тема, плагины и примеры. Свои заметки, Zotero и подключение к Hermes вы добавляете у себя.')}
-        <details class="sp-fold" data-setup-install><summary>Установка из GitHub <span>В новую папку Obsidian</span></summary><div class="sp-fold-body"><p>Установите Obsidian, Git и Python 3.10+. Скачайте набор и выберите новую папку:</p><pre><code>git clone --depth 1 --branch codex/obsidian-setup https://github.com/Vepricov/claude-brainlab.git
+        <details class="sp-fold" data-setup-install><summary>Установка из GitHub <span>В новую папку Obsidian</span></summary><div class="sp-fold-body"><p>Установите Obsidian, Git и Python 3.10+. Скачайте набор и выберите новую папку:</p><pre><code>git clone --depth 1 https://github.com/brain-lab-research/claude-brainlab.git
 cd claude-brainlab/obsidian-setup
 python3 install.py --vault "$HOME/My Research" --owner "Researcher"</code></pre><p>Windows PowerShell:</p><pre><code>py -3 -m pip install tzdata
 py -3 install.py --vault "$env:USERPROFILE\\My Research" --owner "Researcher"</code></pre><p>В Obsidian: <b>Open folder as vault</b> → созданная папка → разрешить community plugins → <b>START HERE</b>. Рабочее пространство «Старт» открывает обе доски.</p><p>Установщик создаёт только новый vault, скачивает закреплённые версии и проверяет SHA-256. Существующее хранилище меняйте выборочно, с резервной копией и при закрытом Obsidian.</p><p class="sp-small">Полный запуск набора проверен в Obsidian на macOS. Установка в приложении на Windows и Linux ещё не подтверждена.</p></div></details>
