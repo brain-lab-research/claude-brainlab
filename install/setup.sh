@@ -15,7 +15,7 @@
 set -euo pipefail
 
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-CLAUDE_HOME="${CLAUDE_HOME:-$HOME/.claude}"
+CLAUDE_HOME="${CLAUDE_HOME:-${CLAUDE_CONFIG_DIR:-$HOME/.claude}}"
 ENV_FILE="$REPO_ROOT/.env"
 TEMPLATE="$REPO_ROOT/settings.json.template"
 TS="$(date +%Y%m%d-%H%M%S)"
@@ -79,8 +79,8 @@ for c in "${COMPONENTS[@]}"; do
   if command -v rsync >/dev/null 2>&1; then
     run "rsync -a \"$src/\" \"$dst/\""
   else
-    run "rm -rf \"$dst\""
-    run "cp -R \"$src\" \"$dst\""
+    run "mkdir -p \"$dst\""
+    run "cp -R \"$src/.\" \"$dst/\""
   fi
 done
 
@@ -173,8 +173,14 @@ elif not os.environ.get("PLANE_BASE_URL"):
     data["mcpServers"]["plane"].get("env", {}).pop("PLANE_BASE_URL", None)
 with open(dst, "w") as f:
     json.dump(data, f, indent=2, ensure_ascii=False)
+os.chmod(dst, 0o600)
 print(f"  rendered {dst}")
 PYEOF
+fi
+
+# ── Native Lab MCP registration ──
+if (( ! DRY_RUN )) && [[ -f "$REPO_ROOT/install/register-lab-mcp.py" ]]; then
+  "${PYTHON_BIN:-python3}" "$REPO_ROOT/install/register-lab-mcp.py" "$SETTINGS_DST" "$BACKUP_DIR"
 fi
 
 # ── obsidian-projects.json ──
