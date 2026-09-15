@@ -622,7 +622,7 @@
   }
   function libCard(x,q){
     const p=x.p,ls=linksByPaper[p.id]||[];
-    const claims=(p.c||[]).map((c,k)=>`<li class="${x.hits.includes(k)?"is-hit":""}"><small>${esc(CKIND[c.k]||c.k||"")}${c.v?" · цитата сверена":" · цитата не сверена"}</small>${esc(c.s)}</li>`).join("");
+    const claims=(p.c||[]).map((c,k)=>`<li class="${x.hits.includes(k)?"is-hit":""}"><small>${esc(CKIND[c.k]||c.k||"")}${c.q?(c.v?" · цитата сверена":" · цитата не сверена"):""}</small>${esc(c.s)}</li>`).join("");
     return `<article class="lib-card">
       <header><h3>${esc(p.t)}</h3>
         <p>${esc(p.au||"")}${p.y?" · "+p.y:""}${p.v?" · "+esc(p.v):""}</p>
@@ -1509,7 +1509,7 @@
       const xs=(p.c||[]).filter(c=>c.k===k);
       if(!xs.length)return "";
       return `<section class="paper-claims"><h4>${esc(CLAIM_KIND[k]||k)}<span>${xs.length}</span></h4>
-        <ol>${xs.map(c=>`<li class="${c.v?"is-verified":"is-unverified"}"><p>${mark(c.s,q)}</p>${c.q&&c.q!==c.s?`<blockquote>${esc(c.q.slice(0,300))}</blockquote>`:""}<small>${c.v?"цитата сверена с текстом":"цитата не сверена"}</small></li>`).join("")}</ol></section>`;
+        <ol>${xs.map(c=>`<li class="${c.v?"is-verified":"is-unverified"}"><p>${mark(c.s,q)}</p>${c.q&&c.q!==c.s?`<blockquote>${esc(c.q.slice(0,300))}</blockquote>`:""}${c.q?`<small>${c.v?"цитата сверена с текстом":"цитата не сверена"}</small>`:""}</li>`).join("")}</ol></section>`;
     }).join("");
     const body=p.sr||p.ab||p.s||"";
     return `<article class="paper-page">
@@ -1776,7 +1776,7 @@
     badge.innerHTML=!demo&&liveOk
       ? `<b>живая служба</b><span>Поиск по смыслу. Тот же ответ и порядок, что получают агенты.</span>`
       : demo
-      ? `<b>показательная сборка</b><span>${esc(demo.lab||"выдуманная лаборатория")}: одно направление, один проект, восемь статей. Данные выдуманы, живой службы здесь нет. У себя ставите ту же витрину на свою базу и получаете эту страницу на своих записях.</span>`
+      ? `<b>показательная сборка</b><span>${esc(demo.lab||"выдуманная лаборатория")}: одно направление, один проект и учебные статьи. Данные выдуманы, живой службы здесь нет. У себя ставите ту же витрину на свою базу и получаете эту страницу на своих записях.</span>`
       // Раньше здесь стояло «Поднять: python3 scripts/mcp-proxy.py». Это требование к
       // человеку, которому делать нечего: туннель держит служба входа в систему и поднимает
       // его сама, как только brain_lab начнёт отвечать. Сервер общий и под нагрузкой иногда
@@ -1902,7 +1902,7 @@
     view.hidden=false;
     view.innerHTML=`<div class="special-shell mcp-page knowledge-workspace">
       <header class="mcp-hero"><p>${demo?"Учебная база":"Lab Knowledge · BRAIn Lab"}</p><h1>Спросите лабораторию<span aria-hidden="true">.</span></h1>
-        <strong>${demo?"Выдуманный проект и восемь учебных статей. Посмотрите связи между записями, откройте область или найдите запись по коду.":"Что уже проверяли, чем это закончилось и на какие работы опирались."}</strong>
+        <strong>${demo?"Выдуманный проект и учебные статьи. Посмотрите связи между записями, откройте область или найдите запись по коду.":"Что уже проверяли, чем это закончилось и на какие работы опирались."}</strong>
         ${sourceButtons(m.links)}</header>
       <div class="mcp-live-badge" id="mcp-live-badge"></div>
       ${waysBlock()}
