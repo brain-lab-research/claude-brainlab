@@ -302,3 +302,17 @@
  .mem-readers{gap:12px 20px;margin-bottom:30px}.mem-readers>.mem-label{width:100%}.mem-readers>span:not(.mem-label){font-size:12px}.mem-readers small{font-size:11px}
  .mem-analysis-scenarios{margin-top:38px}.mem-analysis-case{display:block;padding:25px 0}.mem-analysis-case h4{font-size:24px;max-width:none}.mem-analysis-case>p{font-size:12px;margin-top:20px}.mem-useful-context{gap:23px}
 }
+
+/* Access uses two scopes: laboratory identity and project collaboration. */
+.mem-access-steps{display:flex;align-items:center;gap:22px;padding:28px 0;border-top:1px solid #344136;border-bottom:1px solid #344136;color:#c8d6c0}
+.mem-access-steps i{font-style:normal;color:#94a879}
+.mem-access-roles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:36px;padding:40px 0}
+.mem-access h3{margin:12px 0 16px;font-size:25px;color:#f1f5ed}
+.mem-access p{font-size:16px;line-height:1.7;color:#bbc8b6}
+.mem-access-project{padding:30px 0;border-top:1px solid #344136}
+.mem-access-project dl{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:32px}
+.mem-access-project dt{color:#e4edda}.mem-access-project dd{margin:12px 0;color:#bbc8b6}
+.mem-access-project code{display:block;margin-top:6px;font-size:12px;color:#a4b894}
+.mem-access footer{display:flex;gap:40px;align-items:baseline;border-top:1px solid #344136;padding-top:25px}
+.mem-access footer a{flex-shrink:0;color:#c8ee98;text-underline-offset:6px}
+@media(max-width:760px){.mem-access-roles,.mem-access-project dl{grid-template-columns:1fr;gap:20px}.mem-access-steps{align-items:flex-start;flex-direction:column;gap:12px}.mem-access-steps i{transform:rotate(90deg)}.mem-access footer{display:block}}
