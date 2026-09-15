@@ -167,13 +167,27 @@ window.LAB_MEMORY_MAP = (() => {
     </section>`;
   }
 
+  function accessGuide(){
+    return `<section class="mem-chapter mem-access" id="mcp-access" aria-labelledby="mem-access-title">
+      <header class="mem-chapter-heading"><div><span class="mem-label">Человек · роль · проект</span><h2 id="mem-access-title">Доступ к лаборатории.<br><em>Права в своей работе.</em></h2></div><p>Агент действует от вашего имени. Личный ключ определяет, кто читает и меняет записи.</p></header>
+      <div class="mem-access-steps"><span>ФИО, ник и рекомендатель</span><i>→</i><span>Запрошенная роль</span><i>→</i><span>Одобрение Андрея</span><i>→</i><span>Личный ключ и инструкция</span></div>
+      <div class="mem-access-roles">
+        <article><span class="mem-label">member</span><h3>Участник</h3><p>Читает общую базу, добавляет литературу, создаёт свои проекты и работает в них. Для записи в чужую работу нужно приглашение.</p></article>
+        <article><span class="mem-label">manager</span><h3>Координатор</h3><p>Права участника плюс приглашение людей и управление ключами участников. Не получает автоматического права менять все проекты или глобальные роли.</p></article>
+        <article><span class="mem-label">lead</span><h3>Ведущий лаборатории</h3><p>Управляет всеми проектами, доступами и глобальными ролями. Выдаётся отдельным решением владельца.</p></article>
+      </div>
+      <div class="mem-access-project"><h3>В каждом проекте — свои права</h3><dl><div><dt>Читатель <code>viewer</code></dt><dd>Читать записи.</dd></div><div><dt>Соавтор <code>contributor</code></dt><dd>Добавлять, изменять и удалять записи проекта.</dd></div><div><dt>Руководитель проекта <code>lead</code></dt><dd>Работать с записями и приглашать соавторов.</dd></div></dl><p>Руководитель проекта не становится ведущим всей лаборатории. Создатель получает права руководителя в своём проекте.</p></div>
+      <footer><a href="https://t.me/brainlab_server_access_bot" target="_blank" rel="noopener noreferrer">Открыть бот доступа ↗</a><p>В меню выберите «База знаний MCP» и заполните форму. Роль из заявки действует только после одобрения. Ключ работает до отзыва; повторная заявка не понижает существующие права.</p></footer>
+    </section>`;
+  }
+
   function render(p, processes){
     return `<div class="process-shell memory-observatory" style="--accent:#b9ff66">
       <header class="mem-header"><div><button class="back-button" data-back type="button">← Весь Atlas</button><span class="mem-coordinate">BRAIn Lab / Lab Knowledge MCP</span></div></header>
       ${anatomy()}
       <header class="mem-chapter-heading mem-overview-heading"><div><span class="mem-label">Откуда приходит знание</span><h2>Как работа становится <em>знанием</em></h2></div></header>
       <section class="mem-first-map" aria-label="Общая карта: источники, утверждения и личная память" data-chapter="overview">${overview(processes)}<div class="mem-practice-notes"><p><b>Когда сохраняется:</b> по ходу работы и при checkpoint. Hook напоминает, агент выбирает содержание, записывает и читает результат обратно.</p><p><b>Где задачи:</b> общие в Yonote, личные в Operon. Канбан Hermes остаётся у Hermes; Python обновляет его просмотр в папке проекта Obsidian.</p></div></section>
-      ${ingestion()}${retrieval()}
+      ${ingestion()}${retrieval()}${accessGuide()}
       <footer class="mem-footer"><p>Схемы показывают устройство системы, без данных частной базы. Схема записей сверена 12-09-2026; модели и параметры поиска — 10-09-2026.</p><a href="#mcp-live">Перейти к записям MCP ↗</a><details class="mem-tools"><summary>Навыки и инструменты этого слоя</summary><div>${p.tools.map(t=>`<button type="button" data-skill="${esc(t.id)}">${esc(t.title)}</button>`).join('')}</div></details><a href="https://github.com/Vepricov/claude-brainlab/blob/main/docs/knowledge-base.md" target="_blank" rel="noopener noreferrer">Контракт и исходники ↗</a></footer>
       <dialog class="skill-dialog" aria-labelledby="skill-dialog-title"></dialog>
       <dialog class="skill-dialog mem-record-dialog" aria-labelledby="mem-record-title"></dialog>
