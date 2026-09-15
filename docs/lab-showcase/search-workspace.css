@@ -4,7 +4,7 @@
 .knowledge-workspace .mcp-hero>p{font:11px var(--mono);letter-spacing:.14em;color:#b3d689}
 .knowledge-workspace .mcp-hero h1{position:relative;z-index:1;max-width:100%;margin:16px 0 0;
   font:500 clamp(34px,4.7vw,66px)/1.07 var(--display);letter-spacing:-.05em;text-wrap:balance}
-.knowledge-workspace .mcp-hero h1>span{color:var(--lime)}
+.knowledge-workspace .mcp-hero h1>span{color:inherit}
 .knowledge-workspace .mcp-hero>strong{max-width:68ch;margin-top:16px;color:var(--search-soft);font-size:16px;line-height:1.6}
 .knowledge-workspace .mcp-hero .special-links{margin-top:16px;gap:10px 24px}
 .knowledge-workspace .mcp-hero .special-links a{padding:0;border:0;background:none;border-radius:0;
