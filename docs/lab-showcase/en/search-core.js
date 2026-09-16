@@ -318,19 +318,19 @@
         (r.f || []).some((f) => ["направление", "research area"].includes(f[0]) && (direction.raw || []).includes(f[1]))).length;
       add({ kind: "direction", id: direction.slug, title: direction.t, text: direction.a,
             size: directionSize },
-        [[direction.t, 4], [direction.a, 1.5], ["направление направления", 2]]);
+        [[direction.t, 4], [direction.a, 1.5], ["research area research areas", 2]]);
     }
     const themeAbstract = {};
     for (const theme of tree.themes || []) themeAbstract[theme.code] = theme.a;
 
     const isTheme = (record) =>
-      (record.f || []).some((field) => field[0] === "род" && field[1] === "theme");
+      (record.f || []).some((field) => field[0] === "kind" && field[1] === "theme");
 
     for (const record of base.records || []) {
       if (record.k === "project") {
         const abstract = isTheme(record) ? (themeAbstract[record.code] || "") : (record.s || "");
         const fields = (record.f || [])
-          .filter((f) => !["слаг", "род"].includes(f[0]))
+          .filter((f) => !["slug", "kind"].includes(f[0]))
           .map((f) => String(f[1] || "")).join(" ");
         // Состав проекта тоже ищется: фамилия участника должна приводить к его проектам,
         // а не к служебным записям об источниках, где она просто упомянута.
@@ -340,7 +340,7 @@
               title: record.t, text: abstract, code: record.code,
               size: (record.hy || []).length, team },
           [[record.code, 6], [record.t, 4], [abstract, 1.5], [fields, 0.7],
-           [team, 2.5], [isTheme(record) ? "тема темы" : "проект проекты", 2]]);
+           [team, 2.5], [isTheme(record) ? "topic topics" : "project projects", 2]]);
         continue;
       }
       add({ kind: record.k, id: record.code || record.id, title: record.t, text: record.s,
