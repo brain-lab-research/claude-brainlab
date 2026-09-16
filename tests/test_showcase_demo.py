@@ -1,5 +1,8 @@
 """Public teaching data must remain navigable and separate from real research."""
 import json
+import shutil
+import subprocess
+import sys
 from pathlib import Path
 
 SHOWCASE = Path(__file__).resolve().parents[1] / "docs" / "lab-showcase"
@@ -49,14 +52,48 @@ def test_fictional_papers_have_no_external_citations_or_verified_quotes():
     assert len(library["papers"]) >= 20
     assert sum(len(p["c"]) for p in library["papers"]) >= 50
     assert len({p["id"] for p in library["papers"]}) == len(library["papers"])
-    for paper in library["papers"]:
-        assert paper["id"].startswith("demo")
+    fictional = [p for p in library["papers"] if p["id"].startswith("demo")]
+    assert len(fictional) == 20
+    for paper in fictional:
         assert not paper["ax"]
         assert paper["nc"] == len(paper["c"])
         assert "Учебная статья" in paper["sr"]
         for claim in paper["c"]:
             assert not claim["q"]
             assert not claim["v"]
+
+
+def test_public_papers_have_authors_sources_and_honest_reading_scope():
+    manifest = json.loads((SHOWCASE / "data/publications.json").read_text())
+    library = snapshot("library-snapshot.js", "LAB_LIBRARY")
+    papers = [p for p in library["papers"] if p.get("origin") == "author-publication"]
+    assert len(papers) >= 19
+    assert {p["id"] for p in papers} == {p["id"] for p in manifest["papers"]}
+    assert len({p["ax"] for p in papers if p["ax"]}) == 18
+    for paper in papers:
+        assert "Veprikov" in paper["au"]
+        assert paper["source_url"].startswith("https://")
+        assert paper["venue_url"].startswith("https://")
+        assert paper["reading_scope"]
+        assert paper["nc"] == len(paper["c"])
+        assert len(paper["c"]) >= 3
+        for claim in paper["c"]:
+            assert claim["locator"] and claim["source_url"].startswith("https://")
+            assert not claim["q"] and not claim["v"]
+    flag = snapshot("demo-flag.js", "LAB_DEMO")
+    assert flag["hints"] == [q["text"] for q in manifest["questions"]]
+    assert flag["publication_count"] == len(papers)
+
+
+def test_publication_build_is_reproducible_and_preserves_teaching_records(tmp_path):
+    data = tmp_path / "data"
+    shutil.copytree(SHOWCASE / "data", data)
+    names = ["library-snapshot.js", "atlas-tree.js", "demo-flag.js", "base-snapshot.js"]
+    before = {name: (data / name).read_bytes() for name in names}
+    script = SHOWCASE.parents[1] / "scripts/build_publications.py"
+    for _ in range(2):
+        subprocess.run([sys.executable, str(script), "--data-dir", str(data)], check=True)
+        assert {name: (data / name).read_bytes() for name in names} == before
 
 
 def test_library_tree_places_every_paper_once_in_its_folder():
