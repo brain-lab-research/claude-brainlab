@@ -756,7 +756,7 @@
   const MCP_CALL={mode:"semantic",scope:"all",limit:20};
   let liveOk=demo?false:null,mcpSeq=0;
   function callLine(q){
-    if(demo)return `<p class="mcp-call is-local">Поиск по учебным данным в браузере</p>`;
+    if(demo)return `<p class="mcp-call is-local">Поиск по открытой демобазе в браузере</p>`;
     const args=`query: "${q}", mode: "${MCP_CALL.mode}", scope: "${MCP_CALL.scope}", `
       +`limit: ${MCP_CALL.limit}`;
     return `<pre class="mcp-call"><code>search_lab(${esc(args)})</code></pre>`;
@@ -848,6 +848,14 @@
     return snapshotLegacy(q);
   }
 
+  function paperClaim(paper,q){
+    const claims=paper?.c||[];
+    if(!window.LabSearch)return claims[0];
+    const index=new window.LabSearch.Index();
+    for(const claim of claims)index.add(claim,[[claim.s,1]]);
+    return index.build().search(q,1)[0]||claims[0];
+  }
+
   // Записи из общего индекса в форме ответа службы. Оценка BM25 приводится к 0…1 делением на
   // лучшую: сравнивать её с оценкой кросс-энкодера нельзя, а показывать порядок — можно.
   function snapshotRanked(q){
@@ -858,7 +866,10 @@
     for(const item of searchIndex.search(q,8)){
       if(!NODE_KINDS.has(item.kind))continue;
       if(item.kind==="project"||item.kind==="theme"){context.add(item.title);context.add(item.code)}
-      else context.add(item.id);
+      else{
+        context.add(item.id);
+        if(item.kind==="subtopic"&&item.folder)context.add(item.folder);
+      }
     }
     const found=searchIndex.search(q,40,{context}).filter(x=>!NODE_KINDS.has(x.kind));
     if(!found.length)return [];
@@ -870,7 +881,7 @@
       const snap=x.code?byCode[x.code]:null;
       if(x.kind==="paper"){
         const paper=papersById[x.id];
-        const claim=(paper?.c||[]).slice().sort((a,b)=>(b.s||"").length-(a.s||"").length)[0];
+        const claim=paperClaim(paper,q);
         return {entity_type:"paper_claim",entity_id:x.id,
                 title:`${x.title} — ${claim?claim.s:x.text||""}`,
                 snippet:claim?claim.s:(x.text||""),score:x.score/best,
@@ -890,9 +901,7 @@
     }
     for(const x of libSearch(q,8)){
       const p=x.p||x;
-      // У статьи в снимке показываем её самое длинное разобранное утверждение: именно оно
-      // отвечает на вопрос, а не название статьи.
-      const claim=(p.c||[]).slice().sort((a,b)=>(b.s||"").length-(a.s||"").length)[0];
+      const claim=paperClaim(p,q);
       out.push({entity_type:"paper_claim",entity_id:p.id,
                 title:`${p.t} — ${claim?claim.s:p.sr||p.s||""}`,
                 snippet:claim?claim.s:(p.sr||p.s||""),score:null,
@@ -942,7 +951,7 @@
       const items=snapshotItems(q);
       if(found)found.textContent=items.length?`${items.length} по снимку`:"ничего";
       box.innerHTML=items.length?answerPage(items,q)
-        :demo?`<p class="mcp-empty">В учебном наборе нет ответа. Попробуйте один из примеров выше.</p>`:`<p class="mcp-empty">По снимку ничего не нашлось, и это ожидаемо: снимок ищет словами, а не по смыслу. Поднимите живой поиск, и та же строка уйдёт в службу так, как её отправляет агент.</p>`;
+        :demo?`<p class="mcp-empty">В демобазе нет ответа. Попробуйте один из примеров выше.</p>`:`<p class="mcp-empty">По снимку ничего не нашлось, и это ожидаемо: снимок ищет словами, а не по смыслу. Поднимите живой поиск, и та же строка уйдёт в службу так, как её отправляет агент.</p>`;
       bindResults(box);scrollToResults();return;
     }
     // Кросс-энкодер отвечает 6-14 секунд, и на такой паузе молчащий экран читается как
@@ -1513,12 +1522,12 @@
     }).join("");
     const body=p.sr||p.ab||p.s||"";
     return `<article class="paper-page">
-      <header><span class="base-kind">статья</span>${p.f?`<button class="base-folder" type="button" data-open-folder="${esc(p.f)}">${esc(p.f)}</button>`:""}${p.y?`<span class="base-status">${esc(String(p.y))}</span>`:""}</header>
+      <header><span class="base-kind">${p.origin==="author-publication"?"открытая публикация":demo?"учебная статья":"статья"}</span>${p.f?`<button class="base-folder" type="button" data-open-folder="${esc(p.f)}">${esc(p.f)}</button>`:""}${p.y?`<span class="base-status">${esc(String(p.y))}</span>`:""}</header>
       <h2>${esc(p.t)}</h2>
       <p class="paper-authors">${esc(p.au||"")}${p.v?` · ${esc(p.v)}`:""}</p>
-      ${body?`<p class="paper-abstract">${mark(body,q)}</p>`:""}
+      ${body?`<p class="paper-abstract">${mark(body,q)}</p>`:""}${p.reading_scope?`<p class="paper-authors">Краткий разбор: ${esc(p.reading_scope)}. Утверждения изложены своими словами.</p>`:""}
       <div class="paper-counts"><span>утверждений <b>${esc(String((p.c||[]).length))}</b></span><span>разделов <b>${esc(String(p.ns??p.nc??0))}</b></span>${p.key?`<span>ключ <b>${esc(p.key)}</b></span>`:""}</div>
-      <div class="claim-links">${p.ax?`<a href="https://arxiv.org/abs/${esc(p.ax)}" target="_blank" rel="noopener">arXiv ${esc(p.ax)} ↗</a>`:""}<button type="button" data-mcp-home>← к поиску</button></div>
+      <div class="claim-links">${p.ax?`<a href="https://arxiv.org/abs/${esc(p.ax)}" target="_blank" rel="noopener">arXiv ${esc(p.ax)} ↗</a>`:p.source_url?`<a href="${esc(p.source_url)}" target="_blank" rel="noopener">Оригинал статьи ↗</a>`:""}${p.venue_url&&p.venue_url!==p.source_url?`<a href="${esc(p.venue_url)}" target="_blank" rel="noopener">${esc(p.v)} ↗</a>`:""}${p.code_url?`<a href="${esc(p.code_url)}" target="_blank" rel="noopener">Код ↗</a>`:""}<button type="button" data-mcp-home>← к поиску</button></div>
       ${groups||`<p class="mcp-empty">У этой статьи в снимке нет разобранных утверждений.</p>`}</article>`;
   }
 
@@ -1771,12 +1780,12 @@
   function syncLiveBadge(){
     const badge=$("mcp-live-badge");if(!badge)return;
     badge.className=`mcp-live-badge ${!demo&&liveOk?"is-live":"is-snapshot"}`;
-    // В публичной сборке живой службы нет и быть не может: там выдуманная лаборатория.
+    // Public papers and teaching records are served locally without the private MCP.
     // Предлагать поднять прокси к чужому серверу нечестно, поэтому текст другой.
     badge.innerHTML=!demo&&liveOk
       ? `<b>живая служба</b><span>Поиск по смыслу. Тот же ответ и порядок, что получают агенты.</span>`
       : demo
-      ? `<b>показательная сборка</b><span>${esc(demo.lab||"выдуманная лаборатория")}: одно направление, один проект и учебные статьи. Данные выдуманы, живой службы здесь нет. У себя ставите ту же витрину на свою базу и получаете эту страницу на своих записях.</span>`
+      ? `<b>показательная сборка</b><span>${esc(demo.note)}</span>`
       // Раньше здесь стояло «Поднять: python3 scripts/mcp-proxy.py». Это требование к
       // человеку, которому делать нечего: туннель держит служба входа в систему и поднимает
       // его сама, как только brain_lab начнёт отвечать. Сервер общий и под нагрузкой иногда
@@ -1796,7 +1805,7 @@
     const count=k=>(base.records||[]).filter(r=>r.k===k).length;
     return `<section class="tally" aria-label="Состав снимка базы"><p class="tally-caption">В доступном снимке базы</p>
       <div class="tally-row">
-        <div class="is-their"><b>${esc(String((lib.papers||[]).length))}</b><span>статей разобрано</span></div>
+        <div class="is-their"><b>${esc(String((lib.papers||[]).length))}</b><span>статей в подборке</span></div>
         <div class="is-their"><b>${esc(String(claims))}</b><span>утверждений из статей</span></div>
         <div class="is-our"><b>${esc(String(hyp.length))}</b><span>наших утверждений</span></div>
         <div class="is-our"><b>${esc(String(count("experiment")))}</b><span>прогонов</span></div>
@@ -1804,7 +1813,7 @@
         <div class="is-our"><b>${esc(String(count("derivation")))}</b><span>доказательств</span></div>
       </div>
       <p class="tally-note"><b class="is-our">${esc(String(both))}</b> утверждений закрыты и выкладкой, и числами.
-        ${demo?"Это выдуманные учебные записи, а не результаты лаборатории.":"Всё, что ниже, читает ту же базу, что и агенты лаборатории."}</p>
+        ${demo?"Прогоны и измерения здесь вымышлены. Настоящие публикации вынесены в раздел «Публикации Андрея».":"Всё, что ниже, читает ту же базу, что и агенты лаборатории."}</p>
       ${openBlock(hyp)}
     </section>`;
   }
@@ -1866,11 +1875,11 @@
     return `<div class="ways">
       <section class="way way-search"><span>Поиск по общей базе</span>
         <h3>Что хотите узнать?</h3>
-        <p>${demo?"Поиск по словам в учебном наборе. Вопрос остаётся в браузере, подключение к MCP не используется.":"Задайте вопрос своими словами. В ответе — утверждения, результаты и их источники."}</p>
+        <p>${demo?"Найдите метод или результат из статьи. Поиск по словам работает прямо в браузере.":"Задайте вопрос своими словами. В ответе — утверждения, результаты и их источники."}</p>
         <div class="way-body">
           <form class="way-form" id="mcp-search-form" role="search">
             <label class="sr-only" for="mcp-search-input">Вопрос к общей базе</label>
-            <input id="mcp-search-input" type="search" autocomplete="off" placeholder="Например, когда помогает прогрев?">
+            <input id="mcp-search-input" type="search" autocomplete="off" placeholder="${esc(demo?WAY_QUESTIONS[0]:"Например, когда помогает прогрев?")}">
             <button type="submit">Спросить</button></form>
           <div class="way-examples">${WAY_QUESTIONS.map(q=>`<button type="button" data-way-ask="${esc(q)}">${esc(q)}</button>`).join("")}</div>
         </div></section>
@@ -1901,9 +1910,9 @@
     const view=$("mcp-live-view");
     view.hidden=false;
     view.innerHTML=`<div class="special-shell mcp-page knowledge-workspace">
-      <header class="mcp-hero"><p>${demo?"Учебная база":"Lab Knowledge · BRAIn Lab"}</p><h1>Спросите лабораторию<span aria-hidden="true">.</span></h1>
-        <strong>${demo?"Выдуманный проект и учебные статьи. Посмотрите связи между записями, откройте область или найдите запись по коду.":"Что уже проверяли, чем это закончилось и на какие работы опирались."}</strong>
-        ${sourceButtons(m.links)}</header>
+      <header class="mcp-hero"><p>${esc(demo?.label||"Lab Knowledge · BRAIn Lab")}</p><h1>Спросите лабораторию<span aria-hidden="true">.</span></h1>
+        <strong>${demo?"Статьи Андрея Веприкова и соавторов: что предложено, как это работает и где прочитать оригинал.":"Что уже проверяли, чем это закончилось и на какие работы опирались."}</strong>
+        ${sourceButtons(m.links)}${demo?.publication_folder?`<div class="claim-links"><button type="button" data-open-folder="${esc(demo.publication_folder)}">Все публикации <span>${esc(String(demo.publication_count))}</span> →</button></div>`:""}</header>
       <div class="mcp-live-badge" id="mcp-live-badge"></div>
       ${waysBlock()}
       <output id="mcp-found" class="mcp-found"></output>
@@ -2008,9 +2017,9 @@
         .catch(()=>{window.LAB_PROJECT_WORKSPACES={projects:{},unavailable:true}})
         .then(()=>mcpRenderer?.refreshWorkspace());
       mcpLoading=Promise.all([
-        loadSnapshot("data/library-snapshot.js","LAB_LIBRARY"),
+        loadSnapshot("data/library-snapshot.js?v=publications-20260916","LAB_LIBRARY"),
         loadSnapshot("data/base-snapshot.js","LAB_BASE"),
-        loadSnapshot("data/atlas-tree.js","LAB_TREE"),
+        loadSnapshot("data/atlas-tree.js?v=publications-20260916","LAB_TREE"),
       ]).then(()=>{mcpRenderer=createMcpWorkspace();renderTally()})
         .catch(error=>{mcpLoading=null;throw error});
     }
@@ -2023,7 +2032,7 @@
     const revision=navigationRevision,view=$("mcp-live-view");
     view.hidden=false;
     view.innerHTML=`<div class="special-shell mcp-page knowledge-workspace">
-      <header class="mcp-hero"><p>${window.LAB_DEMO?"Учебная база":"Lab Knowledge · BRAIn Lab"}</p><h1>Спросите лабораторию<span aria-hidden="true">.</span></h1></header>
+      <header class="mcp-hero"><p>${esc(window.LAB_DEMO?.label||"Lab Knowledge · BRAIn Lab")}</p><h1>Спросите лабораторию<span aria-hidden="true">.</span></h1></header>
       <div class="mcp-load-state" data-mcp-loading><span aria-hidden="true">◌</span><p role="status">Загружаем библиотеку и записи для поиска…</p></div>
       <button class="back-button" data-loading-back type="button">← Вернуться к общей карте</button></div>`;
     view.querySelector("[data-loading-back]").onclick=showOverview;
