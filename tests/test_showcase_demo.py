@@ -85,6 +85,29 @@ def test_public_papers_have_authors_sources_and_honest_reading_scope():
     assert flag["publication_count"] == len(papers)
 
 
+def test_related_papers_and_curated_scenarios_have_public_sources():
+    manifest = json.loads((SHOWCASE / "data/publications.json").read_text())
+    library = snapshot("library-snapshot.js", "LAB_LIBRARY")
+    references = [p for p in library["papers"] if p.get("origin") == "related-publication"]
+    assert {p["id"] for p in references} == {p["id"] for p in manifest["references"]}
+    assert len(references) >= 8
+    for paper in references:
+        assert paper["source_url"] == "https://arxiv.org/abs/" + paper["ax"]
+        assert paper["au"] and paper["reading_scope"]
+        assert paper["f"] == manifest["reference_folder"]
+        for claim in paper["c"]:
+            assert claim["locator"] and claim["source_url"] == paper["source_url"]
+            assert not claim["q"] and not claim["v"]
+    flag = snapshot("demo-flag.js", "LAB_DEMO")
+    assert flag["scenarios"] == manifest["questions"]
+    own = {p["id"] for p in manifest["papers"]}
+    all_ids = {p["id"] for p in library["papers"]}
+    for scenario in flag["scenarios"]:
+        assert scenario["paper"] in own
+        assert len(scenario["related"]) >= 2
+        assert set(scenario["related"]) <= all_ids - {scenario["paper"]}
+
+
 def test_publication_build_is_reproducible_and_preserves_teaching_records(tmp_path):
     data = tmp_path / "data"
     shutil.copytree(SHOWCASE / "data", data)

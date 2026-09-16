@@ -39,40 +39,68 @@
   ],
   "questions": [
     {
-      "text": "как WeightLoRA выбирает нужные адаптеры",
-      "paper": "pub00014"
+      "text": "как дообучить модель с меньшим числом параметров",
+      "paper": "pub00014",
+      "related": [
+        "ref00001",
+        "ref00002"
+      ]
     },
     {
-      "text": "зачем LionMuon чередует Lion и Muon",
-      "paper": "pub00004"
+      "text": "как ускорить обучение языковой модели",
+      "paper": "pub00004",
+      "related": [
+        "ref00008",
+        "ref00004"
+      ]
     },
     {
-      "text": "как DyKAF приближает матрицу Фишера",
-      "paper": "pub00009"
+      "text": "как учитывать кривизну при оптимизации",
+      "paper": "pub00009",
+      "related": [
+        "ref00004",
+        "ref00008"
+      ]
     },
     {
-      "text": "что Softsign меняет в знаковом шаге",
-      "paper": "pub00002"
+      "text": "зачем нужен разогрев и как выбрать его длительность",
+      "paper": "pub00007",
+      "related": [
+        "ref00007",
+        "pub00010"
+      ]
     },
     {
-      "text": "откуда берётся разогрев в Where Does Warm-Up Come From",
-      "paper": "pub00007"
+      "text": "как дообучать модель без обратного распространения",
+      "paper": "pub00006",
+      "related": [
+        "ref00003",
+        "pub00013"
+      ]
     },
     {
-      "text": "как LoRA-TSD использует касательное пространство",
-      "paper": "pub00001"
+      "text": "как учитывать геометрию низкорангового обновления",
+      "paper": "pub00001",
+      "related": [
+        "ref00001",
+        "ref00002"
+      ]
     },
     {
-      "text": "как JAGUAR переиспользует оценки координат",
-      "paper": "pub00015"
+      "text": "как уменьшить обмен данными при распределённом обучении",
+      "paper": "pub00008",
+      "related": [
+        "ref00005",
+        "pub00021"
+      ]
     },
     {
-      "text": "что меняет история в Markovian Compression",
-      "paper": "pub00008"
-    },
-    {
-      "text": "как модель создаёт скрытую обратную связь",
-      "paper": "pub00017"
+      "text": "почему предсказания модели меняют будущие данные",
+      "paper": "pub00017",
+      "related": [
+        "ref00006",
+        "pub00020"
+      ]
     }
   ],
   "papers": [
@@ -1042,5 +1070,317 @@
         }
       ]
     }
-  ]
+  ],
+  "references": [
+    {
+      "id": "ref00001",
+      "arxiv": "2106.09685",
+      "title": "LoRA: Low-Rank Adaptation of Large Language Models",
+      "authors": [
+        "Edward J. Hu",
+        "Yelong Shen",
+        "Phillip Wallis",
+        "Zeyuan Allen-Zhu",
+        "Yuanzhi Li",
+        "Shean Wang",
+        "Lu Wang",
+        "Weizhu Chen"
+      ],
+      "year": 2021,
+      "venue": "arXiv · 2021",
+      "venue_url": "https://arxiv.org/abs/2106.09685",
+      "source_url": "https://arxiv.org/abs/2106.09685",
+      "topic": "lora",
+      "summary": "LoRA дообучает небольшие низкоранговые добавки к замороженным весам модели. Это сокращает число обучаемых параметров и расход памяти при адаптации к новой задаче.",
+      "claims": [
+        {
+          "kind": "method",
+          "text": "LoRA замораживает предобученные веса и добавляет обучаемые низкоранговые матрицы в слои Transformer.",
+          "source_url": "https://arxiv.org/abs/2106.09685",
+          "locator": "Аннотация arXiv"
+        },
+        {
+          "kind": "empirical",
+          "text": "В экспериментах с RoBERTa, DeBERTa, GPT-2 и GPT-3 авторы получают качество на уровне полного дообучения или выше при меньшем числе обучаемых параметров.",
+          "source_url": "https://arxiv.org/abs/2106.09685",
+          "locator": "Аннотация arXiv"
+        },
+        {
+          "kind": "method",
+          "text": "Низкоранговую добавку можно объединить с исходными весами, поэтому подход не требует дополнительных слоёв при инференсе.",
+          "source_url": "https://arxiv.org/abs/2106.09685",
+          "locator": "Аннотация arXiv"
+        }
+      ]
+    },
+    {
+      "id": "ref00002",
+      "arxiv": "2303.10512",
+      "title": "AdaLoRA: Adaptive Budget Allocation for Parameter-Efficient Fine-Tuning",
+      "authors": [
+        "Qingru Zhang",
+        "Minshuo Chen",
+        "Alexander Bukharin",
+        "Nikos Karampatziakis",
+        "Pengcheng He",
+        "Yu Cheng",
+        "Weizhu Chen",
+        "Tuo Zhao"
+      ],
+      "year": 2023,
+      "venue": "arXiv · 2023",
+      "venue_url": "https://arxiv.org/abs/2303.10512",
+      "source_url": "https://arxiv.org/abs/2303.10512",
+      "topic": "lora",
+      "summary": "AdaLoRA распределяет бюджет обучаемых параметров между матрицами по их важности. Вместо одинакового ранга для всех обновлений метод сокращает менее полезные компоненты.",
+      "claims": [
+        {
+          "kind": "method",
+          "text": "AdaLoRA адаптивно распределяет бюджет параметров между матрицами весов по оценке важности обновлений.",
+          "source_url": "https://arxiv.org/abs/2303.10512",
+          "locator": "Аннотация arXiv"
+        },
+        {
+          "kind": "method",
+          "text": "Обновления параметризованы в форме сингулярного разложения: неважные сингулярные значения отсекаются без дорогого точного SVD.",
+          "source_url": "https://arxiv.org/abs/2303.10512",
+          "locator": "Аннотация arXiv"
+        },
+        {
+          "kind": "empirical",
+          "text": "На задачах обработки языка, ответов на вопросы и генерации авторы сообщают улучшения относительно базовых методов, особенно при малом бюджете параметров.",
+          "source_url": "https://arxiv.org/abs/2303.10512",
+          "locator": "Аннотация arXiv"
+        }
+      ]
+    },
+    {
+      "id": "ref00003",
+      "arxiv": "2305.17333",
+      "title": "Fine-Tuning Language Models with Just Forward Passes",
+      "authors": [
+        "Sadhika Malladi",
+        "Tianyu Gao",
+        "Eshaan Nichani",
+        "Alex Damian",
+        "Jason D. Lee",
+        "Danqi Chen",
+        "Sanjeev Arora"
+      ],
+      "year": 2023,
+      "venue": "arXiv · 2023",
+      "venue_url": "https://arxiv.org/abs/2305.17333",
+      "source_url": "https://arxiv.org/abs/2305.17333",
+      "topic": "zero-order",
+      "summary": "MeZO дообучает языковую модель только прямыми проходами, оценивая направление обновления по значениям целевой функции. Основная цель — экономия памяти без обратного распространения.",
+      "claims": [
+        {
+          "kind": "method",
+          "text": "MeZO реализует безградиентный SGD с изменением параметров на месте и оценивает обновление через прямые проходы модели.",
+          "source_url": "https://arxiv.org/abs/2305.17333",
+          "locator": "Аннотация arXiv"
+        },
+        {
+          "kind": "empirical",
+          "text": "Авторы проверяют метод на классификации, выборе ответа и генерации. В их реализации расход памяти при дообучении сопоставим с инференсом.",
+          "source_url": "https://arxiv.org/abs/2305.17333",
+          "locator": "Аннотация arXiv"
+        },
+        {
+          "kind": "method",
+          "text": "Метод совместим с полным дообучением, LoRA и prefix tuning и допускает недифференцируемые цели, например accuracy или F1.",
+          "source_url": "https://arxiv.org/abs/2305.17333",
+          "locator": "Аннотация arXiv"
+        }
+      ]
+    },
+    {
+      "id": "ref00004",
+      "arxiv": "1802.09568",
+      "title": "Shampoo: Preconditioned Stochastic Tensor Optimization",
+      "authors": [
+        "Vineet Gupta",
+        "Tomer Koren",
+        "Yoram Singer"
+      ],
+      "year": 2018,
+      "venue": "arXiv · 2018",
+      "venue_url": "https://arxiv.org/abs/1802.09568",
+      "source_url": "https://arxiv.org/abs/1802.09568",
+      "topic": "optimizers",
+      "summary": "Shampoo предобусловливает обновления с учётом тензорной структуры параметров. Набор матриц по отдельным осям заменяет одну огромную матрицу предобусловливания.",
+      "claims": [
+        {
+          "kind": "method",
+          "text": "Shampoo хранит отдельную матрицу предобусловливания для каждого измерения тензора параметров, сворачивая градиенты по остальным измерениям.",
+          "source_url": "https://arxiv.org/abs/1802.09568",
+          "locator": "Аннотация arXiv"
+        },
+        {
+          "kind": "theoretical",
+          "text": "Для стохастической выпуклой оптимизации авторы доказывают гарантии сходимости с помощью матричных следовых неравенств.",
+          "source_url": "https://arxiv.org/abs/1802.09568",
+          "locator": "Аннотация arXiv"
+        },
+        {
+          "kind": "empirical",
+          "text": "В экспериментах авторы наблюдают более быструю сходимость, чем у сравниваемых оптимизаторов, при сопоставимом времени шага. Это результат приведённых задач, а не гарантия для любой модели.",
+          "source_url": "https://arxiv.org/abs/1802.09568",
+          "locator": "Аннотация arXiv"
+        }
+      ]
+    },
+    {
+      "id": "ref00005",
+      "arxiv": "1610.02132",
+      "title": "QSGD: Communication-Efficient SGD via Gradient Quantization and Encoding",
+      "authors": [
+        "Dan Alistarh",
+        "Demjan Grubic",
+        "Jerry Li",
+        "Ryota Tomioka",
+        "Milan Vojnovic"
+      ],
+      "year": 2016,
+      "venue": "arXiv · 2016",
+      "venue_url": "https://arxiv.org/abs/1610.02132",
+      "source_url": "https://arxiv.org/abs/1610.02132",
+      "topic": "distributed",
+      "summary": "QSGD уменьшает объём передаваемых градиентов с помощью квантования и кодирования. Уровень сжатия задаёт компромисс между стоимостью связи и временем сходимости.",
+      "claims": [
+        {
+          "kind": "method",
+          "text": "QSGD сжимает градиентные обновления на каждом узле через квантование и кодирование перед передачей другим участникам обучения.",
+          "source_url": "https://arxiv.org/abs/1610.02132",
+          "locator": "Аннотация arXiv"
+        },
+        {
+          "kind": "theoretical",
+          "text": "При стандартных предположениях семейство схем сохраняет гарантии сходимости и позволяет управлять компромиссом между объёмом сообщений и числом итераций.",
+          "source_url": "https://arxiv.org/abs/1610.02132",
+          "locator": "Аннотация arXiv"
+        },
+        {
+          "kind": "empirical",
+          "text": "Авторы проверяют квантование на классификации изображений и распознавании речи и сообщают сокращение затрат на связь и полного времени обучения в этих экспериментах.",
+          "source_url": "https://arxiv.org/abs/1610.02132",
+          "locator": "Аннотация arXiv"
+        }
+      ]
+    },
+    {
+      "id": "ref00006",
+      "arxiv": "2002.06673",
+      "title": "Performative Prediction",
+      "authors": [
+        "Juan C. Perdomo",
+        "Tijana Zrnic",
+        "Celestine Mendler-Dünner",
+        "Moritz Hardt"
+      ],
+      "year": 2020,
+      "venue": "arXiv · 2020",
+      "venue_url": "https://arxiv.org/abs/2002.06673",
+      "source_url": "https://arxiv.org/abs/2002.06673",
+      "topic": "dynamics",
+      "summary": "Работа рассматривает модели, чьи предсказания меняют будущие данные. Она вводит понятие устойчивости повторного обучения в среде, которая реагирует на предсказатель.",
+      "claims": [
+        {
+          "kind": "definition",
+          "text": "Предсказание является перформативным, если решения, принятые на его основе, влияют на предсказываемый результат и распределение будущих данных.",
+          "source_url": "https://arxiv.org/abs/2002.06673",
+          "locator": "Аннотация arXiv"
+        },
+        {
+          "kind": "definition",
+          "text": "Перформативная устойчивость описывает равновесие: модель оптимальна для распределения, которое возникает в ответ на применение этой модели.",
+          "source_url": "https://arxiv.org/abs/2002.06673",
+          "locator": "Аннотация arXiv"
+        },
+        {
+          "kind": "theoretical",
+          "text": "Авторы изучают условия, при которых повторное переобучение сходится к устойчивой точке с почти минимальным риском, и связывают подход со стратегической классификацией.",
+          "source_url": "https://arxiv.org/abs/2002.06673",
+          "locator": "Аннотация arXiv"
+        }
+      ]
+    },
+    {
+      "id": "ref00007",
+      "arxiv": "2406.09405",
+      "title": "Why Warmup the Learning Rate? Underlying Mechanisms and Improvements",
+      "authors": [
+        "Dayal Singh Kalra",
+        "Maissam Barkeshli"
+      ],
+      "year": 2024,
+      "venue": "arXiv · 2024",
+      "venue_url": "https://arxiv.org/abs/2406.09405",
+      "source_url": "https://arxiv.org/abs/2406.09405",
+      "topic": "optimizers",
+      "summary": "Авторы исследуют, почему постепенное увеличение шага в начале обучения помогает SGD и Adam. Разогрев связывается с переходом в области, допускающие больший целевой шаг.",
+      "claims": [
+        {
+          "kind": "empirical",
+          "text": "В систематических экспериментах с SGD и Adam основная польза разогрева связана с возможностью использовать больший целевой шаг обучения.",
+          "source_url": "https://arxiv.org/abs/2406.09405",
+          "locator": "Аннотация arXiv"
+        },
+        {
+          "kind": "empirical",
+          "text": "Поведение в период разогрева зависит от инициализации и параметризации: резкость ландшафта может сначала расти либо снижаться.",
+          "source_url": "https://arxiv.org/abs/2406.09405",
+          "locator": "Аннотация arXiv"
+        },
+        {
+          "kind": "method",
+          "text": "Авторы предлагают выбирать начальный шаг с учётом механизма loss catapult и рассматривают инициализацию дисперсии Adam, дающую сходные с разогревом преимущества.",
+          "source_url": "https://arxiv.org/abs/2406.09405",
+          "locator": "Аннотация arXiv"
+        }
+      ]
+    },
+    {
+      "id": "ref00008",
+      "arxiv": "2409.11321",
+      "title": "SOAP: Improving and Stabilizing Shampoo using Adam",
+      "authors": [
+        "Nikhil Vyas",
+        "Depen Morwani",
+        "Rosie Zhao",
+        "Mujin Kwun",
+        "Itai Shapira",
+        "David Brandfonbrener",
+        "Lucas Janson",
+        "Sham Kakade"
+      ],
+      "year": 2024,
+      "venue": "arXiv · 2024",
+      "venue_url": "https://arxiv.org/abs/2409.11321",
+      "source_url": "https://arxiv.org/abs/2409.11321",
+      "topic": "optimizers",
+      "summary": "SOAP применяет Adam в собственном базисе предобусловливателя Shampoo. Метод позволяет реже обновлять этот базис, продолжая накапливать статистики градиента между обновлениями.",
+      "claims": [
+        {
+          "kind": "method",
+          "text": "SOAP выполняет шаги Adam в собственном базисе предобусловливателя, связывая покоординатную адаптацию с геометрией Shampoo.",
+          "source_url": "https://arxiv.org/abs/2409.11321",
+          "locator": "Аннотация arXiv"
+        },
+        {
+          "kind": "method",
+          "text": "Статистика второго момента обновляется на каждом шаге в текущем базисе. Это смягчает ухудшение качества при редком пересчёте собственного разложения.",
+          "source_url": "https://arxiv.org/abs/2409.11321",
+          "locator": "Аннотация arXiv"
+        },
+        {
+          "kind": "empirical",
+          "text": "На предобучении языковых моделей с 360 и 660 миллионами параметров авторы сообщают выигрыш по итерациям и времени относительно AdamW и Shampoo в режиме большого батча.",
+          "source_url": "https://arxiv.org/abs/2409.11321",
+          "locator": "Аннотация arXiv"
+        }
+      ]
+    }
+  ],
+  "reference_folder": "Другие исследования/Статьи по теме"
 }

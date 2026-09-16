@@ -756,7 +756,7 @@
   const MCP_CALL={mode:"semantic",scope:"all",limit:20};
   let liveOk=demo?false:null,mcpSeq=0;
   function callLine(q){
-    if(demo)return `<p class="mcp-call is-local">Поиск по открытой демобазе в браузере</p>`;
+    if(demo)return `<p class="mcp-call is-local">${demoScenario(q)?"Подборка по теме · публичная демобаза":"Поиск по открытой демобазе в браузере"}</p>`;
     const args=`query: "${q}", mode: "${MCP_CALL.mode}", scope: "${MCP_CALL.scope}", `
       +`limit: ${MCP_CALL.limit}`;
     return `<pre class="mcp-call"><code>search_lab(${esc(args)})</code></pre>`;
@@ -844,8 +844,30 @@
   // снимка приводятся к форме ответа службы: род, идентификатор, заголовок, текст, оценка.
   // Оценки у снимка нет — вместо неё ставится пусто, и на карточке её просто не видно.
   function snapshotItems(q){
+    const scenario=demoScenario(q);
+    if(scenario)return scenarioItems(scenario,q);
     if(searchIndex)return snapshotRanked(q);
     return snapshotLegacy(q);
+  }
+
+  // Curated examples belong only to the public showcase, never to live MCP ranking.
+  function demoScenario(q){
+    const normalize=value=>String(value).toLocaleLowerCase("ru").trim().replace(/[?!.]+$/u,"").trim().replace(/\s+/g," ");
+    return demo?.scenarios?.find(s=>normalize(s.text)===normalize(q));
+  }
+
+  function scenarioItems(scenario,q){
+    return [scenario.paper,...scenario.related].flatMap(id=>{
+      const paper=papersById[id];
+      if(!paper)return [];
+      const featured=id===scenario.paper;
+      const extra={paper_id:id,library_folder:paper.f,demo_featured:featured};
+      const claims=featured?paper.c:[paperClaim(paper,q)].filter(Boolean);
+      return [{entity_type:"paper",entity_id:id,title:paper.t,snippet:paper.s,extra},
+        ...claims.map(claim=>({entity_type:"paper_claim",entity_id:id,
+          title:paper.t+" — "+claim.s,snippet:"",
+          extra:{...extra,claim_kind:claim.k}}))];
+    });
   }
 
   function paperClaim(paper,q){
@@ -1296,7 +1318,8 @@
     const tally=parts.map(k=>`<span><b>${esc(String(by[k].length))}</b> ${esc(plural(by[k].length,ANSWER_FORMS[k])||KIND[k]||k)}</span>`).join("");
     const ours=(by.hypothesis||[]).length+(by.evidence||[]).length+(by.experiment||[]).length;
     const theirs=(by.paper_claim||[]).length+(by.paper||[]).length;
-    const gist=ours&&theirs?`Отвечает и своя работа, и разобранные статьи.`
+    const gist=demoScenario(q)?`Работа лаборатории и статьи по теме.`
+      :ours&&theirs?`Отвечает и своя работа, и разобранные статьи.`
       :ours?`Отвечает своя работа: записи из прогонов и измерений.`
       :theirs?`В своей работе ответа нет — отвечают разобранные статьи.`:"";
     const head=`<div class="answer-head"><p class="answer-tally">${tally}</p>${gist?`<p class="answer-gist">${esc(gist)}</p>`:""}</div>`;
@@ -1318,6 +1341,7 @@
     const {src,items}=group;
     const snap=src.kind==="project"?byCode[src.id]:null;
     const paper=src.kind==="paper"?papersById[src.id]:null;
+    const featured=!!(demo&&paper&&items.some(({item})=>item.extra?.demo_featured));
     const node=src.kind==="folder"?treeFolders[src.id]:null;
     const [subFolder,subSlug]=src.kind==="subtopic"?String(src.id).split("|"):[];
     const topic=src.kind==="subtopic"
@@ -1336,6 +1360,7 @@
       src.kind==="project"?(snap?.s||"")
       :src.kind==="folder"?shorten(node?.a||"",320)
       :src.kind==="subtopic"?shorten(topic?.a||src.abstract||"",320)
+      :featured?(paper?.sr||paper?.s||paper?.ab||"")
       :shorten(paper?.sr||paper?.s||paper?.ab||"",320));
     const who=snap?.who||{};
     const team=[...(who.leads||[]),...(who.members||[])];
@@ -1345,7 +1370,7 @@
       ? `${(node?.sub||[]).length} подтем`
       : src.kind==="subtopic"
       ? [subFolder,topic?`${(topic.p||[]).length} ${plural((topic.p||[]).length,["статья","статьи","статей"])}`:""].filter(Boolean).join(" · ")
-      : [paper?.au?authorLine(paper.au):"",paper?.y,src.folder].filter(Boolean).join(" · ");
+      : [paper?.au?authorLine(paper.au):"",paper?.v||paper?.y,featured?"":src.folder].filter(Boolean).join(" · ");
     const open=src.kind==="project"
       ? `<button type="button" data-open-record="${esc(src.id)}">Открыть проект: аннотация, все утверждения, терминология →</button>`
       : src.kind==="folder"
@@ -1353,16 +1378,16 @@
       : src.kind==="subtopic"&&topic
       ? `<button type="button" data-open-subtopic="${esc(subFolder)}|${esc(subSlug)}">Открыть подтему: все её статьи →</button>`
       : src.kind==="paper"&&src.id
-      ? `<button type="button" data-open-paper="${esc(src.id)}">Открыть статью: аннотация и все её утверждения →</button>`:"";
+      ? `<button type="button" data-open-paper="${esc(src.id)}">${featured?"Открыть работу":"Открыть статью: аннотация и все её утверждения"} →</button>`:"";
     // Строки утверждений — только те, что не сам источник: карточка статьи, найденной
     // целиком, не должна показывать саму себя ещё и строкой внутри себя.
     const rows=items.filter(({item})=>!SELF_HIT.has(item.entity_type));
     const count=rows.length
       ? `${rows.length} ${plural(rows.length,["утверждение по запросу","утверждения по запросу","утверждений по запросу"])}`
       : "нашлось целиком";
-    return `<article class="src-group is-${esc(src.kind)}">
+    return `<article class="src-group is-${featured?"project is-publication":esc(src.kind)}" data-source-id="${esc(src.id)}" data-source-kind="${esc(src.kind)}">
       <header>
-        <span class="src-kind">${esc(SRC_KIND[src.kind]||src.kind)}</span>
+        <span class="src-kind">${featured?"Работа лаборатории · статья":esc(SRC_KIND[src.kind]||src.kind)}</span>
         ${src.kind==="project"&&src.id?`<code>${esc(src.id)}</code>`:""}
         <span class="src-count">${esc(count)}</span>
       </header>
@@ -1522,7 +1547,7 @@
     }).join("");
     const body=p.sr||p.ab||p.s||"";
     return `<article class="paper-page">
-      <header><span class="base-kind">${p.origin==="author-publication"?"открытая публикация":demo?"учебная статья":"статья"}</span>${p.f?`<button class="base-folder" type="button" data-open-folder="${esc(p.f)}">${esc(p.f)}</button>`:""}${p.y?`<span class="base-status">${esc(String(p.y))}</span>`:""}</header>
+      <header><span class="base-kind">${["author-publication","related-publication"].includes(p.origin)?"открытая публикация":demo?"учебная статья":"статья"}</span>${p.f?`<button class="base-folder" type="button" data-open-folder="${esc(p.f)}">${esc(p.f)}</button>`:""}${p.y?`<span class="base-status">${esc(String(p.y))}</span>`:""}</header>
       <h2>${esc(p.t)}</h2>
       <p class="paper-authors">${esc(p.au||"")}${p.v?` · ${esc(p.v)}`:""}</p>
       ${body?`<p class="paper-abstract">${mark(body,q)}</p>`:""}${p.reading_scope?`<p class="paper-authors">Краткий разбор: ${esc(p.reading_scope)}. Утверждения изложены своими словами.</p>`:""}
@@ -1813,7 +1838,7 @@
         <div class="is-our"><b>${esc(String(count("derivation")))}</b><span>доказательств</span></div>
       </div>
       <p class="tally-note"><b class="is-our">${esc(String(both))}</b> утверждений закрыты и выкладкой, и числами.
-        ${demo?"Прогоны и измерения здесь вымышлены. Настоящие публикации вынесены в раздел «Публикации Андрея».":"Всё, что ниже, читает ту же базу, что и агенты лаборатории."}</p>
+        ${demo?"Прогоны и измерения здесь вымышлены. Настоящие публикации находятся в разделах «Публикации Андрея» и «Другие исследования».":"Всё, что ниже, читает ту же базу, что и агенты лаборатории."}</p>
       ${openBlock(hyp)}
     </section>`;
   }
@@ -2017,9 +2042,9 @@
         .catch(()=>{window.LAB_PROJECT_WORKSPACES={projects:{},unavailable:true}})
         .then(()=>mcpRenderer?.refreshWorkspace());
       mcpLoading=Promise.all([
-        loadSnapshot("data/library-snapshot.js?v=publications-20260916","LAB_LIBRARY"),
+        loadSnapshot("data/library-snapshot.js?v=general-questions-20260916","LAB_LIBRARY"),
         loadSnapshot("data/base-snapshot.js","LAB_BASE"),
-        loadSnapshot("data/atlas-tree.js?v=publications-20260916","LAB_TREE"),
+        loadSnapshot("data/atlas-tree.js?v=general-questions-20260916","LAB_TREE"),
       ]).then(()=>{mcpRenderer=createMcpWorkspace();renderTally()})
         .catch(error=>{mcpLoading=null;throw error});
     }
