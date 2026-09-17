@@ -27,7 +27,8 @@ Saving before compaction is the other obvious idea and it does not work: a block
 PreCompact hook cancels the compaction instead of deferring it. The cadence stays on Stop.
 
 The lab section appears only when a lab-knowledge MCP server is configured, so an install
-without lab access is not nagged about a base it cannot reach.
+without lab access is not nagged about an unconfigured base. Configuration is not a
+reachability check. Checkpoint markers track requests only; the agent must read back writes.
 """
 
 import json
@@ -37,60 +38,84 @@ from pathlib import Path
 import mempalace.hooks_cli as hooks_cli
 
 SETTINGS = Path.home() / ".claude" / "settings.json"
+CODEX_CONFIG = Path.home() / ".codex" / "config.toml"
 
 #: Настоящих сообщений человека между сохранениями.
 SAVE_INTERVAL = 10
 
 OBSIDIAN_ADDENDUM = """
-4. obsidian — if the session had experiments/theory/key decisions (skip for Q&A only):
-   a) Find project slug: check ~/.claude/obsidian-projects.json roots[*].items for cwd.
-      If cwd is not under any root → use general/.
-   b) Write to the appropriate file (append, create if missing):
-      - Experiment results (loss, accuracy, AUC, metrics, convergence)
-        → ${OBSIDIAN_VAULT}/<root>/<slug>/Experiments/YYYY-MM-DD.md
-        Format: ## HH:MM — <name>\\n**Config**: ...\\n**Results**: ...\\n**Notes**: ...
-      - Theory or algorithmic decisions
-        → ${OBSIDIAN_VAULT}/<root>/<slug>/Knowledge/<topic>.md
-      - Infrastructure/tooling changes
-        → ${OBSIDIAN_VAULT}/general/Knowledge/<topic>.md
-   c) Tell the user one line: what you wrote and where.
-   Skip entirely if nothing of durable research value happened this session.
-
-Keep each save short: one drawer under ~1500 characters, one diary line, no transcript
-dumps and no code blocks unless the code is the finding itself.
+4. obsidian — preserve durable results in the existing mapped project notes:
+   Resolve cwd through ~/.Codex/obsidian-projects.json (or the client's configured mapping).
+   Reuse canonical files and current vault conventions, including project-local tooling notes.
+   Keep private drafts private. Do not invent a general/ destination for a mapped project.
+   Save the protocol, results, decisions and remaining questions, with useful artifact links.
+   Read the written note back and report its path. Skip if nothing durable changed.
 """
 
 LAB_ADDENDUM = """
-5. lab knowledge (shared base over MCP) — only for what the lab can cite later:
-   - a claim worth testing → create_hypothesis(project_id, statement, falsifier, source_ref_id)
-   - a run, planned or finished → record_experiment / update_experiment_status
-   - a measured outcome → record_evidence, tied to the source it came from
-   - a rule the lab will follow → propose_decision
-   - a machine, quota, account, licence or dataset the lab now has → upsert_resource, and put
-     the gotchas in `quirks`: they are what breaks runs. Never a password there.
-   - an honest observation, incident or measurement that is none of the above → record_journal
-   Find the home first with get_project_by_slug: work on the lab's own tooling belongs to
-   the `lab-agents` theme, lab knowledge that fits no project to `lab-general`.
-   Requirements that cannot be waived for the strict kinds: a hypothesis needs its falsifier,
-   evidence needs its source, an experiment needs a status. Something that meets none of them
-   is a journal entry, not an invented hypothesis — but keep private or unfinished thinking in
-   Obsidian.
-   Report in one line: what you wrote, or that nothing qualified.
+5. lab knowledge — save meaningful shared findings within the user's existing authorization:
+   Load lab-knowledge and its references/record-contract.md, then read the live tool schema.
+   Resolve the existing project by stable ID and aliases; never guess a project or its board.
+   Hypotheses carry falsification_criteria and their actual empirical/theoretical kind.
+   Experiments preserve actual run state; evidence carries metrics, sources and limitations.
+   Mathematical arguments use derivations. Decisions preserve operational/scientific kind
+   and established support. Literature claims may be paraphrased; quotations are optional
+   source material, not a requirement to manufacture text or modify the original source.
+   If the server still requires a quote, keep that claim pending and report the incompatibility.
+   Operational observations and resources use their own types, not invented hypotheses.
+   Personal tasks stay in Operon. Shared tasks use the bound Yonote board; a Hermes board
+   projection must keep the original task ID and one authoritative status source.
+   Search before writing, preserve unrelated data, and reuse stable idempotency keys.
+   Read back each saved object and report its ID. Report partial failures as pending;
+   a checkpoint request or a local note is not proof of a successful MCP write.
+   Skip shared writes when nothing qualifies or publication was not authorized.
 """
 
 
-def lab_base_configured() -> bool:
-    """Is a lab-knowledge MCP server wired into this install?
+def lab_base_configured(harness: str = "claude-code", cwd: str = "") -> bool:
+    """Check this client's configuration, without reading or printing credentials."""
+    if harness == "codex":
+        try:
+            try:
+                import tomllib
+            except ImportError:
+                import tomli as tomllib
+            config = tomllib.loads(CODEX_CONFIG.read_text(encoding="utf-8"))
+        except (ImportError, OSError, ValueError):
+            return False
+        server = config.get("mcp_servers", {}).get("lab-knowledge")
+        return isinstance(server, dict) and server.get("enabled", True) is not False
+    paths = [SETTINGS, Path.home() / ".claude.json"]
+    if cwd:
+        paths.append(Path(cwd) / ".mcp.json")
+    for path in paths:
+        try:
+            config = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        if not isinstance(config, dict):
+            continue
+        server = config.get("mcpServers", {}).get("lab-knowledge")
+        if isinstance(server, dict) and server.get("disabled", False) is not True:
+            return True
+    return False
 
-    Checked by reading the settings rather than the environment: the token reaches the MCP
-    client through the server definition, and a hook does not necessarily inherit it.
-    """
-    try:
-        settings = json.loads(SETTINGS.read_text(encoding="utf-8"))
-    except (OSError, json.JSONDecodeError):
-        return False
-    servers = settings.get("mcpServers")
-    return isinstance(servers, dict) and "lab-knowledge" in servers
+
+def transcript_harness(transcript_path: str) -> str:
+    path = Path(transcript_path).expanduser()
+    if path.is_file():
+        with path.open(encoding="utf-8", errors="replace") as handle:
+            for line in handle:
+                try:
+                    entry = json.loads(line)
+                except ValueError:
+                    continue
+                if isinstance(entry, dict):
+                    if entry.get("type") in ("session_meta", "response_item"):
+                        return "codex"
+                    if isinstance(entry.get("message"), dict):
+                        return "claude-code"
+    return "claude-code"
 
 
 def _text_of(content: object) -> str:
@@ -122,7 +147,11 @@ def human_turns(transcript_path: str) -> int:
                 entry = json.loads(line)
             except json.JSONDecodeError:
                 continue
+            if not isinstance(entry, dict):
+                continue
             message = entry.get("message")
+            if entry.get("type") == "response_item":
+                message = entry.get("payload")
             if not isinstance(message, dict) or message.get("role") != "user":
                 continue
             content = message.get("content")
@@ -132,6 +161,9 @@ def human_turns(transcript_path: str) -> int:
             ):
                 continue
             text = _text_of(content)
+            if text.lstrip().startswith(("<environment_context>", "<turn_aborted>",
+                                         "# AGENTS.md instructions", "<permissions instructions>")):
+                continue
             if "<command-message>" in text:
                 continue
             if "AUTO-SAVE checkpoint" in text or "Stop hook feedback" in text:
@@ -145,6 +177,8 @@ def main() -> None:
         data = json.load(sys.stdin)
     except (json.JSONDecodeError, EOFError):
         data = {}
+    if not isinstance(data, dict):
+        data = {}
     parsed = hooks_cli._parse_harness_input(data, "claude-code")  # noqa: SLF001
 
     # Уже внутри цикла сохранения: пропустить, иначе получится петля.
@@ -152,12 +186,14 @@ def main() -> None:
         print(json.dumps({}))
         return
 
+    harness = transcript_harness(parsed["transcript_path"])
     turns = human_turns(parsed["transcript_path"])
     state_dir = hooks_cli.STATE_DIR
     state_dir.mkdir(parents=True, exist_ok=True)
-    marker = state_dir / f"{parsed['session_id']}_last_save_turns"
+    marker = state_dir / f"{parsed['session_id']}_last_checkpoint_turns"
+    legacy = state_dir / f"{parsed['session_id']}_last_save_turns"
     try:
-        last = int(marker.read_text(encoding="utf-8").strip())
+        last = int((marker if marker.exists() else legacy).read_text(encoding="utf-8").strip())
     except (OSError, ValueError):
         last = 0
 
@@ -172,7 +208,7 @@ def main() -> None:
     hooks_cli._maybe_auto_ingest()  # noqa: SLF001 — сохраняем поведение обёртки
 
     reason = hooks_cli.STOP_BLOCK_REASON.rstrip() + OBSIDIAN_ADDENDUM
-    if lab_base_configured():
+    if lab_base_configured(harness, str(data.get("cwd") or "")):
         reason = reason.rstrip() + "\n" + LAB_ADDENDUM
     print(json.dumps({"decision": "block", "reason": reason}))
 

@@ -4,10 +4,10 @@
 
 <p align="center">
   <a href="https://docs.claude.com/en/docs/claude-code"><img alt="Claude Code" src="https://img.shields.io/badge/Claude%20Code-configuration-000?style=flat-square&logo=anthropic&logoColor=white"></a>
-  <a href="SKILLS.md"><img alt="skills" src="https://img.shields.io/badge/skills-75-3FB950?style=flat-square"></a>
-  <a href="commands/"><img alt="slash commands" src="https://img.shields.io/badge/slash%20commands-37-58A6FF?style=flat-square"></a>
-  <a href="agents/"><img alt="agents" src="https://img.shields.io/badge/agents-16-BC8CFF?style=flat-square"></a>
-  <a href="docs/knowledge-base.md"><img alt="lab knowledge MCP" src="https://img.shields.io/badge/Lab%20Knowledge%20MCP-47%20tools-D29922?style=flat-square"></a>
+  <a href="SKILLS.md"><img alt="skills" src="https://img.shields.io/badge/skills-73-3FB950?style=flat-square"></a>
+  <a href="commands/"><img alt="slash commands" src="https://img.shields.io/badge/slash%20commands-33-58A6FF?style=flat-square"></a>
+  <a href="agents/"><img alt="agents" src="https://img.shields.io/badge/agents-15-BC8CFF?style=flat-square"></a>
+  <a href="docs/knowledge-base.md"><img alt="lab knowledge MCP" src="https://img.shields.io/badge/Lab%20Knowledge%20MCP-shared%20knowledge-D29922?style=flat-square"></a>
   <a href="LICENSE"><img alt="license" src="https://img.shields.io/badge/license-MIT-8B949E?style=flat-square"></a>
   <a href="https://github.com/Vepricov/claude-brainlab/stargazers"><img alt="stars" src="https://img.shields.io/github/stars/Vepricov/claude-brainlab?style=flat-square&color=E3B341"></a>
 </p>
@@ -18,7 +18,7 @@
   <a href="#the-toolkit-skills-commands-agents-hooks">The toolkit</a> ·
   <a href="#install">Install</a> ·
   <a href="#for-brain-lab-members">For lab members</a> ·
-  <a href="SKILLS.md">All 75 skills</a>
+  <a href="SKILLS.md">All 73 public skills</a>
 </p>
 
 ## Overview
@@ -65,8 +65,8 @@ It holds two corpora side by side and searches both at once:
   a run, decisions and the evidence they rest on. Every record has a stable code such as `H-DYC-001`,
   so it can be cited in a paper, a call or a message and still resolve a year later.
 - **What the lab has read** — 490+ papers with their full reading notes, split into sections, plus
-  authors, venue, BibTeX key and code links, and the claims those papers make: each one quoted from
-  the paper's text, so "this paper contradicts us" points at a sentence instead of at twenty pages.
+  authors, venue, BibTeX key and code links, and the claims those papers make: each has a statement and a source locator.
+  Paraphrases are supported; a verbatim quotation is optional.
 
 What makes it useful rather than another database:
 
@@ -76,7 +76,7 @@ What makes it useful rather than another database:
 | **Hybrid search over both corpora** | Word search and semantic search fused by reciprocal rank, one ordering for lab records and literature, with lab knowledge weighted slightly above papers and a floor kept for literature so "what do the papers say" always gets an answer. Embeddings run locally, so search costs no tokens. |
 | **A computed bridge, not hand-made links** | Subject tags come from a term dictionary matched against the text, so a hypothesis about spectral norms finds the papers about spectral norms, and every tag can be traced to the sentence it was found in. |
 | **A record that outsiders can read** | Reads are lab-wide, so every project keeps a registry of its internal names — build nicknames, run ids, local protocol names. Defining a name is retroactive: one definition made seventy existing records readable without editing any of them, and the definition itself is findable by search. |
-| **Support that can be checked** | A theoretical claim is closed by a derivation with its assumptions and completeness, never by a run with a proof stuffed into its protocol. A decision names the evidence under it. A quote from an outside paper is verified against that paper's stored text, and one that is not in it is refused. |
+| **Support that can be checked** | A theoretical claim is closed by a derivation with its assumptions and completeness, never by a run with a proof stuffed into its protocol. A decision names the evidence under it. An optional quote is checked against stored text; this does not establish a verbatim match to the original publication when the stored text is a reading note. |
 | **Contributions need nothing but an id** | `upsert_paper(title=…, arxiv_id=…)` is a complete contribution: no vault, no Zotero, no folder. Fields you leave empty never erase stored ones, sections are replaced only when you send some, and every write names its author in the audit log. |
 | **Human-facing views stay in sync** | Approved records are published to Yonote project pages and named project boards; the raw private notes stay in Obsidian. |
 | **Nothing is written by accident** | A stop hook interrupts the end of a turn every few exchanges and asks the agent to save what happened, so records are written deliberately, by something that has the whole context, and reported back in one line. |
@@ -95,8 +95,8 @@ together with a token for the shared knowledge base.
 
 | | Where |
 |---|---|
-| Canonical repository, issues and pull requests | [Vepricov/claude-brainlab](https://github.com/Vepricov/claude-brainlab) |
-| Organisation fork, kept in sync | [brain-lab-research/claude-brainlab](https://github.com/brain-lab-research/claude-brainlab) |
+| Current releases, issues and pull requests | [brain-lab-research/claude-brainlab](https://github.com/brain-lab-research/claude-brainlab) |
+| Original repository | [Vepricov/claude-brainlab](https://github.com/Vepricov/claude-brainlab) |
 | Lab organisation and papers | [github.com/brain-lab-research](https://github.com/brain-lab-research) |
 | Internal half: knowledge service, data, call pipeline | private, granted with team membership |
 
@@ -110,15 +110,15 @@ together with a token for the shared knowledge base.
 
 | | Count | What it is | Where |
 |---|---|---|---|
-| **Skills** | 75 | the working units: literature, experiments, Obsidian, code, writing, review | [`skills/`](skills/) |
-| **Slash commands** | 37 | `/paper-ingest`, `/want-2-read`, `/analyze-results`, `/rebuttal`, … | [`commands/`](commands/) |
-| **Agents** | 16 | `code-reviewer`, `bug-analyzer`, `paper-miner`, `obsidian-hub-creator`, … | [`agents/`](agents/) |
-| **Hooks** | 7 | security guard, citation validator, session start/stop, memory auto-save, skill activation | [`hooks/`](hooks/) |
-| **Rules** | 6 | coding style, citations, security, agent orchestration, code workflow, server hygiene | [`rules/`](rules/) |
+| **Skills** | 73 | the working units: literature, experiments, Obsidian, code, writing, review | [`skills/`](skills/) |
+| **Slash commands** | 33 | `/paper-ingest`, `/want-2-read`, `/analyze-results`, … | [`commands/`](commands/) |
+| **Agents** | 15 | `code-reviewer`, `bug-analyzer`, `paper-miner`, `obsidian-hub-creator`, … | [`agents/`](agents/) |
+| **Hooks** | 8 | security guard, citation validator, session start/stop, memory auto-save, skill activation | [`hooks/`](hooks/) |
+| **Rules** | 4 | coding style, citations, security, agent orchestration, code workflow, server hygiene | [`rules/`](rules/) |
 | **Templates** | — | `settings.json.template`, `.env.example`, project-mapping example | repo root |
 
 <details>
-<summary><b>What the 75 skills cover</b> — the full catalogue with trigger phrases is in <a href="SKILLS.md">SKILLS.md</a></summary>
+<summary><b>What the 73 public skills cover</b> — the full catalogue with trigger phrases is in <a href="SKILLS.md">SKILLS.md</a></summary>
 
 | Area | Skills you will actually type |
 |---|---|
@@ -135,7 +135,7 @@ together with a token for the shared knowledge base.
 ## Highlights — what you won't find upstream
 
 The repository started from `claude-scholar` (see [Credits](#credits)); these are the parts that grew
-here. Per-skill detail for all 75 skills is in [`SKILLS.md`](SKILLS.md).
+here. Per-skill detail for all 73 public skills is in [`SKILLS.md`](SKILLS.md).
 
 - **`paper-ingest`** — end-to-end pipeline: arXiv URL → BibTeX (external API, never LLM-generated) → PDF → Zotero parent item with PDF child attachment → Obsidian note with 8-section AI Explanation written by Haiku → mandatory final audit.
 - **`want-2-read`** — process a Markdown reading queue with one fan-out agent per paper, each invoking `paper-ingest`, plus a final review agent for quality control.
@@ -352,6 +352,17 @@ bash install/setup.sh       # backup-aware copy to ~/.claude/
 Restart Claude Code afterwards. To roll back: `bash install/uninstall.sh`.
 
 See the prerequisites table below before installing.
+
+When Zotero is configured, the installer checks the existing uv runtime for the
+APIs used by `scripts/zotero_shared.py`. A compatible runtime gets separate stdio
+client sessions backed by one model process per configuration. Library switches
+stay within each client. Missing or older runtimes keep the existing Zotero CLI.
+This check does not import models, install packages, or replace a global launcher.
+
+The optional local-library sync requires `OBSIDIAN_VAULT` and a separate Lab Knowledge checkout
+through `LAB_KNOWLEDGE_REPO` (default `~/lab-knowledge`). Without service-source access,
+use the configured Lab Knowledge MCP tools directly. The `lab-knowledge` and
+`lab-project-onboarding` skills are supplied in that access-controlled repository.
 
 ## Customize
 

@@ -1,6 +1,7 @@
 # Skills catalog
 
-Detailed reference for every skill shipped in this config (`skills/`). For the mental
+The public config ships 73 skills (`skills/`). This catalog also describes the two lab-access
+skills supplied by the separate Lab Knowledge repository. For the mental
 model of *what a skill is* and *how progressive disclosure works*, see the seminar
 handbook (`docs/seminar/handbook/04-skills.md` in the Obsidian vault).
 

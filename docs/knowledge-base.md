@@ -72,23 +72,21 @@ waits for a proof. Of 670 hypotheses in the base, 141 are theorems, and `list_hy
 separates the two, so a theory project is no longer read as a stalled experimental one. The
 falsifier has to be reachable: "worse in every setting" never arrives and therefore closes nothing.
 
-An outside paper carries claims of its own, each on a sentence quoted from the text stored for that
-paper. The quote is checked against that text and a quote absent from it is refused, so
-"this paper contradicts us" points at a sentence a reader can check instead of at twenty pages. Such
-a claim never concludes a claim of ours: it can be prior art, a baseline, the reason we asked, or a
-contradiction.
+An outside paper carries separate claims with a statement, a kind, and a locator such as a
+section, table, or theorem. Statements may be paraphrased. Quotations are optional, and the
+service imposes no minimum character count or quota on the mix of claim kinds.
 
-A quote check is not a quality check, and this cost us a third of the library before we noticed.
-A table row, an entry from a notation list and half a formula are all present in the paper, so they
-pass verification and then sit there as claims nobody can use. `record_paper_claim` therefore also
-looks at the shape of the statement and refuses a fragment: shorter than 80 characters, cut
-mid-sentence, a row of pipe-separated numbers, an item from a numbered list, a formula with no text
-around it, or an empirical claim with no magnitude — where a figure or theorem number counts as a
-pointer, not a measurement. The refusal names the defect, so rewriting is cheaper than arguing.
+When a quote is supplied, the service checks it against the stored text, if that text exists.
+`quote_verified` means only that this stored-text check passed. The stored text can be a reading
+note, so the flag does not establish that the quote occurs in the original publication. The
+locator must identify the actual source. A claim without a quote remains unquoted and does not
+receive this flag. Replacing paper sections rechecks explicit quotes without treating a
+paraphrase as a missing or verified quote.
 
-The library currently holds 509 papers decomposed into 7906 claims: 2733 empirical, 2535 about a
-method, 2170 theoretical, 468 definitions. Every quote is verified against the stored text and
-every empirical claim carries a value.
+A paper claim can motivate our hypothesis, supply prior art or a baseline, or contradict a
+claim. It does not conclude our hypothesis in place of our evidence or derivation. Repeated
+quoted claims preserve identity by paper and quote; unquoted claims by paper, statement and
+kind. Existing quoted claims and their links survive the optional-quote migration unchanged.
 
 Records live inside a project and follow its access rules, so you need to be a member of that
 project. Papers are shared: the library has no per-project walls.
