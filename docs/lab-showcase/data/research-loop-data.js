@@ -5832,11 +5832,11 @@ window.RESEARCH_LOOP={
      "links": [
       {
        "label": "Утреннее задание планировщика",
-       "url": "https://github.com/Vepricov/claude-brainlab/blob/main/hermes/paper-scout/prompts/daily.md"
+       "url": "https://github.com/brain-lab-research/hermes-prompts/blob/main/paper-scout/prompts/daily.md"
       },
       {
        "label": "Разбор статьи: весь стандарт письма",
-       "url": "https://github.com/Vepricov/claude-brainlab/blob/main/hermes/paper-scout/prompts/ingest.md"
+       "url": "https://github.com/brain-lab-research/hermes-prompts/blob/main/paper-scout/prompts/ingest.md"
       },
       {
        "label": "Hermes Agent — среда агента",
@@ -8945,7 +8945,7 @@ window.RESEARCH_LOOP={
      "links": [
       {
        "label": "Репозиторий Brain Call",
-       "url": "https://github.com/Vepricov/brain-call"
+       "url": "https://github.com/brain-lab-research/brain-call"
       }
      ],
      "adoption": {
@@ -10113,7 +10113,7 @@ window.RESEARCH_LOOP={
       },
       {
        "label": "Все выложенные промпты профилей",
-       "url": "https://github.com/Vepricov/claude-brainlab/tree/main/hermes"
+       "url": "https://github.com/brain-lab-research/hermes-prompts"
       }
      ],
      "adoption": {
@@ -16378,16 +16378,17 @@ window.RESEARCH_LOOP={
   "registryCount": 206,
   "toolkit": {
    "title": "Исходники всей системы",
-   "lead": "Скопируйте нужные репозитории. Навыки, агенты, хуки и промпты Hermes входят в claude-brainlab; остальные инструменты скачиваются отдельно.",
+   "lead": "Инструменты лаборатории, промпты Hermes и внешние проекты. Скопируйте нужные репозитории и следуйте их README.",
    "install": [
     "git clone https://github.com/brain-lab-research/claude-brainlab.git",
+    "git clone https://github.com/brain-lab-research/lab-knowledge.git",
+    "git clone https://github.com/brain-lab-research/brain-call.git",
+    "git clone https://github.com/brain-lab-research/hermes-prompts.git",
     "git clone https://github.com/NousResearch/hermes-agent.git",
     "git clone https://github.com/MemPalace/mempalace.git",
-    "git clone https://github.com/54yyyu/zotero-mcp.git",
-    "git clone https://github.com/brain-lab-research/lab-knowledge.git",
-    "git clone https://github.com/Vepricov/brain-call.git"
+    "git clone https://github.com/54yyyu/zotero-mcp.git"
    ],
-   "after": "Настройка — в README каждого проекта. Промпты Hermes — в claude-brainlab/hermes. Для клонирования Lab Knowledge MCP и Brain Call нужен доступ к их закрытым репозиториям.",
+   "after": "Для клонирования Lab Knowledge MCP и Brain Call нужен доступ к их закрытым репозиториям.",
    "components": "skills · commands · agents · hooks · scripts · rules",
    "links": [],
    "pieces": [
@@ -16407,7 +16408,7 @@ window.RESEARCH_LOOP={
      "name": "Промпты Hermes",
      "what": "боевые профили агентов: SOUL.md и задания планировщика",
      "access": "открыто",
-     "url": "https://github.com/brain-lab-research/claude-brainlab/tree/main/hermes"
+     "url": "https://github.com/brain-lab-research/hermes-prompts"
     },
     {
      "name": "Lab Knowledge MCP",
@@ -16419,7 +16420,7 @@ window.RESEARCH_LOOP={
      "name": "Brain Call",
      "what": "созвон от записи до публикации подтверждённого",
      "access": "по заявке",
-     "url": "https://github.com/Vepricov/brain-call"
+     "url": "https://github.com/brain-lab-research/brain-call"
     },
     {
      "name": "MemPalace",

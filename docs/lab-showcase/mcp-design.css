@@ -73,21 +73,6 @@
 .way-area:hover i{background:var(--lime);opacity:1}
 .way-area em{color:var(--ink-dim);font:10px var(--mono);font-style:normal;
   font-variant-numeric:tabular-nums}
-/* Один код записи: поле в моношрифте, потому что его переписывают глазами. */
-.way-code{display:flex;gap:8px}
-.way-code input{flex:1;min-width:0;min-height:42px;padding:11px 13px;border:1px solid var(--line-strong);
-  border-radius:9px;background:#0d100d;color:var(--ink);font:12px var(--mono)}
-.way-code input:focus{border-color:var(--lime);outline:none}
-.way-code button{min-height:42px;padding:11px 15px;border:1px solid var(--lime);border-radius:9px;
-  background:rgba(185,255,102,.13);color:var(--lime);font:10px var(--mono);letter-spacing:.06em;
-  text-transform:uppercase;cursor:pointer}
-.way-code button:hover{background:var(--lime);color:#0b0e0d}
-.way-recent{display:grid;gap:2px;margin-top:12px}
-.way-recent button{display:grid;grid-template-columns:auto 1fr;gap:10px;padding:7px 0;border:0;
-  background:none;color:#c3cbc0;font-size:12.5px;text-align:left;cursor:pointer;
-  border-bottom:1px solid rgba(231,239,230,.07)}
-.way-recent code{color:var(--our);font:10px var(--mono)}
-.way-recent button:hover{color:var(--lime)}
 
 /* ---------- Строка для агентов внизу: не панель, а сноска ---------- */
 .for-agents{margin-top:30px;padding-top:18px;border-top:1px solid var(--line)}

@@ -827,11 +827,8 @@
     scope.querySelectorAll("[data-mcp-home]").forEach(b=>b.onclick=()=>{
       const inp=$("mcp-search-input");inp.value="";runSearch("")});
   }
-  // Ответ лежит под тремя колонками способов, и после нажатия «Спросить» человек оставался
-  // наверху: список тем по запросу был на экран ниже. Раз запрос теперь отправляют явно,
-  // явным должен быть и переход к ответу.
-  // Прокрутка допустима только если вопрос отправил человек. Любая прокрутка «сама» во время
-  // работы с полем воспринимается как то, что страницу выдернули из-под рук.
+  // Results follow the search and topic-navigation panels.
+  // Scroll only after an explicit user search; typing must not move the page.
   let askedByHand=false;
   function scrollToResults(){
     if(!askedByHand)return;
@@ -1877,16 +1874,10 @@
     </details>`;
   }
 
-  // ============ Три входа ============
-  // Владелец: «разные случаи пользования этим MCP: от поиска отдельной гипотезы до изучения
-  // какого-то раздела оптимизации». Каждый вход показывает настоящее содержимое базы, а не
-  // пустую форму: область идёт со своим объёмом, коды записей взяты из снимка.
-  // Публичная сборка витрины показывает выдуманную лабораторию, поэтому вопросы-примеры и
-  // код записи в форме берутся из её данных: иначе демонстрация предлагает спросить про
-  // Muon у базы, в которой Muon нет, и выглядит сломанной.
+  // Search and topic navigation use the active dataset.
+  // The public demo supplies its own questions.
   const WAY_QUESTIONS=demo?.hints||["is warmup needed, and when does it help","when does Muon perform better",
     "what do we know about curvature-based quantization","where did the method fail"];
-  const CODE_EXAMPLE=demo?.code||"H-WBD-001";
   function waysBlock(){
     // Здесь стояли первые семь подпапок по алфавиту — то есть случайная выборка одного
     // уровня. Владелец: «надо в больших разделах добавлять ещё разбиение, чтобы было
@@ -1897,7 +1888,6 @@
       return {name:sec.name,n:stats.papers,claims:stats.claims,folders:sec.folders.length};
     }).sort((a,b)=>b.n-a.n);
     const most=Math.max(1,...areas.map(a=>a.n));
-    const recent=(base.records||[]).filter(r=>r.k==="hypothesis"&&r.code&&r.sup==="proof_and_numbers").slice(0,4);
     return `<div class="ways">
       <section class="way way-search"><span>Search the shared database</span>
         <h3>What would you like to know?</h3>
@@ -1916,18 +1906,7 @@
         <div class="way-body"><div class="way-areas">
           ${areas.map(a=>`<button class="way-area" type="button" data-open-section="${esc(a.name)}">
             <span>${esc(a.name)}</span><i style="width:${Math.round(a.n/most*100)}%"></i><em>${esc(String(a.n))}</em></button>`).join("")}
-        </div></div></section>
-
-      <section class="way way-record"><span>Have a link or code?</span>
-        <h3>Open by code</h3>
-        <p>Open a record, its basis, and its relationships.</p>
-        <div class="way-body">
-          <form class="way-code" id="mcp-code-form">
-            <label class="sr-only" for="mcp-code-input">Record code</label>
-            <input id="mcp-code-input" placeholder="${esc(CODE_EXAMPLE)}" autocomplete="off">
-            <button type="submit">Open</button></form>
-          <div class="way-recent">${recent.map(r=>`<button type="button" data-open-record="${esc(r.code)}"><code>${esc(r.code)}</code><span>${esc((r.t||"").slice(0,52))}</span></button>`).join("")}</div>
-        </div></section></div>`;
+        </div></div></section></div>`;
   }
   function showMcpLive(navigate=true){
     const m=systemData.liveMcp;if(!m)return;
@@ -1978,13 +1957,6 @@
     view.querySelectorAll("[data-way-ask]").forEach(b=>b.onclick=()=>{
       input.value=b.dataset.wayAsk;askedByHand=true;runSearch(input.value);
       $("mcp-results")?.scrollIntoView({behavior:"smooth",block:"start"})});
-    $("mcp-code-form").onsubmit=e=>{e.preventDefault();
-      const code=$("mcp-code-input").value.trim().toUpperCase(),box=$("mcp-results");
-      if(!code)return;
-      replaceHash(`mcp-live/${code}`);
-      box.innerHTML=byCode[code]?.k==="project"?projectCard(code):recordCard(code);
-      bindResults(box);
-      window.scrollTo({top:Math.max(0,box.getBoundingClientRect().top+scrollY-150),behavior:"smooth"})};
     bindResults(view);
     const browse=$("mcp-browse");
     if(browse)bindResults(browse);
