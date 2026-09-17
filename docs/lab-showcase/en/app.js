@@ -1142,6 +1142,12 @@
       treeSections={};for(const x of tree.sections)treeSections[x.name]=x;
       if(window.LabSearch)searchIndex=window.LabSearch.build({tree,base,lib});
       treeIsLive=true;
+      const view=$("mcp-live-view"),areas=view?.querySelector(".way-areas");
+      if(areas&&!view.hidden){
+        const fragment=document.createElement("div");fragment.innerHTML=waysBlock();
+        const freshAreas=fragment.querySelector(".way-areas");
+        areas.replaceWith(freshAreas);bindResults(freshAreas);
+      }
       return true;
     }catch(error){
       // Службы нет — работаем по снимку, и плашка об этом уже говорит. Молчать нельзя,
@@ -1885,7 +1891,16 @@
     const areas=(tree.sections||[]).map(sec=>{
       const stats=sec.folders.reduce((acc,f)=>{const st=folderStats(f);
         return {papers:acc.papers+st.papers,claims:acc.claims+st.claims}},{papers:0,claims:0});
-      return {name:sec.name,n:stats.papers,claims:stats.claims,folders:sec.folders.length};
+      // Show two examples from populated folders, giving different folders priority.
+      const previews=sec.folders.map(f=>({f,n:folderStats(f).papers}))
+        .filter(f=>f.n).sort((a,b)=>b.n-a.n).flatMap(({f})=>{
+          const topics=[...(treeFolders[f]?.sub||[])].filter(t=>t.p?.length)
+            .sort((a,b)=>b.p.length-a.p.length);
+          return topics.length?topics.map((t,rank)=>({title:t.t,rank})):
+            [{title:f.split("/").pop().replace(/_/g," "),rank:0}];
+        }).sort((a,b)=>a.rank-b.rank);
+      const examples=[...new Set(previews.map(t=>t.title))].slice(0,2);
+      return {name:sec.name,n:stats.papers,claims:stats.claims,folders:sec.folders.length,examples};
     }).sort((a,b)=>b.n-a.n);
     const most=Math.max(1,...areas.map(a=>a.n));
     return `<div class="ways">
@@ -1905,7 +1920,8 @@
         <p>Section → subtopic → paper → claims.</p>
         <div class="way-body"><div class="way-areas">
           ${areas.map(a=>`<button class="way-area" type="button" data-open-section="${esc(a.name)}">
-            <span>${esc(a.name)}</span><i style="width:${Math.round(a.n/most*100)}%"></i><em>${esc(String(a.n))}</em></button>`).join("")}
+            <span>${esc(a.name)}</span><i style="width:${Math.round(a.n/most*100)}%"></i><em>${esc(String(a.n))}</em>
+            ${a.examples.length?`<small class="way-area-topics">${a.examples.map(t=>`<span>${esc(t)}</span>`).join("")}</small>`:""}</button>`).join("")}
         </div></div></section></div>`;
   }
   function showMcpLive(navigate=true){

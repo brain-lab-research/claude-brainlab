@@ -57,6 +57,11 @@
 .knowledge-workspace .way-area span{overflow-wrap:anywhere}
 .knowledge-workspace .way-area i{display:none}
 .knowledge-workspace .way-area em{color:#96b387;font-size:11px}
+.knowledge-workspace .way-area{align-items:baseline;align-content:start;row-gap:7px}
+.knowledge-workspace .way-area-topics{grid-column:1/-1;display:grid;gap:3px;
+  color:#a5b19e;font:12px/1.45 var(--body);letter-spacing:0}
+.knowledge-workspace .way-area-topics span{position:relative;padding-left:10px}
+.knowledge-workspace .way-area-topics span:before{content:"·";position:absolute;left:0;color:#758e64}
 .knowledge-workspace .tally{margin:36px 0 18px;border:0;border-top:1px solid var(--search-line);
   border-bottom:1px solid var(--search-line);border-radius:0;background:none;overflow:visible}
 .knowledge-workspace .tally-caption{margin:0;padding:18px 0 3px;font:10px var(--mono);letter-spacing:.08em;
@@ -114,6 +119,9 @@
 .knowledge-workspace button:focus-visible,.knowledge-workspace a:focus-visible,.knowledge-workspace summary:focus-visible{
   outline:2px solid var(--lime);outline-offset:5px}
 @media(min-width:1500px){.knowledge-workspace .ways{grid-template-columns:minmax(0,1.65fr) minmax(330px,1fr);gap:0 44px}}
+@media(min-width:641px) and (max-width:980px){
+  .knowledge-workspace .way-areas{grid-template-columns:minmax(0,1fr)}
+}
 @media(min-width:981px) and (max-height:820px){
   .mcp-live-view:has(.knowledge-workspace){padding-top:88px}
   .knowledge-workspace .mcp-hero{padding:4px 0 12px}
