@@ -669,7 +669,6 @@
   "72095e4c5e78": "<div class=\"ways\">\n      <section class=\"way way-search\"><span>Search the shared database</span>\n        <h3>What would you like to know?</h3>\n        <p>",
   "d1b6942acf8a": "</p>\n        <div class=\"way-body\">\n          <form class=\"way-form\" id=\"mcp-search-form\" role=\"search\">\n            <label class=\"sr-only\" for=\"mcp-search-input\">Question for the shared database</label>\n            <input id=\"mcp-search-input\" type=\"search\" autocomplete=\"off\" placeholder=\"",
   "f59710ec2066": "\">\n            <button type=\"submit\">Ask</button></form>\n          <div class=\"way-examples\">",
-  "747ea68cbc37": "</div>\n        </div></section>\n\n      <section class=\"way way-explore\"><span>From broad to specific</span>\n        <h3>Explore topics</h3>\n        <p>Section → subtopic → paper → claims.</p>\n        <div class=\"way-body\"><div class=\"way-areas\">\n          ",
   "07fdb1b6309e": "\n        </div></div></section>\n\n      <section class=\"way way-record\"><span>Have a link or code?</span>\n        <h3>Open by code</h3>\n        <p>Open a record, its basis, and its relationships.</p>\n        <div class=\"way-body\">\n          <form class=\"way-code\" id=\"mcp-code-form\">\n            <label class=\"sr-only\" for=\"mcp-code-input\">Record code</label>\n            <input id=\"mcp-code-input\" placeholder=\"",
   "b0d408478893": "\" autocomplete=\"off\">\n            <button type=\"submit\">Open</button></form>\n          <div class=\"way-recent\">",
   "165fd9ac4fff": "Papers by Andrey Veprikov and coauthors: the proposed methods, how they work, and where to read the originals.",
@@ -839,5 +838,6 @@
   "38ad45456646": "<div class=\"search-examples\"><span>Try describing your task</span>",
   "78dcf5103466": "</p><i>Open →</i></button>",
   "ee146251c587": "<p class=\"empty-search\">No matches. Try describing the action differently.</p>",
-  "5c3da2834b2b": "Back to top"
+  "5c3da2834b2b": "Back to top",
+  "9611065a0eee": "</div>\n        </div>\n        <div id=\"mcp-call-line\" class=\"way-call\"></div></section>\n\n      <section class=\"way way-explore\"><span>From broad to specific</span>\n        <h3>Explore topics</h3>\n        <p>Section → subtopic → paper → claims.</p>\n        <div class=\"way-body\"><div class=\"way-areas\">\n          "
 }
