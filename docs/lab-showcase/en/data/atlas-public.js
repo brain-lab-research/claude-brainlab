@@ -2,7 +2,7 @@
 window.LAB_ATLAS_DATA = {
   "meta": {
     "schema_version": 1,
-    "capabilities": 206,
+    "capabilities": 205,
     "privacy": "capability-only public projection"
   },
   "capabilities": [
@@ -7072,53 +7072,6 @@ window.LAB_ATLAS_DATA = {
       "process_ids": [
         "writing",
         "publication"
-      ],
-      "execution_owner_ru": "Local agent",
-      "inputs_ru": [
-        "User request",
-        "Project context"
-      ],
-      "outputs_ru": [
-        "A verified artifact appropriate to the task"
-      ],
-      "quality_gates_ru": [
-        "Follow the full SKILL.md contract"
-      ],
-      "known_limitations_ru": [
-        "Availability depends on the installation and runtime tools"
-      ]
-    },
-    {
-      "id": "skill:new-paper",
-      "type": "skill",
-      "name": "new-paper",
-      "title_ru": "new-paper",
-      "description": "Use when the user wants to track a new research idea or paper project in Obsidian without setting up a code folder. Use when user says \"new paper\", \"new idea\", \"add project\", or describes a research idea with students and organization. Creates Obsidian hub card + people cards. No filesystem folder created.",
-      "description_ru": "Creates an Obsidian record for a new paper or research idea without creating a code folder.",
-      "what_is_special": "A repeatable workflow with its own input and validation contract, rather than a single prompt. Related workflows: research direction, memory and knowledge maintenance. Minimum check: follow the full SKILL.md contract. Purpose: creates an Obsidian record for a new paper or research idea without creating a code folder.",
-      "inputs": [
-        "User request",
-        "Project context"
-      ],
-      "outputs": [
-        "A verified artifact appropriate to the task"
-      ],
-      "execution_owner": "Local agent",
-      "quality_gates": [
-        "Follow the full SKILL.md contract"
-      ],
-      "github_urls": [
-        {
-          "label": "Source",
-          "url": "https://github.com/Vepricov/claude-brainlab/blob/ad8a0f67d9ea17205fd8c59d59b52646fb9288be/skills/new-paper/SKILL.md"
-        }
-      ],
-      "known_limitations": [
-        "Availability depends on the installation and runtime tools"
-      ],
-      "process_ids": [
-        "research-direction",
-        "knowledge-maintenance"
       ],
       "execution_owner_ru": "Local agent",
       "inputs_ru": [

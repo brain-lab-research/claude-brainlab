@@ -35,7 +35,7 @@ window.SYSTEM_EXAMPLES = {
       routes: [
         {kind:"Project page", title:"Yonote project view", text:"The structure and scope of a readable project overview.", process:"projects", tool:"yonote-project-view"},
         {kind:"Task board", title:"Yonote task broker", text:"Tasks, owners, dates assigned, statuses, and safe writes.", process:"projects", tool:"yonote-task-broker"},
-        {kind:"Meeting documents", title:"Yonote call documents", text:"A brief approved meeting summary, separate from task rows.", process:"projects", tool:"yonote-call-documents"}
+        {kind:"Meeting documents", title:"Yonote call documents", text:"A brief approved meeting summary, separate from task rows.", process:"calls", tool:"yonote-call"}
       ],
       links: [{label:"BRAIn Lab in Yonote", url:"https://brain-lab.yonote.ru/"}]
     }
@@ -188,7 +188,7 @@ window.SYSTEM_EXAMPLES = {
               "tool": "research-ideation"
             },
             {
-              "process": "ideation",
+              "process": "projects",
               "tool": "grill-with-docs"
             }
           ]
@@ -386,7 +386,7 @@ window.SYSTEM_EXAMPLES = {
               "tool": "paper-search"
             },
             {
-              "process": "ideation",
+              "process": "projects",
               "tool": "grill-with-docs"
             }
           ]
@@ -430,8 +430,8 @@ window.SYSTEM_EXAMPLES = {
               "tool": "research-ideation"
             },
             {
-              "process": "ideation",
-              "tool": "new-paper"
+              "process": "projects",
+              "tool": "create-project"
             }
           ]
         },

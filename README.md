@@ -18,7 +18,7 @@
   <a href="#the-toolkit-skills-commands-agents-hooks">The toolkit</a> ·
   <a href="#install">Install</a> ·
   <a href="#for-brain-lab-members">For lab members</a> ·
-  <a href="SKILLS.md">All 73 public skills</a>
+  <a href="SKILLS.md">All 72 public skills</a>
 </p>
 
 ## Overview
@@ -118,13 +118,13 @@ together with a token for the shared knowledge base.
 | **Templates** | — | `settings.json.template`, `.env.example`, project-mapping example | repo root |
 
 <details>
-<summary><b>What the 73 public skills cover</b> — the full catalogue with trigger phrases is in <a href="SKILLS.md">SKILLS.md</a></summary>
+<summary><b>What the 72 public skills cover</b> — the full catalogue with trigger phrases is in <a href="SKILLS.md">SKILLS.md</a></summary>
 
 | Area | Skills you will actually type |
 |---|---|
 | **Literature** | `paper-ingest`, `paper-search`, `want-2-read`, `obsidian-literature-workflow`, `zotero-obsidian-bridge`, `citation-verification` |
 | **Experiments** | `results-analysis`, `results-report`, `obsidian-experiment-log`, `handoff-to-jarvis`, `diagnose`, `verification-loop` |
-| **Writing** | `ml-paper-writing`, `new-paper`, `writing-anti-ai`, `presentation`, `paper-to-social` |
+| **Writing** | `ml-paper-writing`, `writing-anti-ai`, `presentation`, `paper-to-social` |
 | **Review** | `astar-paper-review`, `review-response`, `grill-me`, `grill-with-docs` |
 | **Knowledge** | `lab-knowledge`, `lab-project-onboarding`, `call-notes`, `create-project`, `obsidian-project-memory`, `obsidian-synthesis-map` |
 | **Engineering** | `code-ingest`, `code-library`, `code-review-excellence`, `tdd`, `bug-detective`, `git-workflow`, `uv-package-manager` |
@@ -135,7 +135,7 @@ together with a token for the shared knowledge base.
 ## Highlights — what you won't find upstream
 
 The repository started from `claude-scholar` (see [Credits](#credits)); these are the parts that grew
-here. Per-skill detail for all 73 public skills is in [`SKILLS.md`](SKILLS.md).
+here. Per-skill detail for all 72 public skills is in [`SKILLS.md`](SKILLS.md).
 
 - **`paper-ingest`** — end-to-end pipeline: arXiv URL → BibTeX (external API, never LLM-generated) → PDF → Zotero parent item with PDF child attachment → Obsidian note with 8-section AI Explanation written by Haiku → mandatory final audit.
 - **`want-2-read`** — process a Markdown reading queue with one fan-out agent per paper, each invoking `paper-ingest`, plus a final review agent for quality control.
