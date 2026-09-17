@@ -25,7 +25,8 @@
 .knowledge-workspace .way h3{margin:10px 0 0;font:500 23px/1.2 var(--display);letter-spacing:-.03em}
 .knowledge-workspace .way>p{max-width:54ch;margin-top:10px;color:var(--search-soft);font-size:14px;line-height:1.65}
 .knowledge-workspace .way-body{margin-top:19px}
-.knowledge-workspace .way-search{grid-area:query;align-self:start;position:relative;isolation:isolate;
+.knowledge-workspace .way-search{grid-area:query;align-self:stretch;display:flex;flex-direction:column;
+  position:relative;isolation:isolate;
   padding:20px 24px;border:1px solid #394a31;border-radius:18px;
   background:radial-gradient(ellipse at 80% 0,rgba(133,175,78,.12),transparent 64%),#11180f;
   box-shadow:inset 0 1px rgba(207,236,176,.06)}
@@ -77,6 +78,12 @@
 .knowledge-workspace #mcp-found{margin-top:34px;font-size:11px;color:#a6b69a}
 .knowledge-workspace .mcp-call{margin:20px 0;padding:15px 18px;border:1px solid var(--search-line);border-radius:9px;
   background:#10160e;color:#9aab8f;font:11px/1.7 var(--mono);overflow-x:auto}
+.knowledge-workspace .way-call{margin-top:auto;padding-top:24px;min-width:0}
+.knowledge-workspace .way-call:empty{display:none}
+.knowledge-workspace .way-call .mcp-call{margin:0;padding:14px 0 0;border:0;
+  border-top:1px solid var(--search-line);border-radius:0;background:none;text-align:right;
+  white-space:pre-wrap;overflow-wrap:anywhere}
+.knowledge-workspace .way-call .mcp-call code{white-space:inherit}
 .knowledge-workspace #mcp-results{scroll-margin-top:105px}
 .knowledge-workspace .answer-head{padding:25px 0 20px;border-color:#3e4d35}
 .knowledge-workspace .answer-tally{font-size:10px;line-height:1.8}

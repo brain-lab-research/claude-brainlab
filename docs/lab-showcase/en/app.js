@@ -1913,7 +1913,8 @@
             <input id="mcp-search-input" type="search" autocomplete="off" placeholder="${esc(demo?WAY_QUESTIONS[0]:"For example, when does warmup help?")}">
             <button type="submit">Ask</button></form>
           <div class="way-examples">${WAY_QUESTIONS.map(q=>`<button type="button" data-way-ask="${esc(q)}">${esc(q)}</button>`).join("")}</div>
-        </div></section>
+        </div>
+        <div id="mcp-call-line" class="way-call"></div></section>
 
       <section class="way way-explore"><span>From broad to specific</span>
         <h3>Explore topics</h3>
@@ -1937,7 +1938,6 @@
       <div class="mcp-live-badge" id="mcp-live-badge"></div>
       ${waysBlock()}
       <output id="mcp-found" class="mcp-found"></output>
-      <div id="mcp-call-line"></div>
       <div id="mcp-results"></div>
       ${tallyBlock()}
       ${browseBlock()}

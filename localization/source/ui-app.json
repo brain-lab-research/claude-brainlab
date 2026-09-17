@@ -4819,8 +4819,8 @@
       ]
     },
     {
-      "id": "747ea68cbc37",
-      "text": "</div>\n        </div></section>\n\n      <section class=\"way way-explore\"><span>От общего к частному</span>\n        <h3>Пройти по темам</h3>\n        <p>Раздел → подтема → статья → утверждения.</p>\n        <div class=\"way-body\"><div class=\"way-areas\">\n          ",
+      "id": "9611065a0eee",
+      "text": "</div>\n        </div>\n        <div id=\"mcp-call-line\" class=\"way-call\"></div></section>\n\n      <section class=\"way way-explore\"><span>От общего к частному</span>\n        <h3>Пройти по темам</h3>\n        <p>Раздел → подтема → статья → утверждения.</p>\n        <div class=\"way-body\"><div class=\"way-areas\">\n          ",
       "paths": [
         "app.js:1915"
       ]
@@ -4829,21 +4829,21 @@
       "id": "165fd9ac4fff",
       "text": "Статьи Андрея Веприкова и соавторов: что предложено, как это работает и где прочитать оригинал.",
       "paths": [
-        "app.js:1935"
+        "app.js:1936"
       ]
     },
     {
       "id": "d724452dade1",
       "text": "Что уже проверяли, чем это закончилось и на какие работы опирались.",
       "paths": [
-        "app.js:1935"
+        "app.js:1936"
       ]
     },
     {
       "id": "f7bc2b43be9b",
       "text": "\">Все публикации <span>",
       "paths": [
-        "app.js:1936"
+        "app.js:1937"
       ]
     },
     {
@@ -4857,7 +4857,7 @@
       "id": "aabe30de7de5",
       "text": "</p><h1>Спросите лабораторию<span aria-hidden=\"true\">.</span></h1>\n        <strong>",
       "paths": [
-        "app.js:1934"
+        "app.js:1935"
       ]
     },
     {

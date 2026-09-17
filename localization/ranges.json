@@ -1,7 +1,7 @@
 {
   "app.js": {
     "group": "ui-app",
-    "sha256": "e8f25edf8d8f5f7b88f183f7906ca1e60ccad74211e1acec4d1f1f02d9d4f3c2",
+    "sha256": "abffdbadfe3256aaf1b04e80281499d588b67298aa9223fcb1129940c44e9dc7",
     "ranges": [
       {
         "start": 1593,
@@ -5593,710 +5593,703 @@
       },
       {
         "start": 171862,
-        "end": 172121,
+        "end": 172177,
         "type": "TemplateElement",
-        "id": "747ea68cbc37",
-        "source": "</div>\n        </div></section>\n\n      <section class=\"way way-explore\"><span>От общего к частному</span>\n        <h3>Пройти по темам</h3>\n        <p>Раздел → подтема → статья → утверждения.</p>\n        <div class=\"way-body\"><div class=\"way-areas\">\n          "
+        "id": "9611065a0eee",
+        "source": "</div>\n        </div>\n        <div id=\"mcp-call-line\" class=\"way-call\"></div></section>\n\n      <section class=\"way way-explore\"><span>От общего к частному</span>\n        <h3>Пройти по темам</h3>\n        <p>Раздел → подтема → статья → утверждения.</p>\n        <div class=\"way-body\"><div class=\"way-areas\">\n          "
       },
       {
-        "start": 173001,
-        "end": 173098,
+        "start": 173057,
+        "end": 173154,
         "type": "StringLiteral",
         "id": "165fd9ac4fff",
         "source": "\"Статьи Андрея Веприкова и соавторов: что предложено, как это работает и где прочитать оригинал.\""
       },
       {
-        "start": 173099,
-        "end": 173168,
+        "start": 173155,
+        "end": 173224,
         "type": "StringLiteral",
         "id": "d724452dade1",
         "source": "\"Что уже проверяли, чем это закончилось и на какие работы опирались.\""
       },
       {
-        "start": 173336,
-        "end": 173359,
+        "start": 173392,
+        "end": 173415,
         "type": "TemplateElement",
         "id": "f7bc2b43be9b",
         "source": "\">Все публикации <span>"
       },
       {
-        "start": 173740,
-        "end": 174736,
+        "start": 173759,
+        "end": 174755,
         "type": "TemplateElement",
         "id": "15ed07305de1",
         "source": "<details class=\"for-agents\" id=\"mcp-agent\"><summary>Для агентов: те же 17 читающих вызовов службы</summary>\n        <p>Человеку это не нужно: выше то же самое обычными словами. Ничего не меняют, писать со страницы нельзя.</p>\n        <p class=\"agent-map\">Карта базы, по которой построена навигация выше — разделы, подразделы, подтемы и их аннотации — приходит из самой службы: <code>library_tree</code>, с <code>full: true</code> ещё и подтемы со статьями. Агенту она отвечает на тот же вопрос, что человеку: с чего начинать, если запрос широкий.</p>\n        <div class=\"mcp-chips\" id=\"mcp-agent-tools\"></div>\n        <form class=\"agent-form\" id=\"mcp-agent-form\">\n          <label>вызов<input id=\"mcp-agent-name\" value=\"list_themes\" autocomplete=\"off\"></label>\n          <label>аргументы<input id=\"mcp-agent-args\" value=\"{}\" autocomplete=\"off\"></label>\n          <button type=\"submit\">Вызвать</button></form>\n        <pre class=\"agent-out\" id=\"mcp-agent-out\">Ответ появится здесь.</pre></details>"
       },
       {
-        "start": 172911,
-        "end": 172994,
+        "start": 172967,
+        "end": 173050,
         "type": "TemplateElement",
         "id": "aabe30de7de5",
         "source": "</p><h1>Спросите лабораторию<span aria-hidden=\"true\">.</span></h1>\n        <strong>"
       },
       {
-        "start": 179888,
-        "end": 180223,
+        "start": 179907,
+        "end": 180242,
         "type": "TemplateElement",
         "id": "1e8d0caea5e0",
         "source": "</p><h1>Спросите лабораторию<span aria-hidden=\"true\">.</span></h1></header>\n      <div class=\"mcp-load-state\" data-mcp-loading><span aria-hidden=\"true\">◌</span><p role=\"status\">Загружаем библиотеку и записи для поиска…</p></div>\n      <button class=\"back-button\" data-loading-back type=\"button\">← Вернуться к общей карте</button></div>"
       },
       {
-        "start": 180570,
-        "end": 180725,
+        "start": 180589,
+        "end": 180744,
         "type": "TemplateElement",
         "id": "cce72c95e71b",
         "source": "<p role=\"alert\">Не удалось загрузить данные. Проверьте соединение и попробуйте ещё раз.</p><button type=\"button\" data-mcp-retry>Повторить загрузку</button>"
       },
       {
-        "start": 181715,
-        "end": 181793,
+        "start": 181734,
+        "end": 181812,
         "type": "TemplateElement",
         "id": "033d99096dae",
         "source": "\">\n      <nav class=\"journey-choices\" aria-label=\"Исследовательские маршруты\">"
       },
       {
-        "start": 181976,
-        "end": 182054,
+        "start": 181995,
+        "end": 182073,
         "type": "TemplateElement",
         "id": "0d2efc2fc8d7",
         "source": "</nav>\n      <header class=\"journey-head\"><p class=\"overline\">Маршруты</p><h1>"
       },
       {
-        "start": 182544,
-        "end": 182631,
+        "start": 182563,
+        "end": 182650,
         "type": "TemplateElement",
         "id": "772936e86ec4",
         "source": "\n            </svg>\n            <ol class=\"journey-stages\" aria-label=\"Этапы маршрута\">"
       },
       {
-        "start": 184006,
-        "end": 184048,
+        "start": 184025,
+        "end": 184067,
         "type": "TemplateElement",
         "id": "b1ae69c1369d",
         "source": "</p>\n        <dl><dt>С чем начать</dt><dd>"
       },
       {
-        "start": 184071,
-        "end": 184110,
+        "start": 184090,
+        "end": 184129,
         "type": "TemplateElement",
         "id": "a67722935801",
         "source": "</dd><dt>Перед следующим шагом</dt><dd>"
       },
       {
-        "start": 184132,
-        "end": 184209,
+        "start": 184151,
+        "end": 184228,
         "type": "TemplateElement",
         "id": "dfd6076ba188",
         "source": "</dd></dl>\n        <nav class=\"journey-tools\" aria-label=\"Инструменты этапа\">"
       },
       {
-        "start": 190331,
-        "end": 190372,
+        "start": 190350,
+        "end": 190391,
         "type": "StringLiteral",
         "id": "eb8dac73b9d6",
         "source": "\"нужно поручить работу отдельному агенту\""
       },
       {
-        "start": 190392,
-        "end": 190426,
+        "start": 190411,
+        "end": 190445,
         "type": "StringLiteral",
         "id": "e8370714ac0c",
         "source": "\"нужно изменить или проверить код\""
       },
       {
-        "start": 190440,
-        "end": 190468,
+        "start": 190459,
+        "end": 190487,
         "type": "StringLiteral",
         "id": "510452d95eea",
         "source": "\"нужно разобрать обсуждение\""
       },
       {
-        "start": 190489,
-        "end": 190525,
+        "start": 190508,
+        "end": 190544,
         "type": "StringLiteral",
         "id": "78b4530b7d7e",
         "source": "\"нужно спроектировать проверку идеи\""
       },
       {
-        "start": 190543,
-        "end": 190571,
+        "start": 190562,
+        "end": 190590,
         "type": "StringLiteral",
         "id": "76d0f6d63db0",
         "source": "\"нужно провести эксперимент\""
       },
       {
-        "start": 190590,
-        "end": 190618,
+        "start": 190609,
+        "end": 190637,
         "type": "StringLiteral",
         "id": "130f3087827d",
         "source": "\"нужна независимая проверка\""
       },
       {
-        "start": 190643,
-        "end": 190684,
+        "start": 190662,
+        "end": 190703,
         "type": "StringLiteral",
         "id": "b31371c5e06f",
         "source": "\"нужно сохранить или восстановить знание\""
       },
       {
-        "start": 190708,
-        "end": 190740,
+        "start": 190727,
+        "end": 190759,
         "type": "StringLiteral",
         "id": "92fcabc50338",
         "source": "\"нужно найти релевантные статьи\""
       },
       {
-        "start": 190761,
-        "end": 190797,
+        "start": 190780,
+        "end": 190816,
         "type": "StringLiteral",
         "id": "1191672a552a",
         "source": "\"нужно добавить статью в библиотеку\""
       },
       {
-        "start": 190813,
-        "end": 190847,
+        "start": 190832,
+        "end": 190866,
         "type": "StringLiteral",
         "id": "82020f237c9c",
         "source": "\"нужно подготовить научный доклад\""
       },
       {
-        "start": 190868,
-        "end": 190911,
+        "start": 190887,
+        "end": 190930,
         "type": "StringLiteral",
         "id": "b11e83f1c87b",
         "source": "\"нужно создать, связать или закрыть проект\""
       },
       {
-        "start": 190926,
-        "end": 190968,
+        "start": 190945,
+        "end": 190987,
         "type": "StringLiteral",
         "id": "83dc5d0d9e54",
         "source": "\"нужно подготовить результат к публикации\""
       },
       {
-        "start": 190990,
-        "end": 191036,
+        "start": 191009,
+        "end": 191055,
         "type": "StringLiteral",
         "id": "d598d04ec7df",
         "source": "\"нужно уточнить исследовательское направление\""
       },
       {
-        "start": 191047,
-        "end": 191080,
+        "start": 191066,
+        "end": 191099,
         "type": "StringLiteral",
         "id": "d7f4db7d584b",
         "source": "\"нужно разобраться в результатах\""
       },
       {
-        "start": 191090,
-        "end": 191133,
+        "start": 191109,
+        "end": 191152,
         "type": "StringLiteral",
         "id": "f4a6b956d5f5",
         "source": "\"нужно проверить теоретическое рассуждение\""
       },
       {
-        "start": 191144,
-        "end": 191188,
+        "start": 191163,
+        "end": 191207,
         "type": "StringLiteral",
         "id": "5706c948b34d",
         "source": "\"нужно написать или проверить научный текст\""
       },
       {
-        "start": 191228,
-        "end": 191252,
+        "start": 191247,
+        "end": 191271,
         "type": "StringLiteral",
         "id": "c1b3ba00af63",
         "source": "\"Добавить раздел статьи\""
       },
       {
-        "start": 191272,
-        "end": 191297,
+        "start": 191291,
+        "end": 191316,
         "type": "StringLiteral",
         "id": "3c6fb60f8eb2",
         "source": "\"Назначить публичный код\""
       },
       {
-        "start": 191316,
-        "end": 191336,
+        "start": 191335,
+        "end": 191355,
         "type": "StringLiteral",
         "id": "ddbe49c19fd2",
         "source": "\"Сохранить гипотезу\""
       },
       {
-        "start": 191352,
-        "end": 191375,
+        "start": 191371,
+        "end": 191394,
         "type": "StringLiteral",
         "id": "b18104d9c76d",
         "source": "\"Создать проект знаний\""
       },
       {
-        "start": 191388,
-        "end": 191415,
+        "start": 191407,
+        "end": 191434,
         "type": "StringLiteral",
         "id": "4d320df010af",
         "source": "\"Определить термин проекта\""
       },
       {
-        "start": 191431,
-        "end": 191454,
+        "start": 191450,
+        "end": 191473,
         "type": "StringLiteral",
         "id": "c5437c63dff5",
         "source": "\"Удалить пустой проект\""
       },
       {
-        "start": 191469,
-        "end": 191485,
+        "start": 191488,
+        "end": 191504,
         "type": "StringLiteral",
         "id": "5f3a315499cb",
         "source": "\"Удалить запись\""
       },
       {
-        "start": 191506,
-        "end": 191530,
+        "start": 191525,
+        "end": 191549,
         "type": "StringLiteral",
         "id": "b1e4d8461df4",
         "source": "\"Найти связанные статьи\""
       },
       {
-        "start": 191544,
-        "end": 191566,
+        "start": 191563,
+        "end": 191585,
         "type": "StringLiteral",
         "id": "acc5897168ca",
         "source": "\"Найти похожие записи\""
       },
       {
-        "start": 191582,
-        "end": 191600,
+        "start": 191601,
+        "end": 191619,
         "type": "StringLiteral",
         "id": "8cdf24b82b3b",
         "source": "\"Открыть гипотезу\""
       },
       {
-        "start": 191611,
-        "end": 191627,
+        "start": 191630,
+        "end": 191646,
         "type": "StringLiteral",
         "id": "c8af463c7bb9",
         "source": "\"Открыть статью\""
       },
       {
-        "start": 191648,
-        "end": 191674,
+        "start": 191667,
+        "end": 191693,
         "type": "StringLiteral",
         "id": "b4091a16d95f",
         "source": "\"Открыть проект по адресу\""
       },
       {
-        "start": 191695,
-        "end": 191722,
+        "start": 191714,
+        "end": 191741,
         "type": "StringLiteral",
         "id": "995f81c8d20e",
         "source": "\"Получить контекст проекта\""
       },
       {
-        "start": 191735,
-        "end": 191764,
+        "start": 191754,
+        "end": 191783,
         "type": "StringLiteral",
         "id": "1cd4b82dc05e",
         "source": "\"Посмотреть связанные записи\""
       },
       {
-        "start": 191783,
-        "end": 191807,
+        "start": 191802,
+        "end": 191826,
         "type": "StringLiteral",
         "id": "f9802b359a14",
         "source": "\"Получить контекст темы\""
       },
       {
-        "start": 191821,
-        "end": 191851,
+        "start": 191840,
+        "end": 191870,
         "type": "StringLiteral",
         "id": "091a58a7dfbc",
         "source": "\"Посмотреть историю изменений\""
       },
       {
-        "start": 191866,
-        "end": 191888,
+        "start": 191885,
+        "end": 191907,
         "type": "StringLiteral",
         "id": "54170b8a9692",
         "source": "\"Пригласить участника\""
       },
       {
-        "start": 191907,
-        "end": 191929,
+        "start": 191926,
+        "end": 191948,
         "type": "StringLiteral",
         "id": "7727a38c9b44",
         "source": "\"Выдать доступ агенту\""
       },
       {
-        "start": 191941,
-        "end": 191983,
+        "start": 191960,
+        "end": 192002,
         "type": "StringLiteral",
         "id": "8422bd759109",
         "source": "\"Проверить состояние лабораторного знания\""
       },
       {
-        "start": 191995,
-        "end": 192021,
+        "start": 192014,
+        "end": 192040,
         "type": "StringLiteral",
         "id": "4c7b49180760",
         "source": "\"Связать статью с работой\""
       },
       {
-        "start": 192040,
-        "end": 192068,
+        "start": 192059,
+        "end": 192087,
         "type": "StringLiteral",
         "id": "82dfe7251b4f",
         "source": "\"Посмотреть доступы агентов\""
       },
       {
-        "start": 192086,
-        "end": 192119,
+        "start": 192105,
+        "end": 192138,
         "type": "StringLiteral",
         "id": "67c13aad5494",
         "source": "\"Посмотреть теоретические выводы\""
       },
       {
-        "start": 192136,
-        "end": 192157,
+        "start": 192155,
+        "end": 192176,
         "type": "StringLiteral",
         "id": "42742e4c6d9c",
         "source": "\"Посмотреть гипотезы\""
       },
       {
-        "start": 192171,
-        "end": 192190,
+        "start": 192190,
+        "end": 192209,
         "type": "StringLiteral",
         "id": "51b6c4bb81b1",
         "source": "\"Посмотреть журнал\""
       },
       {
-        "start": 192210,
-        "end": 192242,
+        "start": 192229,
+        "end": 192261,
         "type": "StringLiteral",
         "id": "d2eb22c75027",
         "source": "\"Посмотреть ресурсы лаборатории\""
       },
       {
-        "start": 192261,
-        "end": 192292,
+        "start": 192280,
+        "end": 192311,
         "type": "StringLiteral",
         "id": "da7a9bdf9105",
         "source": "\"Посмотреть утверждения статьи\""
       },
       {
-        "start": 192307,
-        "end": 192327,
+        "start": 192326,
+        "end": 192346,
         "type": "StringLiteral",
         "id": "f57a7b30e3f0",
         "source": "\"Посмотреть проекты\""
       },
       {
-        "start": 192347,
-        "end": 192372,
+        "start": 192366,
+        "end": 192391,
         "type": "StringLiteral",
         "id": "1cb1f1f580f7",
         "source": "\"Посмотреть новые статьи\""
       },
       {
-        "start": 192384,
-        "end": 192404,
+        "start": 192403,
+        "end": 192423,
         "type": "StringLiteral",
         "id": "e23fa73cd077",
         "source": "\"Посмотреть термины\""
       },
       {
-        "start": 192417,
-        "end": 192452,
+        "start": 192436,
+        "end": 192471,
         "type": "StringLiteral",
         "id": "a1dc655a345a",
         "source": "\"Посмотреть исследовательские темы\""
       },
       {
-        "start": 192471,
-        "end": 192497,
+        "start": 192490,
+        "end": 192516,
         "type": "StringLiteral",
         "id": "c600a2b5941c",
         "source": "\"Посмотреть задачи Yonote\""
       },
       {
-        "start": 192518,
-        "end": 192550,
+        "start": 192537,
+        "end": 192569,
         "type": "StringLiteral",
         "id": "f0a4f0b1fc02",
         "source": "\"Проверить задачу перед записью\""
       },
       {
-        "start": 192568,
-        "end": 192588,
+        "start": 192587,
+        "end": 192607,
         "type": "StringLiteral",
         "id": "06b5a2d169af",
         "source": "\"Предложить решение\""
       },
       {
-        "start": 192617,
-        "end": 192659,
+        "start": 192636,
+        "end": 192678,
         "type": "StringLiteral",
         "id": "1c02dfc55b86",
         "source": "\"Подготовить рабочее пространство проекта\""
       },
       {
-        "start": 192680,
-        "end": 192712,
+        "start": 192699,
+        "end": 192731,
         "type": "StringLiteral",
         "id": "3883298f6ef9",
         "source": "\"Опубликовать ссылку на заметку\""
       },
       {
-        "start": 192728,
-        "end": 192760,
+        "start": 192747,
+        "end": 192779,
         "type": "StringLiteral",
         "id": "da309d2866e4",
         "source": "\"Посмотреть последние изменения\""
       },
       {
-        "start": 192779,
-        "end": 192810,
+        "start": 192798,
+        "end": 192829,
         "type": "StringLiteral",
         "id": "6c7ede872b10",
         "source": "\"Сохранить теоретический вывод\""
       },
       {
-        "start": 192827,
-        "end": 192861,
+        "start": 192846,
+        "end": 192880,
         "type": "StringLiteral",
         "id": "543ba21f1aaa",
         "source": "\"Сохранить результат эксперимента\""
       },
       {
-        "start": 192880,
-        "end": 192903,
+        "start": 192899,
+        "end": 192922,
         "type": "StringLiteral",
         "id": "762c213378ea",
         "source": "\"Сохранить эксперимент\""
       },
       {
-        "start": 192919,
-        "end": 192945,
+        "start": 192938,
+        "end": 192964,
         "type": "StringLiteral",
         "id": "6bfb12fd504e",
         "source": "\"Добавить запись в журнал\""
       },
       {
-        "start": 192965,
-        "end": 192995,
+        "start": 192984,
+        "end": 193014,
         "type": "StringLiteral",
         "id": "61fbaf67a364",
         "source": "\"Сохранить утверждение статьи\""
       },
       {
-        "start": 193013,
-        "end": 193038,
+        "start": 193032,
+        "end": 193057,
         "type": "StringLiteral",
         "id": "be100f32ede7",
         "source": "\"Найти связи по терминам\""
       },
       {
-        "start": 193058,
-        "end": 193082,
+        "start": 193077,
+        "end": 193101,
         "type": "StringLiteral",
         "id": "4831ee974ea8",
         "source": "\"Отозвать доступ агента\""
       },
       {
-        "start": 193094,
-        "end": 193120,
+        "start": 193113,
+        "end": 193139,
         "type": "StringLiteral",
         "id": "953c47c84eba",
         "source": "\"Найти знание лаборатории\""
       },
       {
-        "start": 193139,
-        "end": 193165,
+        "start": 193158,
+        "end": 193184,
         "type": "StringLiteral",
         "id": "b3a89e91393e",
         "source": "\"Сохранить ссылки проекта\""
       },
       {
-        "start": 193193,
-        "end": 193221,
+        "start": 193212,
+        "end": 193240,
         "type": "StringLiteral",
         "id": "27d74167cc0f",
         "source": "\"Сохранить открытые вопросы\""
       },
       {
-        "start": 193241,
-        "end": 193266,
+        "start": 193260,
+        "end": 193285,
         "type": "StringLiteral",
         "id": "13994cd11677",
         "source": "\"Изменить статус проекта\""
       },
       {
-        "start": 193285,
-        "end": 193309,
+        "start": 193304,
+        "end": 193328,
         "type": "StringLiteral",
         "id": "7bdac3d0a477",
         "source": "\"Связать проект с темой\""
       },
       {
-        "start": 193328,
-        "end": 193356,
+        "start": 193347,
+        "end": 193375,
         "type": "StringLiteral",
         "id": "c4f41a0b9902",
         "source": "\"Связать запись со статьями\""
       },
       {
-        "start": 193373,
-        "end": 193405,
+        "start": 193392,
+        "end": 193424,
         "type": "StringLiteral",
         "id": "94e0b2a8ee10",
         "source": "\"Утвердить или заменить решение\""
       },
       {
-        "start": 193431,
-        "end": 193470,
+        "start": 193450,
+        "end": 193489,
         "type": "StringLiteral",
         "id": "273ed1151dc5",
         "source": "\"Обновить статус теоретического вывода\""
       },
       {
-        "start": 193496,
-        "end": 193526,
+        "start": 193515,
+        "end": 193545,
         "type": "StringLiteral",
         "id": "22b49d8e93e9",
         "source": "\"Обновить статус эксперимента\""
       },
       {
-        "start": 193545,
-        "end": 193564,
+        "start": 193564,
+        "end": 193583,
         "type": "StringLiteral",
         "id": "29c1ba9953b8",
         "source": "\"Обновить гипотезу\""
       },
       {
-        "start": 193582,
-        "end": 193610,
+        "start": 193601,
+        "end": 193629,
         "type": "StringLiteral",
         "id": "fe0dd7ce0959",
         "source": "\"Сохранить конспект созвона\""
       },
       {
-        "start": 193624,
-        "end": 193642,
+        "start": 193643,
+        "end": 193661,
         "type": "StringLiteral",
         "id": "4ad36556949f",
         "source": "\"Сохранить статью\""
       },
       {
-        "start": 193665,
-        "end": 193703,
+        "start": 193684,
+        "end": 193722,
         "type": "StringLiteral",
         "id": "44e2ef05109b",
         "source": "\"Связать запись с публичной страницей\""
       },
       {
-        "start": 193720,
-        "end": 193750,
+        "start": 193739,
+        "end": 193769,
         "type": "StringLiteral",
         "id": "ff4d80b573f0",
         "source": "\"Сохранить ресурс лаборатории\""
       },
       {
-        "start": 193770,
-        "end": 193795,
+        "start": 193789,
+        "end": 193814,
         "type": "StringLiteral",
         "id": "eb214647bf3f",
         "source": "\"Сохранить задачу Yonote\""
       },
       {
-        "start": 193814,
-        "end": 193844,
+        "start": 193833,
+        "end": 193863,
         "type": "StringLiteral",
         "id": "a3696dc91073",
         "source": "\"Понять, кто над чем работает\""
       },
       {
-        "start": 193993,
-        "end": 194003,
+        "start": 194012,
+        "end": 194022,
         "type": "StringLiteral",
         "id": "2c112659e5b3",
         "source": "\"гипотезу\""
       },
       {
-        "start": 194015,
-        "end": 194028,
+        "start": 194034,
+        "end": 194047,
         "type": "StringLiteral",
         "id": "b80af15718c0",
         "source": "\"эксперимент\""
       },
       {
-        "start": 194038,
-        "end": 194049,
+        "start": 194057,
+        "end": 194068,
         "type": "StringLiteral",
         "id": "13a448d1ecae",
         "source": "\"результат\""
       },
       {
-        "start": 194056,
-        "end": 194069,
+        "start": 194075,
+        "end": 194088,
         "type": "StringLiteral",
         "id": "d7775289cb47",
         "source": "\"утверждение\""
       },
       {
-        "start": 194076,
-        "end": 194084,
+        "start": 194095,
+        "end": 194103,
         "type": "StringLiteral",
         "id": "4c531726b656",
         "source": "\"статью\""
       },
       {
-        "start": 194094,
-        "end": 194103,
+        "start": 194113,
+        "end": 194122,
         "type": "StringLiteral",
         "id": "924a6e352c6e",
         "source": "\"решение\""
       },
       {
-        "start": 194112,
-        "end": 194120,
+        "start": 194131,
+        "end": 194139,
         "type": "StringLiteral",
         "id": "dfb992e6d06a",
         "source": "\"проект\""
       },
       {
-        "start": 194128,
-        "end": 194139,
+        "start": 194147,
+        "end": 194158,
         "type": "StringLiteral",
         "id": "cebd852c5ddf",
         "source": "\"участника\""
       },
       {
-        "start": 194149,
-        "end": 194157,
+        "start": 194168,
+        "end": 194176,
         "type": "StringLiteral",
         "id": "be3dd1b1adbd",
         "source": "\"ресурс\""
       },
       {
-        "start": 194166,
-        "end": 194176,
+        "start": 194185,
+        "end": 194195,
         "type": "StringLiteral",
         "id": "760c214582ce",
         "source": "\"контекст\""
       },
       {
-        "start": 194185,
-        "end": 194193,
+        "start": 194204,
+        "end": 194212,
         "type": "StringLiteral",
         "id": "8ed1ff9bd2c4",
         "source": "\"журнал\""
-      },
-      {
-        "start": 194245,
-        "end": 194256,
-        "type": "StringLiteral",
-        "id": "b4d30cae5289",
-        "source": "\"Сохранить\""
       },
       {
         "start": 194264,
@@ -6313,643 +6306,650 @@
         "source": "\"Сохранить\""
       },
       {
-        "start": 194299,
-        "end": 194311,
+        "start": 194302,
+        "end": 194313,
+        "type": "StringLiteral",
+        "id": "b4d30cae5289",
+        "source": "\"Сохранить\""
+      },
+      {
+        "start": 194318,
+        "end": 194330,
         "type": "StringLiteral",
         "id": "d4998bc84141",
         "source": "\"Посмотреть\""
       },
       {
-        "start": 194317,
-        "end": 194329,
+        "start": 194336,
+        "end": 194348,
         "type": "StringLiteral",
         "id": "d4998bc84141",
         "source": "\"Посмотреть\""
       },
       {
-        "start": 194337,
-        "end": 194344,
+        "start": 194356,
+        "end": 194363,
         "type": "StringLiteral",
         "id": "be6156b8e4de",
         "source": "\"Найти\""
       },
       {
-        "start": 194350,
-        "end": 194357,
+        "start": 194369,
+        "end": 194376,
         "type": "StringLiteral",
         "id": "be6156b8e4de",
         "source": "\"Найти\""
       },
       {
-        "start": 194365,
-        "end": 194375,
+        "start": 194384,
+        "end": 194394,
         "type": "StringLiteral",
         "id": "603e460bf59c",
         "source": "\"Обновить\""
       },
       {
-        "start": 194380,
-        "end": 194390,
+        "start": 194399,
+        "end": 194409,
         "type": "StringLiteral",
         "id": "603e460bf59c",
         "source": "\"Обновить\""
       },
       {
-        "start": 194398,
-        "end": 194407,
+        "start": 194417,
+        "end": 194426,
         "type": "StringLiteral",
         "id": "ac94e7e2d3ca",
         "source": "\"Связать\""
       },
       {
-        "start": 194413,
-        "end": 194422,
+        "start": 194432,
+        "end": 194441,
         "type": "StringLiteral",
         "id": "ac94e7e2d3ca",
         "source": "\"Связать\""
       },
       {
-        "start": 194431,
-        "end": 194442,
+        "start": 194450,
+        "end": 194461,
         "type": "StringLiteral",
         "id": "e4424a6df6f6",
         "source": "\"Проверить\""
       },
       {
-        "start": 194452,
-        "end": 194463,
+        "start": 194471,
+        "end": 194482,
         "type": "StringLiteral",
         "id": "e4424a6df6f6",
         "source": "\"Проверить\""
       },
       {
-        "start": 194470,
-        "end": 194478,
+        "start": 194489,
+        "end": 194497,
         "type": "StringLiteral",
         "id": "5bf4dc29792c",
         "source": "\"Выдать\""
       },
       {
-        "start": 194486,
-        "end": 194498,
+        "start": 194505,
+        "end": 194517,
         "type": "StringLiteral",
         "id": "4e313d1664c2",
         "source": "\"Пригласить\""
       },
       {
-        "start": 194509,
-        "end": 194521,
+        "start": 194528,
+        "end": 194540,
         "type": "StringLiteral",
         "id": "3af435b32ee7",
         "source": "\"Подключить\""
       },
       {
-        "start": 194529,
-        "end": 194538,
+        "start": 194548,
+        "end": 194557,
         "type": "StringLiteral",
         "id": "be99b1361201",
         "source": "\"Удалить\""
       },
       {
-        "start": 194546,
-        "end": 194556,
+        "start": 194565,
+        "end": 194575,
         "type": "StringLiteral",
         "id": "b66927e0fc8e",
         "source": "\"Отозвать\""
       },
       {
-        "start": 194585,
-        "end": 194596,
+        "start": 194604,
+        "end": 194615,
         "type": "StringLiteral",
         "id": "50799cfd526a",
         "source": "\"Выполнить\""
       },
       {
-        "start": 194752,
-        "end": 194802,
+        "start": 194771,
+        "end": 194821,
         "type": "StringLiteral",
         "id": "be97be83985c",
         "source": "\"Подробный сценарий использования пока не описан.\""
       },
       {
-        "start": 195213,
-        "end": 195226,
+        "start": 195232,
+        "end": 195245,
         "type": "StringLiteral",
         "id": "21f41a4789b7",
         "source": "\"возможность\""
       },
       {
-        "start": 195342,
-        "end": 195385,
+        "start": 195361,
+        "end": 195404,
         "type": "TemplateElement",
         "id": "37d74e58330d",
         "source": "Сможете поручить агенту конкретную задачу: "
       },
       {
-        "start": 195418,
-        "end": 195467,
+        "start": 195437,
+        "end": 195486,
         "type": "TemplateElement",
         "id": "efbe9f9d79ed",
         "source": "Сможете попросить агента провести весь сценарий: "
       },
       {
-        "start": 195502,
-        "end": 195545,
+        "start": 195521,
+        "end": 195564,
         "type": "TemplateElement",
         "id": "a398fd7f04a6",
         "source": "Сможете одним действием запустить процесс: "
       },
       {
-        "start": 195577,
-        "end": 195670,
+        "start": 195596,
+        "end": 195689,
         "type": "TemplateElement",
         "id": "78722cf2ed8d",
         "source": "Проверка будет срабатывать автоматически и остановит ошибочное действие до изменения проекта."
       },
       {
-        "start": 195691,
-        "end": 195727,
+        "start": 195710,
+        "end": 195746,
         "type": "TemplateElement",
         "id": "c263d06364cf",
         "source": "Агенты с подходящими правами смогут "
       },
       {
-        "start": 195776,
-        "end": 195810,
+        "start": 195795,
+        "end": 195829,
         "type": "TemplateElement",
         "id": "ba0379ecdc4c",
         "source": " через общую лабораторную систему."
       },
       {
-        "start": 195836,
-        "end": 195910,
+        "start": 195855,
+        "end": 195929,
         "type": "TemplateElement",
         "id": "fcd53e50e5a0",
         "source": "Сможете быстро найти актуальный порядок действий и сверить свою настройку."
       },
       {
-        "start": 195933,
-        "end": 196029,
+        "start": 195952,
+        "end": 196048,
         "type": "TemplateElement",
         "id": "4a63cd076462",
         "source": "Сможете использовать и обновлять лабораторные инструменты из одного версионированного источника."
       },
       {
-        "start": 196049,
-        "end": 196123,
+        "start": 196068,
+        "end": 196142,
         "type": "TemplateElement",
         "id": "ef366d0f7e2a",
         "source": "Подключенные агенты и приложения получат эту возможность как общий сервис."
       },
       {
-        "start": 196126,
-        "end": 196188,
+        "start": 196145,
+        "end": 196207,
         "type": "TemplateElement",
         "id": "e32be6b86871",
         "source": "Сможете использовать эту возможность в своем рабочем процессе."
       },
       {
-        "start": 196224,
-        "end": 196303,
+        "start": 196243,
+        "end": 196322,
         "type": "StringLiteral",
         "id": "638673a4cbb3",
         "source": "\"самостоятельно выполнить ограниченную задачу и вернуть результат для проверки\""
       },
       {
-        "start": 196319,
-        "end": 196399,
+        "start": 196338,
+        "end": 196418,
         "type": "StringLiteral",
         "id": "66d0fea831c0",
         "source": "\"провести повторяемый рабочий сценарий от исходных данных до проверенного итога\""
       },
       {
-        "start": 196417,
-        "end": 196475,
+        "start": 196436,
+        "end": 196494,
         "type": "StringLiteral",
         "id": "4cd9fe980da0",
         "source": "\"собрать несколько шагов работы в один управляемый запуск\""
       },
       {
-        "start": 196490,
-        "end": 196556,
+        "start": 196509,
+        "end": 196575,
         "type": "StringLiteral",
         "id": "37bfad24c4e7",
         "source": "\"автоматически проверить действие до того, как оно изменит проект\""
       },
       {
-        "start": 196575,
-        "end": 196651,
+        "start": 196594,
+        "end": 196670,
         "type": "StringLiteral",
         "id": "ecd1e1a807e2",
         "source": "\"выполнить это действие через общую систему без ручного редактирования базы\""
       },
       {
-        "start": 196675,
-        "end": 196740,
+        "start": 196694,
+        "end": 196759,
         "type": "StringLiteral",
         "id": "e4e206148b41",
         "source": "\"сверить порядок действий и ограничения по актуальному источнику\""
       },
       {
-        "start": 196761,
-        "end": 196830,
+        "start": 196780,
+        "end": 196849,
         "type": "StringLiteral",
         "id": "fc426a192a84",
         "source": "\"работать с версионированными исходниками и видеть историю изменений\""
       },
       {
-        "start": 196848,
-        "end": 196913,
+        "start": 196867,
+        "end": 196932,
         "type": "StringLiteral",
         "id": "d4512f21e7b7",
         "source": "\"дать нескольким инструментам одну общую возможность и состояние\""
       },
       {
-        "start": 196914,
-        "end": 196969,
+        "start": 196933,
+        "end": 196988,
         "type": "StringLiteral",
         "id": "7ddeaa7f81ae",
         "source": "\"использовать возможность в связанном рабочем процессе\""
       },
       {
-        "start": 197275,
-        "end": 197312,
+        "start": 197294,
+        "end": 197331,
         "type": "TemplateElement",
         "id": "94d6453245af",
         "source": "Проверенный результат работы агента «"
       },
       {
-        "start": 197340,
-        "end": 197370,
+        "start": 197359,
+        "end": 197389,
         "type": "TemplateElement",
         "id": "6731ccf02b72",
         "source": "Завершенный рабочий сценарий «"
       },
       {
-        "start": 197400,
-        "end": 197420,
+        "start": 197419,
+        "end": 197439,
         "type": "TemplateElement",
         "id": "2d456e4a0ee4",
         "source": "Результат процесса «"
       },
       {
-        "start": 197446,
-        "end": 197491,
+        "start": 197465,
+        "end": 197510,
         "type": "StringLiteral",
         "id": "9127e4824d27",
         "source": "\"Автоматическая проверка с понятным решением\""
       },
       {
-        "start": 197511,
-        "end": 197545,
+        "start": 197530,
+        "end": 197564,
         "type": "TemplateElement",
         "id": "a31f234417b5",
         "source": "Ответ или сохраненное изменение: «"
       },
       {
-        "start": 197581,
-        "end": 197616,
+        "start": 197600,
+        "end": 197635,
         "type": "TemplateElement",
         "id": "7553a2ade740",
         "source": "Понятный порядок действий по теме «"
       },
       {
-        "start": 197648,
-        "end": 197686,
+        "start": 197667,
+        "end": 197705,
         "type": "StringLiteral",
         "id": "696bb20123eb",
         "source": "\"Доступ к версионированным исходникам\""
       },
       {
-        "start": 197704,
-        "end": 197755,
+        "start": 197723,
+        "end": 197774,
         "type": "StringLiteral",
         "id": "10f7cf9d93aa",
         "source": "\"Доступный ответ или сохраненное состояние сервиса\""
       },
       {
-        "start": 197757,
-        "end": 197791,
+        "start": 197776,
+        "end": 197810,
         "type": "TemplateElement",
         "id": "7df6c65d1cfb",
         "source": "Практический результат по задаче «"
       },
       {
-        "start": 198026,
-        "end": 198090,
+        "start": 198045,
+        "end": 198109,
         "type": "TemplateElement",
         "id": "c7f42e85e741",
         "source": "когда требуется именно это действие в исследовательском процессе"
       },
       {
-        "start": 198279,
-        "end": 198289,
+        "start": 198298,
+        "end": 198308,
         "type": "StringLiteral",
         "id": "77c10c9580b4",
         "source": "\"исходник\""
       },
       {
-        "start": 198263,
-        "end": 198269,
+        "start": 198282,
+        "end": 198288,
         "type": "TemplateElement",
         "id": "9b767465918c",
         "source": "Найти "
       },
       {
-        "start": 198290,
-        "end": 198303,
+        "start": 198309,
+        "end": 198322,
         "type": "TemplateElement",
         "id": "b90c704b218d",
         "source": " в repository"
       },
       {
-        "start": 199071,
-        "end": 199092,
+        "start": 199090,
+        "end": 199111,
         "type": "StringLiteral",
         "id": "60d66784b330",
         "source": "\"Реестр возможностей\""
       },
       {
-        "start": 199511,
-        "end": 199520,
+        "start": 199530,
+        "end": 199539,
         "type": "StringLiteral",
         "id": "781e34e36da4",
         "source": "\"Процесс\""
       },
       {
-        "start": 199848,
-        "end": 199860,
+        "start": 199867,
+        "end": 199879,
         "type": "StringLiteral",
         "id": "a8ba5e181272",
         "source": "\"Инструмент\""
       },
       {
-        "start": 200175,
-        "end": 200190,
+        "start": 200194,
+        "end": 200209,
         "type": "StringLiteral",
         "id": "057777b05b0d",
         "source": "\"Полный реестр\""
       },
       {
-        "start": 200445,
-        "end": 200463,
+        "start": 200464,
+        "end": 200482,
         "type": "StringLiteral",
         "id": "d41fe53ac00f",
         "source": "\"разобрать созвон\""
       },
       {
-        "start": 200464,
-        "end": 200488,
+        "start": 200483,
+        "end": 200507,
         "type": "StringLiteral",
         "id": "29ea689616c1",
         "source": "\"найти статьи про метод\""
       },
       {
-        "start": 200489,
-        "end": 200525,
+        "start": 200508,
+        "end": 200544,
         "type": "StringLiteral",
         "id": "aca02c7eb994",
         "source": "\"запустить эксперимент через Hermes\""
       },
       {
-        "start": 200526,
-        "end": 200544,
+        "start": 200545,
+        "end": 200563,
         "type": "StringLiteral",
         "id": "63f6ccf010c0",
         "source": "\"проверить цитату\""
       },
       {
-        "start": 200545,
-        "end": 200572,
+        "start": 200564,
+        "end": 200591,
         "type": "StringLiteral",
         "id": "a5d31462c7d7",
         "source": "\"добавить доступ к серверу\""
       },
       {
-        "start": 200573,
-        "end": 200595,
+        "start": 200592,
+        "end": 200614,
         "type": "StringLiteral",
         "id": "d3900bdf85ff",
         "source": "\"ответить рецензентам\""
       },
       {
-        "start": 200630,
-        "end": 200638,
+        "start": 200649,
+        "end": 200657,
         "type": "StringLiteral",
         "id": "5e92a7ef0277",
         "source": "\"созвон\"",
         "preserve": true
       },
       {
-        "start": 200639,
-        "end": 200649,
+        "start": 200658,
+        "end": 200668,
         "type": "StringLiteral",
         "id": "b740dc76b121",
         "source": "\"разговор\"",
         "preserve": true
       },
       {
-        "start": 200650,
-        "end": 200658,
+        "start": 200669,
+        "end": 200677,
         "type": "StringLiteral",
         "id": "c10aab7f686b",
         "source": "\"встреч\"",
         "preserve": true
       },
       {
-        "start": 200659,
-        "end": 200666,
+        "start": 200678,
+        "end": 200685,
         "type": "StringLiteral",
         "id": "8c98423b9001",
         "source": "\"аудио\"",
         "preserve": true
       },
       {
-        "start": 200715,
-        "end": 200724,
+        "start": 200734,
+        "end": 200743,
         "type": "StringLiteral",
         "id": "591fad8a9c0e",
         "source": "\"решения\"",
         "preserve": true
       },
       {
-        "start": 200725,
-        "end": 200733,
+        "start": 200744,
+        "end": 200752,
         "type": "StringLiteral",
         "id": "68a742cba73e",
         "source": "\"задачи\"",
         "preserve": true
       },
       {
-        "start": 200744,
-        "end": 200751,
+        "start": 200763,
+        "end": 200770,
         "type": "StringLiteral",
         "id": "42539956f4fc",
         "source": "\"стать\"",
         "preserve": true
       },
       {
-        "start": 200752,
-        "end": 200763,
+        "start": 200771,
+        "end": 200782,
         "type": "StringLiteral",
         "id": "9b845837fea6",
         "source": "\"литератур\"",
         "preserve": true
       },
       {
-        "start": 200862,
-        "end": 200875,
+        "start": 200881,
+        "end": 200894,
         "type": "StringLiteral",
         "id": "b80af15718c0",
         "source": "\"эксперимент\"",
         "preserve": true
       },
       {
-        "start": 200876,
-        "end": 200884,
+        "start": 200895,
+        "end": 200903,
         "type": "StringLiteral",
         "id": "6c1e3d9c9659",
         "source": "\"запуск\"",
         "preserve": true
       },
       {
-        "start": 200885,
-        "end": 200893,
+        "start": 200904,
+        "end": 200912,
         "type": "StringLiteral",
         "id": "53c5e8fe2efa",
         "source": "\"обучен\"",
         "preserve": true
       },
       {
-        "start": 200971,
-        "end": 200978,
+        "start": 200990,
+        "end": 200997,
         "type": "StringLiteral",
         "id": "d3fae92599b1",
         "source": "\"цитат\"",
         "preserve": true
       },
       {
-        "start": 200979,
-        "end": 200986,
+        "start": 200998,
+        "end": 201005,
         "type": "StringLiteral",
         "id": "09414a411e8d",
         "source": "\"ссылк\"",
         "preserve": true
       },
       {
-        "start": 201059,
-        "end": 201076,
+        "start": 201078,
+        "end": 201095,
         "type": "StringLiteral",
         "id": "c4214db2cc74",
         "source": "\"проверка статей\"",
         "preserve": true
       },
       {
-        "start": 201087,
-        "end": 201095,
+        "start": 201106,
+        "end": 201114,
         "type": "StringLiteral",
         "id": "98f5cacdb4b8",
         "source": "\"сервер\"",
         "preserve": true
       },
       {
-        "start": 201096,
-        "end": 201104,
+        "start": 201115,
+        "end": 201123,
         "type": "StringLiteral",
         "id": "a88912e2f8a7",
         "source": "\"доступ\"",
         "preserve": true
       },
       {
-        "start": 201111,
-        "end": 201120,
+        "start": 201130,
+        "end": 201139,
         "type": "StringLiteral",
         "id": "8f652a6d63d2",
         "source": "\"аккаунт\"",
         "preserve": true
       },
       {
-        "start": 201208,
-        "end": 201216,
+        "start": 201227,
+        "end": 201235,
         "type": "StringLiteral",
         "id": "ef2dc5ffc421",
         "source": "\"реценз\"",
         "preserve": true
       },
       {
-        "start": 201217,
-        "end": 201224,
+        "start": 201236,
+        "end": 201243,
         "type": "StringLiteral",
         "id": "7b9de65d1672",
         "source": "\"ответ\"",
         "preserve": true
       },
       {
-        "start": 201309,
-        "end": 201327,
+        "start": 201328,
+        "end": 201346,
         "type": "StringLiteral",
         "id": "d41fe53ac00f",
         "source": "\"разобрать созвон\""
       },
       {
-        "start": 201364,
-        "end": 201388,
+        "start": 201383,
+        "end": 201407,
         "type": "StringLiteral",
         "id": "29ea689616c1",
         "source": "\"найти статьи про метод\""
       },
       {
-        "start": 201432,
-        "end": 201468,
+        "start": 201451,
+        "end": 201487,
         "type": "StringLiteral",
         "id": "aca02c7eb994",
         "source": "\"запустить эксперимент через Hermes\""
       },
       {
-        "start": 201521,
-        "end": 201539,
+        "start": 201540,
+        "end": 201558,
         "type": "StringLiteral",
         "id": "63f6ccf010c0",
         "source": "\"проверить цитату\""
       },
       {
-        "start": 201599,
-        "end": 201626,
+        "start": 201618,
+        "end": 201645,
         "type": "StringLiteral",
         "id": "a5d31462c7d7",
         "source": "\"добавить доступ к серверу\""
       },
       {
-        "start": 201676,
-        "end": 201698,
+        "start": 201695,
+        "end": 201717,
         "type": "StringLiteral",
         "id": "d3900bdf85ff",
         "source": "\"ответить рецензентам\""
       },
       {
-        "start": 202795,
-        "end": 202862,
+        "start": 202814,
+        "end": 202881,
         "type": "TemplateElement",
         "id": "38ad45456646",
         "source": "<div class=\"search-examples\"><span>Попробуйте описать задачу</span>"
       },
       {
-        "start": 203288,
-        "end": 203317,
+        "start": 203307,
+        "end": 203336,
         "type": "TemplateElement",
         "id": "78dcf5103466",
         "source": "</p><i>Открыть →</i></button>"
       },
       {
-        "start": 203352,
-        "end": 203429,
+        "start": 203371,
+        "end": 203448,
         "type": "TemplateElement",
         "id": "ee146251c587",
         "source": "<p class=\"empty-search\">Совпадений нет. Опишите действие другими словами.</p>"
       },
       {
-        "start": 206060,
-        "end": 206068,
+        "start": 206079,
+        "end": 206087,
         "type": "StringLiteral",
         "id": "5c3da2834b2b",
         "source": "\"Наверх\""
