@@ -2963,16 +2963,17 @@ window.RESEARCH_LOOP = {
     "registryCount": 206,
     "toolkit": {
       "title": "Get the source code",
-      "lead": "Clone the repositories you need. Skills, agents, hooks, and Hermes prompts are included in claude-brainlab; the other tools have separate repositories.",
+      "lead": "Lab tools, Hermes prompts, and third-party projects. Clone the repositories you need and follow their READMEs.",
       "install": [
         "git clone https://github.com/brain-lab-research/claude-brainlab.git",
+        "git clone https://github.com/brain-lab-research/lab-knowledge.git",
+        "git clone https://github.com/brain-lab-research/brain-call.git",
+        "git clone https://github.com/brain-lab-research/hermes-prompts.git",
         "git clone https://github.com/NousResearch/hermes-agent.git",
         "git clone https://github.com/MemPalace/mempalace.git",
-        "git clone https://github.com/54yyyu/zotero-mcp.git",
-        "git clone https://github.com/brain-lab-research/lab-knowledge.git",
-        "git clone https://github.com/Vepricov/brain-call.git"
+        "git clone https://github.com/54yyyu/zotero-mcp.git"
       ],
-      "after": "Follow each project’s README for setup. Hermes prompts are in claude-brainlab/hermes. Cloning Lab Knowledge MCP and Brain Call requires access to their private repositories.",
+      "after": "Cloning Lab Knowledge MCP and Brain Call requires access to their private repositories.",
       "components": "skills · commands · agents · hooks · scripts · rules",
       "links": [],
       "pieces": [
@@ -2992,7 +2993,7 @@ window.RESEARCH_LOOP = {
           "name": "Hermes prompts",
           "what": "Production agent profiles: SOUL.md and scheduler jobs",
           "access": "Public",
-          "url": "https://github.com/brain-lab-research/claude-brainlab/tree/main/hermes"
+          "url": "https://github.com/brain-lab-research/hermes-prompts"
         },
         {
           "name": "Lab Knowledge MCP",
@@ -3004,7 +3005,7 @@ window.RESEARCH_LOOP = {
           "name": "Brain Call",
           "what": "Calls, from recording to publication of confirmed content",
           "access": "By approved request",
-          "url": "https://github.com/Vepricov/brain-call"
+          "url": "https://github.com/brain-lab-research/brain-call"
         },
         {
           "name": "MemPalace",
@@ -5902,11 +5903,11 @@ window.RESEARCH_LOOP = {
           "links": [
             {
               "label": "Morning scheduled job",
-              "url": "https://github.com/Vepricov/claude-brainlab/blob/main/hermes/paper-scout/prompts/daily.md"
+              "url": "https://github.com/brain-lab-research/hermes-prompts/blob/main/paper-scout/prompts/daily.md"
             },
             {
               "label": "Paper analysis: full writing standard",
-              "url": "https://github.com/Vepricov/claude-brainlab/blob/main/hermes/paper-scout/prompts/ingest.md"
+              "url": "https://github.com/brain-lab-research/hermes-prompts/blob/main/paper-scout/prompts/ingest.md"
             },
             {
               "label": "Hermes Agent: the agent environment",
@@ -9015,7 +9016,7 @@ window.RESEARCH_LOOP = {
           "links": [
             {
               "label": "Brain Call repository",
-              "url": "https://github.com/Vepricov/brain-call"
+              "url": "https://github.com/brain-lab-research/brain-call"
             }
           ],
           "adoption": {
@@ -10183,7 +10184,7 @@ window.RESEARCH_LOOP = {
             },
             {
               "label": "All published profile prompts",
-              "url": "https://github.com/Vepricov/claude-brainlab/tree/main/hermes"
+              "url": "https://github.com/brain-lab-research/hermes-prompts"
             }
           ],
           "adoption": {

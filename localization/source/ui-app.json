@@ -64,11 +64,11 @@
       "text": "утверждений",
       "paths": [
         "app.js:57",
-        "app.js:1481",
-        "app.js:1497",
-        "app.js:1578",
-        "app.js:1597",
-        "app.js:1619"
+        "app.js:1478",
+        "app.js:1494",
+        "app.js:1575",
+        "app.js:1594",
+        "app.js:1616"
       ]
     },
     {
@@ -76,7 +76,7 @@
       "text": "прогонов",
       "paths": [
         "app.js:57",
-        "app.js:1218"
+        "app.js:1215"
       ]
     },
     {
@@ -84,7 +84,7 @@
       "text": "измерений",
       "paths": [
         "app.js:58",
-        "app.js:1217"
+        "app.js:1214"
       ]
     },
     {
@@ -136,7 +136,7 @@
         "app.js:222",
         "app.js:395",
         "app.js:401",
-        "app.js:2202"
+        "app.js:2174"
       ]
     },
     {
@@ -418,7 +418,7 @@
       "text": "Выполнить",
       "paths": [
         "app.js:123",
-        "app.js:2197"
+        "app.js:2169"
       ]
     },
     {
@@ -426,8 +426,8 @@
       "text": "Проверить",
       "paths": [
         "app.js:123",
-        "app.js:2197",
-        "app.js:2197"
+        "app.js:2169",
+        "app.js:2169"
       ]
     },
     {
@@ -1946,10 +1946,10 @@
       "text": "проект",
       "paths": [
         "app.js:447",
-        "app.js:1182",
-        "app.js:1221",
-        "app.js:1481",
-        "app.js:2197"
+        "app.js:1179",
+        "app.js:1218",
+        "app.js:1478",
+        "app.js:2169"
       ]
     },
     {
@@ -1957,12 +1957,12 @@
       "text": "утверждение",
       "paths": [
         "app.js:447",
-        "app.js:1481",
-        "app.js:1497",
-        "app.js:1578",
-        "app.js:1597",
-        "app.js:1619",
-        "app.js:2197"
+        "app.js:1478",
+        "app.js:1494",
+        "app.js:1575",
+        "app.js:1594",
+        "app.js:1616",
+        "app.js:2169"
       ]
     },
     {
@@ -1970,7 +1970,7 @@
       "text": "прогон",
       "paths": [
         "app.js:447",
-        "app.js:1218"
+        "app.js:1215"
       ]
     },
     {
@@ -1978,7 +1978,7 @@
       "text": "измерение",
       "paths": [
         "app.js:447",
-        "app.js:1217"
+        "app.js:1214"
       ]
     },
     {
@@ -2001,7 +2001,7 @@
       "text": "журнал",
       "paths": [
         "app.js:448",
-        "app.js:2197"
+        "app.js:2169"
       ]
     },
     {
@@ -2009,7 +2009,7 @@
       "text": "термин",
       "paths": [
         "app.js:448",
-        "app.js:1224"
+        "app.js:1221"
       ]
     },
     {
@@ -2017,8 +2017,8 @@
       "text": "ресурс",
       "paths": [
         "app.js:449",
-        "app.js:1226",
-        "app.js:2197"
+        "app.js:1223",
+        "app.js:2169"
       ]
     },
     {
@@ -2027,8 +2027,8 @@
       "paths": [
         "app.js:449",
         "app.js:449",
-        "app.js:1229",
-        "app.js:1230"
+        "app.js:1226",
+        "app.js:1227"
       ]
     },
     {
@@ -2036,13 +2036,13 @@
       "text": "статья",
       "paths": [
         "app.js:450",
-        "app.js:1222",
-        "app.js:1338",
-        "app.js:1373",
-        "app.js:1497",
-        "app.js:1503",
-        "app.js:1551",
-        "app.js:1597"
+        "app.js:1219",
+        "app.js:1335",
+        "app.js:1370",
+        "app.js:1494",
+        "app.js:1500",
+        "app.js:1548",
+        "app.js:1594"
       ]
     },
     {
@@ -2050,7 +2050,7 @@
       "text": "раздел статьи",
       "paths": [
         "app.js:450",
-        "app.js:1231"
+        "app.js:1228"
       ]
     },
     {
@@ -2072,8 +2072,8 @@
       "text": "выкладка",
       "paths": [
         "app.js:461",
-        "app.js:1219",
-        "app.js:1670"
+        "app.js:1216",
+        "app.js:1667"
       ]
     },
     {
@@ -2081,7 +2081,7 @@
       "text": "числа",
       "paths": [
         "app.js:462",
-        "app.js:1669"
+        "app.js:1666"
       ]
     },
     {
@@ -2159,7 +2159,7 @@
       "text": "о методе",
       "paths": [
         "app.js:477",
-        "app.js:1462"
+        "app.js:1459"
       ]
     },
     {
@@ -2668,7 +2668,7 @@
       "text": "когда",
       "paths": [
         "app.js:519",
-        "app.js:1670"
+        "app.js:1667"
       ]
     },
     {
@@ -2683,7 +2683,7 @@
       "text": "есть",
       "paths": [
         "app.js:519",
-        "app.js:1107"
+        "app.js:1104"
       ]
     },
     {
@@ -2715,7 +2715,7 @@
       "text": "\n      <p class=\"base-op\">попала в базу вызовом <code>",
       "paths": [
         "app.js:601",
-        "app.js:1774"
+        "app.js:1771"
       ]
     },
     {
@@ -3115,7 +3115,7 @@
       "text": "служба ответила ",
       "paths": [
         "app.js:782",
-        "app.js:1056"
+        "app.js:1053"
       ]
     },
     {
@@ -3136,2896 +3136,2882 @@
       "id": "8d8237c7edb7",
       "text": "запись по коду",
       "paths": [
-        "app.js:948"
+        "app.js:945"
       ]
     },
     {
       "id": "fceba83ee726",
       "text": "<p class=\"mcp-call is-local\">Открыто по коду из локального снимка: искать смысл в коде записи незачем.</p>",
       "paths": [
-        "app.js:949"
+        "app.js:946"
       ]
     },
     {
       "id": "cab564691755",
       "text": " по снимку",
       "paths": [
-        "app.js:974",
-        "app.js:1025"
+        "app.js:971",
+        "app.js:1022"
       ]
     },
     {
       "id": "9ca0ffb64c9b",
       "text": "ничего",
       "paths": [
-        "app.js:974"
+        "app.js:971"
       ]
     },
     {
       "id": "226b988c57b4",
       "text": "<p class=\"mcp-empty\">В демобазе нет ответа. Попробуйте один из примеров выше.</p>",
       "paths": [
-        "app.js:976"
+        "app.js:973"
       ]
     },
     {
       "id": "3f4957919aea",
       "text": "<p class=\"mcp-empty\">По снимку ничего не нашлось, и это ожидаемо: снимок ищет словами, а не по смыслу. Поднимите живой поиск, и та же строка уйдёт в службу так, как её отправляет агент.</p>",
       "paths": [
-        "app.js:976"
+        "app.js:973"
       ]
     },
     {
       "id": "e4a6e22c90d2",
       "text": "<p class=\"mcp-wait\"><b>Служба считает вектор вопроса, затем переранжирует\n      ответ кросс-энкодером.</b><span id=\"mcp-wait-clock\">0 с</span></p>",
       "paths": [
-        "app.js:981"
+        "app.js:978"
       ]
     },
     {
       "id": "ddae8eb8bf21",
       "text": " с",
       "paths": [
-        "app.js:986"
+        "app.js:983"
       ]
     },
     {
       "id": "afbcaba18ed0",
       "text": "векторный поиск не успел, спрашиваю ещё раз",
       "paths": [
-        "app.js:1001"
+        "app.js:998"
       ]
     },
     {
       "id": "ae7c974f4934",
       "text": " записей, порядок службы",
       "paths": [
-        "app.js:1008"
+        "app.js:1005"
       ]
     },
     {
       "id": "96c0a6b62932",
       "text": "<p class=\"mcp-warn\">Служба отвечала без векторного поиска: сервис эмбеддингов не успел, и она перешла на совпадение слов. На русском запросе это даёт мимо: в базе термины записаны латиницей. Спросите ещё раз — обычно со второй попытки вектор считается.</p>",
       "paths": [
-        "app.js:1010"
+        "app.js:1007"
       ]
     },
     {
       "id": "f9e13010c690",
       "text": "<p class=\"mcp-empty\">Служба по этому вопросу ничего не нашла. База знает только то, что кто-то записал явно.</p>",
       "paths": [
-        "app.js:1013"
+        "app.js:1010"
       ]
     },
     {
       "id": "3acbdc7859d8",
       "text": "<p class=\"mcp-warn\">Служба не ответила (",
       "paths": [
-        "app.js:1023"
+        "app.js:1020"
       ]
     },
     {
       "id": "5087867f160b",
       "text": "). Ниже — ответ по локальному снимку: он ищет словами, а не по смыслу. Следующий вопрос снова уйдёт в службу.</p>",
       "paths": [
-        "app.js:1023"
+        "app.js:1020"
       ]
     },
     {
       "id": "a8deb6f9b37a",
       "text": "служба вернула не дерево",
       "paths": [
-        "app.js:1058"
+        "app.js:1055"
       ]
     },
     {
       "id": "77d77553a46c",
       "text": "род",
       "paths": [
-        "app.js:1077",
-        "app.js:1721"
+        "app.js:1074",
+        "app.js:1718"
       ]
     },
     {
       "id": "2f3d51f8b74e",
       "text": "направление",
       "paths": [
-        "app.js:1091",
-        "app.js:1185",
-        "app.js:1185",
-        "app.js:1201",
-        "app.js:1201",
-        "app.js:1202",
-        "app.js:1369",
-        "app.js:1476",
-        "app.js:1478",
-        "app.js:1749"
+        "app.js:1088",
+        "app.js:1182",
+        "app.js:1182",
+        "app.js:1198",
+        "app.js:1198",
+        "app.js:1199",
+        "app.js:1366",
+        "app.js:1473",
+        "app.js:1475",
+        "app.js:1746"
       ]
     },
     {
       "id": "100fb439b615",
       "text": "направления",
       "paths": [
-        "app.js:1091"
+        "app.js:1088"
       ]
     },
     {
       "id": "41241dbff848",
       "text": "направлений",
       "paths": [
-        "app.js:1091"
+        "app.js:1088"
       ]
     },
     {
       "id": "51f38f4279e0",
       "text": "тема",
       "paths": [
-        "app.js:1091",
-        "app.js:1177",
-        "app.js:1177",
-        "app.js:1202",
-        "app.js:1202",
-        "app.js:1749"
+        "app.js:1088",
+        "app.js:1174",
+        "app.js:1174",
+        "app.js:1199",
+        "app.js:1199",
+        "app.js:1746"
       ]
     },
     {
       "id": "511422571bdc",
       "text": "темы",
       "paths": [
-        "app.js:1091"
+        "app.js:1088"
       ]
     },
     {
       "id": "a64fee1633b5",
       "text": "тем",
       "paths": [
-        "app.js:1091"
+        "app.js:1088"
       ]
     },
     {
       "id": "b643068cc9cf",
       "text": "раздел",
       "paths": [
-        "app.js:1092"
+        "app.js:1089"
       ]
     },
     {
       "id": "dc5296deb66d",
       "text": "разделы",
       "paths": [
-        "app.js:1092"
+        "app.js:1089"
       ]
     },
     {
       "id": "a2689c91859a",
       "text": "разделов",
       "paths": [
-        "app.js:1092"
+        "app.js:1089"
       ]
     },
     {
       "id": "a860edd14aff",
       "text": "подраздел",
       "paths": [
-        "app.js:1092",
-        "app.js:1503"
+        "app.js:1089",
+        "app.js:1500"
       ]
     },
     {
       "id": "e4c0f09160b1",
       "text": "подразделы",
       "paths": [
-        "app.js:1092"
+        "app.js:1089"
       ]
     },
     {
       "id": "474483783152",
       "text": "подтема",
       "paths": [
-        "app.js:1092"
+        "app.js:1089"
       ]
     },
     {
       "id": "14f59cbce68c",
       "text": "подтемы",
       "paths": [
-        "app.js:1092"
+        "app.js:1089"
       ]
     },
     {
       "id": "a5c3b417bbcb",
       "text": "обзор",
       "paths": [
-        "app.js:1093"
+        "app.js:1090"
       ]
     },
     {
       "id": "16240a0b8cdc",
       "text": "структура",
       "paths": [
-        "app.js:1093"
+        "app.js:1090"
       ]
     },
     {
       "id": "02a06e17c1f3",
       "text": "список",
       "paths": [
-        "app.js:1093"
+        "app.js:1090"
       ]
     },
     {
       "id": "7566e3f4f0a3",
       "text": "карта",
       "paths": [
-        "app.js:1093"
+        "app.js:1090"
       ]
     },
     {
       "id": "4ebad788eaca",
       "text": "области",
       "paths": [
-        "app.js:1093"
+        "app.js:1090"
       ]
     },
     {
       "id": "177f676e643f",
       "text": "область",
       "paths": [
-        "app.js:1093"
+        "app.js:1090"
       ]
     },
     {
       "id": "587175da7db8",
       "text": "проекты",
       "paths": [
-        "app.js:1093"
+        "app.js:1090"
       ]
     },
     {
       "id": "469cca22e1ba",
       "text": "проектов",
       "paths": [
-        "app.js:1093",
-        "app.js:1182",
-        "app.js:1221",
-        "app.js:1481"
+        "app.js:1090",
+        "app.js:1179",
+        "app.js:1218",
+        "app.js:1478"
       ]
     },
     {
       "id": "3a071903d868",
       "text": "какие",
       "paths": [
-        "app.js:1107"
+        "app.js:1104"
       ]
     },
     {
       "id": "65d4e8f50f31",
       "text": "какая",
       "paths": [
-        "app.js:1107"
+        "app.js:1104"
       ]
     },
     {
       "id": "8ef6a4a409fa",
       "text": "этом",
       "paths": [
-        "app.js:1107"
+        "app.js:1104"
       ]
     },
     {
       "id": "9cd44ee853b0",
       "text": "этой",
       "paths": [
-        "app.js:1107"
+        "app.js:1104"
       ]
     },
     {
       "id": "56e554696f40",
       "text": "наши",
       "paths": [
-        "app.js:1107"
+        "app.js:1104"
       ]
     },
     {
       "id": "95c010ef742a",
       "text": "лаборатории",
       "paths": [
-        "app.js:1108"
+        "app.js:1105"
       ]
     },
     {
       "id": "af4b760cc0c3",
       "text": "лаборатория",
       "paths": [
-        "app.js:1108"
+        "app.js:1105"
       ]
     },
     {
       "id": "175fc73c228f",
       "text": "показать",
       "paths": [
-        "app.js:1108"
+        "app.js:1105"
       ]
     },
     {
       "id": "b1b7b28aa7ba",
       "text": "покажи",
       "paths": [
-        "app.js:1108"
+        "app.js:1105"
       ]
     },
     {
       "id": "9cf89b83cd4d",
       "text": "дерево библиотеки взято из снимка:",
       "paths": [
-        "app.js:1152"
+        "app.js:1149"
       ]
     },
     {
       "id": "4933a8f07c63",
       "text": "проекта",
       "paths": [
-        "app.js:1182",
-        "app.js:1221",
-        "app.js:1481"
+        "app.js:1179",
+        "app.js:1218",
+        "app.js:1478"
       ]
     },
     {
       "id": "4d6e48132728",
       "text": "<div class=\"map-node-subs\"><b>Проекты темы</b>",
       "paths": [
-        "app.js:1186"
+        "app.js:1183"
       ]
     },
     {
       "id": "128f6eed0226",
       "text": "<article class=\"map-node is-theme\">\n      <header><span class=\"map-node-kind\">тема</span>\n        <span class=\"map-node-count\">",
       "paths": [
-        "app.js:1180"
+        "app.js:1177"
       ]
     },
     {
       "id": "f8ec587b0ff6",
       "text": "Ведёт",
       "paths": [
-        "app.js:1200",
-        "app.js:1398"
+        "app.js:1197",
+        "app.js:1395"
       ]
     },
     {
       "id": "d285cc8514a7",
       "text": "Работали",
       "paths": [
-        "app.js:1200",
-        "app.js:1398"
+        "app.js:1197",
+        "app.js:1395"
       ]
     },
     {
       "id": "e8af378d93f8",
       "text": " · <b>с</b> ",
       "paths": [
-        "app.js:1200",
-        "app.js:1398"
+        "app.js:1197",
+        "app.js:1395"
       ]
     },
     {
       "id": "4cb88b141bc4",
       "text": "<article class=\"map-node is-project\">\n      <header><span class=\"map-node-kind\">проект</span><code>",
       "paths": [
-        "app.js:1194"
+        "app.js:1191"
       ]
     },
     {
       "id": "bb30c53b0c70",
       "text": " утверждений</span>\n        ",
       "paths": [
-        "app.js:1196"
+        "app.js:1193"
       ]
     },
     {
       "id": "598cc238f60d",
       "text": "\">Открыть проект целиком →</button></div>\n    </article>",
       "paths": [
-        "app.js:1203"
+        "app.js:1200"
       ]
     },
     {
       "id": "2c32905826f5",
       "text": "наше утверждение",
       "paths": [
-        "app.js:1215"
+        "app.js:1212"
       ]
     },
     {
       "id": "7f4cfe1e817e",
       "text": "наших утверждения",
       "paths": [
-        "app.js:1215"
+        "app.js:1212"
       ]
     },
     {
       "id": "d90164600f4a",
       "text": "наших утверждений",
       "paths": [
-        "app.js:1215"
+        "app.js:1212"
       ]
     },
     {
       "id": "ae6fe832cb06",
       "text": "утверждение из статьи",
       "paths": [
-        "app.js:1216"
+        "app.js:1213"
       ]
     },
     {
       "id": "646032c4fa5b",
       "text": "утверждения из статей",
       "paths": [
-        "app.js:1216"
+        "app.js:1213"
       ]
     },
     {
       "id": "368e1e6b1f29",
       "text": "утверждений из статей",
       "paths": [
-        "app.js:1216"
+        "app.js:1213"
       ]
     },
     {
       "id": "b8862a002aa9",
       "text": "измерения",
       "paths": [
-        "app.js:1217"
+        "app.js:1214"
       ]
     },
     {
       "id": "e2f6c1a33fa9",
       "text": "прогона",
       "paths": [
-        "app.js:1218"
+        "app.js:1215"
       ]
     },
     {
       "id": "9398f681aae1",
       "text": "выкладки",
       "paths": [
-        "app.js:1219"
+        "app.js:1216"
       ]
     },
     {
       "id": "1b14a8f8a3d6",
       "text": "выкладок",
       "paths": [
-        "app.js:1219"
+        "app.js:1216"
       ]
     },
     {
       "id": "924a6e352c6e",
       "text": "решение",
       "paths": [
-        "app.js:1220",
-        "app.js:2197"
+        "app.js:1217",
+        "app.js:2169"
       ]
     },
     {
       "id": "591fad8a9c0e",
       "text": "решения",
       "paths": [
-        "app.js:1220",
-        "app.js:2204"
+        "app.js:1217",
+        "app.js:2176"
       ]
     },
     {
       "id": "d46ae1a8a6c5",
       "text": "решений",
       "paths": [
-        "app.js:1220"
+        "app.js:1217"
       ]
     },
     {
       "id": "cc48fc8c6810",
       "text": "статьи",
       "paths": [
-        "app.js:1222",
-        "app.js:1373",
-        "app.js:1497",
-        "app.js:1503",
-        "app.js:1597"
+        "app.js:1219",
+        "app.js:1370",
+        "app.js:1494",
+        "app.js:1500",
+        "app.js:1594"
       ]
     },
     {
       "id": "a82cafc93465",
       "text": "статей",
       "paths": [
-        "app.js:1222",
-        "app.js:1373",
-        "app.js:1497",
-        "app.js:1503",
-        "app.js:1597"
+        "app.js:1219",
+        "app.js:1370",
+        "app.js:1494",
+        "app.js:1500",
+        "app.js:1594"
       ]
     },
     {
       "id": "be36fd290b98",
       "text": "термина",
       "paths": [
-        "app.js:1224"
+        "app.js:1221"
       ]
     },
     {
       "id": "d838366c8349",
       "text": "терминов",
       "paths": [
-        "app.js:1224"
+        "app.js:1221"
       ]
     },
     {
       "id": "95af5b36b1ab",
       "text": "запись журнала",
       "paths": [
-        "app.js:1225"
+        "app.js:1222"
       ]
     },
     {
       "id": "c264919d1aab",
       "text": "записи журнала",
       "paths": [
-        "app.js:1225"
+        "app.js:1222"
       ]
     },
     {
       "id": "7c4c20da4c00",
       "text": "записей журнала",
       "paths": [
-        "app.js:1225"
+        "app.js:1222"
       ]
     },
     {
       "id": "659eaadfc5d7",
       "text": "ресурса",
       "paths": [
-        "app.js:1226"
+        "app.js:1223"
       ]
     },
     {
       "id": "909205f5db5b",
       "text": "ресурсов",
       "paths": [
-        "app.js:1226"
+        "app.js:1223"
       ]
     },
     {
       "id": "eac59167ac73",
       "text": "подраздел библиотеки",
       "paths": [
-        "app.js:1227",
-        "app.js:1339"
+        "app.js:1224",
+        "app.js:1336"
       ]
     },
     {
       "id": "ba23c5b1876f",
       "text": "подраздела библиотеки",
       "paths": [
-        "app.js:1227"
+        "app.js:1224"
       ]
     },
     {
       "id": "b20d6368350f",
       "text": "подразделов библиотеки",
       "paths": [
-        "app.js:1227"
+        "app.js:1224"
       ]
     },
     {
       "id": "8e14944f7312",
       "text": "подтема библиотеки",
       "paths": [
-        "app.js:1228",
-        "app.js:1339"
+        "app.js:1225",
+        "app.js:1336"
       ]
     },
     {
       "id": "89e7e63fdb93",
       "text": "подтемы библиотеки",
       "paths": [
-        "app.js:1228"
+        "app.js:1225"
       ]
     },
     {
       "id": "fd401fef3690",
       "text": "подтем библиотеки",
       "paths": [
-        "app.js:1228"
+        "app.js:1225"
       ]
     },
     {
       "id": "a8bc586d3bf9",
       "text": "источника",
       "paths": [
-        "app.js:1229",
-        "app.js:1230"
+        "app.js:1226",
+        "app.js:1227"
       ]
     },
     {
       "id": "6aedeac63194",
       "text": "источников",
       "paths": [
-        "app.js:1229",
-        "app.js:1230"
+        "app.js:1226",
+        "app.js:1227"
       ]
     },
     {
       "id": "dd97adea625a",
       "text": "раздела статьи",
       "paths": [
-        "app.js:1231"
+        "app.js:1228"
       ]
     },
     {
       "id": "15ae78e6ca44",
       "text": "разделов статей",
       "paths": [
-        "app.js:1231"
+        "app.js:1228"
       ]
     },
     {
       "id": "d8da66c3a11f",
       "text": "Записи без проекта",
       "paths": [
-        "app.js:1290"
+        "app.js:1287"
       ]
     },
     {
       "id": "9b7c03447eb9",
       "text": "Работа лаборатории и статьи по теме.",
       "paths": [
-        "app.js:1322"
+        "app.js:1319"
       ]
     },
     {
       "id": "7299c828bbcc",
       "text": "Отвечает и своя работа, и разобранные статьи.",
       "paths": [
-        "app.js:1323"
+        "app.js:1320"
       ]
     },
     {
       "id": "f2351fc50164",
       "text": "Отвечает своя работа: записи из прогонов и измерений.",
       "paths": [
-        "app.js:1324"
+        "app.js:1321"
       ]
     },
     {
       "id": "2855c3b3d840",
       "text": "В своей работе ответа нет — отвечают разобранные статьи.",
       "paths": [
-        "app.js:1325"
+        "app.js:1322"
       ]
     },
     {
       "id": "7965970d1f12",
       "text": "проект лаборатории",
       "paths": [
-        "app.js:1338"
+        "app.js:1335"
       ]
     },
     {
       "id": "6685432ccc2a",
       "text": "без источника",
       "paths": [
-        "app.js:1339"
+        "app.js:1336"
       ]
     },
     {
       "id": "05f102f093b2",
       "text": " подтем",
       "paths": [
-        "app.js:1371"
+        "app.js:1368"
       ]
     },
     {
       "id": "0ffe01fcbe1e",
       "text": "\">Открыть проект: аннотация, все утверждения, терминология →</button>",
       "paths": [
-        "app.js:1376"
+        "app.js:1373"
       ]
     },
     {
       "id": "729cb95d1636",
       "text": "\">Открыть подраздел: все статьи по подтемам →</button>",
       "paths": [
-        "app.js:1378"
+        "app.js:1375"
       ]
     },
     {
       "id": "8efd3d76fff5",
       "text": "\">Открыть подтему: все её статьи →</button>",
       "paths": [
-        "app.js:1380"
+        "app.js:1377"
       ]
     },
     {
       "id": "bdd24e1dcf85",
       "text": "Открыть работу",
       "paths": [
-        "app.js:1382"
+        "app.js:1379"
       ]
     },
     {
       "id": "a523399262b3",
       "text": "Открыть статью: аннотация и все её утверждения",
       "paths": [
-        "app.js:1382"
+        "app.js:1379"
       ]
     },
     {
       "id": "169e9a4d05c9",
       "text": "утверждение по запросу",
       "paths": [
-        "app.js:1387"
+        "app.js:1384"
       ]
     },
     {
       "id": "29ff7067bd12",
       "text": "утверждения по запросу",
       "paths": [
-        "app.js:1387"
+        "app.js:1384"
       ]
     },
     {
       "id": "be4a79b999b0",
       "text": "утверждений по запросу",
       "paths": [
-        "app.js:1387"
+        "app.js:1384"
       ]
     },
     {
       "id": "1f5a7d0b895b",
       "text": "нашлось целиком",
       "paths": [
-        "app.js:1388"
+        "app.js:1385"
       ]
     },
     {
       "id": "c1d256bc1ff3",
       "text": "Работа лаборатории · статья",
       "paths": [
-        "app.js:1391"
+        "app.js:1388"
       ]
     },
     {
       "id": "ecb68eb98f86",
       "text": "<span class=\"claim-section\">раздел «",
       "paths": [
-        "app.js:1436"
+        "app.js:1433"
       ]
     },
     {
       "id": "34f92ef9c2c5",
       "text": "\n          <span class=\"base-score\" title=\"оценка кросс-энкодера: насколько запись отвечает на вопрос. Порядок задаёт она, а не совпадение слов\">",
       "paths": [
-        "app.js:1436"
+        "app.js:1433"
       ]
     },
     {
       "id": "fb517af4cb05",
       "text": "эмпирические",
       "paths": [
-        "app.js:1462"
+        "app.js:1459"
       ]
     },
     {
       "id": "1c5d5b0d74d8",
       "text": "теоретические",
       "paths": [
-        "app.js:1462"
+        "app.js:1459"
       ]
     },
     {
       "id": "8bcc3c3162a3",
       "text": "определения",
       "paths": [
-        "app.js:1462"
+        "app.js:1459"
       ]
     },
     {
       "id": "90e9f0f4a25f",
       "text": "утверждения",
       "paths": [
-        "app.js:1481",
-        "app.js:1497",
-        "app.js:1578",
-        "app.js:1597",
-        "app.js:1619"
+        "app.js:1478",
+        "app.js:1494",
+        "app.js:1575",
+        "app.js:1594",
+        "app.js:1616"
       ]
     },
     {
       "id": "393e317fc919",
       "text": "<div class=\"browse-list\"><em>темы</em>",
       "paths": [
-        "app.js:1483"
+        "app.js:1480"
       ]
     },
     {
       "id": "9733d5792ae1",
       "text": "<div class=\"browse-list\"><em>проекты</em>",
       "paths": [
-        "app.js:1485"
+        "app.js:1482"
       ]
     },
     {
       "id": "c1eae9513375",
       "text": "<div class=\"browse-list\"><em>подтемы</em>",
       "paths": [
-        "app.js:1499"
+        "app.js:1496"
       ]
     },
     {
       "id": "360b91ce5946",
       "text": "\">Все статьи подраздела →</button></div>\n        </details>",
       "paths": [
-        "app.js:1500"
+        "app.js:1497"
       ]
     },
     {
       "id": "186b402202a6",
       "text": "подраздела",
       "paths": [
-        "app.js:1503"
+        "app.js:1500"
       ]
     },
     {
       "id": "113ffe91de2b",
       "text": "подразделов",
       "paths": [
-        "app.js:1503"
+        "app.js:1500"
       ]
     },
     {
       "id": "4dd238932528",
       "text": "<details class=\"mcp-browse\" id=\"mcp-browse\"><summary>Смотреть по разделам, не спрашивая <span>",
       "paths": [
-        "app.js:1511"
+        "app.js:1508"
       ]
     },
     {
       "id": "34957e193222",
       "text": " направлений · ",
       "paths": [
-        "app.js:1511"
+        "app.js:1508"
       ]
     },
     {
       "id": "ee7c9eb613c1",
       "text": " разделов · ",
       "paths": [
-        "app.js:1511"
+        "app.js:1508"
       ]
     },
     {
       "id": "58cce01e8972",
       "text": " подразделов · ",
       "paths": [
-        "app.js:1511"
+        "app.js:1508"
       ]
     },
     {
       "id": "9007cc4d34ac",
       "text": " подтем</span></summary>\n      <section><b>Направления лаборатории</b><p>Своя работа: направление объединяет темы, тема — проекты, у проекта свои утверждения, состав и терминология.</p><div class=\"browse-tree\">",
       "paths": [
-        "app.js:1511"
+        "app.js:1508"
       ]
     },
     {
       "id": "732933811d78",
       "text": "</div></section>\n      <section><b>Разделы библиотеки</b><p>Чужие работы в вашей же раскладке. Большие подразделы разбиты на подтемы, у каждого узла аннотация.</p><div class=\"browse-tree\">",
       "paths": [
-        "app.js:1512"
+        "app.js:1509"
       ]
     },
     {
       "id": "d108db6672a8",
       "text": "</div></section>\n      <section><b>Термины</b><p>Поперечная ось: сколько раз термин встречается в утверждениях статей, наших утверждениях и измерениях.</p><div class=\"mcp-chips is-terms\">",
       "paths": [
-        "app.js:1513"
+        "app.js:1510"
       ]
     },
     {
       "id": "2323e45fd7bd",
       "text": "<p class=\"mcp-empty\">Этой статьи нет в локальном снимке. Обновить: <code>bash scripts/refresh-snapshots.sh</code></p>",
       "paths": [
-        "app.js:1542"
+        "app.js:1539"
       ]
     },
     {
       "id": "3b84f6f7b0af",
       "text": "цитата сверена с текстом",
       "paths": [
-        "app.js:1547"
+        "app.js:1544"
       ]
     },
     {
       "id": "ce1bf1c487a5",
       "text": "цитата не сверена",
       "paths": [
-        "app.js:1547"
+        "app.js:1544"
       ]
     },
     {
       "id": "762f7e534daa",
       "text": "открытая публикация",
       "paths": [
-        "app.js:1551"
+        "app.js:1548"
       ]
     },
     {
       "id": "bd2108a0e9cb",
       "text": "учебная статья",
       "paths": [
-        "app.js:1551"
+        "app.js:1548"
       ]
     },
     {
       "id": "1d9eb55a16df",
       "text": "<p class=\"paper-authors\">Краткий разбор: ",
       "paths": [
-        "app.js:1554"
+        "app.js:1551"
       ]
     },
     {
       "id": "064cedc876e2",
       "text": ". Утверждения изложены своими словами.</p>",
       "paths": [
-        "app.js:1554"
+        "app.js:1551"
       ]
     },
     {
       "id": "c76604d38dd4",
       "text": "<span>ключ <b>",
       "paths": [
-        "app.js:1555"
+        "app.js:1552"
       ]
     },
     {
       "id": "ffe99b85b0f8",
       "text": "\" target=\"_blank\" rel=\"noopener\">Оригинал статьи ↗</a>",
       "paths": [
-        "app.js:1556"
+        "app.js:1553"
       ]
     },
     {
       "id": "3eb1da6aa71f",
       "text": "\" target=\"_blank\" rel=\"noopener\">Код ↗</a>",
       "paths": [
-        "app.js:1556"
+        "app.js:1553"
       ]
     },
     {
       "id": "696b537522ec",
       "text": "<p class=\"mcp-empty\">У этой статьи в снимке нет разобранных утверждений.</p>",
       "paths": [
-        "app.js:1557"
+        "app.js:1554"
       ]
     },
     {
       "id": "7f78cb9b6d0a",
       "text": "\n      <div class=\"paper-counts\"><span>утверждений <b>",
       "paths": [
-        "app.js:1554"
+        "app.js:1551"
       ]
     },
     {
       "id": "1c68dd583061",
       "text": "</b></span><span>разделов <b>",
       "paths": [
-        "app.js:1555"
+        "app.js:1552"
       ]
     },
     {
       "id": "b790b7df104e",
       "text": "<button type=\"button\" data-mcp-home>← к поиску</button></div>\n      ",
       "paths": [
-        "app.js:1556",
-        "app.js:1760"
+        "app.js:1553",
+        "app.js:1757"
       ]
     },
     {
       "id": "d6679535f6b4",
       "text": "<p class=\"mcp-empty\">Такой подтемы в дереве нет. Пересобрать: <code>python3 scripts/build_tree.py</code></p>",
       "paths": [
-        "app.js:1565"
+        "app.js:1562"
       ]
     },
     {
       "id": "44a1e853591a",
       "text": "<div class=\"node-siblings\"><b>Другие подтемы этого подраздела</b>",
       "paths": [
-        "app.js:1579"
+        "app.js:1576"
       ]
     },
     {
       "id": "e1c4ac7aae59",
       "text": "<article class=\"paper-page is-node\">\n      <header><span class=\"base-kind\">подтема</span>\n        <button class=\"base-folder\" type=\"button\" data-open-folder=\"",
       "paths": [
-        "app.js:1571"
+        "app.js:1568"
       ]
     },
     {
       "id": "2385331ec0ce",
       "text": "</p>\n      <div class=\"paper-counts\"><span>статей <b>",
       "paths": [
-        "app.js:1575",
-        "app.js:1605"
+        "app.js:1572",
+        "app.js:1602"
       ]
     },
     {
       "id": "ee036af528b9",
       "text": "</b></span><span>их утверждений <b>",
       "paths": [
-        "app.js:1576",
-        "app.js:1606",
-        "app.js:1638"
+        "app.js:1573",
+        "app.js:1603",
+        "app.js:1635"
       ]
     },
     {
       "id": "5549a7b40f02",
       "text": "\">Весь подраздел ",
       "paths": [
-        "app.js:1577"
+        "app.js:1574"
       ]
     },
     {
       "id": "410d59bc9558",
       "text": " →</button><button type=\"button\" data-mcp-home>← к поиску</button></div>\n      <ol class=\"folder-list is-rich\">",
       "paths": [
-        "app.js:1577"
+        "app.js:1574"
       ]
     },
     {
       "id": "fd1763bd0fa1",
       "text": "<p class=\"mcp-empty\">Такого раздела в дереве нет. Пересобрать: <code>python3 scripts/build_tree.py</code></p>",
       "paths": [
-        "app.js:1588"
+        "app.js:1585"
       ]
     },
     {
       "id": "44724137379f",
       "text": "<div class=\"map-node-subs\"><b>Подтемы</b>",
       "paths": [
-        "app.js:1599"
+        "app.js:1596"
       ]
     },
     {
       "id": "465b6bb98f01",
       "text": "<article class=\"map-node\">\n        <header><span class=\"map-node-kind\">подраздел</span><code>",
       "paths": [
-        "app.js:1595"
+        "app.js:1592"
       ]
     },
     {
       "id": "6f1eb90b2760",
       "text": "\">Все статьи подраздела →</button></div>\n      </article>",
       "paths": [
-        "app.js:1600"
+        "app.js:1597"
       ]
     },
     {
       "id": "576beb49a4ff",
       "text": "<article class=\"paper-page is-node\">\n      <header><span class=\"base-kind\">раздел библиотеки</span><code class=\"base-code\">",
       "paths": [
-        "app.js:1602"
+        "app.js:1599"
       ]
     },
     {
       "id": "cb4ad34341fd",
       "text": "</b></span><span>подразделов <b>",
       "paths": [
-        "app.js:1606"
+        "app.js:1603"
       ]
     },
     {
       "id": "cd5c2b98a5b9",
       "text": "</b></span></div>\n      <div class=\"claim-links\"><button type=\"button\" data-mcp-home>← к поиску</button></div>\n      <div class=\"map-group\">",
       "paths": [
-        "app.js:1606"
+        "app.js:1603"
       ]
     },
     {
       "id": "4e9fc88887a1",
       "text": "<h4>Вне подтем<span>",
       "paths": [
-        "app.js:1630"
+        "app.js:1627"
       ]
     },
     {
       "id": "3bc34b8c7f93",
       "text": "</span></h4>\n          <p class=\"node-abstract is-sub\">Эти статьи не попали ни в одну подтему: по отдельности сюжета не образуют, но из папки их не убирали.</p>",
       "paths": [
-        "app.js:1630"
+        "app.js:1627"
       ]
     },
     {
       "id": "01cda1ddc78d",
       "text": "<span>подтем <b>",
       "paths": [
-        "app.js:1638"
+        "app.js:1635"
       ]
     },
     {
       "id": "9302b343d248",
       "text": "<article class=\"paper-page is-node\">\n      <header><span class=\"base-kind\">подраздел библиотеки</span>\n        <code class=\"base-code\">",
       "paths": [
-        "app.js:1633"
+        "app.js:1630"
       ]
     },
     {
       "id": "9b4d7bb5ba2d",
       "text": "\n      <div class=\"paper-counts\"><span>статей <b>",
       "paths": [
-        "app.js:1637"
+        "app.js:1634"
       ]
     },
     {
       "id": "680b89c1222c",
       "text": "</div>\n      <div class=\"claim-links\"><button type=\"button\" data-mcp-home>← к поиску</button></div>\n      ",
       "paths": [
-        "app.js:1638"
+        "app.js:1635"
       ]
     },
     {
       "id": "a006ef6a9098",
       "text": "<p class=\"mcp-empty\">У проекта пока нет утверждений в снимке.</p>",
       "paths": [
-        "app.js:1656"
+        "app.js:1653"
       ]
     },
     {
       "id": "a9bd46748358",
       "text": "<article class=\"paper-page\"><header><span class=\"base-kind\">тема лаборатории</span></header>\n      <h2>",
       "paths": [
-        "app.js:1647"
+        "app.js:1644"
       ]
     },
     {
       "id": "a234f0837334",
       "text": " проектов</p>\n      <div class=\"claim-links\"><button type=\"button\" data-mcp-home>← к поиску</button></div>\n      ",
       "paths": [
-        "app.js:1649"
+        "app.js:1646"
       ]
     },
     {
       "id": "fce8ad66d708",
       "text": "Утверждения",
       "paths": [
-        "app.js:1663"
+        "app.js:1660"
       ]
     },
     {
       "id": "f74456ae7d60",
       "text": "Доказательства",
       "paths": [
-        "app.js:1663"
+        "app.js:1660"
       ]
     },
     {
       "id": "badb0e8031a4",
       "text": "Прогоны",
       "paths": [
-        "app.js:1664"
+        "app.js:1661"
       ]
     },
     {
       "id": "fd800603c0fe",
       "text": "Измерения",
       "paths": [
-        "app.js:1664"
+        "app.js:1661"
       ]
     },
     {
       "id": "9275365ee40e",
       "text": "Правила",
       "paths": [
-        "app.js:1664"
+        "app.js:1661"
       ]
     },
     {
       "id": "97c459a6bb7c",
       "text": "Журнал",
       "paths": [
-        "app.js:1665"
+        "app.js:1662"
       ]
     },
     {
       "id": "ef9c73740e87",
       "text": "Термины",
       "paths": [
-        "app.js:1665"
+        "app.js:1662"
       ]
     },
     {
       "id": "d0578b52b359",
       "text": "Источники",
       "paths": [
-        "app.js:1665"
+        "app.js:1662"
       ]
     },
     {
       "id": "b4133122f5b5",
       "text": "критерий опровержения",
       "paths": [
-        "app.js:1669"
+        "app.js:1666"
       ]
     },
     {
       "id": "f7b37797c5a5",
       "text": "на чём основано",
       "paths": [
-        "app.js:1669"
+        "app.js:1666"
       ]
     },
     {
       "id": "4366cf3225e8",
       "text": "протокол",
       "paths": [
-        "app.js:1670"
+        "app.js:1667"
       ]
     },
     {
       "id": "be7875a85749",
       "text": "кто ведёт",
       "paths": [
-        "app.js:1707"
+        "app.js:1704"
       ]
     },
     {
       "id": "a90a2fca07b3",
       "text": "кто работал",
       "paths": [
-        "app.js:1707"
+        "app.js:1704"
       ]
     },
     {
       "id": "b226f49141f7",
       "text": "<details class=\"project-terms\"><summary>Терминология проекта <span>",
       "paths": [
-        "app.js:1716"
+        "app.js:1713"
       ]
     },
     {
       "id": "fb51532a1ce6",
       "text": "слаг",
       "paths": [
-        "app.js:1722",
-        "app.js:1737"
+        "app.js:1719",
+        "app.js:1734"
       ]
     },
     {
       "id": "c33afe8d1010",
       "text": "Страница проекта",
       "paths": [
-        "app.js:1724"
+        "app.js:1721"
       ]
     },
     {
       "id": "42c5a9bdaa36",
       "text": "Общая доска задач",
       "paths": [
-        "app.js:1724"
+        "app.js:1721"
       ]
     },
     {
       "id": "3f577808c71c",
       "text": "<nav aria-label=\"Ссылки проекта\">",
       "paths": [
-        "app.js:1727"
+        "app.js:1724"
       ]
     },
     {
       "id": "583a18e130e8",
       "text": "Пример общей доски: человек остаётся исполнителем, Hermes помогает выполнять порученную ему работу.",
       "paths": [
-        "app.js:1728"
+        "app.js:1725"
       ]
     },
     {
       "id": "df735d1ed461",
       "text": "Задачи, исполнители и сроки — на общей доске Yonote. Hermes может выполнять задачи, назначенные его владельцу.",
       "paths": [
-        "app.js:1728"
+        "app.js:1725"
       ]
     },
     {
       "id": "e798d83b254a",
       "text": "Загружаю ссылки на Yonote…",
       "paths": [
-        "app.js:1728"
+        "app.js:1725"
       ]
     },
     {
       "id": "35fd2c397c8b",
       "text": "Ссылки на Yonote сейчас не загрузились.",
       "paths": [
-        "app.js:1728"
+        "app.js:1725"
       ]
     },
     {
       "id": "d3692e53fdc9",
       "text": "Доска Yonote пока не привязана к этому проекту.",
       "paths": [
-        "app.js:1728"
+        "app.js:1725"
       ]
     },
     {
       "id": "0d04a162773b",
       "text": "</ul><small>Учебный пример. Карточки выдуманы; действия с настоящей доской здесь недоступны.</small>",
       "paths": [
-        "app.js:1729"
+        "app.js:1726"
       ]
     },
     {
       "id": "0a8ebbd142fd",
       "text": "<small>Смена статусов через Hermes ещё проходит проверку. Ссылка открывает исходную доску.</small>",
       "paths": [
-        "app.js:1730"
+        "app.js:1727"
       ]
     },
     {
       "id": "a696111b4e55",
       "text": "<section class=\"project-workspace\" aria-label=\"Работа команды\"><div class=\"project-workspace-heading\"><div><span>Работа команды</span><h3>Задачи проекта</h3></div>",
       "paths": [
-        "app.js:1727"
+        "app.js:1724"
       ]
     },
     {
       "id": "26de1b4a28bc",
       "text": "задача",
       "paths": [
-        "app.js:1749"
+        "app.js:1746"
       ]
     },
     {
       "id": "1deb6fef96f2",
       "text": "подход",
       "paths": [
-        "app.js:1749"
+        "app.js:1746"
       ]
     },
     {
       "id": "a80f131d8042",
       "text": "состояние",
       "paths": [
-        "app.js:1749"
+        "app.js:1746"
       ]
     },
     {
       "id": "15579b9ef938",
       "text": "открытые вопросы",
       "paths": [
-        "app.js:1749"
+        "app.js:1746"
       ]
     },
     {
       "id": "cf36085f33db",
       "text": "\"}'>Спросить службу: get_project_by_slug ↗</button>",
       "paths": [
-        "app.js:1760"
+        "app.js:1757"
       ]
     },
     {
       "id": "7eea068b5ed5",
       "text": "\">\n      <header><span class=\"base-kind\">проект</span><code class=\"base-code\">",
       "paths": [
-        "app.js:1750"
+        "app.js:1747"
       ]
     },
     {
       "id": "b9ab9585b069",
       "text": "<p class=\"mcp-empty\">Записи с кодом ",
       "paths": [
-        "app.js:1767"
+        "app.js:1764"
       ]
     },
     {
       "id": "03e01b70be16",
       "text": " в снимке нет. Обновить: <code>bash scripts/refresh-snapshots.sh</code></p>",
       "paths": [
-        "app.js:1767"
+        "app.js:1764"
       ]
     },
     {
       "id": "9f6d1b7351e3",
       "text": "<section class=\"paper-claims\"><h4>Связано в базе<span>",
       "paths": [
-        "app.js:1778"
+        "app.js:1775"
       ]
     },
     {
       "id": "cb2a636b6c8f",
       "text": "\">Скопировать ссылку на запись</button><button type=\"button\" data-mcp-home>← к поиску</button></div>\n      ",
       "paths": [
-        "app.js:1776"
+        "app.js:1773"
       ]
     },
     {
       "id": "a2e39e0de6fe",
       "text": "<p class=\"mcp-empty\">Живой службы нет, вызовы недоступны.</p>",
       "paths": [
-        "app.js:1795"
+        "app.js:1792"
       ]
     },
     {
       "id": "f5edda50d333",
       "text": "спрашиваю службу…",
       "paths": [
-        "app.js:1798"
+        "app.js:1795"
       ]
     },
     {
       "id": "321c3859f5d9",
       "text": "<b>живая служба</b><span>Поиск по смыслу. Тот же ответ и порядок, что получают агенты.</span>",
       "paths": [
-        "app.js:1812"
+        "app.js:1809"
       ]
     },
     {
       "id": "325581f224d9",
       "text": "<b>показательная сборка</b><span>",
       "paths": [
-        "app.js:1814"
+        "app.js:1811"
       ]
     },
     {
       "id": "4d4aef8ca51e",
       "text": "<b>ищу по снимку</b><span>Общая база лаборатории сейчас не отвечает: сервер занят. Витрина ищет по локальной выгрузке — она полная, но подбирает по словам, а не по смыслу. Связь восстановится сама, обновите страницу через несколько минут.</span>",
       "paths": [
-        "app.js:1819"
+        "app.js:1816"
       ]
     },
     {
       "id": "038638c93768",
       "text": "Прогоны и измерения здесь вымышлены. Настоящие публикации находятся в разделах «Публикации Андрея» и «Другие исследования».",
       "paths": [
-        "app.js:1842"
+        "app.js:1839"
       ]
     },
     {
       "id": "ece4d2d852b6",
       "text": "Всё, что ниже, читает ту же базу, что и агенты лаборатории.",
       "paths": [
-        "app.js:1842"
+        "app.js:1839"
       ]
     },
     {
       "id": "498f144964ef",
       "text": "<section class=\"tally\" aria-label=\"Состав снимка базы\"><p class=\"tally-caption\">В доступном снимке базы</p>\n      <div class=\"tally-row\">\n        <div class=\"is-their\"><b>",
       "paths": [
-        "app.js:1832"
+        "app.js:1829"
       ]
     },
     {
       "id": "ba3546f54e9b",
       "text": "</b><span>статей в подборке</span></div>\n        <div class=\"is-their\"><b>",
       "paths": [
-        "app.js:1834"
+        "app.js:1831"
       ]
     },
     {
       "id": "876ada77c3f0",
       "text": "</b><span>утверждений из статей</span></div>\n        <div class=\"is-our\"><b>",
       "paths": [
-        "app.js:1835"
+        "app.js:1832"
       ]
     },
     {
       "id": "ceb3c835221b",
       "text": "</b><span>наших утверждений</span></div>\n        <div class=\"is-our\"><b>",
       "paths": [
-        "app.js:1836"
+        "app.js:1833"
       ]
     },
     {
       "id": "71e6b7152097",
       "text": "</b><span>прогонов</span></div>\n        <div class=\"is-our\"><b>",
       "paths": [
-        "app.js:1837"
+        "app.js:1834"
       ]
     },
     {
       "id": "e199f2d6f9dd",
       "text": "</b><span>измерений</span></div>\n        <div class=\"is-our\"><b>",
       "paths": [
-        "app.js:1838"
+        "app.js:1835"
       ]
     },
     {
       "id": "6ead6b11ea75",
       "text": "</b><span>доказательств</span></div>\n      </div>\n      <p class=\"tally-note\"><b class=\"is-our\">",
       "paths": [
-        "app.js:1839"
+        "app.js:1836"
       ]
     },
     {
       "id": "d0a0aa5bd94b",
       "text": "</b> утверждений закрыты и выкладкой, и числами.\n        ",
       "paths": [
-        "app.js:1841"
+        "app.js:1838"
       ]
     },
     {
       "id": "27a2a4f5fe57",
       "text": "в проверке",
       "paths": [
-        "app.js:1856"
+        "app.js:1853"
       ]
     },
     {
       "id": "22408113a734",
       "text": "эти утверждения проверяются прямо сейчас: прогон идёт или запланирован",
       "paths": [
-        "app.js:1856"
+        "app.js:1853"
       ]
     },
     {
       "id": "745ba04a6c7a",
       "text": "черновики",
       "paths": [
-        "app.js:1857"
+        "app.js:1854"
       ]
     },
     {
       "id": "1ed3450777dc",
       "text": "сформулированы, но к проверке ещё не заявлены",
       "paths": [
-        "app.js:1857"
+        "app.js:1854"
       ]
     },
     {
       "id": "cd9e3d957a52",
       "text": "предложены",
       "paths": [
-        "app.js:1858"
+        "app.js:1855"
       ]
     },
     {
       "id": "74cd018c43c1",
       "text": "ждут решения, брать ли их в работу",
       "paths": [
-        "app.js:1858"
+        "app.js:1855"
       ]
     },
     {
       "id": "0d2913c148e2",
       "text": "архив",
       "paths": [
-        "app.js:1859"
+        "app.js:1856"
       ]
     },
     {
       "id": "0921fddfdd20",
       "text": "сняты с проверки, оставлены как история",
       "paths": [
-        "app.js:1859"
+        "app.js:1856"
       ]
     },
     {
       "id": "28851083dffd",
       "text": "прочие состояния",
       "paths": [
-        "app.js:1866"
+        "app.js:1863"
       ]
     },
     {
       "id": "0efed69ce974",
       "text": "без проекта",
       "paths": [
-        "app.js:1875"
+        "app.js:1872"
       ]
     },
     {
       "id": "cfccc115f51d",
       "text": "<details class=\"open-claims\">\n      <summary>Ещё не закрыто ничем: ",
       "paths": [
-        "app.js:1868"
+        "app.js:1865"
       ]
     },
     {
       "id": "0b1315b0b5f5",
       "text": "нужен ли прогрев и когда он помогает",
       "paths": [
-        "app.js:1887"
+        "app.js:1879"
       ]
     },
     {
       "id": "a29b7f869340",
       "text": "когда выигрывает Muon",
       "paths": [
-        "app.js:1887"
+        "app.js:1879"
       ]
     },
     {
       "id": "ba292714b180",
       "text": "что мы знаем про квантование по кривизне",
       "paths": [
-        "app.js:1888"
+        "app.js:1880"
       ]
     },
     {
       "id": "733962af9d3e",
       "text": "где метод не сработал",
       "paths": [
-        "app.js:1888"
+        "app.js:1880"
       ]
     },
     {
       "id": "e0b9f14faaac",
       "text": "Найдите метод или результат из статьи. Поиск по словам работает прямо в браузере.",
       "paths": [
-        "app.js:1904"
+        "app.js:1894"
       ]
     },
     {
       "id": "c7a3568d140c",
       "text": "Задайте вопрос своими словами. В ответе — утверждения, результаты и их источники.",
       "paths": [
-        "app.js:1904"
+        "app.js:1894"
       ]
     },
     {
       "id": "47e480adc1ea",
       "text": "Например, когда помогает прогрев?",
       "paths": [
-        "app.js:1908"
+        "app.js:1898"
       ]
     },
     {
       "id": "72095e4c5e78",
       "text": "<div class=\"ways\">\n      <section class=\"way way-search\"><span>Поиск по общей базе</span>\n        <h3>Что хотите узнать?</h3>\n        <p>",
       "paths": [
-        "app.js:1901"
+        "app.js:1891"
       ]
     },
     {
       "id": "d1b6942acf8a",
       "text": "</p>\n        <div class=\"way-body\">\n          <form class=\"way-form\" id=\"mcp-search-form\" role=\"search\">\n            <label class=\"sr-only\" for=\"mcp-search-input\">Вопрос к общей базе</label>\n            <input id=\"mcp-search-input\" type=\"search\" autocomplete=\"off\" placeholder=\"",
       "paths": [
-        "app.js:1904"
+        "app.js:1894"
       ]
     },
     {
       "id": "f59710ec2066",
       "text": "\">\n            <button type=\"submit\">Спросить</button></form>\n          <div class=\"way-examples\">",
       "paths": [
-        "app.js:1908"
+        "app.js:1898"
       ]
     },
     {
       "id": "747ea68cbc37",
       "text": "</div>\n        </div></section>\n\n      <section class=\"way way-explore\"><span>От общего к частному</span>\n        <h3>Пройти по темам</h3>\n        <p>Раздел → подтема → статья → утверждения.</p>\n        <div class=\"way-body\"><div class=\"way-areas\">\n          ",
       "paths": [
-        "app.js:1910"
-      ]
-    },
-    {
-      "id": "07fdb1b6309e",
-      "text": "\n        </div></div></section>\n\n      <section class=\"way way-record\"><span>Есть ссылка или код?</span>\n        <h3>Открыть по коду</h3>\n        <p>Откройте запись, её основания и связи.</p>\n        <div class=\"way-body\">\n          <form class=\"way-code\" id=\"mcp-code-form\">\n            <label class=\"sr-only\" for=\"mcp-code-input\">Код записи</label>\n            <input id=\"mcp-code-input\" placeholder=\"",
-      "paths": [
-        "app.js:1918"
-      ]
-    },
-    {
-      "id": "b0d408478893",
-      "text": "\" autocomplete=\"off\">\n            <button type=\"submit\">Открыть</button></form>\n          <div class=\"way-recent\">",
-      "paths": [
-        "app.js:1927"
+        "app.js:1900"
       ]
     },
     {
       "id": "165fd9ac4fff",
       "text": "Статьи Андрея Веприкова и соавторов: что предложено, как это работает и где прочитать оригинал.",
       "paths": [
-        "app.js:1940"
+        "app.js:1919"
       ]
     },
     {
       "id": "d724452dade1",
       "text": "Что уже проверяли, чем это закончилось и на какие работы опирались.",
       "paths": [
-        "app.js:1940"
+        "app.js:1919"
       ]
     },
     {
       "id": "f7bc2b43be9b",
       "text": "\">Все публикации <span>",
       "paths": [
-        "app.js:1941"
+        "app.js:1920"
       ]
     },
     {
       "id": "15ed07305de1",
       "text": "<details class=\"for-agents\" id=\"mcp-agent\"><summary>Для агентов: те же 17 читающих вызовов службы</summary>\n        <p>Человеку это не нужно: выше то же самое обычными словами. Ничего не меняют, писать со страницы нельзя.</p>\n        <p class=\"agent-map\">Карта базы, по которой построена навигация выше — разделы, подразделы, подтемы и их аннотации — приходит из самой службы: <code>library_tree</code>, с <code>full: true</code> ещё и подтемы со статьями. Агенту она отвечает на тот же вопрос, что человеку: с чего начинать, если запрос широкий.</p>\n        <div class=\"mcp-chips\" id=\"mcp-agent-tools\"></div>\n        <form class=\"agent-form\" id=\"mcp-agent-form\">\n          <label>вызов<input id=\"mcp-agent-name\" value=\"list_themes\" autocomplete=\"off\"></label>\n          <label>аргументы<input id=\"mcp-agent-args\" value=\"{}\" autocomplete=\"off\"></label>\n          <button type=\"submit\">Вызвать</button></form>\n        <pre class=\"agent-out\" id=\"mcp-agent-out\">Ответ появится здесь.</pre></details>",
       "paths": [
-        "app.js:1950"
+        "app.js:1929"
       ]
     },
     {
       "id": "aabe30de7de5",
       "text": "</p><h1>Спросите лабораторию<span aria-hidden=\"true\">.</span></h1>\n        <strong>",
       "paths": [
-        "app.js:1939"
+        "app.js:1918"
       ]
     },
     {
       "id": "1e8d0caea5e0",
       "text": "</p><h1>Спросите лабораторию<span aria-hidden=\"true\">.</span></h1></header>\n      <div class=\"mcp-load-state\" data-mcp-loading><span aria-hidden=\"true\">◌</span><p role=\"status\">Загружаем библиотеку и записи для поиска…</p></div>\n      <button class=\"back-button\" data-loading-back type=\"button\">← Вернуться к общей карте</button></div>",
       "paths": [
-        "app.js:2065"
+        "app.js:2037"
       ]
     },
     {
       "id": "cce72c95e71b",
       "text": "<p role=\"alert\">Не удалось загрузить данные. Проверьте соединение и попробуйте ещё раз.</p><button type=\"button\" data-mcp-retry>Повторить загрузку</button>",
       "paths": [
-        "app.js:2075"
+        "app.js:2047"
       ]
     },
     {
       "id": "033d99096dae",
       "text": "\">\n      <nav class=\"journey-choices\" aria-label=\"Исследовательские маршруты\">",
       "paths": [
-        "app.js:2093"
+        "app.js:2065"
       ]
     },
     {
       "id": "0d2efc2fc8d7",
       "text": "</nav>\n      <header class=\"journey-head\"><p class=\"overline\">Маршруты</p><h1>",
       "paths": [
-        "app.js:2095"
+        "app.js:2067"
       ]
     },
     {
       "id": "772936e86ec4",
       "text": "\n            </svg>\n            <ol class=\"journey-stages\" aria-label=\"Этапы маршрута\">",
       "paths": [
-        "app.js:2101"
+        "app.js:2073"
       ]
     },
     {
       "id": "b1ae69c1369d",
       "text": "</p>\n        <dl><dt>С чем начать</dt><dd>",
       "paths": [
-        "app.js:2119"
+        "app.js:2091"
       ]
     },
     {
       "id": "a67722935801",
       "text": "</dd><dt>Перед следующим шагом</dt><dd>",
       "paths": [
-        "app.js:2120"
+        "app.js:2092"
       ]
     },
     {
       "id": "dfd6076ba188",
       "text": "</dd></dl>\n        <nav class=\"journey-tools\" aria-label=\"Инструменты этапа\">",
       "paths": [
-        "app.js:2120"
+        "app.js:2092"
       ]
     },
     {
       "id": "eb8dac73b9d6",
       "text": "нужно поручить работу отдельному агенту",
       "paths": [
-        "app.js:2195"
+        "app.js:2167"
       ]
     },
     {
       "id": "e8370714ac0c",
       "text": "нужно изменить или проверить код",
       "paths": [
-        "app.js:2195"
+        "app.js:2167"
       ]
     },
     {
       "id": "510452d95eea",
       "text": "нужно разобрать обсуждение",
       "paths": [
-        "app.js:2195"
+        "app.js:2167"
       ]
     },
     {
       "id": "78b4530b7d7e",
       "text": "нужно спроектировать проверку идеи",
       "paths": [
-        "app.js:2195"
+        "app.js:2167"
       ]
     },
     {
       "id": "76d0f6d63db0",
       "text": "нужно провести эксперимент",
       "paths": [
-        "app.js:2195"
+        "app.js:2167"
       ]
     },
     {
       "id": "130f3087827d",
       "text": "нужна независимая проверка",
       "paths": [
-        "app.js:2195"
+        "app.js:2167"
       ]
     },
     {
       "id": "b31371c5e06f",
       "text": "нужно сохранить или восстановить знание",
       "paths": [
-        "app.js:2195"
+        "app.js:2167"
       ]
     },
     {
       "id": "92fcabc50338",
       "text": "нужно найти релевантные статьи",
       "paths": [
-        "app.js:2195"
+        "app.js:2167"
       ]
     },
     {
       "id": "1191672a552a",
       "text": "нужно добавить статью в библиотеку",
       "paths": [
-        "app.js:2195"
+        "app.js:2167"
       ]
     },
     {
       "id": "82020f237c9c",
       "text": "нужно подготовить научный доклад",
       "paths": [
-        "app.js:2195"
+        "app.js:2167"
       ]
     },
     {
       "id": "b11e83f1c87b",
       "text": "нужно создать, связать или закрыть проект",
       "paths": [
-        "app.js:2195"
+        "app.js:2167"
       ]
     },
     {
       "id": "83dc5d0d9e54",
       "text": "нужно подготовить результат к публикации",
       "paths": [
-        "app.js:2195"
+        "app.js:2167"
       ]
     },
     {
       "id": "d598d04ec7df",
       "text": "нужно уточнить исследовательское направление",
       "paths": [
-        "app.js:2195"
+        "app.js:2167"
       ]
     },
     {
       "id": "d7f4db7d584b",
       "text": "нужно разобраться в результатах",
       "paths": [
-        "app.js:2195"
+        "app.js:2167"
       ]
     },
     {
       "id": "f4a6b956d5f5",
       "text": "нужно проверить теоретическое рассуждение",
       "paths": [
-        "app.js:2195"
+        "app.js:2167"
       ]
     },
     {
       "id": "5706c948b34d",
       "text": "нужно написать или проверить научный текст",
       "paths": [
-        "app.js:2195"
+        "app.js:2167"
       ]
     },
     {
       "id": "c1b3ba00af63",
       "text": "Добавить раздел статьи",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "3c6fb60f8eb2",
       "text": "Назначить публичный код",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "ddbe49c19fd2",
       "text": "Сохранить гипотезу",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "b18104d9c76d",
       "text": "Создать проект знаний",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "4d320df010af",
       "text": "Определить термин проекта",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "c5437c63dff5",
       "text": "Удалить пустой проект",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "5f3a315499cb",
       "text": "Удалить запись",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "b1e4d8461df4",
       "text": "Найти связанные статьи",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "acc5897168ca",
       "text": "Найти похожие записи",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "8cdf24b82b3b",
       "text": "Открыть гипотезу",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "c8af463c7bb9",
       "text": "Открыть статью",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "b4091a16d95f",
       "text": "Открыть проект по адресу",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "995f81c8d20e",
       "text": "Получить контекст проекта",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "1cd4b82dc05e",
       "text": "Посмотреть связанные записи",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "f9802b359a14",
       "text": "Получить контекст темы",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "091a58a7dfbc",
       "text": "Посмотреть историю изменений",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "54170b8a9692",
       "text": "Пригласить участника",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "7727a38c9b44",
       "text": "Выдать доступ агенту",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "8422bd759109",
       "text": "Проверить состояние лабораторного знания",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "4c7b49180760",
       "text": "Связать статью с работой",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "82dfe7251b4f",
       "text": "Посмотреть доступы агентов",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "67c13aad5494",
       "text": "Посмотреть теоретические выводы",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "42742e4c6d9c",
       "text": "Посмотреть гипотезы",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "51b6c4bb81b1",
       "text": "Посмотреть журнал",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "d2eb22c75027",
       "text": "Посмотреть ресурсы лаборатории",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "da7a9bdf9105",
       "text": "Посмотреть утверждения статьи",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "f57a7b30e3f0",
       "text": "Посмотреть проекты",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "1cb1f1f580f7",
       "text": "Посмотреть новые статьи",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "e23fa73cd077",
       "text": "Посмотреть термины",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "a1dc655a345a",
       "text": "Посмотреть исследовательские темы",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "c600a2b5941c",
       "text": "Посмотреть задачи Yonote",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "f0a4f0b1fc02",
       "text": "Проверить задачу перед записью",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "06b5a2d169af",
       "text": "Предложить решение",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "1c02dfc55b86",
       "text": "Подготовить рабочее пространство проекта",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "3883298f6ef9",
       "text": "Опубликовать ссылку на заметку",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "da309d2866e4",
       "text": "Посмотреть последние изменения",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "6c7ede872b10",
       "text": "Сохранить теоретический вывод",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "543ba21f1aaa",
       "text": "Сохранить результат эксперимента",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "762c213378ea",
       "text": "Сохранить эксперимент",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "6bfb12fd504e",
       "text": "Добавить запись в журнал",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "61fbaf67a364",
       "text": "Сохранить утверждение статьи",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "be100f32ede7",
       "text": "Найти связи по терминам",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "4831ee974ea8",
       "text": "Отозвать доступ агента",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "953c47c84eba",
       "text": "Найти знание лаборатории",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "b3a89e91393e",
       "text": "Сохранить ссылки проекта",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "27d74167cc0f",
       "text": "Сохранить открытые вопросы",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "13994cd11677",
       "text": "Изменить статус проекта",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "7bdac3d0a477",
       "text": "Связать проект с темой",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "c4f41a0b9902",
       "text": "Связать запись со статьями",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "94e0b2a8ee10",
       "text": "Утвердить или заменить решение",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "273ed1151dc5",
       "text": "Обновить статус теоретического вывода",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "22b49d8e93e9",
       "text": "Обновить статус эксперимента",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "29c1ba9953b8",
       "text": "Обновить гипотезу",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "fe0dd7ce0959",
       "text": "Сохранить конспект созвона",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "4ad36556949f",
       "text": "Сохранить статью",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "44e2ef05109b",
       "text": "Связать запись с публичной страницей",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "ff4d80b573f0",
       "text": "Сохранить ресурс лаборатории",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "eb214647bf3f",
       "text": "Сохранить задачу Yonote",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "a3696dc91073",
       "text": "Понять, кто над чем работает",
       "paths": [
-        "app.js:2196"
+        "app.js:2168"
       ]
     },
     {
       "id": "2c112659e5b3",
       "text": "гипотезу",
       "paths": [
-        "app.js:2197"
+        "app.js:2169"
       ]
     },
     {
       "id": "b80af15718c0",
       "text": "эксперимент",
       "paths": [
-        "app.js:2197",
-        "app.js:2204"
+        "app.js:2169",
+        "app.js:2176"
       ]
     },
     {
       "id": "13a448d1ecae",
       "text": "результат",
       "paths": [
-        "app.js:2197"
+        "app.js:2169"
       ]
     },
     {
       "id": "4c531726b656",
       "text": "статью",
       "paths": [
-        "app.js:2197"
+        "app.js:2169"
       ]
     },
     {
       "id": "cebd852c5ddf",
       "text": "участника",
       "paths": [
-        "app.js:2197"
+        "app.js:2169"
       ]
     },
     {
       "id": "760c214582ce",
       "text": "контекст",
       "paths": [
-        "app.js:2197"
+        "app.js:2169"
       ]
     },
     {
       "id": "b4d30cae5289",
       "text": "Сохранить",
       "paths": [
-        "app.js:2197",
-        "app.js:2197",
-        "app.js:2197"
+        "app.js:2169",
+        "app.js:2169",
+        "app.js:2169"
       ]
     },
     {
       "id": "d4998bc84141",
       "text": "Посмотреть",
       "paths": [
-        "app.js:2197",
-        "app.js:2197"
+        "app.js:2169",
+        "app.js:2169"
       ]
     },
     {
       "id": "be6156b8e4de",
       "text": "Найти",
       "paths": [
-        "app.js:2197",
-        "app.js:2197"
+        "app.js:2169",
+        "app.js:2169"
       ]
     },
     {
       "id": "603e460bf59c",
       "text": "Обновить",
       "paths": [
-        "app.js:2197",
-        "app.js:2197"
+        "app.js:2169",
+        "app.js:2169"
       ]
     },
     {
       "id": "ac94e7e2d3ca",
       "text": "Связать",
       "paths": [
-        "app.js:2197",
-        "app.js:2197"
+        "app.js:2169",
+        "app.js:2169"
       ]
     },
     {
       "id": "5bf4dc29792c",
       "text": "Выдать",
       "paths": [
-        "app.js:2197"
+        "app.js:2169"
       ]
     },
     {
       "id": "4e313d1664c2",
       "text": "Пригласить",
       "paths": [
-        "app.js:2197"
+        "app.js:2169"
       ]
     },
     {
       "id": "3af435b32ee7",
       "text": "Подключить",
       "paths": [
-        "app.js:2197"
+        "app.js:2169"
       ]
     },
     {
       "id": "be99b1361201",
       "text": "Удалить",
       "paths": [
-        "app.js:2197"
+        "app.js:2169"
       ]
     },
     {
       "id": "b66927e0fc8e",
       "text": "Отозвать",
       "paths": [
-        "app.js:2197"
+        "app.js:2169"
       ]
     },
     {
       "id": "be97be83985c",
       "text": "Подробный сценарий использования пока не описан.",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "21f41a4789b7",
       "text": "возможность",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "37d74e58330d",
       "text": "Сможете поручить агенту конкретную задачу: ",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "efbe9f9d79ed",
       "text": "Сможете попросить агента провести весь сценарий: ",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "a398fd7f04a6",
       "text": "Сможете одним действием запустить процесс: ",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "78722cf2ed8d",
       "text": "Проверка будет срабатывать автоматически и остановит ошибочное действие до изменения проекта.",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "c263d06364cf",
       "text": "Агенты с подходящими правами смогут ",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "ba0379ecdc4c",
       "text": " через общую лабораторную систему.",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "fcd53e50e5a0",
       "text": "Сможете быстро найти актуальный порядок действий и сверить свою настройку.",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "4a63cd076462",
       "text": "Сможете использовать и обновлять лабораторные инструменты из одного версионированного источника.",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "ef366d0f7e2a",
       "text": "Подключенные агенты и приложения получат эту возможность как общий сервис.",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "e32be6b86871",
       "text": "Сможете использовать эту возможность в своем рабочем процессе.",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "638673a4cbb3",
       "text": "самостоятельно выполнить ограниченную задачу и вернуть результат для проверки",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "66d0fea831c0",
       "text": "провести повторяемый рабочий сценарий от исходных данных до проверенного итога",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "4cd9fe980da0",
       "text": "собрать несколько шагов работы в один управляемый запуск",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "37bfad24c4e7",
       "text": "автоматически проверить действие до того, как оно изменит проект",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "ecd1e1a807e2",
       "text": "выполнить это действие через общую систему без ручного редактирования базы",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "e4e206148b41",
       "text": "сверить порядок действий и ограничения по актуальному источнику",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "fc426a192a84",
       "text": "работать с версионированными исходниками и видеть историю изменений",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "d4512f21e7b7",
       "text": "дать нескольким инструментам одну общую возможность и состояние",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "7ddeaa7f81ae",
       "text": "использовать возможность в связанном рабочем процессе",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "94d6453245af",
       "text": "Проверенный результат работы агента «",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "6731ccf02b72",
       "text": "Завершенный рабочий сценарий «",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "2d456e4a0ee4",
       "text": "Результат процесса «",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "9127e4824d27",
       "text": "Автоматическая проверка с понятным решением",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "a31f234417b5",
       "text": "Ответ или сохраненное изменение: «",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "7553a2ade740",
       "text": "Понятный порядок действий по теме «",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "696bb20123eb",
       "text": "Доступ к версионированным исходникам",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "10f7cf9d93aa",
       "text": "Доступный ответ или сохраненное состояние сервиса",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "7df6c65d1cfb",
       "text": "Практический результат по задаче «",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "c7f42e85e741",
       "text": "когда требуется именно это действие в исследовательском процессе",
       "paths": [
-        "app.js:2198"
+        "app.js:2170"
       ]
     },
     {
       "id": "77c10c9580b4",
       "text": "исходник",
       "paths": [
-        "app.js:2199"
+        "app.js:2171"
       ]
     },
     {
       "id": "9b767465918c",
       "text": "Найти ",
       "paths": [
-        "app.js:2199"
+        "app.js:2171"
       ]
     },
     {
       "id": "b90c704b218d",
       "text": " в repository",
       "paths": [
-        "app.js:2199"
+        "app.js:2171"
       ]
     },
     {
       "id": "60d66784b330",
       "text": "Реестр возможностей",
       "paths": [
-        "app.js:2200"
+        "app.js:2172"
       ]
     },
     {
       "id": "781e34e36da4",
       "text": "Процесс",
       "paths": [
-        "app.js:2202"
+        "app.js:2174"
       ]
     },
     {
       "id": "057777b05b0d",
       "text": "Полный реестр",
       "paths": [
-        "app.js:2202"
+        "app.js:2174"
       ]
     },
     {
       "id": "d41fe53ac00f",
       "text": "разобрать созвон",
       "paths": [
-        "app.js:2203",
-        "app.js:2205"
+        "app.js:2175",
+        "app.js:2177"
       ]
     },
     {
       "id": "29ea689616c1",
       "text": "найти статьи про метод",
       "paths": [
-        "app.js:2203",
-        "app.js:2205"
+        "app.js:2175",
+        "app.js:2177"
       ]
     },
     {
       "id": "aca02c7eb994",
       "text": "запустить эксперимент через Hermes",
       "paths": [
-        "app.js:2203",
-        "app.js:2205"
+        "app.js:2175",
+        "app.js:2177"
       ]
     },
     {
       "id": "63f6ccf010c0",
       "text": "проверить цитату",
       "paths": [
-        "app.js:2203",
-        "app.js:2205"
+        "app.js:2175",
+        "app.js:2177"
       ]
     },
     {
       "id": "a5d31462c7d7",
       "text": "добавить доступ к серверу",
       "paths": [
-        "app.js:2203",
-        "app.js:2205"
+        "app.js:2175",
+        "app.js:2177"
       ]
     },
     {
       "id": "d3900bdf85ff",
       "text": "ответить рецензентам",
       "paths": [
-        "app.js:2203",
-        "app.js:2205"
+        "app.js:2175",
+        "app.js:2177"
       ]
     },
     {
       "id": "5e92a7ef0277",
       "text": "созвон",
       "paths": [
-        "app.js:2204"
+        "app.js:2176"
       ]
     },
     {
       "id": "b740dc76b121",
       "text": "разговор",
       "paths": [
-        "app.js:2204"
+        "app.js:2176"
       ]
     },
     {
       "id": "c10aab7f686b",
       "text": "встреч",
       "paths": [
-        "app.js:2204"
+        "app.js:2176"
       ]
     },
     {
       "id": "8c98423b9001",
       "text": "аудио",
       "paths": [
-        "app.js:2204"
+        "app.js:2176"
       ]
     },
     {
       "id": "68a742cba73e",
       "text": "задачи",
       "paths": [
-        "app.js:2204"
+        "app.js:2176"
       ]
     },
     {
       "id": "42539956f4fc",
       "text": "стать",
       "paths": [
-        "app.js:2204"
+        "app.js:2176"
       ]
     },
     {
       "id": "9b845837fea6",
       "text": "литератур",
       "paths": [
-        "app.js:2204"
+        "app.js:2176"
       ]
     },
     {
       "id": "6c1e3d9c9659",
       "text": "запуск",
       "paths": [
-        "app.js:2204"
+        "app.js:2176"
       ]
     },
     {
       "id": "53c5e8fe2efa",
       "text": "обучен",
       "paths": [
-        "app.js:2204"
+        "app.js:2176"
       ]
     },
     {
       "id": "d3fae92599b1",
       "text": "цитат",
       "paths": [
-        "app.js:2204"
+        "app.js:2176"
       ]
     },
     {
       "id": "09414a411e8d",
       "text": "ссылк",
       "paths": [
-        "app.js:2204"
+        "app.js:2176"
       ]
     },
     {
       "id": "c4214db2cc74",
       "text": "проверка статей",
       "paths": [
-        "app.js:2204"
+        "app.js:2176"
       ]
     },
     {
       "id": "98f5cacdb4b8",
       "text": "сервер",
       "paths": [
-        "app.js:2204"
+        "app.js:2176"
       ]
     },
     {
       "id": "a88912e2f8a7",
       "text": "доступ",
       "paths": [
-        "app.js:2204"
+        "app.js:2176"
       ]
     },
     {
       "id": "8f652a6d63d2",
       "text": "аккаунт",
       "paths": [
-        "app.js:2204"
+        "app.js:2176"
       ]
     },
     {
       "id": "ef2dc5ffc421",
       "text": "реценз",
       "paths": [
-        "app.js:2204"
+        "app.js:2176"
       ]
     },
     {
       "id": "7b9de65d1672",
       "text": "ответ",
       "paths": [
-        "app.js:2204"
+        "app.js:2176"
       ]
     },
     {
       "id": "38ad45456646",
       "text": "<div class=\"search-examples\"><span>Попробуйте описать задачу</span>",
       "paths": [
-        "app.js:2207"
+        "app.js:2179"
       ]
     },
     {
       "id": "78dcf5103466",
       "text": "</p><i>Открыть →</i></button>",
       "paths": [
-        "app.js:2207"
+        "app.js:2179"
       ]
     },
     {
       "id": "ee146251c587",
       "text": "<p class=\"empty-search\">Совпадений нет. Опишите действие другими словами.</p>",
       "paths": [
-        "app.js:2207"
+        "app.js:2179"
       ]
     },
     {
       "id": "5c3da2834b2b",
       "text": "Наверх",
       "paths": [
-        "app.js:2226"
+        "app.js:2198"
       ]
     }
   ]

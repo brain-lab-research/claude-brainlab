@@ -852,5 +852,7 @@
   "e55376b80bba": "Production agent profiles: SOUL.md and scheduler jobs",
   "ab4a5a107cac": "Get the source code",
   "13e45a39d1e9": "Clone the repositories you need. Skills, agents, hooks, and Hermes prompts are included in claude-brainlab; the other tools have separate repositories.",
-  "ca231da493b7": "Follow each project’s README for setup. Hermes prompts are in claude-brainlab/hermes. Cloning Lab Knowledge MCP and Brain Call requires access to their private repositories."
+  "ca231da493b7": "Follow each project’s README for setup. Hermes prompts are in claude-brainlab/hermes. Cloning Lab Knowledge MCP and Brain Call requires access to their private repositories.",
+  "4b25af75a3cb": "Lab tools, Hermes prompts, and third-party projects. Clone the repositories you need and follow their READMEs.",
+  "b7da03445e52": "Cloning Lab Knowledge MCP and Brain Call requires access to their private repositories."
 }
