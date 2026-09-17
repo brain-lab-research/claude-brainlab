@@ -1,164 +1,77 @@
 ---
 name: new-paper
-description: Use when the user wants to track a new research idea or paper project in Obsidian without setting up a code folder. Use when user says "new paper", "new idea", "add project", or describes a research idea with students and organization. Creates Obsidian hub card + people cards. No filesystem folder created.
-version: 2.0.0
-tags: [Project, Obsidian, Research, Ideas]
+description: Track a new research idea or paper project with an Obsidian hub, without creating its code repository.
 ---
 
-# New Paper / Research Idea
+# Track a research idea
 
-> **Execution model**: spawn `Agent(model="haiku")` and delegate ALL steps including user interaction. Pass: (1) these full instructions, (2) the user's initial message, (3) today's date. The haiku agent uses AskUserQuestion for data collection and performs all file operations.
+## Shared publication contract
 
-Track a new research idea in Obsidian only. No code folder setup.
+Before writing shared records, read `lab-knowledge/references/record-contract.md` from the
+installed skills directory and the live MCP schema. Use the already authorized scope,
+resolve the existing destination, and verify stored content. Keep failed publications pending.
 
-## Workflow
 
-### Step 1: Discover existing tags + show form
+Create a hub for a new paper or research idea. Repository creation and shared workspace
+provisioning belong to `create-project` and `lab-project-onboarding` when requested.
 
-Run these commands first:
+## Resolve the existing context
 
-```bash
-# Existing org/ tags
-grep -rh "^  - org/" ~/Obsidian/shkodnik1917/ --include="*.md" 2>/dev/null | sed 's/[[:space:]]*- //' | sort -u
+Read the current vault conventions and the client's `obsidian-projects.json`. Reuse an
+existing project by its subject and aliases, not only its exact title. Resolve its complete
+mapped path. Paper projects use `Papers/<theme>/<slug>` when the vault is organized by theme;
+never flatten a known mapping or create a `Research` root.
 
-# Existing conf/ tags
-grep -rh "^  - conf/" ~/Obsidian/shkodnik1917/ --include="*.md" 2>/dev/null | sed 's/[[:space:]]*- //' | sort -u
+Use details already supplied by the user or available in the project's sources. Ask one
+focused question for any missing choice that changes the hub. Do not demand a nine-field
+form when the title, collaborators, or paper link are already known. Inspect existing tags
+and theme folders before proposing new categories.
 
-# Existing тип/ tags
-grep -rh "^  - тип/" ~/Obsidian/shkodnik1917/ --include="*.md" 2>/dev/null | sed 's/[[:space:]]*- //' | sort -u
+## Create the hub
 
-# Existing статус/ tags
-grep -rh "^  - статус/" ~/Obsidian/shkodnik1917/ --include="*.md" 2>/dev/null | sed 's/[[:space:]]*- //' | sort -u
+If a paper link is provided, read its primary source or local TeX to establish the idea.
+Do not infer missing collaborators, affiliations, results, or acceptance status.
 
-# Existing topic tags (no prefix)
-grep -rh "^  - " ~/Obsidian/shkodnik1917/ --include="*.md" 2>/dev/null | sed 's/[[:space:]]*- //' | grep -vE "^(org|conf|тип|статус)/" | sort -u
-```
+Use a lowercase hyphenated slug for a new project, preserving an existing slug and links.
+Create or link people cards only for identified people; preserve their existing roles and
+project links. Record intended filesystem paths as planned if no repository exists yet.
 
-Then ask via AskUserQuestion, showing discovered values as options:
-
-```
-Новый проект в Obsidian. Заполни:
-
-1. Название проекта  (короткое, станет slug)
-   →
-
-2. Студенты / соавторы  (через запятую — или пусто)
-   →
-
-3. Организация  (есть: <org/ tags> — или новое значение / N/A)
-   →
-
-4. Конференция  (есть: <conf/ tags> — или новое значение / N/A)
-   →
-
-5. Тип  (<тип/ tags from vault>)
-   →
-
-6. Статус  (<статус/ tags from vault>)
-   →
-
-7. Тематические теги  (есть: <topic tags> — выбери подходящие через запятую; или добавь новые)
-   →
-
-8. Ссылка на статью  (arxiv URL — оставь пустым если нет)
-   →
-
-9. Краткая идея  (2–3 предложения — только если нет URL)
-   →
-```
-
-### Step 2: Extract idea (if paper URL given)
-
-If URL provided, fetch it and extract title + core method (2–3 sentences from abstract).
-Use as `## Суть` in hub card.
-
-### Step 3: Derive slug
-
-Lowercase, replace spaces/`_` with `-`. Example: `LoRA Bench` → `lora-bench`.
-
-### Step 4: Create / update people cards
-
-For each student:
-1. Check `~/Obsidian/shkodnik1917/people/<LastName>-<FirstName>.md`
-2. Not exists → create:
-```markdown
----
-тип: человек
-имя: <Full Name>
-роль: студент
----
-# <Full Name>
-
-## Проекты
-- [[<slug>]] — <one-line description>
-
-## Заметки
-
-```
-3. Exists → append `- [[<slug>]] — <one-line description>` to `## Проекты`
-
-### Step 5: Create hub card
-
-```bash
-mkdir -p ~/Obsidian/shkodnik1917/Papers/<slug>
-```
-
-Create `~/Obsidian/shkodnik1917/Papers/<slug>/<slug>.md`:
+Adapt the existing project-card format. A minimal hub is:
 
 ```markdown
 ---
 обновлено: <DD-MM-YYYY>
 участники:
-  - "[[people/<LastName>-<FirstName>]]"
+  - "[[people/<existing-person>]]"
 tags:
-  - <topic-tag-1>
-  - <topic-tag-2>
-  - org/<org>
-  - conf/<conf>
+  - <existing-topic-tag>
   - тип/<type>
   - статус/<status>
 ---
-# <name>
-
-<Paper title, authors, venue — if URL was given>
+# <Project name>
 
 ## Суть
-<2–3 sentences>
+<Source-grounded idea and current question>
 
 ## Участники
-- [[people/<LastName>-<FirstName>]]
+- [[people/<existing-person>]]
 
 ## Пути
-- проект: `~/Papers/<fs_name>/` *(папка ещё не создана)*
-- mempalace: `<fs_name>`
+- проект: <verified path, or clearly marked planned path>
+- источник: <paper or other source link>
 ```
 
-Rules:
-- `tags:` array only — no `организация:`, `конференция:`, `тип:`, `название:`, `слаг:` fields
-- Skip `org/<org>` if org = N/A; skip `conf/<conf>` if conf = N/A
-- New tag values not in vault are fine — Obsidian picks them up automatically
-- Do NOT create `## Связанные проекты` section
+Add `org/` and `conf/` tags only when known. Keep tags in `tags`, omit unknown values, and
+follow existing links rather than duplicating people or projects. Use the vault's current
+icon and color procedure when it is part of the requested setup; do not hard-code plugin
+JSON or restart the user's app from a stale example.
 
-### Step 6: Register in obsidian-projects.json
+## Register and check
 
-```python
-import json
-from pathlib import Path
-cfg_path = Path.home() / ".claude/obsidian-projects.json"
-cfg = json.loads(cfg_path.read_text())
-for root in cfg["roots"]:
-    if root["obsidian"] == "Papers":
-        root["items"]["<fs_name>"] = "<slug>"
-        break
-cfg_path.write_text(json.dumps(cfg, indent=2, ensure_ascii=False))
-```
+For a new mapping, preserve unrelated entries and record the full relative vault path,
+including the theme where applicable. Use the project's actual filesystem root and the
+appropriate mapped Papers, Projects, or Staff root. A hub-only request does not authorize
+creating a repository, a server workspace, or shared MCP/Yonote records.
 
-`<fs_name>` = anticipated filesystem folder name (snake_case or CamelCase).
-
-### Step 7: Confirm
-
-```
-✓ Hub card: ~/Obsidian/shkodnik1917/Papers/<slug>/<slug>.md
-✓ People cards: <created/updated list>
-✓ Registered: "<fs_name>" → "<slug>"
-```
+Read back the hub and verify its links and mapping. Report the created path and what still
+exists only as a plan.
