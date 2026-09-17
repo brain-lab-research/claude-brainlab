@@ -679,3 +679,37 @@ html .dossier-dialog[open] { animation: dossier-appear 150ms ease-out; }
   html .dossier.dossier .dossier-result { padding: 22px; }
 }
 @media (prefers-reduced-motion: reduce) { html .dossier-dialog[open] { animation: none; } }
+
+/* Ideation has one research engine, a question helper, and an external alternative. */
+.sky-shell .sky-map[data-system="ideation"]{grid-template-columns:minmax(0,1fr) 340px minmax(0,1fr);grid-template-areas:"west core east";min-height:460px;gap:48px;padding:55px 24px}
+.sky-shell .sky-map[data-system="ideation"] .sky-core{width:320px;height:320px;padding:35px 24px}
+.sky-shell .sky-map[data-system="ideation"] .core-copy{gap:16px}
+.sky-shell .sky-map[data-system="ideation"] .core-copy strong{font-size:42px;max-width:270px}
+.sky-shell .sky-map[data-system="ideation"] .core-copy small{font-size:10px;max-width:240px}
+.sky-shell .sky-map[data-system="ideation"] .core-copy>span{font-size:14px;max-width:240px}
+.sky-map[data-system="ideation"] .sky-external{margin:0}
+.sky-map[data-system="ideation"] .sky-external a{flex-direction:row;gap:17px;min-height:64px;font:500 29px/1.25 var(--display);color:#eef1e8}
+.sky-map[data-system="ideation"] .sky-external a>span{text-align:left}
+.sky-map[data-system="ideation"] .sky-external h3{text-align:left;margin:0 0 17px 26px;font-size:10px}
+.sky-map[data-system="ideation"] .sky-external small{font:12px/1.7 var(--body);color:#b3c1c5;margin-top:11px}
+.sky-map[data-system="ideation"] .external-pin{width:9px;height:9px;flex:0 0 9px;margin-top:10px;background:var(--accent);box-shadow:0 0 22px color-mix(in srgb,var(--accent) 35%,transparent)}
+.sky-map[data-system="ideation"] [data-skill="hypothesize"]{margin-top:22px}
+.sky-shell .sky-map.has-peers[data-system="presentation"]{grid-template-columns:repeat(3,minmax(0,1fr));grid-template-areas:"talk design share";gap:48px}
+@media(min-width:721px) and (max-width:1100px){
+ .sky-shell .sky-map[data-system="ideation"]{grid-template-columns:minmax(0,1fr) 260px minmax(0,1fr);gap:28px;padding:40px 0}
+ .sky-shell .sky-map[data-system="ideation"] .sky-core{width:250px;height:250px}
+ .sky-shell .sky-map[data-system="ideation"] .core-copy strong{font-size:32px}
+ .sky-map[data-system="ideation"] .sky-external a{font-size:24px}
+}
+@media(max-width:720px){
+ .sky-shell .sky-map[data-system="ideation"]{display:flex;flex-direction:column;min-height:0;padding:36px 18px;gap:42px}
+ .sky-shell .sky-map[data-system="ideation"] .sky-core{width:240px;height:240px;max-width:100%;margin:10px auto}
+ .sky-shell .sky-map[data-system="ideation"] .core-copy strong{font-size:29px;white-space:nowrap}
+ .sky-shell .sky-map[data-system="ideation"] .sky-cluster{width:100%;max-width:340px}
+ .sky-shell .sky-map.has-peers[data-system="presentation"]{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:"talk share" "design design";gap:36px 18px}
+}
+
+@media(min-width:721px) and (max-width:1100px){
+ .sky-shell .sky-map.has-peers[data-system="presentation"]{grid-template-columns:repeat(2,minmax(0,1fr));grid-template-areas:"talk share" "design design";gap:36px 18px}
+ .sky-shell .sky-map.has-peers[data-system="presentation"] .sky-core{width:220px;height:220px}
+}

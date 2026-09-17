@@ -94,8 +94,6 @@ The core research loop: get a paper into your library with a real, audited note.
 
 ## E. Obsidian knowledge base & project setup
 
-- **`new-paper`** ⭐ — Track a new idea/paper project in Obsidian (hub card + people
-  cards) without creating a filesystem folder. *Fires on:* "new paper / new idea".
 - **`create-project`** ⭐ — Full project setup: `~/Papers/<slug>/` with `.claude/CLAUDE.md`
   (SSH servers, code paths), private Obsidian hub, `obsidian-projects.json` registration,
   and a handoff to shared onboarding for Brain Lab projects. *Fires on:* "create project / new project".

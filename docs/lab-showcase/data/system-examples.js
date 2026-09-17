@@ -35,7 +35,7 @@ window.SYSTEM_EXAMPLES = {
       routes: [
         {kind:"Страница проекта", title:"Yonote project view", text:"Структура человеческой проекции проекта и ее границы.", process:"projects", tool:"yonote-project-view"},
         {kind:"Рабочая доска", title:"Yonote task broker", text:"Задачи, owner, issued date, status и безопасная запись.", process:"projects", tool:"yonote-task-broker"},
-        {kind:"Документы созвонов", title:"Yonote call documents", text:"Короткий approved итог разговора отдельно от task rows.", process:"projects", tool:"yonote-call-documents"}
+        {kind:"Документы созвонов", title:"Yonote call documents", text:"Короткий approved итог разговора отдельно от task rows.", process:"calls", tool:"yonote-call"}
       ],
       links: [{label:"BRAIn Lab в Yonote", url:"https://brain-lab.yonote.ru/"}]
     }
@@ -188,7 +188,7 @@ window.SYSTEM_EXAMPLES = {
               "tool": "research-ideation"
             },
             {
-              "process": "ideation",
+              "process": "projects",
               "tool": "grill-with-docs"
             }
           ]
@@ -386,7 +386,7 @@ window.SYSTEM_EXAMPLES = {
               "tool": "paper-search"
             },
             {
-              "process": "ideation",
+              "process": "projects",
               "tool": "grill-with-docs"
             }
           ]
@@ -430,8 +430,8 @@ window.SYSTEM_EXAMPLES = {
               "tool": "research-ideation"
             },
             {
-              "process": "ideation",
-              "tool": "new-paper"
+              "process": "projects",
+              "tool": "create-project"
             }
           ]
         },

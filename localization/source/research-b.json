@@ -179,31 +179,54 @@
       ]
     },
     {
+      "id": "a735ef511ee7",
+      "text": "Проверить изменения кода",
+      "paths": [
+        "processes/4/stages/3/title",
+        "processes/4/tools/7/processRelations/0/stageTitle",
+        "processes/4/tools/7/processRelation/stageTitle"
+      ]
+    },
+    {
+      "id": "d16ee40f0884",
+      "text": "Если код менялся, выполнить относящиеся к правке проверки проекта до запуска серии.",
+      "paths": [
+        "processes/4/stages/3/summary"
+      ]
+    },
+    {
+      "id": "68942bac9847",
+      "text": "Проверенный diff либо конкретные ошибки",
+      "paths": [
+        "processes/4/stages/3/result"
+      ]
+    },
+    {
       "id": "e1443fe6b136",
       "text": "Запустить и подтвердить живость",
       "paths": [
-        "processes/4/stages/3/title"
+        "processes/4/stages/4/title"
       ]
     },
     {
       "id": "9eede60b9694",
       "text": "Через 60–90 секунд убедиться, что идёт шаг обучения.",
       "paths": [
-        "processes/4/stages/3/summary"
+        "processes/4/stages/4/summary"
       ]
     },
     {
       "id": "81c7f173add9",
       "text": "Подтверждённый живой прогон",
       "paths": [
-        "processes/4/stages/3/result"
+        "processes/4/stages/4/result"
       ]
     },
     {
       "id": "ba10f5794ef8",
       "text": "Оставить под присмотром",
       "paths": [
-        "processes/4/stages/4/title",
+        "processes/4/stages/5/title",
         "processes/4/tools/2/processRelations/0/stageTitle",
         "processes/4/tools/2/processRelation/stageTitle",
         "processes/4/tools/3/processRelations/0/stageTitle",
@@ -216,62 +239,60 @@
       "id": "a18c48b8d0c2",
       "text": "Передать серию агенту проекта: цель, пороги, запреты, проба.",
       "paths": [
-        "processes/4/stages/4/summary"
+        "processes/4/stages/5/summary"
       ]
     },
     {
       "id": "48e46b574ef8",
       "text": "Серия идёт без человека",
       "paths": [
-        "processes/4/stages/4/result"
+        "processes/4/stages/5/result"
       ]
     },
     {
       "id": "468940f13dae",
       "text": "Наблюдать и реагировать",
       "paths": [
-        "processes/4/stages/5/title",
+        "processes/4/stages/6/title",
         "processes/4/tools/5/processRelations/0/stageTitle",
         "processes/4/tools/5/processRelation/stageTitle",
         "processes/4/tools/6/processRelations/0/stageTitle",
-        "processes/4/tools/6/processRelation/stageTitle",
-        "processes/4/tools/7/processRelations/0/stageTitle",
-        "processes/4/tools/7/processRelation/stageTitle"
+        "processes/4/tools/6/processRelation/stageTitle"
       ]
     },
     {
       "id": "2aab87757795",
       "text": "Читать шаг, метрики, возраст лога и падения.",
       "paths": [
-        "processes/4/stages/5/summary"
+        "processes/4/stages/6/summary"
       ]
     },
     {
       "id": "23014a92cea5",
       "text": "Снимки прогресса и разобранные сбои",
       "paths": [
-        "processes/4/stages/5/result"
+        "processes/4/stages/6/result"
       ]
     },
     {
       "id": "c440c5009bcf",
       "text": "Закрыть честно и передать в анализ",
       "paths": [
-        "processes/4/stages/6/title"
+        "processes/4/stages/7/title"
       ]
     },
     {
       "id": "cc5af116b835",
       "text": "Развести завершённый, упавший, зависший и оборванный прогон.",
       "paths": [
-        "processes/4/stages/6/summary"
+        "processes/4/stages/7/summary"
       ]
     },
     {
       "id": "09f16d87ea16",
       "text": "Полная запись прогона",
       "paths": [
-        "processes/4/stages/6/result"
+        "processes/4/stages/7/result"
       ]
     },
     {
@@ -491,7 +512,6 @@
       "text": "Навык",
       "paths": [
         "processes/4/tools/0/type",
-        "processes/4/tools/3/type",
         "processes/4/tools/6/type",
         "processes/4/tools/7/type",
         "processes/4/tools/8/type",
@@ -517,10 +537,10 @@
         "processes/6/tools/2/type",
         "processes/6/tools/3/type",
         "processes/6/tools/4/type",
+        "processes/6/tools/6/type",
         "processes/6/tools/7/type",
         "processes/6/tools/8/type",
         "processes/6/tools/9/type",
-        "processes/6/tools/10/type",
         "processes/7/tools/0/type",
         "processes/7/tools/1/type",
         "processes/7/tools/2/type",
@@ -662,7 +682,6 @@
       "text": "Исходник навыка",
       "paths": [
         "processes/4/tools/0/links/0/label",
-        "processes/4/tools/3/links/0/label",
         "processes/4/tools/4/links/0/label",
         "processes/4/tools/5/links/0/label",
         "processes/4/tools/6/links/0/label",
@@ -682,8 +701,8 @@
         "processes/6/tools/2/links/0/label",
         "processes/6/tools/3/links/0/label",
         "processes/6/tools/4/links/0/label",
+        "processes/6/tools/6/links/0/label",
         "processes/6/tools/7/links/0/label",
-        "processes/6/tools/8/links/0/label",
         "processes/7/tools/0/links/0/label",
         "processes/7/tools/1/links/0/label"
       ]
@@ -769,10 +788,7 @@
         "processes/6/tools/2/relations/1/label",
         "processes/6/tools/3/relations/0/label",
         "processes/6/tools/3/relations/1/label",
-        "processes/6/tools/4/relations/1/label",
-        "processes/6/tools/5/relations/0/label",
-        "processes/6/tools/6/relations/0/label",
-        "processes/6/tools/7/relations/0/label"
+        "processes/6/tools/6/relations/0/label"
       ]
     },
     {
@@ -802,7 +818,7 @@
         "processes/5/tools/4/relations/1/label",
         "processes/6/tools/2/relations/2/label",
         "processes/6/tools/3/relations/2/label",
-        "processes/6/tools/7/relations/1/label"
+        "processes/6/tools/6/relations/1/label"
       ]
     },
     {
@@ -832,8 +848,7 @@
       "paths": [
         "processes/4/tools/1/type",
         "processes/5/tools/5/type",
-        "processes/5/tools/6/type",
-        "processes/6/tools/6/type"
+        "processes/5/tools/6/type"
       ]
     },
     {
@@ -1331,16 +1346,23 @@
       ]
     },
     {
-      "id": "29450d238260",
-      "text": "Передаёт или продолжает автономную работу проекта через его действующего Hermes. Сохраняет цель, контекст, границы полномочий и условия приёмки, чтобы исполнитель мог работать без открытого чата на ноутбуке.",
+      "id": "746e8158d762",
+      "text": "Лабораторная настройка",
+      "paths": [
+        "processes/4/tools/3/type"
+      ]
+    },
+    {
+      "id": "7af3f89f7dfc",
+      "text": "В установленной лабораторной настройке передаёт или продолжает работу проекта через его действующего Hermes. Передаёт цель, контекст, разрешённые ресурсы и критерий завершения; проверяет приём и фактическую работу исполнителя.",
       "paths": [
         "processes/4/tools/3/role",
         "processes/4/tools/3/purpose"
       ]
     },
     {
-      "id": "342210266dc6",
-      "text": "Прогоны запущены и проверены, ноутбук закрывается.",
+      "id": "3808503258e5",
+      "text": "Когда работу нужно продолжить через настроенный профиль Hermes с подтверждёнными правами на проект и ресурсы.",
       "paths": [
         "processes/4/tools/3/when",
         "processes/4/tools/3/useCases"
@@ -1451,45 +1473,52 @@
       ]
     },
     {
-      "id": "9f21895b2755",
-      "text": "Инфраструктура передачи настраивается отдельно; установка навыка не разворачивает Hermes.",
+      "id": "6f9d43dad01e",
+      "text": "Нужны действующий профиль Hermes, настроенный механизм приёма и права на ресурсы проекта.",
       "paths": [
         "processes/4/tools/3/limits/0",
         "processes/4/tools/3/important/0"
       ]
     },
     {
-      "id": "63be1cf52e93",
-      "text": "Исторические инструкции OpenClaw не заменяют проверку текущего runtime.",
+      "id": "90239269e0ee",
+      "text": "Публичные промпты профилей не разворачивают лабораторную инфраструктуру передачи.",
       "paths": [
         "processes/4/tools/3/limits/1",
         "processes/4/tools/3/important/1"
       ]
     },
     {
-      "id": "3494844e3dd2",
-      "text": "# перезапустите Claude Code, дальше — /handoff-to-jarvis",
+      "id": "7e388d14f2ec",
+      "text": "Публичные промпты профилей Hermes",
       "paths": [
-        "processes/4/tools/3/adoption/install/3"
+        "processes/4/tools/3/links/0/label"
       ]
     },
     {
-      "id": "dae4deb68d27",
-      "text": "Для работы нужен отдельно настроенный серверный исполнитель. Передача использует актуальные инструкции установленного профиля; один файл навыка не создаёт эту инфраструктуру.",
+      "id": "467de566fe57",
+      "text": "$handoff-to-jarvis в настроенной установке лаборатории",
+      "paths": [
+        "processes/4/tools/3/adoption/invoke"
+      ]
+    },
+    {
+      "id": "f1a5a42af998",
+      "text": "Текущий сценарий использует установленную лабораторную инструкцию и действующий профиль Hermes. Открытые промпты можно изучить отдельно; готовой публичной установки этого сценария пока нет.",
       "paths": [
         "processes/4/tools/3/adoption/installNote"
       ]
     },
     {
-      "id": "66f9470d1e2a",
-      "text": "передаёт запущенную серию и называет пороги",
+      "id": "3913cf10c166",
+      "text": "задаёт цель, границы самостоятельной работы и критерий завершения",
       "paths": [
         "processes/4/tools/3/usedBy/0/role"
       ]
     },
     {
-      "id": "f572a340ca6b",
-      "text": "принимает серию и ведёт её дальше",
+      "id": "e1191e5b4529",
+      "text": "принимает поручение в рамках своего профиля и продолжает работу",
       "paths": [
         "processes/4/tools/3/usedBy/1/role"
       ]
@@ -2122,8 +2151,8 @@
       ]
     },
     {
-      "id": "176cf1b143c2",
-      "text": "Прогоняет сборку, проверку типов, линтер, тесты, поиск секретов и чтение итогового различия. Команды выбираются под стек проекта, а не берутся из общего списка.",
+      "id": "995cbb035fcd",
+      "text": "Выбирает и выполняет проверки изменённого кода по требованиям задачи и командам репозитория. Показывает, что проверено, что упало и что не запускалось.",
       "paths": [
         "processes/4/tools/7/role"
       ]
@@ -2158,56 +2187,56 @@
       ]
     },
     {
-      "id": "d7dc865c755e",
-      "text": "определяет стек проекта",
+      "id": "66316d0d1e98",
+      "text": "уточняет ожидаемое поведение и находит проверки в конфигурации, скриптах и CI проекта",
       "paths": [
         "processes/4/tools/7/inside/0",
         "processes/4/tools/7/capabilities/0"
       ]
     },
     {
-      "id": "651a49776e31",
-      "text": "останавливается на первой упавшей фазе",
+      "id": "0e787e5be826",
+      "text": "выбирает тесты, сборку, проверку типов, интерфейса или безопасности, относящиеся к изменению",
       "paths": [
         "processes/4/tools/7/inside/1",
         "processes/4/tools/7/capabilities/1"
       ]
     },
     {
-      "id": "b493d1141e78",
-      "text": "ищет забытые секреты и отладочные остатки",
+      "id": "c21a5caaa57b",
+      "text": "сохраняет коды завершения и вывод команд, отделяет новые ошибки от уже существовавших",
       "paths": [
         "processes/4/tools/7/inside/2",
         "processes/4/tools/7/capabilities/2"
       ]
     },
     {
-      "id": "adabfb4ab4a8",
-      "text": "читает итоговое различие",
+      "id": "beab70de3396",
+      "text": "проверяет итоговый diff и повторяет проверки после исправлений",
       "paths": [
         "processes/4/tools/7/inside/3",
         "processes/4/tools/7/capabilities/3"
       ]
     },
     {
-      "id": "aeb1a5278d05",
-      "text": "отчёт по каждой фазе",
+      "id": "e159fd68acda",
+      "text": "выполненные проверки и их результаты",
       "paths": [
         "processes/4/tools/7/outputs/0",
         "processes/4/tools/7/outcomes/0"
       ]
     },
     {
-      "id": "d57123e7d5a3",
-      "text": "точные упавшие команды",
+      "id": "4d37a3c066d4",
+      "text": "точные ошибки и проверки, которые не удалось выполнить",
       "paths": [
         "processes/4/tools/7/outputs/1",
         "processes/4/tools/7/outcomes/1"
       ]
     },
     {
-      "id": "90c0fa503426",
-      "text": "готовность или список препятствий",
+      "id": "07b8a94ba9f9",
+      "text": "границы того, что подтверждено проверкой",
       "paths": [
         "processes/4/tools/7/outputs/2",
         "processes/4/tools/7/outcomes/2"
@@ -2235,11 +2264,19 @@
       ]
     },
     {
-      "id": "48b47b94bdaf",
-      "text": "не доказывает правильность за пределами проверенных фаз",
+      "id": "c4b43ad4e0a7",
+      "text": "проверка кода не подтверждает научный вывод и не заменяет анализ результатов",
       "paths": [
         "processes/4/tools/7/limits/0",
         "processes/4/tools/7/important/0"
+      ]
+    },
+    {
+      "id": "a969f328e8fa",
+      "text": "пропущенная проверка не считается успешной",
+      "paths": [
+        "processes/4/tools/7/limits/1",
+        "processes/4/tools/7/important/1"
       ]
     },
     {
@@ -2257,15 +2294,15 @@
       ]
     },
     {
-      "id": "1bbf149960b5",
-      "text": "прогоняет фазы проверки после правки кода",
+      "id": "98fef61d6da5",
+      "text": "выполняет подходящие проверки после правки кода",
       "paths": [
         "processes/4/tools/7/usedBy/1/role"
       ]
     },
     {
-      "id": "ca2dbe1662a8",
-      "text": "Проверки кода и результата перед следующим шагом.",
+      "id": "78aee3c85382",
+      "text": "Проверки изменённого кода и границы подтверждённого.",
       "paths": [
         "processes/4/tools/7/skySummary"
       ]
@@ -3911,8 +3948,8 @@
         "processes/4/tools/25/links/0/label",
         "processes/4/tools/26/links/0/label",
         "processes/4/tools/27/links/0/label",
+        "processes/6/tools/8/links/0/label",
         "processes/6/tools/9/links/0/label",
-        "processes/6/tools/10/links/0/label",
         "processes/7/tools/2/links/0/label",
         "processes/7/tools/3/links/0/label",
         "processes/7/tools/4/links/0/label",
@@ -3932,8 +3969,8 @@
         "processes/4/tools/25/adoption/installNote",
         "processes/4/tools/26/adoption/installNote",
         "processes/4/tools/27/adoption/installNote",
+        "processes/6/tools/8/adoption/installNote",
         "processes/6/tools/9/adoption/installNote",
-        "processes/6/tools/10/adoption/installNote",
         "processes/7/tools/2/adoption/installNote",
         "processes/7/tools/3/adoption/installNote",
         "processes/7/tools/4/adoption/installNote",
@@ -3991,8 +4028,8 @@
         "processes/4/tools/25/usedBy/0/name",
         "processes/4/tools/26/usedBy/0/name",
         "processes/4/tools/27/usedBy/0/name",
+        "processes/6/tools/8/usedBy/0/name",
         "processes/6/tools/9/usedBy/0/name",
-        "processes/6/tools/10/usedBy/0/name",
         "processes/7/tools/2/usedBy/0/name",
         "processes/7/tools/3/usedBy/0/name",
         "processes/7/tools/4/usedBy/0/name",
@@ -4836,8 +4873,8 @@
       ]
     },
     {
-      "id": "55dcb753c8df",
-      "text": "Проверка результата прогона",
+      "id": "2eeb010d2968",
+      "text": "Проверки изменённого кода",
       "paths": [
         "processes/4/toolClusters/2/title"
       ]
@@ -4856,8 +4893,7 @@
         "processes/4/toMcp/paths/0/actor",
         "processes/4/toMcp/paths/2/actor",
         "processes/5/toMcp/paths/0/actor",
-        "processes/5/toMcp/paths/1/actor",
-        "processes/6/toMcp/paths/0/actor"
+        "processes/5/toMcp/paths/1/actor"
       ]
     },
     {
@@ -5102,8 +5138,8 @@
       ]
     },
     {
-      "id": "8bf64937a1ba",
-      "text": "Проверить исполнение",
+      "id": "48ebf1eb34e6",
+      "text": "Проверить код",
       "paths": [
         "processes/4/constellation/groups/2/title"
       ]
@@ -7009,9 +7045,7 @@
         "processes/6/tools/6/processRelations/0/processTitle",
         "processes/6/tools/6/processRelation/processTitle",
         "processes/6/tools/7/processRelations/0/processTitle",
-        "processes/6/tools/7/processRelation/processTitle",
-        "processes/6/tools/8/processRelations/0/processTitle",
-        "processes/6/tools/8/processRelation/processTitle"
+        "processes/6/tools/7/processRelation/processTitle"
       ]
     },
     {
@@ -7156,9 +7190,7 @@
         "processes/6/tools/4/processRelations/0/stageTitle",
         "processes/6/tools/4/processRelation/stageTitle",
         "processes/6/tools/5/processRelations/0/stageTitle",
-        "processes/6/tools/5/processRelation/stageTitle",
-        "processes/6/tools/6/processRelations/0/stageTitle",
-        "processes/6/tools/6/processRelation/stageTitle"
+        "processes/6/tools/5/processRelation/stageTitle"
       ]
     },
     {
@@ -7180,8 +7212,8 @@
       "text": "Прорецензировать самим",
       "paths": [
         "processes/6/stages/5/title",
-        "processes/6/tools/7/processRelations/0/stageTitle",
-        "processes/6/tools/7/processRelation/stageTitle"
+        "processes/6/tools/6/processRelations/0/stageTitle",
+        "processes/6/tools/6/processRelation/stageTitle"
       ]
     },
     {
@@ -7203,8 +7235,8 @@
       "text": "Разобрать рецензии",
       "paths": [
         "processes/6/stages/6/title",
-        "processes/6/tools/8/processRelations/0/stageTitle",
-        "processes/6/tools/8/processRelation/stageTitle"
+        "processes/6/tools/7/processRelations/0/stageTitle",
+        "processes/6/tools/7/processRelation/stageTitle"
       ]
     },
     {
@@ -7309,7 +7341,7 @@
       "text": "Рабочая папка ответа",
       "paths": [
         "processes/6/destinations/1/name",
-        "processes/6/tools/8/writes"
+        "processes/6/tools/7/writes"
       ]
     },
     {
@@ -7359,27 +7391,6 @@
       "text": "История проверки для автора",
       "paths": [
         "processes/6/destinations/3/why"
-      ]
-    },
-    {
-      "id": "46e6452205c7",
-      "text": "Библиотека Lab Knowledge",
-      "paths": [
-        "processes/6/destinations/4/name"
-      ]
-    },
-    {
-      "id": "30a49445f2fd",
-      "text": "Статья, её утверждения статьи и связи с нашей работой",
-      "paths": [
-        "processes/6/destinations/4/what"
-      ]
-    },
-    {
-      "id": "c44016cd1490",
-      "text": "Общая память о чужих работах",
-      "paths": [
-        "processes/6/destinations/4/why"
       ]
     },
     {
@@ -7624,8 +7635,8 @@
         "processes/6/tools/2/usedBy/0/name",
         "processes/6/tools/3/usedBy/0/name",
         "processes/6/tools/4/usedBy/0/name",
-        "processes/6/tools/7/usedBy/0/name",
-        "processes/6/tools/8/usedBy/0/name"
+        "processes/6/tools/6/usedBy/0/name",
+        "processes/6/tools/7/usedBy/0/name"
       ]
     },
     {
@@ -7636,8 +7647,8 @@
         "processes/6/tools/2/usedBy/0/role",
         "processes/6/tools/3/usedBy/0/role",
         "processes/6/tools/4/usedBy/0/role",
-        "processes/6/tools/7/usedBy/0/role",
-        "processes/6/tools/8/usedBy/0/role"
+        "processes/6/tools/6/usedBy/0/role",
+        "processes/6/tools/7/usedBy/0/role"
       ]
     },
     {
@@ -8342,8 +8353,7 @@
       "text": "Literature Reviewer и paper agents",
       "paths": [
         "processes/6/tools/4/usedBy/1/name",
-        "processes/6/tools/5/usedBy/0/name",
-        "processes/6/tools/6/usedBy/0/name"
+        "processes/6/tools/5/usedBy/0/name"
       ]
     },
     {
@@ -8351,8 +8361,7 @@
       "text": "проверяют корпус, текст и чужие утверждения",
       "paths": [
         "processes/6/tools/4/usedBy/1/role",
-        "processes/6/tools/5/usedBy/0/role",
-        "processes/6/tools/6/usedBy/0/role"
+        "processes/6/tools/5/usedBy/0/role"
       ]
     },
     {
@@ -8360,8 +8369,7 @@
       "text": "Writing и rebuttal agents",
       "paths": [
         "processes/6/tools/4/usedBy/2/name",
-        "processes/6/tools/5/usedBy/1/name",
-        "processes/6/tools/6/usedBy/1/name"
+        "processes/6/tools/5/usedBy/1/name"
       ]
     },
     {
@@ -8369,8 +8377,7 @@
       "text": "проверяют bibliographic identity и допустимость cite key",
       "paths": [
         "processes/6/tools/4/usedBy/2/role",
-        "processes/6/tools/5/usedBy/1/role",
-        "processes/6/tools/6/usedBy/1/role"
+        "processes/6/tools/5/usedBy/1/role"
       ]
     },
     {
@@ -8381,18 +8388,10 @@
       ]
     },
     {
-      "id": "b03f1e6c2ff5",
-      "text": "Запись утверждения статьи",
-      "paths": [
-        "processes/6/tools/4/relations/1/title",
-        "processes/6/tools/6/title"
-      ]
-    },
-    {
       "id": "b951f4b57fd7",
       "text": "задаёт ему правила проверки ссылок",
       "paths": [
-        "processes/6/tools/4/relations/2/label"
+        "processes/6/tools/4/relations/1/label"
       ]
     },
     {
@@ -8650,657 +8649,558 @@
       ]
     },
     {
-      "id": "f2b081b4b2e4",
-      "text": "Помогает превратить мысль из прочитанной статьи в отдельное утверждение общей базы. Сохраняет смысл своими словами, указывает источник и место в статье, затем связывает тезис с нашей работой.",
-      "paths": [
-        "processes/6/tools/6/role",
-        "processes/6/tools/6/purpose"
-      ]
-    },
-    {
-      "id": "bc2b03fb1f13",
-      "text": "После чтения полного текста, когда конкретная фраза должна стать опорой, работой для сравнения или возражением.",
-      "paths": [
-        "processes/6/tools/6/when",
-        "processes/6/tools/6/useCases"
-      ]
-    },
-    {
-      "id": "117b7b332288",
-      "text": "Прочитанный источник и идентификатор статьи.",
-      "paths": [
-        "processes/6/tools/6/inputs/0"
-      ]
-    },
-    {
-      "id": "dae104fb4ada",
-      "text": "Тезис своими словами и место в статье, позволяющее его проверить.",
-      "paths": [
-        "processes/6/tools/6/inputs/1"
-      ]
-    },
-    {
-      "id": "c0c81f16464b",
-      "text": "Проверяет, что статья существует в библиотеке MCP и доступен источник для тезиса.",
-      "paths": [
-        "processes/6/tools/6/inside/0",
-        "processes/6/tools/6/capabilities/0"
-      ]
-    },
-    {
-      "id": "101173994ae7",
-      "text": "Формулирует одно самостоятельное утверждение: что именно показано, при каких условиях и с какими ограничениями.",
-      "paths": [
-        "processes/6/tools/6/inside/1",
-        "processes/6/tools/6/capabilities/1"
-      ]
-    },
-    {
-      "id": "57a50d24610f",
-      "text": "Записывает пересказ и привязку к статье через record_paper_claim. Дословная цитата необязательна; её добавляют только когда она полезна.",
-      "paths": [
-        "processes/6/tools/6/inside/2",
-        "processes/6/tools/6/capabilities/2"
-      ]
-    },
-    {
-      "id": "6fca09e0e7d4",
-      "text": "Если цитата добавлена, её происхождение и сверка не подменяются совпадением с чужим конспектом.",
-      "paths": [
-        "processes/6/tools/6/inside/3",
-        "processes/6/tools/6/capabilities/3"
-      ]
-    },
-    {
-      "id": "67b6c9a7fa7d",
-      "text": "Связывает утверждение с проектом или записью: предшествующая работа, сравнение, поддержка или противоречие. Перечитывает сохранённый объект.",
-      "paths": [
-        "processes/6/tools/6/inside/4",
-        "processes/6/tools/6/capabilities/4"
-      ]
-    },
-    {
-      "id": "cb1c5c917e83",
-      "text": "Утверждение статьи с источником и стабильным ID.",
-      "paths": [
-        "processes/6/tools/6/outputs/0",
-        "processes/6/tools/6/outcomes/0"
-      ]
-    },
-    {
-      "id": "8b2b3818574b",
-      "text": "Связь с нашей работой и явные ограничения тезиса.",
-      "paths": [
-        "processes/6/tools/6/outputs/1",
-        "processes/6/tools/6/outcomes/1"
-      ]
-    },
-    {
-      "id": "c14961f4b6a4",
-      "text": "Библиотека Lab Knowledge; наши утверждения и измерения не меняются",
-      "paths": [
-        "processes/6/tools/6/writes"
-      ]
-    },
-    {
-      "id": "b292c3ab7021",
-      "text": "Смысл пересказа должен соответствовать источнику.",
-      "paths": [
-        "processes/6/tools/6/gates/0"
-      ]
-    },
-    {
-      "id": "fcaecbebdbb8",
-      "text": "Дословность проверяется только для действительно приведённой цитаты.",
-      "paths": [
-        "processes/6/tools/6/gates/1"
-      ]
-    },
-    {
-      "id": "b0999d9c04e7",
-      "text": "Наличие статьи в библиотеке не подтверждает любой приписанный ей вывод.",
-      "paths": [
-        "processes/6/tools/6/limits/0",
-        "processes/6/tools/6/important/0"
-      ]
-    },
-    {
-      "id": "07795387bbc1",
-      "text": "Не нужно добавлять цитату или искусственно удлинять тезис ради формального порога.",
-      "paths": [
-        "processes/6/tools/6/limits/1",
-        "processes/6/tools/6/important/1"
-      ]
-    },
-    {
-      "id": "b123be6f8236",
-      "text": "Документация",
-      "paths": [
-        "processes/6/tools/6/links/0/label"
-      ]
-    },
-    {
-      "id": "0b1d8aea9dca",
-      "text": "Через подключённый MCP Lab Knowledge",
-      "paths": [
-        "processes/6/tools/6/adoption/invoke"
-      ]
-    },
-    {
-      "id": "3c2902db2ae1",
-      "text": "Проверка утверждений живёт внутри закрытой службы Lab Knowledge: доступ выдаёт владелец.",
-      "paths": [
-        "processes/6/tools/6/adoption/installNote"
-      ]
-    },
-    {
-      "id": "d933bdea0c8b",
-      "text": "Чужое утверждение остаётся отдельно от нашего доказательства",
-      "paths": [
-        "processes/6/tools/6/visual/label"
-      ]
-    },
-    {
-      "id": "554b876cda21",
-      "text": "Статья и её сохранённый текст",
-      "paths": [
-        "processes/6/tools/6/visual/nodes/0"
-      ]
-    },
-    {
-      "id": "81c7e0d91b20",
-      "text": "Утверждение и источник",
-      "paths": [
-        "processes/6/tools/6/visual/nodes/1"
-      ]
-    },
-    {
-      "id": "84c453469ccf",
-      "text": "Проверка формы и цитаты",
-      "paths": [
-        "processes/6/tools/6/visual/nodes/2"
-      ]
-    },
-    {
-      "id": "b37cdb93cb1f",
-      "text": "Утверждение статьи",
-      "paths": [
-        "processes/6/tools/6/visual/nodes/3"
-      ]
-    },
-    {
-      "id": "03a172bae2b0",
-      "text": "Связь названного типа",
-      "paths": [
-        "processes/6/tools/6/visual/nodes/4"
-      ]
-    },
-    {
-      "id": "2045c5547fa0",
-      "text": "Передайте тезис своими словами, статью и место, где он обоснован. Агент сохранит утверждение статьи и свяжет его с проектом.",
-      "paths": [
-        "processes/6/tools/6/start"
-      ]
-    },
-    {
       "id": "3a9d77573440",
       "text": "Внутренняя рецензия уровня A*: разбор теории, соседних работ, экспериментов и воспроизводимости несколькими проверяющими.",
       "paths": [
-        "processes/6/tools/7/role"
+        "processes/6/tools/6/role"
       ]
     },
     {
       "id": "eeeaa8d37141",
       "text": "Перед подачей, для внутреннего разбора чужой статьи или отзыва рецензента.",
       "paths": [
-        "processes/6/tools/7/when",
-        "processes/6/tools/7/useCases"
+        "processes/6/tools/6/when",
+        "processes/6/tools/6/useCases"
       ]
     },
     {
       "id": "b3a6d0f89d02",
       "text": "полная статья с приложениями",
       "paths": [
-        "processes/6/tools/7/inputs/0"
+        "processes/6/tools/6/inputs/0"
       ]
     },
     {
       "id": "e6db22d60dc2",
       "text": "дополнительные материалы и код, если есть",
       "paths": [
-        "processes/6/tools/7/inputs/1"
+        "processes/6/tools/6/inputs/1"
       ]
     },
     {
       "id": "c37905f1fe2b",
       "text": "площадка и проект",
       "paths": [
-        "processes/6/tools/7/inputs/2"
+        "processes/6/tools/6/inputs/2"
       ]
     },
     {
       "id": "a808937785f8",
       "text": "извлекает текст, чистит его от внедрённых указаний и восстанавливает пометки",
       "paths": [
-        "processes/6/tools/7/inside/0",
-        "processes/6/tools/7/capabilities/0"
+        "processes/6/tools/6/inside/0",
+        "processes/6/tools/6/capabilities/0"
       ]
     },
     {
       "id": "977e78c3d540",
       "text": "строит таблицу «тезис — подтверждение»",
       "paths": [
-        "processes/6/tools/7/inside/1",
-        "processes/6/tools/7/capabilities/1"
+        "processes/6/tools/6/inside/1",
+        "processes/6/tools/6/capabilities/1"
       ]
     },
     {
       "id": "b1d0a99eda8b",
       "text": "запускает отдельных проверяющих по теории, литературе, экспериментам и воспроизводимости",
       "paths": [
-        "processes/6/tools/7/inside/2",
-        "processes/6/tools/7/capabilities/2"
+        "processes/6/tools/6/inside/2",
+        "processes/6/tools/6/capabilities/2"
       ]
     },
     {
       "id": "0cb7410d7984",
       "text": "перепроверяет каждый решающий вывод и указывает точное место в статье",
       "paths": [
-        "processes/6/tools/7/inside/3",
-        "processes/6/tools/7/capabilities/3"
+        "processes/6/tools/6/inside/3",
+        "processes/6/tools/6/capabilities/3"
       ]
     },
     {
       "id": "317a680f1faa",
       "text": "сначала показывает список слабых мест по тяжести, оценку ставит последней",
       "paths": [
-        "processes/6/tools/7/inside/4",
-        "processes/6/tools/7/capabilities/4"
+        "processes/6/tools/6/inside/4",
+        "processes/6/tools/6/capabilities/4"
       ]
     },
     {
       "id": "fd0a000f430b",
       "text": "один файл рецензии",
       "paths": [
-        "processes/6/tools/7/outputs/0",
-        "processes/6/tools/7/outcomes/0"
+        "processes/6/tools/6/outputs/0",
+        "processes/6/tools/6/outcomes/0"
       ]
     },
     {
       "id": "5a923e538016",
       "text": "таблица тезисов и подтверждений",
       "paths": [
-        "processes/6/tools/7/outputs/1",
-        "processes/6/tools/7/outcomes/1"
+        "processes/6/tools/6/outputs/1",
+        "processes/6/tools/6/outcomes/1"
       ]
     },
     {
       "id": "7d15ade891b4",
       "text": "слабые места по приоритету и вывод",
       "paths": [
-        "processes/6/tools/7/outputs/2",
-        "processes/6/tools/7/outcomes/2"
+        "processes/6/tools/6/outputs/2",
+        "processes/6/tools/6/outcomes/2"
       ]
     },
     {
       "id": "4e0cc9b59aa4",
       "text": "Одна заметка рецензии по пути проекта в хранилище Obsidian",
       "paths": [
-        "processes/6/tools/7/writes"
+        "processes/6/tools/6/writes"
       ]
     },
     {
       "id": "9f65c2e5e88e",
       "text": "прочитана вся статья и существенные приложения",
       "paths": [
-        "processes/6/tools/7/gates/0"
+        "processes/6/tools/6/gates/0"
       ]
     },
     {
       "id": "b78a0eb9837c",
       "text": "наблюдение отделено от толкования",
       "paths": [
-        "processes/6/tools/7/gates/1"
+        "processes/6/tools/6/gates/1"
       ]
     },
     {
       "id": "d978dd9a183d",
       "text": "нехватка подтверждений не называется подлогом",
       "paths": [
-        "processes/6/tools/7/gates/2"
+        "processes/6/tools/6/gates/2"
       ]
     },
     {
       "id": "f849648be04f",
       "text": "скорости сходимости не сравниваются, пока не выровнены задача, предпосылки, критерий и полная цена",
       "paths": [
-        "processes/6/tools/7/limits/0",
-        "processes/6/tools/7/important/0"
+        "processes/6/tools/6/limits/0",
+        "processes/6/tools/6/important/0"
       ]
     },
     {
       "id": "3cb86d98cf33",
       "text": "выводы проверяющих считаются наводкой, а не результатом",
       "paths": [
-        "processes/6/tools/7/limits/1",
-        "processes/6/tools/7/important/1"
+        "processes/6/tools/6/limits/1",
+        "processes/6/tools/6/important/1"
       ]
     },
     {
       "id": "86a542e47ef4",
       "text": "# перезапустите Claude Code, дальше — /astar-paper-review",
       "paths": [
-        "processes/6/tools/7/adoption/install/3"
+        "processes/6/tools/6/adoption/install/3"
       ]
     },
     {
       "id": "a93faf782f5a",
       "text": "Многоагентная версия, описанная здесь, пока живёт в ветке codex/publish-review-skills: в main лежит более ранний одноходовый вариант навыка.",
       "paths": [
-        "processes/6/tools/7/adoption/installNote",
-        "processes/6/tools/8/adoption/installNote"
+        "processes/6/tools/6/adoption/installNote",
+        "processes/6/tools/7/adoption/installNote"
       ]
     },
     {
       "id": "54691e963e57",
       "text": "Проверить статью перед подачей",
       "paths": [
-        "processes/6/tools/7/cardTitle"
+        "processes/6/tools/6/cardTitle"
       ]
     },
     {
       "id": "ea56fc5d5d7a",
       "text": "Внутренняя рецензия: корректность, новизна и опора на данные.",
       "paths": [
-        "processes/6/tools/7/catalogSummary"
+        "processes/6/tools/6/catalogSummary"
       ]
     },
     {
       "id": "9357f331e381",
       "text": "Первые 15 страниц",
       "paths": [
-        "processes/6/tools/7/externalResources/1/note"
+        "processes/6/tools/6/externalResources/1/note"
       ]
     },
     {
       "id": "ac6fef8c46e0",
       "text": "Дайте статью с приложениями и назовите площадку подачи. Приложите код и дополнительные материалы, если они есть.",
       "paths": [
-        "processes/6/tools/7/start"
+        "processes/6/tools/6/start"
       ]
     },
     {
       "id": "4994362c96f2",
       "text": "Ведёт ответ рецензентам как исследовательскую задачу: сначала реестр замечаний, потом отбор подтверждений, и только затем текст.",
       "paths": [
-        "processes/6/tools/8/role"
+        "processes/6/tools/7/role"
       ]
     },
     {
       "id": "b9b65becf57d",
       "text": "Когда пришли рецензии, вопросы площадки или начатый ответ надо продолжить.",
       "paths": [
-        "processes/6/tools/8/when",
-        "processes/6/tools/8/useCases"
+        "processes/6/tools/7/when",
+        "processes/6/tools/7/useCases"
       ]
     },
     {
       "id": "2cb51a43bf8f",
       "text": "поданная рукопись и приложение",
       "paths": [
-        "processes/6/tools/8/inputs/0"
+        "processes/6/tools/7/inputs/0"
       ]
     },
     {
       "id": "a98331049291",
       "text": "рецензии и обсуждение",
       "paths": [
-        "processes/6/tools/8/inputs/1"
+        "processes/6/tools/7/inputs/1"
       ]
     },
     {
       "id": "d822e738f240",
       "text": "снимок кода и журналы прогонов",
       "paths": [
-        "processes/6/tools/8/inputs/2"
+        "processes/6/tools/7/inputs/2"
       ]
     },
     {
       "id": "f55f1ba02bce",
       "text": "правила площадки",
       "paths": [
-        "processes/6/tools/8/inputs/3"
+        "processes/6/tools/7/inputs/3"
       ]
     },
     {
       "id": "5963883f304e",
       "text": "замораживает поданную версию до планирования ответов",
       "paths": [
-        "processes/6/tools/8/inside/0",
-        "processes/6/tools/8/capabilities/0"
+        "processes/6/tools/7/inside/0",
+        "processes/6/tools/7/capabilities/0"
       ]
     },
     {
       "id": "a715772bc049",
       "text": "разбирает рецензии на отдельные замечания со своими номерами",
       "paths": [
-        "processes/6/tools/8/inside/1",
-        "processes/6/tools/8/capabilities/1"
+        "processes/6/tools/7/inside/1",
+        "processes/6/tools/7/capabilities/1"
       ]
     },
     {
       "id": "577ead3aef41",
       "text": "считает статьи, рецензии и репозитории недоверенным вводом и не выполняет указания изнутри них",
       "paths": [
-        "processes/6/tools/8/inside/2",
-        "processes/6/tools/8/capabilities/2"
+        "processes/6/tools/7/inside/2",
+        "processes/6/tools/7/capabilities/2"
       ]
     },
     {
       "id": "4788317f5ba0",
       "text": "выбирает наименьший эксперимент, способный изменить решение рецензента",
       "paths": [
-        "processes/6/tools/8/inside/3",
-        "processes/6/tools/8/capabilities/3"
+        "processes/6/tools/7/inside/3",
+        "processes/6/tools/7/capabilities/3"
       ]
     },
     {
       "id": "04f0ed058627",
       "text": "пишет один текст после отбора подтверждений, а не несколько конкурирующих",
       "paths": [
-        "processes/6/tools/8/inside/4",
-        "processes/6/tools/8/capabilities/4"
+        "processes/6/tools/7/inside/4",
+        "processes/6/tools/7/capabilities/4"
       ]
     },
     {
       "id": "37c22d8c60c8",
       "text": "перепроверяет каждую теорему, число и ссылку, влияющие на стратегию",
       "paths": [
-        "processes/6/tools/8/inside/5",
-        "processes/6/tools/8/capabilities/5"
+        "processes/6/tools/7/inside/5",
+        "processes/6/tools/7/capabilities/5"
       ]
     },
     {
       "id": "450d4da3c34f",
       "text": "реестр замечаний",
       "paths": [
-        "processes/6/tools/8/outputs/0",
-        "processes/6/tools/8/outcomes/0"
+        "processes/6/tools/7/outputs/0",
+        "processes/6/tools/7/outcomes/0"
       ]
     },
     {
       "id": "7575d6e99835",
       "text": "план подтверждений",
       "paths": [
-        "processes/6/tools/8/outputs/1",
-        "processes/6/tools/8/outcomes/1"
+        "processes/6/tools/7/outputs/1",
+        "processes/6/tools/7/outcomes/1"
       ]
     },
     {
       "id": "6283660a8aa2",
       "text": "один текст ответа и отчёт проверки",
       "paths": [
-        "processes/6/tools/8/outputs/2",
-        "processes/6/tools/8/outcomes/2"
+        "processes/6/tools/7/outputs/2",
+        "processes/6/tools/7/outcomes/2"
       ]
     },
     {
       "id": "b3fc3f857922",
       "text": "ни одно замечание не исчезает как неудобное или повторное",
       "paths": [
-        "processes/6/tools/8/gates/0"
+        "processes/6/tools/7/gates/0"
       ]
     },
     {
       "id": "a852b23a42da",
       "text": "ожидание помечается как предложенная работа, а не как результат",
       "paths": [
-        "processes/6/tools/8/gates/1"
+        "processes/6/tools/7/gates/1"
       ]
     },
     {
       "id": "31de5939cca5",
       "text": "широкий перебор запускается только с разрешения человека",
       "paths": [
-        "processes/6/tools/8/gates/2"
+        "processes/6/tools/7/gates/2"
       ]
     },
     {
       "id": "0b2ea490155b",
       "text": "не обещает роста оценки",
       "paths": [
-        "processes/6/tools/8/limits/0",
-        "processes/6/tools/8/important/0"
+        "processes/6/tools/7/limits/0",
+        "processes/6/tools/7/important/0"
       ]
     },
     {
       "id": "6510b5ec737f",
       "text": "не подменяет метод статьи новым и не выдаёт крупную переделку за уточнение",
       "paths": [
-        "processes/6/tools/8/limits/1",
-        "processes/6/tools/8/important/1"
+        "processes/6/tools/7/limits/1",
+        "processes/6/tools/7/important/1"
       ]
     },
     {
       "id": "5e0476d9716e",
       "text": "# перезапустите Claude Code, дальше — /review-response",
       "paths": [
-        "processes/6/tools/8/adoption/install/3"
+        "processes/6/tools/7/adoption/install/3"
       ]
     },
     {
       "id": "ed05cb201cbe",
       "text": "получает от него замечания до подачи",
       "paths": [
-        "processes/6/tools/8/relations/0/label"
+        "processes/6/tools/7/relations/0/label"
       ]
     },
     {
       "id": "5ce1fcda21a0",
       "text": "Цикл ответа рецензенту",
       "paths": [
-        "processes/6/tools/8/visual/label"
+        "processes/6/tools/7/visual/label"
       ]
     },
     {
       "id": "fc919c794f45",
       "text": "Замечание",
       "paths": [
-        "processes/6/tools/8/visual/nodes/0"
+        "processes/6/tools/7/visual/nodes/0"
       ]
     },
     {
       "id": "6dbce6f30798",
       "text": "Проверка основания",
       "paths": [
-        "processes/6/tools/8/visual/nodes/1"
+        "processes/6/tools/7/visual/nodes/1"
       ]
     },
     {
       "id": "450eb6fcba42",
       "text": "Ответ или новый прогон",
       "paths": [
-        "processes/6/tools/8/visual/nodes/2"
+        "processes/6/tools/7/visual/nodes/2"
       ]
     },
     {
       "id": "fc195dced5b4",
       "text": "Своя проверка",
       "paths": [
-        "processes/6/tools/8/visual/nodes/3"
+        "processes/6/tools/7/visual/nodes/3"
       ]
     },
     {
       "id": "cfa31bf5252b",
       "text": "Итоговый ответ",
       "paths": [
-        "processes/6/tools/8/visual/nodes/4"
+        "processes/6/tools/7/visual/nodes/4"
       ]
     },
     {
       "id": "857f6b86efd2",
       "text": "Ответить на замечания рецензентов",
       "paths": [
-        "processes/6/tools/8/cardTitle"
+        "processes/6/tools/7/cardTitle"
       ]
     },
     {
       "id": "ea687953b2ed",
       "text": "Проверить возражения, выбрать стратегию и подготовить ответ.",
       "paths": [
-        "processes/6/tools/8/catalogSummary"
+        "processes/6/tools/7/catalogSummary"
       ]
     },
     {
       "id": "2313bbead089",
       "text": "Дайте рецензии, поданную статью и результаты, на которые можно опереться в ответе.",
       "paths": [
-        "processes/6/tools/8/start"
+        "processes/6/tools/7/start"
       ]
     },
     {
       "id": "e50700a79e36",
       "text": "Превращает архив официального LaTeX-шаблона конференции в понятный проект для написания статьи и работы в Overleaf.",
       "paths": [
-        "processes/6/tools/9/role",
-        "processes/6/tools/9/purpose"
+        "processes/6/tools/8/role",
+        "processes/6/tools/8/purpose"
       ]
     },
     {
       "id": "14ca32045711",
       "text": "При подготовке проекта из архива официального шаблона конференции.",
       "paths": [
-        "processes/6/tools/9/when",
-        "processes/6/tools/9/useCases"
+        "processes/6/tools/8/when",
+        "processes/6/tools/8/useCases"
       ]
     },
     {
       "id": "0d425fa96f9e",
       "text": "Находит главный .tex и необходимые классы, стили и библиографию.",
       "paths": [
-        "processes/6/tools/9/inside/0",
-        "processes/6/tools/9/capabilities/0"
+        "processes/6/tools/8/inside/0",
+        "processes/6/tools/8/capabilities/0"
       ]
     },
     {
       "id": "b006f8ab0a34",
       "text": "Предлагает очистку демонстрационного текста и структуру файлов, сохраняя требования площадки.",
       "paths": [
-        "processes/6/tools/9/inside/1",
-        "processes/6/tools/9/capabilities/1"
+        "processes/6/tools/8/inside/1",
+        "processes/6/tools/8/capabilities/1"
       ]
     },
     {
       "id": "a10a16f685d7",
       "text": "После согласования готовит чистый шаблон, инструкцию и проверяет сборку.",
       "paths": [
-        "processes/6/tools/9/inside/2",
-        "processes/6/tools/9/capabilities/2"
+        "processes/6/tools/8/inside/2",
+        "processes/6/tools/8/capabilities/2"
       ]
     },
     {
       "id": "3434e4f17507",
       "text": "Чистая структура LaTeX-шаблона для работы в Overleaf.",
+      "paths": [
+        "processes/6/tools/8/outputs/0",
+        "processes/6/tools/8/catalogSummary",
+        "processes/6/tools/8/outcomes/0"
+      ]
+    },
+    {
+      "id": "c58d6b1c6f67",
+      "text": "Подготовить шаблон конференции",
+      "paths": [
+        "processes/6/tools/8/cardTitle",
+        "processes/6/tools/8/usedBy/0/role",
+        "processes/6/tools/8/processRelations/0/role"
+      ]
+    },
+    {
+      "id": "f5f72c124a9d",
+      "text": "Архив официального шаблона конференции",
+      "paths": [
+        "processes/6/tools/8/inputs/0"
+      ]
+    },
+    {
+      "id": "c6e613989cdf",
+      "text": "Подготовленная структура LaTeX-проекта",
+      "paths": [
+        "processes/6/tools/8/writes"
+      ]
+    },
+    {
+      "id": "cc91f96a2e75",
+      "text": "Сохранены необходимые файлы и требования площадки",
+      "paths": [
+        "processes/6/tools/8/gates/0"
+      ]
+    },
+    {
+      "id": "2a00d62a6fc0",
+      "text": "Работает со структурой шаблона, а не с содержанием статьи",
+      "paths": [
+        "processes/6/tools/8/limits/0",
+        "processes/6/tools/8/important/0"
+      ]
+    },
+    {
+      "id": "6ba002ed2509",
+      "text": "Передайте архив и ссылку на требования конференции.",
+      "paths": [
+        "processes/6/tools/8/start"
+      ]
+    },
+    {
+      "id": "c2abbeeedbea",
+      "text": "Помогает агенту читать и редактировать Google Docs и работать с Drive через настроенное MCP-подключение, а при сбое проверяет авторизацию.",
+      "paths": [
+        "processes/6/tools/9/role",
+        "processes/6/tools/9/purpose"
+      ]
+    },
+    {
+      "id": "93b08505d03d",
+      "text": "Для чтения и правки Google Docs через подключённого агента.",
+      "paths": [
+        "processes/6/tools/9/when",
+        "processes/6/tools/9/useCases"
+      ]
+    },
+    {
+      "id": "f831be9b74b6",
+      "text": "Проверяет доступность подключения и действующую авторизацию Google.",
+      "paths": [
+        "processes/6/tools/9/inside/0",
+        "processes/6/tools/9/capabilities/0"
+      ]
+    },
+    {
+      "id": "f84ea5da24b1",
+      "text": "Читает документ, выполняет нужную операцию разрешёнными инструментами сервиса.",
+      "paths": [
+        "processes/6/tools/9/inside/1",
+        "processes/6/tools/9/capabilities/1"
+      ]
+    },
+    {
+      "id": "5452b63e9c75",
+      "text": "Перечитывает изменённый участок; при проблеме доступа выясняет причину и предлагает штатную переавторизацию.",
+      "paths": [
+        "processes/6/tools/9/inside/2",
+        "processes/6/tools/9/capabilities/2"
+      ]
+    },
+    {
+      "id": "b63d4dd4762c",
+      "text": "Чтение и редактирование документов через настроенное MCP-подключение.",
       "paths": [
         "processes/6/tools/9/outputs/0",
         "processes/6/tools/9/catalogSummary",
@@ -9308,8 +9208,8 @@
       ]
     },
     {
-      "id": "c58d6b1c6f67",
-      "text": "Подготовить шаблон конференции",
+      "id": "4a163572a085",
+      "text": "Работать с Google Docs и Drive",
       "paths": [
         "processes/6/tools/9/cardTitle",
         "processes/6/tools/9/usedBy/0/role",
@@ -9317,133 +9217,39 @@
       ]
     },
     {
-      "id": "f5f72c124a9d",
-      "text": "Архив официального шаблона конференции",
-      "paths": [
-        "processes/6/tools/9/inputs/0"
-      ]
-    },
-    {
-      "id": "c6e613989cdf",
-      "text": "Подготовленная структура LaTeX-проекта",
-      "paths": [
-        "processes/6/tools/9/writes"
-      ]
-    },
-    {
-      "id": "cc91f96a2e75",
-      "text": "Сохранены необходимые файлы и требования площадки",
-      "paths": [
-        "processes/6/tools/9/gates/0"
-      ]
-    },
-    {
-      "id": "2a00d62a6fc0",
-      "text": "Работает со структурой шаблона, а не с содержанием статьи",
-      "paths": [
-        "processes/6/tools/9/limits/0",
-        "processes/6/tools/9/important/0"
-      ]
-    },
-    {
-      "id": "6ba002ed2509",
-      "text": "Передайте архив и ссылку на требования конференции.",
-      "paths": [
-        "processes/6/tools/9/start"
-      ]
-    },
-    {
-      "id": "c2abbeeedbea",
-      "text": "Помогает агенту читать и редактировать Google Docs и работать с Drive через настроенное MCP-подключение, а при сбое проверяет авторизацию.",
-      "paths": [
-        "processes/6/tools/10/role",
-        "processes/6/tools/10/purpose"
-      ]
-    },
-    {
-      "id": "93b08505d03d",
-      "text": "Для чтения и правки Google Docs через подключённого агента.",
-      "paths": [
-        "processes/6/tools/10/when",
-        "processes/6/tools/10/useCases"
-      ]
-    },
-    {
-      "id": "f831be9b74b6",
-      "text": "Проверяет доступность подключения и действующую авторизацию Google.",
-      "paths": [
-        "processes/6/tools/10/inside/0",
-        "processes/6/tools/10/capabilities/0"
-      ]
-    },
-    {
-      "id": "f84ea5da24b1",
-      "text": "Читает документ, выполняет нужную операцию разрешёнными инструментами сервиса.",
-      "paths": [
-        "processes/6/tools/10/inside/1",
-        "processes/6/tools/10/capabilities/1"
-      ]
-    },
-    {
-      "id": "5452b63e9c75",
-      "text": "Перечитывает изменённый участок; при проблеме доступа выясняет причину и предлагает штатную переавторизацию.",
-      "paths": [
-        "processes/6/tools/10/inside/2",
-        "processes/6/tools/10/capabilities/2"
-      ]
-    },
-    {
-      "id": "b63d4dd4762c",
-      "text": "Чтение и редактирование документов через настроенное MCP-подключение.",
-      "paths": [
-        "processes/6/tools/10/outputs/0",
-        "processes/6/tools/10/catalogSummary",
-        "processes/6/tools/10/outcomes/0"
-      ]
-    },
-    {
-      "id": "4a163572a085",
-      "text": "Работать с Google Docs и Drive",
-      "paths": [
-        "processes/6/tools/10/cardTitle",
-        "processes/6/tools/10/usedBy/0/role",
-        "processes/6/tools/10/processRelations/0/role"
-      ]
-    },
-    {
       "id": "a43b4dc852c9",
       "text": "Документ или файл Drive и запрос",
       "paths": [
-        "processes/6/tools/10/inputs/0"
+        "processes/6/tools/9/inputs/0"
       ]
     },
     {
       "id": "e18806ff0927",
       "text": "Документ Google Workspace либо настройки подключения",
       "paths": [
-        "processes/6/tools/10/writes"
+        "processes/6/tools/9/writes"
       ]
     },
     {
       "id": "06328dab25c9",
       "text": "Проверены доступ и результат чтения или записи",
       "paths": [
-        "processes/6/tools/10/gates/0"
+        "processes/6/tools/9/gates/0"
       ]
     },
     {
       "id": "c5c44502db9d",
       "text": "Требуются настроенное MCP-подключение и разрешения аккаунта",
       "paths": [
-        "processes/6/tools/10/limits/0",
-        "processes/6/tools/10/important/0"
+        "processes/6/tools/9/limits/0",
+        "processes/6/tools/9/important/0"
       ]
     },
     {
       "id": "644dbee8e179",
       "text": "Дайте ссылку на документ и точное действие, которое нужно выполнить.",
       "paths": [
-        "processes/6/tools/10/start"
+        "processes/6/tools/9/start"
       ]
     },
     {
@@ -9472,140 +9278,6 @@
       "text": "Ответ рецензентам",
       "paths": [
         "processes/6/toolClusters/3/title"
-      ]
-    },
-    {
-      "id": "8510b74f2f0e",
-      "text": "Общими становятся только утверждения чужих статей и их связи с нашими записями.",
-      "paths": [
-        "processes/6/toMcp/lead"
-      ]
-    },
-    {
-      "id": "318a5780b76a",
-      "text": "Проверка ссылок наполняет библиотеку",
-      "paths": [
-        "processes/6/toMcp/paths/0/title"
-      ]
-    },
-    {
-      "id": "163ab47cfbdc",
-      "text": "сверенная ссылка → утверждение статьи → наша запись",
-      "paths": [
-        "processes/6/toMcp/paths/0/line"
-      ]
-    },
-    {
-      "id": "fc585c2a304b",
-      "text": "Сверенная ссылка в тексте",
-      "paths": [
-        "processes/6/toMcp/paths/0/chain/0/title"
-      ]
-    },
-    {
-      "id": "3536e75592c2",
-      "text": "Работа найдена, данные совпали, подтверждающий абзац прочитан.",
-      "paths": [
-        "processes/6/toMcp/paths/0/chain/0/detail"
-      ]
-    },
-    {
-      "id": "d36c6bcb4492",
-      "text": "утверждение статьи",
-      "paths": [
-        "processes/6/toMcp/paths/0/chain/1/kind"
-      ]
-    },
-    {
-      "id": "0a9c46b22935",
-      "text": "Утверждение чужой статьи",
-      "paths": [
-        "processes/6/toMcp/paths/0/chain/1/title"
-      ]
-    },
-    {
-      "id": "485891da2ef2",
-      "text": "одно самостоятельное утверждение своими словами",
-      "paths": [
-        "processes/6/toMcp/paths/0/chain/1/items/0"
-      ]
-    },
-    {
-      "id": "d3687662ea5b",
-      "text": "источник и место в статье; цитата необязательна",
-      "paths": [
-        "processes/6/toMcp/paths/0/chain/1/items/1"
-      ]
-    },
-    {
-      "id": "6c9322306786",
-      "text": "явно добавленная цитата сверяется с её источником",
-      "paths": [
-        "processes/6/toMcp/paths/0/chain/1/items/2"
-      ]
-    },
-    {
-      "id": "2809b84b0fe4",
-      "text": "обрывок таблицы или списка обозначений отклоняется",
-      "paths": [
-        "processes/6/toMcp/paths/0/chain/1/items/3"
-      ]
-    },
-    {
-      "id": "db8396ccea5a",
-      "text": "Наше утверждение или прогон",
-      "paths": [
-        "processes/6/toMcp/paths/0/chain/2/title"
-      ]
-    },
-    {
-      "id": "6e806c470965",
-      "text": "Рукопись, реестр замечаний и ответ рецензентам — текст, а не запись: они остаются в репозитории статьи. Редкое исключение — записать рукопись измерением record_evidence с родом manuscript: этот род чисел не обещает и потому проходит без метрик.",
-      "paths": [
-        "processes/6/toMcp/nothing/why"
-      ]
-    },
-    {
-      "id": "5f9e45d51e76",
-      "text": "05 Результаты → измерение R-*",
-      "paths": [
-        "processes/6/toMcp/nothing/insteadLabel",
-        "processes/7/toMcp/nothing/insteadLabel"
-      ]
-    },
-    {
-      "id": "7bcd0d25e83d",
-      "text": "search_lab и get_paper дают тексту коды записей и ключи цитирования",
-      "paths": [
-        "processes/6/toMcp/nothing/back"
-      ]
-    },
-    {
-      "id": "0fc3695a750a",
-      "text": "рукопись и references.bib в репозитории статьи",
-      "paths": [
-        "processes/6/toMcp/kept/0"
-      ]
-    },
-    {
-      "id": "a3410e0e8bef",
-      "text": "реестр замечаний и рабочая папка ответа рецензентам",
-      "paths": [
-        "processes/6/toMcp/kept/1"
-      ]
-    },
-    {
-      "id": "5bc89d67060f",
-      "text": "отчёты astar-paper-review и обзор литературы",
-      "paths": [
-        "processes/6/toMcp/kept/2"
-      ]
-    },
-    {
-      "id": "d243af1421eb",
-      "text": "правка .tex с незаведённым ключом: хук citation-validator.py её отменяет, в базу не идёт ничего",
-      "paths": [
-        "processes/6/toMcp/kept/3"
       ]
     },
     {
@@ -9840,8 +9512,8 @@
       ]
     },
     {
-      "id": "fe34d4a23750",
-      "text": "Источники и утверждения",
+      "id": "994b361bff59",
+      "text": "Ключи библиографии",
       "paths": [
         "processes/6/constellation/groups/3/title"
       ]
@@ -9854,7 +9526,15 @@
         "processes/7/tools/0/processRelations/0/processTitle",
         "processes/7/tools/0/processRelation/processTitle",
         "processes/7/tools/1/processRelations/0/processTitle",
-        "processes/7/tools/1/processRelation/processTitle"
+        "processes/7/tools/1/processRelation/processTitle",
+        "processes/7/tools/2/processRelations/0/processTitle",
+        "processes/7/tools/2/processRelation/processTitle",
+        "processes/7/tools/3/processRelations/0/processTitle",
+        "processes/7/tools/3/processRelation/processTitle",
+        "processes/7/tools/4/processRelations/0/processTitle",
+        "processes/7/tools/4/processRelation/processTitle",
+        "processes/7/tools/5/processRelations/0/processTitle",
+        "processes/7/tools/5/processRelation/processTitle"
       ]
     },
     {
@@ -10030,24 +9710,55 @@
       ]
     },
     {
+      "id": "74d9827354a5",
+      "text": "Сайт и интерактивное демо",
+      "paths": [
+        "processes/7/stages/6/title",
+        "processes/7/tools/2/processRelations/0/stageTitle",
+        "processes/7/tools/2/processRelation/stageTitle",
+        "processes/7/tools/3/processRelations/0/stageTitle",
+        "processes/7/tools/3/processRelation/stageTitle",
+        "processes/7/tools/4/processRelations/0/stageTitle",
+        "processes/7/tools/4/processRelation/stageTitle",
+        "processes/7/tools/5/processRelations/0/stageTitle",
+        "processes/7/tools/5/processRelation/stageTitle",
+        "processes/7/toolClusters/2/title",
+        "processes/7/constellation/groups/0/title"
+      ]
+    },
+    {
+      "id": "a38dcb68290e",
+      "text": "Для веб-формата создать интерфейс, затем проверить его вид и пользовательские сценарии в браузере.",
+      "paths": [
+        "processes/7/stages/6/summary"
+      ]
+    },
+    {
+      "id": "dcc337924f29",
+      "text": "Работающий веб-интерфейс и результаты его проверки",
+      "paths": [
+        "processes/7/stages/6/result"
+      ]
+    },
+    {
       "id": "e7cb389b6ce1",
       "text": "Проверить перед выходом",
       "paths": [
-        "processes/7/stages/6/title"
+        "processes/7/stages/7/title"
       ]
     },
     {
       "id": "ebe90634cdc0",
       "text": "check_overflow.py отвечает all pages fit, числа и ссылки сверены.",
       "paths": [
-        "processes/7/stages/6/summary"
+        "processes/7/stages/7/summary"
       ]
     },
     {
       "id": "5001061178dc",
       "text": "Готовый PDF и посты для автора",
       "paths": [
-        "processes/7/stages/6/result"
+        "processes/7/stages/7/result"
       ]
     },
     {
@@ -10728,8 +10439,7 @@
       "text": "Спроектировать веб-интерфейс",
       "paths": [
         "processes/7/tools/2/cardTitle",
-        "processes/7/tools/2/usedBy/0/role",
-        "processes/7/tools/2/processRelations/0/role"
+        "processes/7/tools/2/usedBy/0/role"
       ]
     },
     {
@@ -10822,8 +10532,7 @@
       "text": "Продумать визуальную систему",
       "paths": [
         "processes/7/tools/3/cardTitle",
-        "processes/7/tools/3/usedBy/0/role",
-        "processes/7/tools/3/processRelations/0/role"
+        "processes/7/tools/3/usedBy/0/role"
       ]
     },
     {
@@ -10916,8 +10625,7 @@
       "text": "Проверить дизайн в браузере",
       "paths": [
         "processes/7/tools/4/cardTitle",
-        "processes/7/tools/4/usedBy/0/role",
-        "processes/7/tools/4/processRelations/0/role"
+        "processes/7/tools/4/usedBy/0/role"
       ]
     },
     {
@@ -11010,8 +10718,7 @@
       "text": "Проверить поведение веб-приложения",
       "paths": [
         "processes/7/tools/5/cardTitle",
-        "processes/7/tools/5/usedBy/0/role",
-        "processes/7/tools/5/processRelations/0/role"
+        "processes/7/tools/5/usedBy/0/role"
       ]
     },
     {
@@ -11076,6 +10783,13 @@
       "text": "Слайды, постер и посты — оформление уже записанного результата. Если из подготовки родилась договорённость о шаблоне, её место — правило propose_decision с родом operational, и оснований такое правило не требует.",
       "paths": [
         "processes/7/toMcp/nothing/why"
+      ]
+    },
+    {
+      "id": "5f9e45d51e76",
+      "text": "05 Результаты → измерение R-*",
+      "paths": [
+        "processes/7/toMcp/nothing/insteadLabel"
       ]
     },
     {
@@ -11195,20 +10909,6 @@
       "text": "Посты об исследовании",
       "paths": [
         "processes/7/constellation/cores/1/caption"
-      ]
-    },
-    {
-      "id": "cc5ccca5e79e",
-      "text": "Визуальный язык",
-      "paths": [
-        "processes/7/constellation/groups/0/title"
-      ]
-    },
-    {
-      "id": "9f4495a2c894",
-      "text": "Проверить показ",
-      "paths": [
-        "processes/7/constellation/groups/1/title"
       ]
     }
   ]

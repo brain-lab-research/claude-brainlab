@@ -2960,7 +2960,7 @@ window.RESEARCH_LOOP = {
   "contours": [],
   "meta": {
     "verified": "06.09.2026",
-    "registryCount": 206,
+    "registryCount": 205,
     "toolkit": {
       "title": "Get the source code",
       "lead": "Lab tools, Hermes prompts, and third-party projects. Clone the repositories you need and follow their READMEs.",
@@ -2979,7 +2979,7 @@ window.RESEARCH_LOOP = {
       "pieces": [
         {
           "name": "claude-brainlab",
-          "what": "73 public skills, plus agents, hooks, and rules",
+          "what": "72 public skills, agents, hooks, and rules",
           "access": "Public",
           "url": "https://github.com/brain-lab-research/claude-brainlab"
         },
@@ -3022,7 +3022,7 @@ window.RESEARCH_LOOP = {
       ]
     },
     "skillCatalog": {
-      "publicCount": 73,
+      "publicCount": 72,
       "privateCount": 2,
       "reviewed": "09-09-2026"
     }
@@ -3076,6 +3076,11 @@ window.RESEARCH_LOOP = {
           "summary": "Read back everything created or reused.",
           "result": "Complete, or a specific gap reported",
           "ref": "s5"
+        },
+        {
+          "ref": "s-plan",
+          "title": "Clarify the plan",
+          "summary": "Discuss assumptions and decisions before implementation."
         }
       ],
       "outcomes": [
@@ -3414,7 +3419,8 @@ window.RESEARCH_LOOP = {
           "important": [
             "the two copies can diverge: the ~/.claude mirror currently has more entries than the authoritative file",
             "the public repository contains only a template; each user fills in their own projects"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "lab-project-onboarding",
@@ -3557,11 +3563,6 @@ window.RESEARCH_LOOP = {
               "title": "Yonote task broker"
             },
             {
-              "toolId": "yonote-call-documents",
-              "label": "works alongside it at the same stage",
-              "title": "Yonote call documents"
-            },
-            {
               "toolId": "obsidian-project-lifecycle",
               "label": "passes the result to the next stage",
               "title": "obsidian-project-lifecycle"
@@ -3659,11 +3660,6 @@ window.RESEARCH_LOOP = {
               "title": "Yonote project view"
             },
             {
-              "toolId": "yonote-call-documents",
-              "label": "works alongside it at the same stage",
-              "title": "Yonote call documents"
-            },
-            {
               "toolId": "obsidian-project-lifecycle",
               "label": "passes the result to the next stage",
               "title": "obsidian-project-lifecycle"
@@ -3700,106 +3696,6 @@ window.RESEARCH_LOOP = {
             "the canonical statuses are “Backlog,” “In progress,” and “Done”",
             "older boards may have different columns",
             "the assignee is sometimes temporarily stored as text"
-          ]
-        },
-        {
-          "id": "yonote-call-documents",
-          "title": "Project meetings in Yonote",
-          "type": "MCP workflow",
-          "role": "Stores a short approved meeting summary separately from tasks: a “CODE · Meeting DD-MM-YYYY” document under “CODE · Meetings.”",
-          "when": "After a person approves the meeting analysis, if the project has a Yonote section.",
-          "inputs": [
-            "project binding",
-            "approved meeting summary",
-            "date and source reference"
-          ],
-          "inside": [
-            "creates or reuses the “CODE · Meetings” section",
-            "does not create a second document for the same date",
-            "publishes only the approved short summary",
-            "adds one link to the project page",
-            "sends action items to the task workflow separately"
-          ],
-          "outputs": [
-            "meeting summary link",
-            "link on the project page",
-            "separate verified tasks"
-          ],
-          "writes": "“CODE · Meetings” section, project page, “CODE · Tasks” board",
-          "gates": [
-            "the full meeting record stays outside Yonote",
-            "a person approves the summary before publication"
-          ],
-          "limits": [
-            "does not replace the full meeting note in the vault",
-            "does not constitute scientific evidence"
-          ],
-          "links": [
-            {
-              "label": "Yonote",
-              "url": "https://brain-lab.yonote.ru"
-            }
-          ],
-          "adoption": {
-            "kind": "internal",
-            "invoke": "Through the connected Lab Knowledge service",
-            "installNote": "Meeting documents live in the laboratory's private Yonote workspace. The owner grants access."
-          },
-          "nonInstallable": false,
-          "usedBy": [
-            {
-              "name": "New participant or project lead",
-              "role": "create one consistent set of project links"
-            }
-          ],
-          "relations": [
-            {
-              "toolId": "yonote-project-view",
-              "label": "works alongside it at the same stage",
-              "title": "Yonote project view"
-            },
-            {
-              "toolId": "yonote-task-broker",
-              "label": "works alongside it at the same stage",
-              "title": "Yonote task broker"
-            },
-            {
-              "toolId": "obsidian-project-lifecycle",
-              "label": "passes the result to the next stage",
-              "title": "obsidian-project-lifecycle"
-            }
-          ],
-          "processRelations": [
-            {
-              "processId": "projects",
-              "processTitle": "Project setup",
-              "stageRef": "s4",
-              "stageTitle": "Open the project to participants"
-            }
-          ],
-          "processRelation": {
-            "processId": "projects",
-            "processTitle": "Project setup",
-            "stageRef": "s4",
-            "stageTitle": "Open the project to participants"
-          },
-          "start": "After reviewing the notes, approve publication to the project's Yonote space. The meeting summary becomes a separate document with links to the tasks created.",
-          "capabilities": [
-            "creates or reuses the “CODE · Meetings” section",
-            "does not create a second document for the same date",
-            "publishes only the approved short summary",
-            "adds one link to the project page",
-            "sends action items to the task workflow separately"
-          ],
-          "outcomes": [
-            "meeting summary link",
-            "link on the project page",
-            "separate verified tasks"
-          ],
-          "useCases": "After a person approves the meeting analysis, if the project has a Yonote section.",
-          "important": [
-            "does not replace the full meeting note in the vault",
-            "does not constitute scientific evidence"
           ]
         },
         {
@@ -4009,7 +3905,8 @@ window.RESEARCH_LOOP = {
             "Yandex is listed as a contact route; the bot does not provision access",
             "more servers are monitored than can be provisioned",
             "demo state is separate from production"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "handoff",
@@ -4079,7 +3976,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Prepares a handoff for the next agent: objective, decisions, verified state, constraints, and next step, with links to working files.",
           "important": [
             "A handoff transfers context; it does not complete the remaining work"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "restore-session",
@@ -4149,7 +4047,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Finds a saved conversation and restores its context so an unfinished task can continue in a new session.",
           "important": [
             "History must be checked against the project's current state"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "planning-with-files",
@@ -4219,7 +4118,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Keeps plans and findings in files: breaks a large task into stages and preserves progress across agent sessions.",
           "important": [
             "Does not replace verification of the work itself"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "obsidian-research-log",
@@ -4289,7 +4189,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Updates a research project's Obsidian log: what was done, what was learned, and which question remains open.",
           "important": [
             "Does not replace the log for a specific experiment"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "obsidian-link-graph",
@@ -4359,7 +4260,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Checks and repairs links between Obsidian notes so a result leads back to its project, source, and related analysis.",
           "important": [
             "Compatibility helper; does not create Canvas or Bases by default"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "obsidian-markdown",
@@ -4429,7 +4331,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Helps the agent format a note using Obsidian syntax: properties, internal links, attachments, tables, formulas, and callouts.",
           "important": [
             "Formatting does not validate scientific content"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "obsidian-bases",
@@ -4499,7 +4402,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Builds live views over Obsidian notes. A .base file defines which records appear and how to filter, sort, and compute their properties.",
           "important": [
             "Creating a view does not validate the underlying notes"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "obsidian-cli",
@@ -4569,7 +4473,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Lets the agent work with a running Obsidian application through the command line: search and open notes, perform vault operations, and check plugins.",
           "important": [
             "The CLI requires the Obsidian application to be open"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "json-canvas",
@@ -4639,7 +4544,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Creates an Obsidian Canvas map: notes, text blocks, and links arranged on a canvas and connected by meaning.",
           "important": [
             "Canvas is created on request, not as a mandatory project layer"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "operon-obsidian-setup",
@@ -4709,7 +4615,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Configures a personal task workspace in Obsidian: Operon boards, project and assignee properties, templates, and views.",
           "important": [
             "Installation depends on the current state of Obsidian and the plugin"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "agent-identifier",
@@ -4779,7 +4686,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Helps define a specialized Claude Code agent: its responsibilities, when it is invoked, and which tools it may use.",
           "important": [
             "A role file alone does not start an agent"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "command-development",
@@ -4849,7 +4757,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Creates a slash command for a repeatable task: the agent receives prepared instructions, arguments, and links to the required resources.",
           "important": [
             "The format targets Claude Code"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "hook-development",
@@ -4919,7 +4828,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Creates a Claude Code event handler. It can check an action before execution, process its result, or remind the agent to save context.",
           "important": [
             "Hooks depend on the client's contract"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "plugin-structure",
@@ -4989,7 +4899,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Packages related skills, commands, agents, hooks, and MCP connections into an installable plugin with a valid manifest and portable paths.",
           "important": [
             "Structure does not replace testing component behavior"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "mcp-integration",
@@ -5059,7 +4970,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Connects an agent to an MCP server so external data and operations become available as callable tools.",
           "important": [
             "Requires a working server and the appropriate access"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "skill-development",
@@ -5129,7 +5041,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Creates or repairs an agent skill: when to use it, which steps to follow, which resources to read, and how to verify the result.",
           "important": [
             "Creates instructions; does not guarantee the quality of every future run"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "skill-quality-reviewer",
@@ -5199,7 +5112,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Reviews skills for clear invocation criteria, complete instructions, sound structure, and intact resources.",
           "important": [
             "Reviewing instruction quality is not the same as testing a skill on a real task"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "skill-improver",
@@ -5269,7 +5183,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Applies approved skill improvements from an existing plan, resolves conflicting proposals, and verifies each change.",
           "important": [
             "An improvement plan is required first"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "caveman",
@@ -5339,7 +5254,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Enables concise agent responses. Removes introductory filler and repetition while keeping facts and necessary explanations.",
           "important": [
             "A communication mode, not a reduction in necessary checks"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "obsidian-project-memory",
@@ -5433,6 +5349,184 @@ window.RESEARCH_LOOP = {
           "catalogSummary": "Decisions, plans, and results in canonical project notes.",
           "skillId": "obsidian-project-memory",
           "start": "Specify the project and ask to save its current state, decisions, and next steps."
+        },
+        {
+          "id": "grill-me",
+          "title": "grill-me",
+          "type": "Skill",
+          "role": "Questions the author about a plan until there is a shared understanding, one question at a time, with a recommended answer for each.",
+          "when": "You have a plan with decisions and assumptions to clarify.",
+          "inputs": [
+            "draft claim or plan",
+            "assumptions",
+            "proposed validation method"
+          ],
+          "inside": [
+            "walks the decision tree, resolving dependencies in order",
+            "asks strictly one question at a time",
+            "offers a recommended answer to each question",
+            "checks the code for answers it can provide instead of asking"
+          ],
+          "outputs": [
+            "resolved decision points in the plan",
+            "clarified formulation"
+          ],
+          "writes": "Current personal draft",
+          "gates": [
+            "does not ask a question if the answer is in the code"
+          ],
+          "limits": [
+            "does not replace validation through a run",
+            "writes nothing to the shared database"
+          ],
+          "links": [
+            {
+              "label": "Skill source",
+              "url": "https://github.com/Vepricov/claude-brainlab/blob/main/skills/grill-me/SKILL.md"
+            }
+          ],
+          "adoption": {
+            "kind": "toolkit-skill",
+            "invoke": "$grill-me",
+            "install": [
+              "git clone --depth 1 https://github.com/Vepricov/claude-brainlab.git ~/claude-brainlab",
+              "mkdir -p ~/.claude/skills",
+              "cp -R ~/claude-brainlab/skills/grill-me ~/.claude/skills/",
+              "# restart Claude Code, then run /grill-me"
+            ]
+          },
+          "nonInstallable": false,
+          "usedBy": [
+            {
+              "name": "Researcher and research agent",
+              "role": "examine the plan's decision points until ambiguities are resolved"
+            }
+          ],
+          "relations": [],
+          "processRelations": [
+            {
+              "processId": "projects",
+              "processTitle": "Project setup",
+              "stageRef": "s-plan",
+              "stageTitle": "Clarify the plan"
+            }
+          ],
+          "processRelation": {
+            "processId": "projects",
+            "processTitle": "Project setup",
+            "stageRef": "s-plan",
+            "stageTitle": "Clarify the plan"
+          },
+          "cardTitle": "Examine an idea through questions",
+          "catalogSummary": "Clarify assumptions and make decisions before implementation.",
+          "skillId": "grill-me",
+          "start": "Describe the idea or provide the plan you want to examine through questions.",
+          "capabilities": [
+            "walks the decision tree, resolving dependencies in order",
+            "asks strictly one question at a time",
+            "offers a recommended answer to each question",
+            "checks the code for answers it can provide instead of asking"
+          ],
+          "outcomes": [
+            "resolved decision points in the plan",
+            "clarified formulation"
+          ],
+          "useCases": "You have a plan with decisions and assumptions to clarify.",
+          "important": [
+            "does not replace validation through a run",
+            "writes nothing to the shared database"
+          ]
+        },
+        {
+          "id": "grill-with-docs",
+          "title": "grill-with-docs",
+          "type": "Skill",
+          "role": "Examines the plan one question at a time and checks each answer against the project's glossary, code, and existing decisions.",
+          "when": "You have a plan with decisions and assumptions to clarify.",
+          "inputs": [
+            "draft plan",
+            "CONTEXT.md or CONTEXT-MAP.md",
+            "code and decision records"
+          ],
+          "inside": [
+            "checks the plan's wording against the CONTEXT.md glossary",
+            "proposes a precise term in place of a vague one",
+            "tests disputed points against specific edge cases",
+            "looks for discrepancies between the author's description and the code's behavior",
+            "records an agreed term in CONTEXT.md immediately rather than accumulating pending edits"
+          ],
+          "outputs": [
+            "clarified plan",
+            "updated project glossary",
+            "decision record when justified"
+          ],
+          "writes": "CONTEXT.md and docs/adr in the current repository",
+          "gates": [
+            "does not ask a question if the answer is in the code",
+            "CONTEXT.md stores only domain terminology",
+            "proposes a decision record only when all three conditions hold: hard to reverse, unclear without context, and a real choice was made"
+          ],
+          "limits": [
+            "does not turn the glossary into a technical specification",
+            "does not make product decisions for the author"
+          ],
+          "links": [
+            {
+              "label": "Skill source",
+              "url": "https://github.com/Vepricov/claude-brainlab/blob/main/skills/grill-with-docs/SKILL.md"
+            }
+          ],
+          "adoption": {
+            "kind": "toolkit-skill",
+            "invoke": "$grill-with-docs",
+            "install": [
+              "git clone --depth 1 https://github.com/Vepricov/claude-brainlab.git ~/claude-brainlab",
+              "mkdir -p ~/.claude/skills",
+              "cp -R ~/claude-brainlab/skills/grill-with-docs ~/.claude/skills/",
+              "# restart Claude Code, then run /grill-with-docs"
+            ]
+          },
+          "nonInstallable": false,
+          "usedBy": [
+            {
+              "name": "Researcher and research agent",
+              "role": "check a new plan against the project's terminology and decisions"
+            }
+          ],
+          "relations": [],
+          "processRelations": [
+            {
+              "processId": "projects",
+              "processTitle": "Project setup",
+              "stageRef": "s-plan",
+              "stageTitle": "Clarify the plan"
+            }
+          ],
+          "processRelation": {
+            "processId": "projects",
+            "processTitle": "Project setup",
+            "stageRef": "s-plan",
+            "stageTitle": "Clarify the plan"
+          },
+          "skillId": "grill-with-docs",
+          "start": "Provide the draft plan and project materials: code, notes, and prior decisions.",
+          "capabilities": [
+            "checks the plan's wording against the CONTEXT.md glossary",
+            "proposes a precise term in place of a vague one",
+            "tests disputed points against specific edge cases",
+            "looks for discrepancies between the author's description and the code's behavior",
+            "records an agreed term in CONTEXT.md immediately rather than accumulating pending edits"
+          ],
+          "outcomes": [
+            "clarified plan",
+            "updated project glossary",
+            "decision record when justified"
+          ],
+          "useCases": "You have a plan with decisions and assumptions to clarify.",
+          "important": [
+            "does not turn the glossary into a technical specification",
+            "does not make product decisions for the author"
+          ]
         }
       ],
       "outcomeRefs": [
@@ -5468,6 +5562,22 @@ window.RESEARCH_LOOP = {
           "stageRef": "s2",
           "toolIds": [
             "server-access-bot"
+          ]
+        },
+        {
+          "id": "grill-me",
+          "title": "Clarify the plan",
+          "stageRef": "s-plan",
+          "toolIds": [
+            "grill-me"
+          ]
+        },
+        {
+          "id": "grill-with-docs",
+          "title": "Clarify the plan",
+          "stageRef": "s-plan",
+          "toolIds": [
+            "grill-with-docs"
           ]
         }
       ],
@@ -5522,8 +5632,7 @@ window.RESEARCH_LOOP = {
           "stage": "s4",
           "tools": [
             "yonote-project-view",
-            "yonote-task-broker",
-            "yonote-call-documents"
+            "yonote-task-broker"
           ],
           "destinations": [
             "d4"
@@ -5539,6 +5648,17 @@ window.RESEARCH_LOOP = {
           "tools": [
             "lab-project-onboarding",
             "obsidian-project-lifecycle"
+          ],
+          "destinations": [],
+          "outcomes": [],
+          "qa": []
+        },
+        {
+          "id": "plan-review",
+          "stage": "s-plan",
+          "tools": [
+            "grill-me",
+            "grill-with-docs"
           ],
           "destinations": [],
           "outcomes": [],
@@ -5647,7 +5767,6 @@ window.RESEARCH_LOOP = {
               "lab-project-onboarding",
               "yonote-project-view",
               "yonote-task-broker",
-              "yonote-call-documents",
               "obsidian-projects-registry"
             ]
           },
@@ -5670,7 +5789,9 @@ window.RESEARCH_LOOP = {
               "handoff",
               "planning-with-files",
               "obsidian-research-log",
-              "caveman"
+              "caveman",
+              "grill-me",
+              "grill-with-docs"
             ]
           },
           {
@@ -6861,7 +6982,8 @@ window.RESEARCH_LOOP = {
             "_index.jsonl is rebuilt on demand and currently lags behind",
             "the structure is not fixed: skills inspect the tree again",
             "lives in the personal vault, not in the repository"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "reading-board",
@@ -6953,7 +7075,8 @@ window.RESEARCH_LOOP = {
             "the archiver is installed only on the laptop, not the personal server",
             "cancelled items are archived immediately: --cancelled-grace-days 0",
             "archiveHold: true on a card prevents archiving"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "alphaxiv-sync-rule",
@@ -7027,7 +7150,8 @@ window.RESEARCH_LOOP = {
             "a paper without an arXiv ID cannot be mirrored",
             "the “Awaiting publication” column has no mirror",
             "if MCP is disconnected, the skipped step is reported, not hidden"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "syncthing",
@@ -7098,7 +7222,8 @@ window.RESEARCH_LOOP = {
             "each device has its own .stignore, which is not itself synchronized",
             "the rule excludes iCloud duplicate files such as “operon-xxx 2.md”",
             "Syncthing configuration is not included in the public repository"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "defuddle",
@@ -7168,7 +7293,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Extracts a web page's main text without menus, ads, or navigation blocks so the agent can focus on its content.",
           "important": [
             "Requires Defuddle CLI; complex interactive pages may need a different reading method"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "pdf-reader",
@@ -7238,7 +7364,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Reads a local PDF page by page with PyMuPDF and helps verify passages where ordinary extraction distorts text, formulas, or tables.",
           "important": [
             "Text extraction can lose the structure of a complex page"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "kaggle-learner",
@@ -7308,7 +7435,107 @@ window.RESEARCH_LOOP = {
           "purpose": "Analyzes leading Kaggle solutions and saves practical techniques for data processing, training, validation, and ensembles.",
           "important": [
             "Competition success does not guarantee transfer to another task"
-          ]
+          ],
+          "relations": []
+        },
+        {
+          "id": "paper-claim-validator",
+          "title": "Paper claim record",
+          "type": "MCP tools",
+          "role": "Helps turn an idea from a paper you have read into a separate claim in the shared database. Preserves the meaning in your own words, identifies the source and location in the paper, then links the claim to our work.",
+          "when": "After reading the full text, when a specific statement should become support, a comparison or a counterargument.",
+          "inputs": [
+            "The source you have read and the paper's identifier.",
+            "A claim in your own words and a location in the paper where it can be checked."
+          ],
+          "inside": [
+            "Checks that the paper exists in the MCP library and that a source is available for the claim.",
+            "Formulates one self-contained claim: what was shown, under which conditions and with which limitations.",
+            "Records the paraphrase and paper reference through record_paper_claim. A verbatim quotation is optional and is added only when useful.",
+            "If a quotation is included, its provenance and verification cannot be replaced by a match against someone else's summary.",
+            "Links the claim to a project or record as prior art, comparison, support or contradiction. Reads the saved object back."
+          ],
+          "outputs": [
+            "A paper claim with a source and stable ID.",
+            "A link to our work and explicit limits on the claim."
+          ],
+          "writes": "Lab Knowledge library. Our own claims and measurements stay unchanged",
+          "gates": [
+            "The paraphrase must reflect the source's meaning.",
+            "Verbatim accuracy is checked only for an actual quotation."
+          ],
+          "limits": [
+            "A paper's presence in the library does not validate every conclusion attributed to it.",
+            "There is no need to add a quotation or artificially lengthen a claim to meet a formal threshold."
+          ],
+          "links": [
+            {
+              "label": "Documentation",
+              "url": "https://github.com/Vepricov/claude-brainlab/blob/main/docs/knowledge-base.md"
+            }
+          ],
+          "adoption": {
+            "kind": "internal",
+            "invoke": "Through the connected Lab Knowledge MCP",
+            "installNote": "Claims are saved through Lab Knowledge MCP with access to its library."
+          },
+          "nonInstallable": false,
+          "usedBy": [
+            {
+              "name": "Researcher and literature agent",
+              "role": "Save claims from papers they have read, with sources and established relationships."
+            }
+          ],
+          "relations": [],
+          "processRelations": [
+            {
+              "processId": "literature",
+              "processTitle": "Literature",
+              "stageRef": "s5",
+              "stageTitle": "Send to the shared database"
+            },
+            {
+              "processId": "literature",
+              "processTitle": "Literature",
+              "stageRef": "s6",
+              "stageTitle": "Connect to your own work"
+            }
+          ],
+          "processRelation": {
+            "processId": "literature",
+            "processTitle": "Literature",
+            "stageRef": "s5",
+            "stageTitle": "Send to the shared database"
+          },
+          "visual": {
+            "kind": "path",
+            "label": "Another paper's claim stays separate from our own derivation",
+            "nodes": [
+              "Paper and its saved text",
+              "Claim and source",
+              "Check the meaning against the source",
+              "Paper claim",
+              "Typed relationship"
+            ]
+          },
+          "start": "Provide the claim in your own words, the paper and the location supporting it. The agent saves the paper claim and links it to the project.",
+          "purpose": "Helps turn an idea from a paper you have read into a separate claim in the shared database. Preserves the meaning in your own words, identifies the source and location in the paper, then links the claim to our work.",
+          "capabilities": [
+            "Checks that the paper exists in the MCP library and that a source is available for the claim.",
+            "Formulates one self-contained claim: what was shown, under which conditions and with which limitations.",
+            "Records the paraphrase and paper reference through record_paper_claim. A verbatim quotation is optional and is added only when useful.",
+            "If a quotation is included, its provenance and verification cannot be replaced by a match against someone else's summary.",
+            "Links the claim to a project or record as prior art, comparison, support or contradiction. Reads the saved object back."
+          ],
+          "outcomes": [
+            "A paper claim with a source and stable ID.",
+            "A link to our work and explicit limits on the claim."
+          ],
+          "important": [
+            "A paper's presence in the library does not validate every conclusion attributed to it.",
+            "There is no need to add a quotation or artificially lengthen a claim to meet a formal threshold."
+          ],
+          "useCases": "After reading the full text, when a specific statement should become support, a comparison or a counterargument."
         }
       ],
       "outcomeRefs": [
@@ -7353,6 +7580,14 @@ window.RESEARCH_LOOP = {
           "stageRef": "s3",
           "toolIds": [
             "paper-ingest"
+          ]
+        },
+        {
+          "id": "claims",
+          "title": "Save a paper claim",
+          "stageRef": "s5",
+          "toolIds": [
+            "paper-claim-validator"
           ]
         }
       ],
@@ -7416,7 +7651,8 @@ window.RESEARCH_LOOP = {
           "stage": "s5",
           "tools": [
             "literature-library",
-            "alphaxiv-sync-rule"
+            "alphaxiv-sync-rule",
+            "paper-claim-validator"
           ],
           "destinations": [
             "d3"
@@ -7429,7 +7665,9 @@ window.RESEARCH_LOOP = {
         {
           "id": "r6",
           "stage": "s6",
-          "tools": [],
+          "tools": [
+            "paper-claim-validator"
+          ],
           "destinations": [
             "d4"
           ],
@@ -7607,7 +7845,8 @@ window.RESEARCH_LOOP = {
               "zotero-mcp",
               "obsidian-literature-workflow",
               "zotero-obsidian-bridge",
-              "literature-library"
+              "literature-library",
+              "paper-claim-validator"
             ]
           },
           {
@@ -7633,14 +7872,14 @@ window.RESEARCH_LOOP = {
       "id": "ideation",
       "number": "02",
       "title": "Ideas and hypotheses",
-      "verb": "Define what to test",
-      "result": "A falsifiable claim and a way to distinguish it from alternatives",
+      "verb": "Propose an idea and choose a test",
+      "result": "A research candidate and a plan to test it",
       "color": "#ff9478",
       "registryProcessIds": [
         "research-direction",
         "theory"
       ],
-      "purpose": "Turn an observation or external claim into a question with a prediction, assumptions, and a falsification criterion.",
+      "purpose": "The lab’s autoresearch develops and checks branches of ideas. Alongside it are a skill for framing research questions and an independent external research project.",
       "when": [
         "After finding conflicting literature.",
         "When a run produces an unexpected result.",
@@ -7648,93 +7887,93 @@ window.RESEARCH_LOOP = {
       ],
       "stages": [
         {
-          "title": "Gather the basis",
-          "summary": "External claims, observations, previous runs, and open questions.",
-          "result": "A basis with recorded provenance",
-          "ref": "s1"
+          "ref": "s1",
+          "title": "Frame the question",
+          "summary": "Identify a gap in current knowledge and what a useful answer would look like."
         },
         {
-          "title": "Develop alternatives",
-          "summary": "Several mechanisms rather than one favored account.",
-          "result": "Competing explanations",
-          "ref": "s2"
+          "ref": "s2",
+          "title": "Develop ideas",
+          "summary": "Build a graph of ideas, select branches, and check prior work."
         },
         {
-          "title": "Find a discriminating test",
-          "summary": "An observation on which the alternatives disagree.",
-          "result": "Falsification criterion",
-          "ref": "s3"
-        },
-        {
-          "title": "Check the formulation",
-          "summary": "grill-me examines the plan one question at a time.",
-          "result": "Revised draft",
-          "ref": "s4"
-        },
-        {
-          "title": "Publish the claim",
-          "summary": "After preview, an H-* record appears in the shared database.",
-          "result": "A shared, testable claim",
-          "human": true,
-          "ref": "s5"
-        },
-        {
-          "title": "Choose the validation route",
-          "summary": "A run for empirical work, a proof for theory.",
-          "result": "Validation plan",
-          "ref": "s6"
+          "ref": "s3",
+          "title": "Choose a test",
+          "summary": "Distinguish mathematical reasoning, verification code, and empirical experiments."
         }
       ],
       "outcomes": [
-        "A claim with a stable H-* code.",
-        "Explicit assumptions and competing explanations.",
-        "A prediction and falsification criterion.",
-        "A link to the source literature, run, or meeting."
+        "A question, alternatives, and the next testable step."
       ],
-      "destinations": [
-        {
-          "name": "Obsidian",
-          "what": "Draft reasoning and alternatives",
-          "why": "Private work without shared commitments",
-          "ref": "d1"
-        },
-        {
-          "name": "Lab Knowledge",
-          "what": "Approved claim and its provenance",
-          "why": "A shared question to test",
-          "ref": "d2"
-        }
-      ],
-      "controls": [
-        {
-          "id": "alternatives",
-          "title": "Start with competing explanations",
-          "explanation": "One plausible account is not yet a testable claim. It needs alternatives and an observation on which they differ.",
-          "example": "",
-          "links": []
-        },
-        {
-          "id": "foreign-boundary",
-          "title": "Keep external claims separate from our own",
-          "explanation": "A paper claim can motivate our formulation, but does not replace a falsification criterion or count as our measurement.",
-          "example": "",
-          "links": []
-        },
-        {
-          "id": "publish-preview",
-          "title": "Preview the shared record before publication",
-          "explanation": "Before a write, a person sees the project, exact formulation, falsification criterion, source, and whether the record will be created or updated. A draft in personal notes does not count as approval.",
-          "example": "",
-          "links": []
-        }
-      ],
-      "example": "A paper claims an advantage from a new update geometry. research-ideation proposes two alternatives, /hypothesize estimates the cost of testing each, and a discriminating run follows a frozen protocol.",
+      "destinations": [],
+      "controls": [],
+      "example": "",
       "tools": [
+        {
+          "id": "autoresearch",
+          "title": "autoresearch",
+          "type": "Lab package · autoresearch",
+          "role": "Stores ideas in a graph, selects promising branches, and assigns agents to develop and review them.",
+          "links": [
+            {
+              "label": "Source code and README",
+              "url": "https://github.com/brain-lab-research/claude-brainlab/tree/main/autoresearch"
+            }
+          ],
+          "adoption": {
+            "kind": "source-only",
+            "installNote": "In development. Requires project configuration and access to agent CLIs. Without research_cycle_path, round skips automatic idea evaluation; the empirical loop is disabled by default."
+          },
+          "usedBy": [
+            {
+              "name": "Researcher",
+              "role": "sets the question, project, and evaluation criteria"
+            }
+          ],
+          "processRelations": [
+            {
+              "processId": "ideation",
+              "processTitle": "Ideas and hypotheses",
+              "stageRef": "s2",
+              "stageTitle": "Develop ideas"
+            }
+          ],
+          "processRelation": {
+            "processId": "ideation",
+            "processTitle": "Ideas and hypotheses",
+            "stageRef": "s2",
+            "stageTitle": "Develop ideas"
+          },
+          "status": "in-development",
+          "externalResources": [
+            {
+              "label": "ResearcherOS",
+              "url": "https://github.com/ZoyaV/ReseacherOS/tree/main",
+              "note": "Independent open-source project · GitHub"
+            }
+          ],
+          "when": "You have a research question and several directions to investigate systematically.",
+          "start": "Connect the package to a project using its README, then configure the research domain and agent tools. Start by inspecting the graph and selected ideas with ar status.",
+          "inside": [
+            "Idea graph. Stores proposals, connections, attempts, and failure reasons; previously investigated branches remain in the history.",
+            "Selection. Chooses the next graph nodes and checks available material for similar ideas and prior work.",
+            "Agent work. Develops an idea in a separate Git branch through reasoning, verification code, and critical review.",
+            "Review. Separates mathematical reasoning, implementation correctness, and empirical results. An experimental claim needs its own protocol and run results.",
+            "Next round. Incorporates criticism, combines promising branches, and filters duplicates.",
+            "Paper material. Collects reviewed results into reports and draft text."
+          ],
+          "outputs": [
+            "A graph recording ideas, reviews, and rejected branches",
+            "Verification code, reports, and paper drafts"
+          ],
+          "writes": "Project files and branches; IdeaGraph or a configured koi store.",
+          "relations": []
+        },
         {
           "id": "research-ideation",
           "title": "research-ideation",
-          "type": "Skill",
-          "role": "Guides the initial project phase: 5W1H idea analysis, literature review, gap finding, a SMART question, method selection, and planning.",
+          "type": "Third-party skill · claude-scholar",
+          "role": "Helps turn a broad topic into a research question, method, and plan. A skill by Gaorui Zhang from claude-scholar.",
           "when": "When the research direction is not yet fixed.",
           "inputs": [
             "topic or interest",
@@ -7742,18 +7981,15 @@ window.RESEARCH_LOOP = {
             "Zotero collection"
           ],
           "inside": [
-            "examines the idea through the six 5W1H questions",
-            "looks for five kinds of gaps: topic, method, application, disciplinary intersection, and time",
-            "formulates a SMART question and assesses novelty and feasibility",
-            "compares methods and estimates required resources",
-            "collects discovered papers in Zotero and attaches openly available PDFs"
+            "Examines the topic: what, why, who, where, when, and how.",
+            "Uses available papers to identify gaps in topics, methods, applications, or connections between fields.",
+            "Narrows the question and assesses novelty, importance, and feasibility.",
+            "Compares methods and drafts a research plan. Library operations depend on the connected tools."
           ],
           "outputs": [
-            "literature-review.md",
-            "research-proposal.md",
-            "references.bib"
+            "A research question, a review of the supporting literature, and a research plan"
           ],
-          "writes": "Project files and Zotero collection",
+          "writes": "Project documents; the reference library when the required tools are connected.",
           "gates": [
             "the question is assessed for importance, novelty, and feasibility",
             "the collection is checked for duplicates before additions"
@@ -7764,12 +8000,12 @@ window.RESEARCH_LOOP = {
           ],
           "links": [
             {
-              "label": "Skill source",
-              "url": "https://github.com/Vepricov/claude-brainlab/blob/main/skills/research-ideation/SKILL.md"
+              "label": "Author and original skill",
+              "url": "https://github.com/Galaxy-Dawn/claude-scholar/tree/main/skills/research-ideation"
             },
             {
-              "label": "Gap analysis",
-              "url": "https://github.com/Vepricov/claude-brainlab/blob/main/skills/research-ideation/references/gap-analysis-guide.md"
+              "label": "Version in the lab toolkit",
+              "url": "https://github.com/brain-lab-research/claude-brainlab/blob/main/skills/research-ideation/SKILL.md"
             }
           ],
           "adoption": {
@@ -7780,7 +8016,8 @@ window.RESEARCH_LOOP = {
               "mkdir -p ~/.claude/skills",
               "cp -R ~/claude-brainlab/skills/research-ideation ~/.claude/skills/",
               "# restart Claude Code, then run /research-ideation"
-            ]
+            ],
+            "installNote": "Adapted from claude-scholar by Gaorui Zhang, licensed under MIT. This is an instruction for an agent; it does not run experiments by itself."
           },
           "nonInstallable": false,
           "usedBy": [
@@ -7811,14 +8048,14 @@ window.RESEARCH_LOOP = {
               "processId": "ideation",
               "processTitle": "Ideas and hypotheses",
               "stageRef": "s1",
-              "stageTitle": "Gather the basis"
+              "stageTitle": "Frame the question"
             }
           ],
           "processRelation": {
             "processId": "ideation",
             "processTitle": "Ideas and hypotheses",
             "stageRef": "s1",
-            "stageTitle": "Gather the basis"
+            "stageTitle": "Frame the question"
           },
           "visual": {
             "kind": "routes",
@@ -7832,9 +8069,9 @@ window.RESEARCH_LOOP = {
             ]
           },
           "cardTitle": "Formulate a research question",
-          "catalogSummary": "A knowledge gap, a hypothesis, and a way to test it.",
+          "catalogSummary": "Topic → knowledge gap → question → plan",
           "skillId": "research-ideation",
-          "start": "Describe the topic, problem, or observation you want to turn into a research idea.",
+          "start": "Describe your topic and what is already known. The skill guides a discussion from a question to a research plan.",
           "capabilities": [
             "examines the idea through the six 5W1H questions",
             "looks for five kinds of gaps: topic, method, application, disciplinary intersection, and time",
@@ -7851,7 +8088,9 @@ window.RESEARCH_LOOP = {
           "important": [
             "does not test the claim or launch runs",
             "search defaults to the past three years"
-          ]
+          ],
+          "skySummary": "Topic → knowledge gap → question → plan",
+          "purpose": "Helps turn a broad topic into a research question, method, and plan. A skill by Gaorui Zhang from claude-scholar."
         },
         {
           "id": "hypothesize",
@@ -7914,14 +8153,14 @@ window.RESEARCH_LOOP = {
               "processId": "ideation",
               "processTitle": "Ideas and hypotheses",
               "stageRef": "s1",
-              "stageTitle": "Gather the basis"
+              "stageTitle": "Frame the question"
             }
           ],
           "processRelation": {
             "processId": "ideation",
             "processTitle": "Ideas and hypotheses",
             "stageRef": "s1",
-            "stageTitle": "Gather the basis"
+            "stageTitle": "Frame the question"
           },
           "visual": {
             "kind": "path",
@@ -7951,666 +8190,28 @@ window.RESEARCH_LOOP = {
             "requires a slug registered in project routing",
             "uses only literature already in the project card"
           ]
-        },
-        {
-          "id": "grill-with-docs",
-          "title": "grill-with-docs",
-          "type": "Skill",
-          "role": "Examines the plan one question at a time and checks each answer against the project's glossary, code, and existing decisions.",
-          "when": "When a plan uses vague terms or may conflict with existing decisions.",
-          "inputs": [
-            "draft plan",
-            "CONTEXT.md or CONTEXT-MAP.md",
-            "code and decision records"
-          ],
-          "inside": [
-            "checks the plan's wording against the CONTEXT.md glossary",
-            "proposes a precise term in place of a vague one",
-            "tests disputed points against specific edge cases",
-            "looks for discrepancies between the author's description and the code's behavior",
-            "records an agreed term in CONTEXT.md immediately rather than accumulating pending edits"
-          ],
-          "outputs": [
-            "clarified plan",
-            "updated project glossary",
-            "decision record when justified"
-          ],
-          "writes": "CONTEXT.md and docs/adr in the current repository",
-          "gates": [
-            "does not ask a question if the answer is in the code",
-            "CONTEXT.md stores only domain terminology",
-            "proposes a decision record only when all three conditions hold: hard to reverse, unclear without context, and a real choice was made"
-          ],
-          "limits": [
-            "does not turn the glossary into a technical specification",
-            "does not make product decisions for the author"
-          ],
-          "links": [
-            {
-              "label": "Skill source",
-              "url": "https://github.com/Vepricov/claude-brainlab/blob/main/skills/grill-with-docs/SKILL.md"
-            }
-          ],
-          "adoption": {
-            "kind": "toolkit-skill",
-            "invoke": "$grill-with-docs",
-            "install": [
-              "git clone --depth 1 https://github.com/Vepricov/claude-brainlab.git ~/claude-brainlab",
-              "mkdir -p ~/.claude/skills",
-              "cp -R ~/claude-brainlab/skills/grill-with-docs ~/.claude/skills/",
-              "# restart Claude Code, then run /grill-with-docs"
-            ]
-          },
-          "nonInstallable": false,
-          "usedBy": [
-            {
-              "name": "Researcher and research agent",
-              "role": "check a new plan against the project's terminology and decisions"
-            }
-          ],
-          "relations": [
-            {
-              "toolId": "research-ideation",
-              "label": "works alongside it at the same stage",
-              "title": "research-ideation"
-            },
-            {
-              "toolId": "grill-me",
-              "label": "the same questioning without a project glossary",
-              "title": "grill-me"
-            }
-          ],
-          "processRelations": [
-            {
-              "processId": "ideation",
-              "processTitle": "Ideas and hypotheses",
-              "stageRef": "s1",
-              "stageTitle": "Gather the basis"
-            }
-          ],
-          "processRelation": {
-            "processId": "ideation",
-            "processTitle": "Ideas and hypotheses",
-            "stageRef": "s1",
-            "stageTitle": "Gather the basis"
-          },
-          "skillId": "grill-with-docs",
-          "start": "Provide the draft plan and project materials: code, notes, and prior decisions.",
-          "capabilities": [
-            "checks the plan's wording against the CONTEXT.md glossary",
-            "proposes a precise term in place of a vague one",
-            "tests disputed points against specific edge cases",
-            "looks for discrepancies between the author's description and the code's behavior",
-            "records an agreed term in CONTEXT.md immediately rather than accumulating pending edits"
-          ],
-          "outcomes": [
-            "clarified plan",
-            "updated project glossary",
-            "decision record when justified"
-          ],
-          "useCases": "When a plan uses vague terms or may conflict with existing decisions.",
-          "important": [
-            "does not turn the glossary into a technical specification",
-            "does not make product decisions for the author"
-          ]
-        },
-        {
-          "id": "new-paper",
-          "title": "new-paper",
-          "type": "Skill",
-          "role": "Creates an Obsidian card for a new idea, with links to people and a storage mapping. Does not create a code folder.",
-          "when": "When you need to register an idea or paper without a separate filesystem folder.",
-          "inputs": [
-            "title and brief idea, or an arXiv URL",
-            "coauthors and students",
-            "organization, conference, type, status, topic tags"
-          ],
-          "inside": [
-            "delegates the whole task to a separate agent using the haiku model",
-            "collects existing vault tags first",
-            "derives a slug from the title",
-            "creates or updates people cards and adds backlinks",
-            "registers the project route in ~/.claude/obsidian-projects.json"
-          ],
-          "outputs": [
-            "new idea card in Obsidian",
-            "linked or newly created people cards",
-            "routing entry, verified by reading it back"
-          ],
-          "writes": "Personal Obsidian vault and ~/.claude/obsidian-projects.json",
-          "gates": [
-            "reuses existing people cards rather than duplicating them",
-            "uses established vault tags",
-            "reads back the routing entry"
-          ],
-          "limits": [
-            "does not create a project folder on disk",
-            "does not create a shared database project or launch anything"
-          ],
-          "links": [
-            {
-              "label": "Skill source",
-              "url": "https://github.com/Vepricov/claude-brainlab/blob/main/skills/new-paper/SKILL.md"
-            }
-          ],
-          "adoption": {
-            "kind": "toolkit-skill",
-            "invoke": "$new-paper",
-            "install": [
-              "git clone --depth 1 https://github.com/Vepricov/claude-brainlab.git ~/claude-brainlab",
-              "mkdir -p ~/.claude/skills",
-              "cp -R ~/claude-brainlab/skills/new-paper ~/.claude/skills/",
-              "# restart Claude Code, then run /new-paper"
-            ]
-          },
-          "nonInstallable": false,
-          "usedBy": [
-            {
-              "name": "Researcher and research agent",
-              "role": "create a place for the idea to accumulate context"
-            }
-          ],
-          "relations": [
-            {
-              "toolId": "hypothesize",
-              "label": "provides the card from which the command gathers context",
-              "title": "/hypothesize"
-            },
-            {
-              "toolId": "research-ideation",
-              "label": "works alongside it at the same stage",
-              "title": "research-ideation"
-            }
-          ],
-          "processRelations": [
-            {
-              "processId": "ideation",
-              "processTitle": "Ideas and hypotheses",
-              "stageRef": "s1",
-              "stageTitle": "Gather the basis"
-            }
-          ],
-          "processRelation": {
-            "processId": "ideation",
-            "processTitle": "Ideas and hypotheses",
-            "stageRef": "s1",
-            "stageTitle": "Gather the basis"
-          },
-          "skillId": "new-paper",
-          "start": "Describe the paper idea, its working title, and its place among your projects.",
-          "capabilities": [
-            "delegates the whole task to a separate agent using the haiku model",
-            "collects existing vault tags first",
-            "derives a slug from the title",
-            "creates or updates people cards and adds backlinks",
-            "registers the project route in ~/.claude/obsidian-projects.json"
-          ],
-          "outcomes": [
-            "new idea card in Obsidian",
-            "linked or newly created people cards",
-            "routing entry, verified by reading it back"
-          ],
-          "useCases": "When you need to register an idea or paper without a separate filesystem folder.",
-          "important": [
-            "does not create a project folder on disk",
-            "does not create a shared database project or launch anything"
-          ]
-        },
-        {
-          "id": "miro",
-          "title": "Miro",
-          "type": "MCP server",
-          "role": "A shared visual board for discussing ideas. Through MCP, an agent can turn a research description into a diagram of nodes, groups, and connections that participants can then edit directly in Miro.",
-          "when": "When alternatives and their connections are easier to see than to read.",
-          "inputs": [
-            "A board link or a request to create one.",
-            "Ideas, groups, and connections to show.",
-            "A Miro connection with access to the selected board."
-          ],
-          "inside": [
-            "Reads an accessible board or creates one on request. Clarifies which ideas and connections belong in the diagram.",
-            "Organizes material into frames and adds cards, sticky notes, and connections. Each object has an ID so it can be updated individually.",
-            "Reads back the content after changes. Participants' edits become available to the agent on the next read.",
-            "Leaves a board link for discussion. Conclusions from the diagram can later become separate project notes or research records."
-          ],
-          "outputs": [
-            "Miro board with an idea diagram",
-            "board link"
-          ],
-          "writes": "The selected board in the Miro workspace.",
-          "gates": [
-            "Existing objects are changed by ID; results are verified by reading the board.",
-            "Permissions are bounded by the connection's access and the owner's instructions."
-          ],
-          "limits": [
-            "Available operations depend on the connected MCP and board permissions.",
-            "A diagram card does not automatically become an MCP research record or a Yonote assignment."
-          ],
-          "links": [
-            {
-              "label": "GitHub repository",
-              "url": "https://github.com/k-jarzyna/mcp-miro"
-            }
-          ],
-          "adoption": {
-            "kind": "source-only",
-            "invoke": "claude mcp add miro -s user -e MIRO_ACCESS_TOKEN=<token> -- npx -y @k-jarzyna/mcp-miro",
-            "install": [
-              "claude mcp add miro -s user -e MIRO_ACCESS_TOKEN=<your Miro key> -- npx -y @k-jarzyna/mcp-miro"
-            ],
-            "installNote": "Create the key in your own Miro application. It is stored as plain text in ~/.claude.json."
-          },
-          "usedBy": [
-            {
-              "name": "Researcher and research agent",
-              "role": "arrange competing explanations and their connections on one board"
-            }
-          ],
-          "relations": [
-            {
-              "toolId": "grill-me",
-              "label": "passes the organized alternatives for examination",
-              "title": "grill-me"
-            }
-          ],
-          "processRelations": [
-            {
-              "processId": "ideation",
-              "processTitle": "Ideas and hypotheses",
-              "stageRef": "s2",
-              "stageTitle": "Develop alternatives"
-            }
-          ],
-          "processRelation": {
-            "processId": "ideation",
-            "processTitle": "Ideas and hypotheses",
-            "stageRef": "s2",
-            "stageTitle": "Develop alternatives"
-          },
-          "visual": {
-            "kind": "routes",
-            "label": "Alternatives become a visible diagram",
-            "nodes": [
-              "Idea nodes",
-              "Connections between them",
-              "Miro board",
-              "Human edits are read back"
-            ]
-          },
-          "start": "Provide a board link and ask for a discussion diagram. Writing requires a Miro connection with access to that board.",
-          "capabilities": [
-            "Reads an accessible board or creates one on request. Clarifies which ideas and connections belong in the diagram.",
-            "Organizes material into frames and adds cards, sticky notes, and connections. Each object has an ID so it can be updated individually.",
-            "Reads back the content after changes. Participants' edits become available to the agent on the next read.",
-            "Leaves a board link for discussion. Conclusions from the diagram can later become separate project notes or research records."
-          ],
-          "outcomes": [
-            "Miro board with an idea diagram",
-            "board link"
-          ],
-          "useCases": "When alternatives and their connections are easier to see than to read.",
-          "important": [
-            "Available operations depend on the connected MCP and board permissions.",
-            "A diagram card does not automatically become an MCP research record or a Yonote assignment."
-          ],
-          "purpose": "A shared visual board for discussing ideas. Through MCP, an agent can turn a research description into a diagram of nodes, groups, and connections that participants can then edit directly in Miro."
-        },
-        {
-          "id": "grill-me",
-          "title": "grill-me",
-          "type": "Skill",
-          "role": "Questions the author about a plan until there is a shared understanding, one question at a time, with a recommended answer for each.",
-          "when": "Before committing to a claim or an expensive plan.",
-          "inputs": [
-            "draft claim or plan",
-            "assumptions",
-            "proposed validation method"
-          ],
-          "inside": [
-            "walks the decision tree, resolving dependencies in order",
-            "asks strictly one question at a time",
-            "offers a recommended answer to each question",
-            "checks the code for answers it can provide instead of asking"
-          ],
-          "outputs": [
-            "resolved decision points in the plan",
-            "clarified formulation"
-          ],
-          "writes": "Current personal draft",
-          "gates": [
-            "does not ask a question if the answer is in the code"
-          ],
-          "limits": [
-            "does not replace validation through a run",
-            "writes nothing to the shared database"
-          ],
-          "links": [
-            {
-              "label": "Skill source",
-              "url": "https://github.com/Vepricov/claude-brainlab/blob/main/skills/grill-me/SKILL.md"
-            }
-          ],
-          "adoption": {
-            "kind": "toolkit-skill",
-            "invoke": "$grill-me",
-            "install": [
-              "git clone --depth 1 https://github.com/Vepricov/claude-brainlab.git ~/claude-brainlab",
-              "mkdir -p ~/.claude/skills",
-              "cp -R ~/claude-brainlab/skills/grill-me ~/.claude/skills/",
-              "# restart Claude Code, then run /grill-me"
-            ]
-          },
-          "nonInstallable": false,
-          "usedBy": [
-            {
-              "name": "Researcher and research agent",
-              "role": "examine the plan's decision points until ambiguities are resolved"
-            }
-          ],
-          "relations": [
-            {
-              "toolId": "grill-with-docs",
-              "label": "the same questioning workflow, grounded in the project glossary",
-              "title": "grill-with-docs"
-            },
-            {
-              "toolId": "lab-knowledge-hypothesis",
-              "label": "passes the result to the next stage",
-              "title": "Lab Knowledge: claims"
-            }
-          ],
-          "processRelations": [
-            {
-              "processId": "ideation",
-              "processTitle": "Ideas and hypotheses",
-              "stageRef": "s4",
-              "stageTitle": "Check the formulation"
-            }
-          ],
-          "processRelation": {
-            "processId": "ideation",
-            "processTitle": "Ideas and hypotheses",
-            "stageRef": "s4",
-            "stageTitle": "Check the formulation"
-          },
-          "cardTitle": "Examine an idea through questions",
-          "catalogSummary": "Clarify assumptions and make decisions before implementation.",
-          "skillId": "grill-me",
-          "start": "Describe the idea or provide the plan you want to examine through questions.",
-          "capabilities": [
-            "walks the decision tree, resolving dependencies in order",
-            "asks strictly one question at a time",
-            "offers a recommended answer to each question",
-            "checks the code for answers it can provide instead of asking"
-          ],
-          "outcomes": [
-            "resolved decision points in the plan",
-            "clarified formulation"
-          ],
-          "useCases": "Before committing to a claim or an expensive plan.",
-          "important": [
-            "does not replace validation through a run",
-            "writes nothing to the shared database"
-          ]
-        },
-        {
-          "id": "autoresearch",
-          "title": "autoresearch",
-          "type": "Laboratory package",
-          "role": "Work in progress",
-          "links": [],
-          "adoption": {
-            "kind": "internal",
-            "invoke": "",
-            "install": []
-          },
-          "usedBy": [
-            {
-              "name": "Researcher",
-              "role": "Work in progress"
-            }
-          ],
-          "processRelations": [
-            {
-              "processId": "ideation",
-              "processTitle": "Ideas and hypotheses",
-              "stageRef": "s6",
-              "stageTitle": "Choose the validation route"
-            }
-          ],
-          "processRelation": {
-            "processId": "ideation",
-            "processTitle": "Ideas and hypotheses",
-            "stageRef": "s6",
-            "stageTitle": "Choose the validation route"
-          },
-          "status": "in-development",
-          "externalResources": [
-            {
-              "label": "ResearcherOS",
-              "url": "https://github.com/ZoyaV/ReseacherOS/tree/main"
-            }
-          ]
-        },
-        {
-          "id": "lab-knowledge-hypothesis",
-          "title": "Lab Knowledge: claims",
-          "type": "Shared system",
-          "role": "Stores an approved claim and connects it to its source, runs, measurements, and rules.",
-          "when": "When a person has reviewed the formulation.",
-          "inputs": [
-            "project",
-            "formulation",
-            "falsification criterion",
-            "source"
-          ],
-          "inside": [
-            "requires a falsification criterion; without one, this is an opinion rather than a testable claim",
-            "assigns a code such as H-WBD-042 for referring to the record",
-            "tracks status through draft, proposed, under test, and supported or refuted",
-            "stores the verdict on the measurement–claim relationship, not as a flag inside the record",
-            "links the claim to a paper claim through link_paper"
-          ],
-          "outputs": [
-            "claim record with a stable code",
-            "links to runs, measurements, and rules"
-          ],
-          "writes": "Shared laboratory database through MCP",
-          "gates": [
-            "source and author are required",
-            "rejects status transitions outside the defined sequence",
-            "searches for possible duplicates before writing"
-          ],
-          "limits": [
-            "the record itself does not mean the claim is confirmed",
-            "full personal notes are not stored here"
-          ],
-          "links": [
-            {
-              "label": "Database structure",
-              "url": "https://github.com/Vepricov/claude-brainlab/blob/main/docs/knowledge-base.md"
-            }
-          ],
-          "adoption": {
-            "kind": "internal",
-            "invoke": "Through the connected shared laboratory database",
-            "installNote": "Hypotheses are written to the private Lab Knowledge service. The owner grants access and project permissions."
-          },
-          "purpose": "",
-          "afterSetup": "Store testable claims in shared memory and see how each was resolved.",
-          "nonInstallable": true,
-          "usedBy": [
-            {
-              "name": "Researcher and research agent",
-              "role": "place an approved claim where others can find it"
-            }
-          ],
-          "relations": [
-            {
-              "toolId": "publish-hypothesis",
-              "label": "works alongside it at the same stage",
-              "title": "/publish-hypothesis"
-            }
-          ],
-          "processRelations": [
-            {
-              "processId": "ideation",
-              "processTitle": "Ideas and hypotheses",
-              "stageRef": "s5",
-              "stageTitle": "Publish the claim"
-            }
-          ],
-          "processRelation": {
-            "processId": "ideation",
-            "processTitle": "Ideas and hypotheses",
-            "stageRef": "s5",
-            "stageTitle": "Publish the claim"
-          },
-          "start": "Describe the claim, project, and result that would refute it. The agent prepares the appropriate research record and saves it through MCP.",
-          "capabilities": [
-            "requires a falsification criterion; without one, this is an opinion rather than a testable claim",
-            "assigns a code such as H-WBD-042 for referring to the record",
-            "tracks status through draft, proposed, under test, and supported or refuted",
-            "stores the verdict on the measurement–claim relationship, not as a flag inside the record",
-            "links the claim to a paper claim through link_paper"
-          ],
-          "outcomes": [
-            "claim record with a stable code",
-            "links to runs, measurements, and rules"
-          ],
-          "useCases": "When a person has reviewed the formulation.",
-          "important": [
-            "the record itself does not mean the claim is confirmed",
-            "full personal notes are not stored here"
-          ]
-        },
-        {
-          "id": "publish-hypothesis",
-          "title": "/publish-hypothesis",
-          "type": "Command",
-          "role": "Publishes one Obsidian note as a shared claim after a duplicate search and explicit approval.",
-          "when": "When a formulation is already in a specific note and ready to be shared.",
-          "inputs": [
-            "unambiguous path to the note in the vault",
-            "formulation and falsification criterion",
-            "project and related materials"
-          ],
-          "inside": [
-            "reads the note without modifying it",
-            "flags secrets, personal data, and private passages",
-            "searches for exact and semantic duplicates through search_lab",
-            "shows a preview: create or update, project, formulation, and omitted content",
-            "after approval, calls publish_source_note and create_hypothesis, then reads back the record"
-          ],
-          "outputs": [
-            "stable claim code",
-            "verified shared record or a precise reason for rejection"
-          ],
-          "writes": "Shared database; the note remains a private source",
-          "gates": [
-            "duplicate search completed",
-            "private passages excluded",
-            "a person approved this exact preview",
-            "created record read back"
-          ],
-          "limits": [
-            "does not publish if the current note is not identified unambiguously",
-            "does not turn another paper's claim into our measurement",
-            "does not create tasks or change a claim's assessment"
-          ],
-          "links": [],
-          "adoption": {
-            "kind": "private",
-            "invoke": "/publish-hypothesis <note path>; the command file is not published in the public repository and lives locally at ~/.claude/commands/publish-hypothesis.md",
-            "installNote": "The commands/publish-hypothesis.md file is excluded by .gitignore. It is supplied with Lab Knowledge access; ask the owner."
-          },
-          "nonInstallable": false,
-          "usedBy": [
-            {
-              "name": "Researcher and research agent",
-              "role": "transfer a prepared formulation from personal notes to the shared database"
-            }
-          ],
-          "relations": [
-            {
-              "toolId": "lab-knowledge-hypothesis",
-              "label": "works alongside it at the same stage",
-              "title": "Lab Knowledge: claims"
-            }
-          ],
-          "processRelations": [
-            {
-              "processId": "ideation",
-              "processTitle": "Ideas and hypotheses",
-              "stageRef": "s5",
-              "stageTitle": "Publish the claim"
-            }
-          ],
-          "processRelation": {
-            "processId": "ideation",
-            "processTitle": "Ideas and hypotheses",
-            "stageRef": "s5",
-            "stageTitle": "Publish the claim"
-          },
-          "start": "Select a prepared hypothesis and confirm that it may be sent to the specified project's shared database.",
-          "capabilities": [
-            "reads the note without modifying it",
-            "flags secrets, personal data, and private passages",
-            "searches for exact and semantic duplicates through search_lab",
-            "shows a preview: create or update, project, formulation, and omitted content",
-            "after approval, calls publish_source_note and create_hypothesis, then reads back the record"
-          ],
-          "outcomes": [
-            "stable claim code",
-            "verified shared record or a precise reason for rejection"
-          ],
-          "useCases": "When a formulation is already in a specific note and ready to be shared.",
-          "important": [
-            "does not publish if the current note is not identified unambiguously",
-            "does not turn another paper's claim into our measurement",
-            "does not create tasks or change a claim's assessment"
-          ]
         }
       ],
       "outcomeRefs": [
         {
           "ref": "o1",
-          "label": "A claim with a stable H-* code."
-        },
-        {
-          "ref": "o2",
-          "label": "Explicit assumptions and competing explanations."
-        },
-        {
-          "ref": "o3",
-          "label": "A prediction and falsification criterion."
-        },
-        {
-          "ref": "o4",
-          "label": "A link to the source literature, run, or meeting."
+          "label": "A question, alternatives, and the next testable step."
         }
       ],
       "toolClusters": [
         {
-          "id": "explore",
-          "title": "Basis and question",
+          "id": "question",
+          "title": "Frame a research question",
           "stageRef": "s1",
           "toolIds": [
-            "research-ideation"
+            "research-ideation",
+            "hypothesize"
           ]
         },
         {
-          "id": "challenge",
-          "title": "Checking the formulation",
-          "stageRef": "s4",
-          "toolIds": [
-            "grill-me"
-          ]
-        },
-        {
-          "id": "loop",
-          "title": "Autonomous loop",
-          "stageRef": "s6",
+          "id": "research",
+          "title": "Develop ideas",
+          "stageRef": "s2",
           "toolIds": [
             "autoresearch"
           ]
@@ -8622,9 +8223,7 @@ window.RESEARCH_LOOP = {
           "stage": "s1",
           "tools": [
             "research-ideation",
-            "hypothesize",
-            "grill-with-docs",
-            "new-paper"
+            "hypothesize"
           ],
           "destinations": [],
           "outcomes": [],
@@ -8634,220 +8233,37 @@ window.RESEARCH_LOOP = {
           "id": "r2",
           "stage": "s2",
           "tools": [
-            "miro",
             "autoresearch"
           ],
           "destinations": [],
-          "outcomes": [],
-          "qa": []
-        },
-        {
-          "id": "r3",
-          "stage": "s3",
-          "tools": [
-            "autoresearch"
-          ],
-          "destinations": [],
-          "outcomes": [
-            "o2",
-            "o3"
-          ],
-          "qa": []
-        },
-        {
-          "id": "r4",
-          "stage": "s4",
-          "tools": [
-            "grill-me"
-          ],
-          "destinations": [
-            "d1"
-          ],
-          "outcomes": [],
-          "qa": []
-        },
-        {
-          "id": "r5",
-          "stage": "s5",
-          "tools": [
-            "lab-knowledge-hypothesis",
-            "publish-hypothesis"
-          ],
-          "destinations": [
-            "d2"
-          ],
           "outcomes": [
             "o1"
           ],
           "qa": []
-        },
-        {
-          "id": "r6",
-          "stage": "s6",
-          "tools": [
-            "autoresearch"
-          ],
-          "destinations": [],
-          "outcomes": [
-            "o4"
-          ],
-          "qa": []
         }
       ],
-      "toMcp": {
-        "lead": "The shared outputs are a claim with a falsification criterion and a proof instead of a run.",
-        "paths": [
-          {
-            "id": "hypothesis",
-            "actor": "person",
-            "title": "Claim with a falsification criterion",
-            "line": "draft → duplicate check → source → H-* claim → external paper as its basis",
-            "chain": [
-              {
-                "lane": "work",
-                "title": "Draft in the Hypotheses folder",
-                "stageRef": "s1",
-                "destRef": "d1",
-                "detail": "Formulation, mechanism, assumptions, and falsification criterion."
-              },
-              {
-                "lane": "work",
-                "title": "Duplicate check",
-                "stageRef": "s4",
-                "detail": "search_lab looks for the same idea; a person previews the exact record.",
-                "via": {
-                  "tool": "publish-hypothesis",
-                  "type": "command"
-                }
-              },
-              {
-                "lane": "record",
-                "kind": "source",
-                "code": "—",
-                "title": "Claim source",
-                "ref": "object:source-ref",
-                "destRef": "d2",
-                "detail": "Draft location and title; if omitted, the database uses the day's source.",
-                "via": {
-                  "tool": "publish_source_note",
-                  "type": "mcp",
-                  "gate": "human approval"
-                }
-              },
-              {
-                "lane": "record",
-                "kind": "claim",
-                "code": "H-*",
-                "title": "Laboratory claim",
-                "ref": "object:hypothesis",
-                "destRef": "d2",
-                "items": [
-                  "a falsification criterion is required; records without one are rejected",
-                  "starts with draft status; a person advances it",
-                  "kind: empirical or theoretical"
-                ],
-                "via": {
-                  "tool": "create_hypothesis",
-                  "type": "mcp"
-                }
-              },
-              {
-                "lane": "tie",
-                "title": "External paper as a basis",
-                "ref": "object:paper",
-                "detail": "prior_art, contradicts, baseline. It does not resolve our claim.",
-                "via": {
-                  "tool": "link_paper",
-                  "type": "mcp"
-                }
-              }
-            ]
-          },
-          {
-            "id": "derivation",
-            "actor": "person",
-            "title": "Proof instead of a run",
-            "line": "written derivation → D-* derivation → theoretical claim",
-            "chain": [
-              {
-                "lane": "work",
-                "title": "Written derivation",
-                "destRef": "d1",
-                "detail": "Assumptions, reasoning, and established result."
-              },
-              {
-                "lane": "record",
-                "kind": "derivation",
-                "code": "D-*",
-                "title": "Proof of the claim",
-                "ref": "object:derivation",
-                "destRef": "d2",
-                "items": [
-                  "hypothesis_id is required: the proof addresses the claim in place of a run",
-                  "completeness: sketch, complete, verified, or gap",
-                  "a gap in the argument is recorded as gap, not left unmentioned"
-                ],
-                "via": {
-                  "tool": "record_derivation",
-                  "type": "mcp"
-                }
-              }
-            ]
-          }
-        ],
-        "kept": [
-          "drafts in the Hypotheses folder and rejected approaches",
-          "IdeaGraph and autoresearch",
-          "Miro board and grill-me transcripts"
-        ],
-        "hook": true
-      },
       "mapFeatured": [
-        "research-ideation",
         "autoresearch",
-        "grill-me"
+        "research-ideation"
       ],
       "constellation": {
-        "core": "research-ideation",
-        "caption": "From a question to a testable hypothesis",
+        "core": "autoresearch",
+        "caption": "Idea graph · development · review",
         "groups": [
           {
-            "area": "nw",
-            "title": "Examine the idea",
+            "area": "west",
+            "title": "Frame a research question",
+            "independent": true,
             "toolIds": [
-              "grill-me",
-              "grill-with-docs"
-            ]
-          },
-          {
-            "area": "ne",
-            "title": "Develop ideas",
-            "toolIds": [
-              "autoresearch",
+              "research-ideation",
               "hypothesize"
             ]
           },
           {
-            "area": "west",
-            "title": "Think visually",
-            "toolIds": [
-              "miro"
-            ]
-          },
-          {
             "area": "east",
-            "title": "Register the project",
-            "toolIds": [
-              "new-paper"
-            ]
-          },
-          {
-            "area": "south",
-            "title": "Shared knowledge",
-            "toolIds": [
-              "lab-knowledge-hypothesis",
-              "publish-hypothesis"
-            ]
+            "title": "",
+            "externalFrom": "autoresearch",
+            "toolIds": []
           }
         ]
       }
@@ -9341,28 +8757,30 @@ window.RESEARCH_LOOP = {
           "title": "Yonote",
           "type": "Work system",
           "role": "After approval, publishes two separate outputs: a short meeting note and individual tasks with assignees and deadlines.",
-          "when": "After the action list is approved.",
+          "when": "After the meeting summary and task assignments are approved and the Yonote project binding is confirmed.",
           "inputs": [
-            "task title",
-            "assignee",
-            "deadline",
-            "source meeting"
+            "Confirmed Yonote project and board binding.",
+            "Approved meeting summary, date, and source meeting.",
+            "Agreed tasks, assignees, and explicitly stated deadlines."
           ],
           "inside": [
-            "checks the board's project binding",
-            "creates or reuses the “Meetings” section",
-            "publishes a “Meeting DD-MM-YYYY” note",
-            "turns approved actions into project tasks",
-            "reads back documents and task rows"
+            "Checks the project and board binding and the assignees.",
+            "Creates or reuses the CODE · Calls section.",
+            "Saves the approved summary in CODE · Call DD-MM-YYYY without duplicating it on a repeated publication.",
+            "Adds a link to the meeting summary on the project page.",
+            "Saves agreed actions separately as tasks on the project's existing board.",
+            "Reads back the document, the link on the project page, and the saved tasks."
           ],
           "outputs": [
-            "link to the short meeting note",
-            "verified task rows"
+            "A link to the approved meeting summary.",
+            "A link to the meeting summary from the project page.",
+            "Verified tasks with assignees and any stated deadlines."
           ],
-          "writes": "The project's “Meetings” and “Tasks” sections in Yonote",
+          "writes": "The CODE · Calls section, project page, and existing CODE · Tasks board in Yonote.",
           "gates": [
             "board binding and assignee are verified",
-            "if the shared database offers no task operation, tasks remain incomplete rather than being reported as created"
+            "if the shared database offers no task operation, tasks remain incomplete rather than being reported as created",
+            "A person approves the meeting summary and assignments before publication."
           ],
           "limits": [
             "the full transcript and private discussion stay in Obsidian",
@@ -9377,7 +8795,7 @@ window.RESEARCH_LOOP = {
           "adoption": {
             "kind": "internal",
             "invoke": "Through the connected laboratory workspace",
-            "installNote": "Meeting tasks go to the private Yonote workspace. The owner grants access."
+            "installNote": "Meeting summaries and tasks are stored in the laboratory's private Yonote workspace; project access is required."
           },
           "nonInstallable": false,
           "usedBy": [
@@ -9402,28 +8820,30 @@ window.RESEARCH_LOOP = {
               "processId": "calls",
               "processTitle": "Meetings",
               "stageRef": "s5",
-              "stageTitle": "Route the result"
+              "stageTitle": "Publish to the right destinations"
             }
           ],
           "processRelation": {
             "processId": "calls",
             "processTitle": "Meetings",
             "stageRef": "s5",
-            "stageTitle": "Route the result"
+            "stageTitle": "Publish to the right destinations"
           },
           "start": "Approve a meeting summary the team can understand and the task assignments. The agent writes them to the existing Yonote project.",
           "capabilities": [
-            "checks the board's project binding",
-            "creates or reuses the “Meetings” section",
-            "publishes a “Meeting DD-MM-YYYY” note",
-            "turns approved actions into project tasks",
-            "reads back documents and task rows"
+            "Checks the project and board binding and the assignees.",
+            "Creates or reuses the CODE · Calls section.",
+            "Saves the approved summary in CODE · Call DD-MM-YYYY without duplicating it on a repeated publication.",
+            "Adds a link to the meeting summary on the project page.",
+            "Saves agreed actions separately as tasks on the project's existing board.",
+            "Reads back the document, the link on the project page, and the saved tasks."
           ],
           "outcomes": [
-            "link to the short meeting note",
-            "verified task rows"
+            "A link to the approved meeting summary.",
+            "A link to the meeting summary from the project page.",
+            "Verified tasks with assignees and any stated deadlines."
           ],
-          "useCases": "After the action list is approved.",
+          "useCases": "After the meeting summary and task assignments are approved and the Yonote project binding is confirmed.",
           "important": [
             "the full transcript and private discussion stay in Obsidian",
             "a meeting note or completed task is not a research measurement"
@@ -9484,6 +8904,14 @@ window.RESEARCH_LOOP = {
           "stageRef": "s5",
           "toolIds": [
             "call-notes"
+          ]
+        },
+        {
+          "id": "meeting-publication",
+          "title": "Meeting summary and tasks",
+          "stageRef": "s5",
+          "toolIds": [
+            "yonote-call"
           ]
         }
       ],
@@ -9831,6 +9259,12 @@ window.RESEARCH_LOOP = {
           "summary": "Configurations, order and who is responsible: a person or the project agent.",
           "result": "Run queue",
           "ref": "s3"
+        },
+        {
+          "ref": "s-code",
+          "title": "Check code changes",
+          "summary": "If the code changed, run the relevant project checks before starting the series.",
+          "result": "A checked diff or specific failures"
         },
         {
           "title": "Launch and confirm progress",
@@ -10277,9 +9711,9 @@ window.RESEARCH_LOOP = {
         {
           "id": "handoff-to-jarvis",
           "title": "handoff-to-jarvis",
-          "type": "Skill",
-          "role": "Hands off or continues autonomous project work through its existing Hermes agent. Preserves the goal, context, authority boundaries and acceptance criteria so the worker can continue without an open chat on the laptop.",
-          "when": "Runs are launched and checked, and the laptop is about to close.",
+          "type": "Laboratory setup",
+          "role": "In the installed laboratory setup, hands off or resumes project work through its existing Hermes agent. Transfers the goal, context, permitted resources, and completion criterion, then verifies acceptance and actual work.",
+          "when": "When work needs to continue through a configured Hermes profile with confirmed access to the project and resources.",
           "inputs": [
             "Project, goal and a verifiable completion criterion.",
             "Canonical files, the existing worker's profile and the notification route.",
@@ -10303,35 +9737,29 @@ window.RESEARCH_LOOP = {
             "Handoff receipt and actual work are verified separately."
           ],
           "limits": [
-            "Handoff infrastructure is configured separately. Installing the skill does not deploy Hermes.",
-            "Historical OpenClaw instructions do not replace checking the current runtime."
+            "Requires an active Hermes profile, a configured intake mechanism, and access to the project's resources.",
+            "The public profile prompts do not deploy the laboratory's handoff infrastructure."
           ],
           "links": [
             {
-              "label": "Skill source",
-              "url": "https://github.com/Vepricov/claude-brainlab/blob/main/skills/handoff-to-jarvis/SKILL.md"
+              "label": "Public Hermes profile prompts",
+              "url": "https://github.com/brain-lab-research/hermes-prompts"
             }
           ],
           "adoption": {
-            "kind": "toolkit-skill",
-            "invoke": "$handoff-to-jarvis",
-            "install": [
-              "git clone --depth 1 https://github.com/Vepricov/claude-brainlab.git ~/claude-brainlab",
-              "mkdir -p ~/.claude/skills",
-              "cp -R ~/claude-brainlab/skills/handoff-to-jarvis ~/.claude/skills/",
-              "# restart Claude Code, then use /handoff-to-jarvis"
-            ],
-            "installNote": "A separately configured server worker is required. Handoff follows the installed profile's current instructions. A skill file alone does not create this infrastructure."
+            "kind": "internal",
+            "invoke": "$handoff-to-jarvis in the configured laboratory installation",
+            "installNote": "The current workflow uses the installed laboratory instructions and an active Hermes profile. The public prompts can be explored separately; a complete public installation of this workflow is not yet available."
           },
-          "nonInstallable": false,
+          "nonInstallable": true,
           "usedBy": [
             {
               "name": "Researcher",
-              "role": "hands over the running series and specifies thresholds"
+              "role": "Defines the goal, limits of autonomous work, and completion criterion."
             },
             {
               "name": "Project agent on the server",
-              "role": "accepts the series and continues it"
+              "role": "Accepts the assignment within its profile's scope and continues the work."
             }
           ],
           "relations": [
@@ -10364,7 +9792,7 @@ window.RESEARCH_LOOP = {
           "catalogSummary": "Transfer context and responsibility to the project agent.",
           "skillId": "handoff-to-jarvis",
           "start": "Specify the project, goal, completion criterion and permitted resources. Ask it to continue through the existing Hermes agent and verify that the assignment was accepted.",
-          "purpose": "Hands off or continues autonomous project work through its existing Hermes agent. Preserves the goal, context, authority boundaries and acceptance criteria so the worker can continue without an open chat on the laptop.",
+          "purpose": "In the installed laboratory setup, hands off or resumes project work through its existing Hermes agent. Transfers the goal, context, permitted resources, and completion criterion, then verifies acceptance and actual work.",
           "capabilities": [
             "Reads canonical notes and checks project ownership, profile, servers and message destination.",
             "Continues through the existing worker or prepares a clean profile without copying another project's state.",
@@ -10376,10 +9804,10 @@ window.RESEARCH_LOOP = {
             "Artifact links and confirmation of receipt, or a precise description of the blocker."
           ],
           "important": [
-            "Handoff infrastructure is configured separately. Installing the skill does not deploy Hermes.",
-            "Historical OpenClaw instructions do not replace checking the current runtime."
+            "Requires an active Hermes profile, a configured intake mechanism, and access to the project's resources.",
+            "The public profile prompts do not deploy the laboratory's handoff infrastructure."
           ],
-          "useCases": "Runs are launched and checked, and the laptop is about to close."
+          "useCases": "When work needs to continue through a configured Hermes profile with confirmed access to the project and resources."
         },
         {
           "id": "watcher",
@@ -10703,7 +10131,7 @@ window.RESEARCH_LOOP = {
           "id": "verification-loop",
           "title": "verification-loop",
           "type": "Skill",
-          "role": "Runs the build, type checks, linter, tests, secret scan and final diff review. Commands are chosen for the project's stack rather than copied from a generic list.",
+          "role": "Selects and runs checks for a code change using the task requirements and the repository's commands. Reports what was checked, what failed, and what was not run.",
           "when": "After a substantial code change and before committing.",
           "inputs": [
             "the modified repository",
@@ -10711,15 +10139,15 @@ window.RESEARCH_LOOP = {
             "acceptance criteria and diff"
           ],
           "inside": [
-            "identifies the project stack",
-            "stops at the first failing phase",
-            "checks for exposed secrets and leftover debug code",
-            "reads the final diff"
+            "Identifies the expected behavior and finds checks in the project's configuration, scripts, and CI.",
+            "Selects tests, build, type, UI, or security checks relevant to the change.",
+            "Preserves exit codes and command output, distinguishing regressions from pre-existing failures.",
+            "Reviews the final diff and reruns affected checks after fixes."
           ],
           "outputs": [
-            "a report for each phase",
-            "exact failing commands",
-            "readiness confirmation or a list of blockers"
+            "The checks run and their results.",
+            "Exact failures and checks that could not be run.",
+            "The scope of what the checks establish."
           ],
           "writes": "Usually nothing except temporary build files",
           "gates": [
@@ -10727,7 +10155,8 @@ window.RESEARCH_LOOP = {
             "the diff meets the acceptance criteria"
           ],
           "limits": [
-            "does not establish correctness beyond the phases checked"
+            "Code checks do not establish a scientific conclusion or replace results analysis.",
+            "A skipped check is not a pass."
           ],
           "links": [
             {
@@ -10753,7 +10182,7 @@ window.RESEARCH_LOOP = {
             },
             {
               "name": "Project agent on the server",
-              "role": "runs verification phases after a code change"
+              "role": "Runs relevant checks after a code change."
             }
           ],
           "relations": [
@@ -10767,33 +10196,34 @@ window.RESEARCH_LOOP = {
             {
               "processId": "experiments",
               "processTitle": "Experiments",
-              "stageRef": "s6",
-              "stageTitle": "Monitor and respond"
+              "stageRef": "s-code",
+              "stageTitle": "Check code changes"
             }
           ],
           "processRelation": {
             "processId": "experiments",
             "processTitle": "Experiments",
-            "stageRef": "s6",
-            "stageTitle": "Monitor and respond"
+            "stageRef": "s-code",
+            "stageTitle": "Check code changes"
           },
           "skillId": "verification-loop",
-          "skySummary": "Checks code and results before the next step.",
+          "skySummary": "Checks for changed code and the scope of what they establish.",
           "start": "Specify the changes and completion criteria. Ask it to run the project's checks.",
           "capabilities": [
-            "identifies the project stack",
-            "stops at the first failing phase",
-            "checks for exposed secrets and leftover debug code",
-            "reads the final diff"
+            "Identifies the expected behavior and finds checks in the project's configuration, scripts, and CI.",
+            "Selects tests, build, type, UI, or security checks relevant to the change.",
+            "Preserves exit codes and command output, distinguishing regressions from pre-existing failures.",
+            "Reviews the final diff and reruns affected checks after fixes."
           ],
           "outcomes": [
-            "a report for each phase",
-            "exact failing commands",
-            "readiness confirmation or a list of blockers"
+            "The checks run and their results.",
+            "Exact failures and checks that could not be run.",
+            "The scope of what the checks establish."
           ],
           "useCases": "After a substantial code change and before committing.",
           "important": [
-            "does not establish correctness beyond the phases checked"
+            "Code checks do not establish a scientific conclusion or replace results analysis.",
+            "A skipped check is not a pass."
           ]
         },
         {
@@ -11550,7 +10980,8 @@ window.RESEARCH_LOOP = {
           "useCases": "Always applies. Read it before substantial work with an unfamiliar repository.",
           "important": [
             "the rule is not in the public repository. It exists only in the personal configuration"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "code-ingest",
@@ -11639,7 +11070,8 @@ window.RESEARCH_LOOP = {
           "important": [
             "the analysis is done once and repeated only after major changes to the source repository",
             "project-specific changes belong on the project page, not here"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "obsidian-code-library",
@@ -11708,7 +11140,8 @@ window.RESEARCH_LOOP = {
           "important": [
             "The personal vault's contents are not published with the skill.",
             "The library covers only repositories already analyzed. After code changes, check the notes against the current source."
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "code-library",
@@ -11789,7 +11222,8 @@ window.RESEARCH_LOOP = {
           "useCases": "When joining a project with code, before launching runs, or when you are unsure which tool to use.",
           "important": [
             "this is a reference. It creates nothing itself"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "architecture-design",
@@ -11859,7 +11293,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Helps add an ML component to an existing factory-and-registry architecture while following the project's interfaces and rules.",
           "important": [
             "Applies only where this pattern is needed"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "bug-detective",
@@ -11929,7 +11364,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Investigates a software failure from a reproducible symptom to a confirmed cause, then verifies the fix with the same scenario.",
           "important": [
             "Requires observations of a real failure"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "git-workflow",
@@ -11999,7 +11435,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Prepares a change for delivery through Git: a verified diff, meaningful commits, a branch and a pull request that follow repository rules.",
           "important": [
             "External actions stay within the authorized scope"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "git-guardrails-claude-code",
@@ -12069,7 +11506,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Installs Claude Code hooks that stop selected destructive Git commands before they execute.",
           "important": [
             "Protection covers only intercepted Claude Code operations"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "improve-codebase-architecture",
@@ -12139,7 +11577,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Examines difficult module boundaries in existing code and proposes concrete simplifications with their tradeoffs.",
           "important": [
             "A proposal does not authorize broad refactoring"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "prototype",
@@ -12209,7 +11648,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Builds a small temporary prototype to test one specific behavior or interface idea before full implementation.",
           "important": [
             "Not a production-ready implementation"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "setup-pre-commit",
@@ -12279,7 +11719,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Configures Husky and lint-staged to run selected checks automatically on changed files before a commit.",
           "important": [
             "Requires tools for the relevant stack"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "uv-package-manager",
@@ -12349,7 +11790,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Helps manage a Python project with uv: environment, dependencies, lockfile, script execution and packaging.",
           "important": [
             "Requires uv to be installed"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "zoom-out",
@@ -12419,7 +11861,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Explains the broader code structure around the current task: components, responsibilities, dependencies and data flow.",
           "important": [
             "Provides an overview, not a proof of implementation correctness"
-          ]
+          ],
+          "relations": []
         }
       ],
       "implementation": {
@@ -12487,8 +11930,8 @@ window.RESEARCH_LOOP = {
         },
         {
           "id": "reliability",
-          "title": "Verify the run outcome",
-          "stageRef": "s6",
+          "title": "Checks for changed code",
+          "stageRef": "s-code",
           "toolIds": [
             "verification-loop"
           ]
@@ -12580,8 +12023,7 @@ window.RESEARCH_LOOP = {
           "stage": "s6",
           "tools": [
             "run-monitoring",
-            "diagnose",
-            "verification-loop"
+            "diagnose"
           ],
           "destinations": [
             "d2"
@@ -12606,6 +12048,16 @@ window.RESEARCH_LOOP = {
             "o4",
             "o5"
           ],
+          "qa": []
+        },
+        {
+          "id": "r-code",
+          "stage": "s-code",
+          "tools": [
+            "verification-loop"
+          ],
+          "destinations": [],
+          "outcomes": [],
           "qa": []
         }
       ],
@@ -12762,7 +12214,7 @@ window.RESEARCH_LOOP = {
           },
           {
             "area": "ne",
-            "title": "Verify execution",
+            "title": "Check the code",
             "toolIds": [
               "verification-loop",
               "code-review",
@@ -13246,7 +12698,8 @@ window.RESEARCH_LOOP = {
             "Obsidian caches images by filename, so the name includes a timestamp",
             "a note open in the app can overwrite command-line changes",
             "lives in the project folder; no separate package is available"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "results-report",
@@ -14010,12 +13463,6 @@ window.RESEARCH_LOOP = {
           "what": "Internal review note in the project's mapped location",
           "why": "Review history for the author",
           "ref": "d4"
-        },
-        {
-          "name": "Lab Knowledge library",
-          "what": "Paper, its claims and links to our work",
-          "why": "Shared memory of other people's research",
-          "ref": "d5"
         }
       ],
       "controls": [
@@ -14577,11 +14024,6 @@ window.RESEARCH_LOOP = {
               "title": "citation-validator.py"
             },
             {
-              "toolId": "paper-claim-validator",
-              "label": "works alongside it at the same stage",
-              "title": "Paper claim record"
-            },
-            {
               "toolId": "ml-paper-writing",
               "label": "defines its reference-checking rules",
               "title": "ml-paper-writing"
@@ -14695,13 +14137,7 @@ window.RESEARCH_LOOP = {
               "role": "check bibliographic identity and citation key validity"
             }
           ],
-          "relations": [
-            {
-              "toolId": "paper-claim-validator",
-              "label": "works alongside it at the same stage",
-              "title": "Lab Knowledge PaperClaim validator"
-            }
-          ],
+          "relations": [],
           "processRelations": [
             {
               "processId": "writing",
@@ -14742,109 +14178,6 @@ window.RESEARCH_LOOP = {
             "checks that the key exists, not whether the paper supports your claim",
             "a placeholder such as % TODO cannot bypass the restriction: the hook cancels the write again"
           ]
-        },
-        {
-          "id": "paper-claim-validator",
-          "title": "Paper claim record",
-          "type": "MCP tools",
-          "role": "Helps turn an idea from a paper you have read into a separate claim in the shared database. Preserves the meaning in your own words, identifies the source and location in the paper, then links the claim to our work.",
-          "when": "After reading the full text, when a specific statement should become support, a comparison or a counterargument.",
-          "inputs": [
-            "The source you have read and the paper's identifier.",
-            "A claim in your own words and a location in the paper where it can be checked."
-          ],
-          "inside": [
-            "Checks that the paper exists in the MCP library and that a source is available for the claim.",
-            "Formulates one self-contained claim: what was shown, under which conditions and with which limitations.",
-            "Records the paraphrase and paper reference through record_paper_claim. A verbatim quotation is optional and is added only when useful.",
-            "If a quotation is included, its provenance and verification cannot be replaced by a match against someone else's summary.",
-            "Links the claim to a project or record as prior art, comparison, support or contradiction. Reads the saved object back."
-          ],
-          "outputs": [
-            "A paper claim with a source and stable ID.",
-            "A link to our work and explicit limits on the claim."
-          ],
-          "writes": "Lab Knowledge library. Our own claims and measurements stay unchanged",
-          "gates": [
-            "The paraphrase must reflect the source's meaning.",
-            "Verbatim accuracy is checked only for an actual quotation."
-          ],
-          "limits": [
-            "A paper's presence in the library does not validate every conclusion attributed to it.",
-            "There is no need to add a quotation or artificially lengthen a claim to meet a formal threshold."
-          ],
-          "links": [
-            {
-              "label": "Documentation",
-              "url": "https://github.com/Vepricov/claude-brainlab/blob/main/docs/knowledge-base.md"
-            }
-          ],
-          "adoption": {
-            "kind": "internal",
-            "invoke": "Through the connected Lab Knowledge MCP",
-            "installNote": "Claim checks run inside the private Lab Knowledge service. Its owner grants access."
-          },
-          "nonInstallable": false,
-          "usedBy": [
-            {
-              "name": "Literature Reviewer and paper agents",
-              "role": "check the corpus, text and claims made by other authors"
-            },
-            {
-              "name": "Writing and rebuttal agents",
-              "role": "check bibliographic identity and citation key validity"
-            }
-          ],
-          "relations": [
-            {
-              "toolId": "project-bibliography-gate",
-              "label": "works alongside it at the same stage",
-              "title": "citation-validator.py"
-            }
-          ],
-          "processRelations": [
-            {
-              "processId": "writing",
-              "processTitle": "Paper writing and review",
-              "stageRef": "s4a",
-              "stageTitle": "Verify every reference"
-            }
-          ],
-          "processRelation": {
-            "processId": "writing",
-            "processTitle": "Paper writing and review",
-            "stageRef": "s4a",
-            "stageTitle": "Verify every reference"
-          },
-          "visual": {
-            "kind": "path",
-            "label": "Another paper's claim stays separate from our own derivation",
-            "nodes": [
-              "Paper and its saved text",
-              "Claim and source",
-              "Structure and quotation check",
-              "Paper claim",
-              "Typed relationship"
-            ]
-          },
-          "start": "Provide the claim in your own words, the paper and the location supporting it. The agent saves the paper claim and links it to the project.",
-          "purpose": "Helps turn an idea from a paper you have read into a separate claim in the shared database. Preserves the meaning in your own words, identifies the source and location in the paper, then links the claim to our work.",
-          "capabilities": [
-            "Checks that the paper exists in the MCP library and that a source is available for the claim.",
-            "Formulates one self-contained claim: what was shown, under which conditions and with which limitations.",
-            "Records the paraphrase and paper reference through record_paper_claim. A verbatim quotation is optional and is added only when useful.",
-            "If a quotation is included, its provenance and verification cannot be replaced by a match against someone else's summary.",
-            "Links the claim to a project or record as prior art, comparison, support or contradiction. Reads the saved object back."
-          ],
-          "outcomes": [
-            "A paper claim with a source and stable ID.",
-            "A link to our work and explicit limits on the claim."
-          ],
-          "important": [
-            "A paper's presence in the library does not validate every conclusion attributed to it.",
-            "There is no need to add a quotation or artificially lengthen a claim to meet a formal threshold."
-          ],
-          "useCases": "After reading the full text, when a specific statement should become support, a comparison or a counterargument."
         },
         {
           "id": "astar-paper-review",
@@ -15144,7 +14477,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Turns an official conference LaTeX template archive into a clear project structure for writing and working in Overleaf.",
           "important": [
             "Works on template structure, not the paper's content"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "google-workspace-mcp",
@@ -15214,7 +14548,8 @@ window.RESEARCH_LOOP = {
           "purpose": "Helps an agent read and edit Google Docs and work with Drive through a configured MCP connection. Checks authorization when access fails.",
           "important": [
             "Requires a configured MCP connection and account permissions"
-          ]
+          ],
+          "relations": []
         }
       ],
       "outcomeRefs": [
@@ -15327,13 +14662,11 @@ window.RESEARCH_LOOP = {
           "stage": "s4a",
           "tools": [
             "citation-verification",
-            "project-bibliography-gate",
-            "paper-claim-validator"
+            "project-bibliography-gate"
           ],
           "destinations": [
             "d1",
-            "d3",
-            "d5"
+            "d3"
           ],
           "outcomes": [
             "o2"
@@ -15393,67 +14726,6 @@ window.RESEARCH_LOOP = {
         "ml-paper-writing",
         "astar-paper-review"
       ],
-      "toMcp": {
-        "lead": "Only claims from other papers and their links to our records become shared knowledge.",
-        "paths": [
-          {
-            "id": "citations",
-            "actor": "person",
-            "title": "Reference verification populates the library",
-            "line": "verified reference → paper claim → our record",
-            "chain": [
-              {
-                "lane": "work",
-                "title": "Verified reference in the text",
-                "stageRef": "s4a",
-                "destRef": "d5",
-                "detail": "The work has been found, its metadata match and the supporting paragraph has been read."
-              },
-              {
-                "lane": "record",
-                "kind": "paper claim",
-                "code": "—",
-                "title": "A claim from another paper",
-                "ref": "object:paper-claim",
-                "destRef": "d6",
-                "items": [
-                  "one self-contained claim in your own words",
-                  "source and location in the paper; quotation optional",
-                  "an explicitly included quotation is checked against its source",
-                  "a table fragment or notation list is rejected"
-                ],
-                "via": {
-                  "tool": "record_paper_claim",
-                  "type": "mcp"
-                }
-              },
-              {
-                "lane": "tie",
-                "title": "Our claim or run",
-                "ref": "object:hypothesis",
-                "detail": "prior_art, supports, contradicts, baseline, inspired, reproduces.",
-                "via": {
-                  "tool": "link_paper",
-                  "type": "mcp"
-                }
-              }
-            ]
-          }
-        ],
-        "nothing": {
-          "why": "The manuscript, comment register and reviewer response are documents, not database records. They remain in the paper repository. A rare exception is saving a manuscript through record_evidence with kind manuscript. This kind does not imply numerical measurements and therefore accepts an empty metrics field.",
-          "instead": "process:results",
-          "insteadLabel": "05 Results → measurement R-*",
-          "back": "search_lab and get_paper provide record codes and citation keys for the text"
-        },
-        "kept": [
-          "manuscript and references.bib in the paper repository",
-          "comment register and reviewer response working directory",
-          "astar-paper-review reports and literature review",
-          "a .tex edit with an unregistered key: citation-validator.py cancels it, and nothing enters the database"
-        ],
-        "hook": true
-      },
       "spotlight": {
         "lead": "For scientific review and reviewer responses, use the lab's two original skills: astar-paper-review and review-response. Manuscript writing, coherence and style checks are shown separately on the map above.",
         "toolIds": [
@@ -15594,12 +14866,11 @@ window.RESEARCH_LOOP = {
             "externalFrom": "astar-paper-review"
           },
           {
-            "title": "Sources and claims",
+            "title": "Bibliography keys",
             "area": "sources",
             "core": "citation-verification",
             "toolIds": [
-              "project-bibliography-gate",
-              "paper-claim-validator"
+              "project-bibliography-gate"
             ]
           }
         ]
@@ -15658,6 +14929,12 @@ window.RESEARCH_LOOP = {
           "summary": "One idea per slide. Telegram, X and Habr each have their own structure.",
           "result": "Slides, poster and posts",
           "ref": "s6"
+        },
+        {
+          "ref": "s-web",
+          "title": "Website and interactive demo",
+          "summary": "For a web presentation, build the interface, then check its appearance and user flows in the browser.",
+          "result": "A working web interface and its verification results"
         },
         {
           "title": "Check before presenting",
@@ -15830,7 +15107,8 @@ window.RESEARCH_LOOP = {
           "important": [
             "does not invent a personal story or publish on the author's behalf",
             "does not round the numbers"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "presentation-skill",
@@ -15941,7 +15219,8 @@ window.RESEARCH_LOOP = {
             "only a timed human rehearsal verifies duration",
             "does not rename notation without a request",
             "does not use a white background, even if requested in general terms"
-          ]
+          ],
+          "relations": []
         },
         {
           "id": "frontend-design",
@@ -15995,7 +15274,9 @@ window.RESEARCH_LOOP = {
           "processRelations": [
             {
               "processId": "presentation",
-              "role": "Design a web interface"
+              "processTitle": "Share with the community",
+              "stageRef": "s-web",
+              "stageTitle": "Website and interactive demo"
             }
           ],
           "start": "Provide the page goal, audience and examples of what you like or what gets in the way.",
@@ -16011,7 +15292,14 @@ window.RESEARCH_LOOP = {
           "purpose": "Creates a working web interface with composition, typography, color and responsive behavior chosen for the task and audience.",
           "important": [
             "An attractive mockup does not replace accessibility and workflow checks"
-          ]
+          ],
+          "relations": [],
+          "processRelation": {
+            "processId": "presentation",
+            "processTitle": "Share with the community",
+            "stageRef": "s-web",
+            "stageTitle": "Website and interactive demo"
+          }
         },
         {
           "id": "ui-ux-pro-max",
@@ -16065,7 +15353,9 @@ window.RESEARCH_LOOP = {
           "processRelations": [
             {
               "processId": "presentation",
-              "role": "Plan the visual system"
+              "processTitle": "Share with the community",
+              "stageRef": "s-web",
+              "stageTitle": "Website and interactive demo"
             }
           ],
           "start": "Describe the product, audience, main workflow and technology stack.",
@@ -16081,7 +15371,14 @@ window.RESEARCH_LOOP = {
           "purpose": "Helps choose an interface's visual system: page structure, fonts, palette, components and interaction rules.",
           "important": [
             "Recommendations must be adapted to the existing product"
-          ]
+          ],
+          "relations": [],
+          "processRelation": {
+            "processId": "presentation",
+            "processTitle": "Share with the community",
+            "stageRef": "s-web",
+            "stageTitle": "Website and interactive demo"
+          }
         },
         {
           "id": "web-design-reviewer",
@@ -16135,7 +15432,9 @@ window.RESEARCH_LOOP = {
           "processRelations": [
             {
               "processId": "presentation",
-              "role": "Review the design in a browser"
+              "processTitle": "Share with the community",
+              "stageRef": "s-web",
+              "stageTitle": "Website and interactive demo"
             }
           ],
           "start": "Provide the page URL and access to its source for fixes.",
@@ -16151,7 +15450,14 @@ window.RESEARCH_LOOP = {
           "purpose": "Inspects actual pages in a browser, finds visible design and responsiveness problems, and verifies source-code fixes.",
           "important": [
             "Source inspection does not replace viewing the rendered page"
-          ]
+          ],
+          "relations": [],
+          "processRelation": {
+            "processId": "presentation",
+            "processTitle": "Share with the community",
+            "stageRef": "s-web",
+            "stageTitle": "Website and interactive demo"
+          }
         },
         {
           "id": "webapp-testing",
@@ -16205,7 +15511,9 @@ window.RESEARCH_LOOP = {
           "processRelations": [
             {
               "processId": "presentation",
-              "role": "Test web app behavior"
+              "processTitle": "Share with the community",
+              "stageRef": "s-web",
+              "stageTitle": "Website and interactive demo"
             }
           ],
           "start": "Specify the app URL, actions and expected result.",
@@ -16221,7 +15529,14 @@ window.RESEARCH_LOOP = {
           "purpose": "Tests web app workflows in the browser with Playwright: actions, interface state, errors and visible outcomes.",
           "important": [
             "Requires a browser and a working app instance"
-          ]
+          ],
+          "relations": [],
+          "processRelation": {
+            "processId": "presentation",
+            "processTitle": "Share with the community",
+            "stageRef": "s-web",
+            "stageTitle": "Website and interactive demo"
+          }
         }
       ],
       "outcomeRefs": [
@@ -16261,6 +15576,17 @@ window.RESEARCH_LOOP = {
           "stageRef": "s4",
           "toolIds": [
             "presentation-skill"
+          ]
+        },
+        {
+          "id": "web",
+          "title": "Website and interactive demo",
+          "stageRef": "s-web",
+          "toolIds": [
+            "frontend-design",
+            "ui-ux-pro-max",
+            "web-design-reviewer",
+            "webapp-testing"
           ]
         }
       ],
@@ -16345,6 +15671,19 @@ window.RESEARCH_LOOP = {
             "o5"
           ],
           "qa": []
+        },
+        {
+          "id": "r-web",
+          "stage": "s-web",
+          "tools": [
+            "frontend-design",
+            "ui-ux-pro-max",
+            "web-design-reviewer",
+            "webapp-testing"
+          ],
+          "destinations": [],
+          "outcomes": [],
+          "qa": []
         }
       ],
       "toMcp": {
@@ -16421,19 +15760,12 @@ window.RESEARCH_LOOP = {
         ],
         "groups": [
           {
-            "title": "Visual language",
+            "title": "Website and interactive demo",
             "area": "design",
-            "core": "presentation-skill",
+            "independent": true,
             "toolIds": [
               "frontend-design",
-              "ui-ux-pro-max"
-            ]
-          },
-          {
-            "title": "Check the presentation",
-            "area": "testing",
-            "core": "paper-to-social",
-            "toolIds": [
+              "ui-ux-pro-max",
               "web-design-reviewer",
               "webapp-testing"
             ]
