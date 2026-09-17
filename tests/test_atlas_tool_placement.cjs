@@ -15,7 +15,8 @@ for (const prefix of ['', 'en/']) {
   const skills = new Set(all.flatMap(p => p.tools.map(t => t.skillId).filter(Boolean)));
   const installed = fs.readdirSync(path.join(__dirname, '../skills'))
     .filter(name => fs.existsSync(path.join(__dirname, '../skills', name, 'SKILL.md')));
-  assert.equal(model.meta.skillCatalog.publicCount, installed.length);
+  const privateSkills = new Set(['lab-knowledge', 'lab-project-onboarding']);
+  assert.equal(model.meta.skillCatalog.publicCount, installed.filter(name => !privateSkills.has(name)).length);
   for (const name of installed) assert(skills.has(name), `Missing skill: ${name}`);
   assert(!skills.has('new-paper'));
   assert(!context.window.LAB_ATLAS_DATA.capabilities.some(c => c.id === 'skill:new-paper'));
