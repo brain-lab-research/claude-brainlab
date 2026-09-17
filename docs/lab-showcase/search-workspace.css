@@ -122,6 +122,13 @@
 .knowledge-workspace button:focus-visible,.knowledge-workspace a:focus-visible,.knowledge-workspace summary:focus-visible{
   outline:2px solid var(--lime);outline-offset:5px}
 @media(min-width:1500px){.knowledge-workspace .ways{grid-template-columns:minmax(0,1.65fr) minmax(330px,1fr);gap:0 44px}}
+@media(min-width:1200px){
+  .knowledge-workspace .ways:has(.way-recent button){grid-template-columns:minmax(0,1.45fr) minmax(0,.85fr) minmax(0,1fr);
+    grid-template-areas:"query explore record";grid-template-rows:auto;gap:28px}
+  .knowledge-workspace .ways:has(.way-recent button) .way-examples{grid-template-columns:minmax(0,1fr)}
+  .knowledge-workspace .ways:has(.way-recent button) .way-record{padding:4px 0 0 24px;
+    border-top:0;border-left:1px solid var(--search-line)}
+}
 @media(min-width:981px) and (max-height:820px){
   .mcp-live-view:has(.knowledge-workspace){padding-top:88px}
   .knowledge-workspace .mcp-hero{padding:4px 0 12px}
