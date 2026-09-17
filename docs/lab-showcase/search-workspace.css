@@ -119,6 +119,9 @@
 .knowledge-workspace button:focus-visible,.knowledge-workspace a:focus-visible,.knowledge-workspace summary:focus-visible{
   outline:2px solid var(--lime);outline-offset:5px}
 @media(min-width:1500px){.knowledge-workspace .ways{grid-template-columns:minmax(0,1.65fr) minmax(330px,1fr);gap:0 44px}}
+@media(min-width:641px) and (max-width:980px){
+  .knowledge-workspace .way-areas{grid-template-columns:minmax(0,1fr)}
+}
 @media(min-width:981px) and (max-height:820px){
   .mcp-live-view:has(.knowledge-workspace){padding-top:88px}
   .knowledge-workspace .mcp-hero{padding:4px 0 12px}
