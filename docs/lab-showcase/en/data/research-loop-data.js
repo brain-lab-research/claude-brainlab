@@ -2962,42 +2962,37 @@ window.RESEARCH_LOOP = {
     "verified": "06.09.2026",
     "registryCount": 206,
     "toolkit": {
-      "title": "Install the complete toolkit",
-      "lead": "One installation adds skills, agents, hooks, scripts, and rules for Claude Code. The other system components are separate and installed through their own links.",
+      "title": "Get the source code",
+      "lead": "Clone the repositories you need. Skills, agents, hooks, and Hermes prompts are included in claude-brainlab; the other tools have separate repositories.",
       "install": [
-        "git clone https://github.com/Vepricov/claude-brainlab.git ~/claude-brainlab",
-        "cd ~/claude-brainlab",
-        "bash install/bootstrap.sh    # asks about your vault and keys; press Enter to skip anything you do not need",
-        "bash install/setup.sh        # installs into ~/.claude and backs up existing files"
+        "git clone https://github.com/brain-lab-research/claude-brainlab.git",
+        "git clone https://github.com/NousResearch/hermes-agent.git",
+        "git clone https://github.com/MemPalace/mempalace.git",
+        "git clone https://github.com/54yyyu/zotero-mcp.git",
+        "git clone https://github.com/brain-lab-research/lab-knowledge.git",
+        "git clone https://github.com/Vepricov/brain-call.git"
       ],
-      "after": "Then restart Claude Code. To roll back: bash install/uninstall.sh. To check without changing anything: bash install/setup.sh --dry-run.",
+      "after": "Follow each project’s README for setup. Hermes prompts are in claude-brainlab/hermes. Cloning Lab Knowledge MCP and Brain Call requires access to their private repositories.",
       "components": "skills · commands · agents · hooks · scripts · rules",
-      "links": [
-        {
-          "label": "Repository",
-          "url": "https://github.com/Vepricov/claude-brainlab"
-        },
-        {
-          "label": "What bootstrap.sh asks",
-          "url": "https://github.com/Vepricov/claude-brainlab/blob/main/install/bootstrap.sh"
-        },
-        {
-          "label": "What setup.sh does",
-          "url": "https://github.com/Vepricov/claude-brainlab/blob/main/install/setup.sh"
-        }
-      ],
+      "links": [],
       "pieces": [
         {
           "name": "claude-brainlab",
           "what": "73 public skills, plus agents, hooks, and rules",
           "access": "Public",
-          "url": "https://github.com/Vepricov/claude-brainlab"
+          "url": "https://github.com/brain-lab-research/claude-brainlab"
         },
         {
           "name": "Hermes Agent",
           "what": "Project agent environment: profile, task queue, and scheduler",
-          "access": "External open-source project",
+          "access": "third-party open-source project",
           "url": "https://github.com/NousResearch/hermes-agent"
+        },
+        {
+          "name": "Hermes prompts",
+          "what": "Production agent profiles: SOUL.md and scheduler jobs",
+          "access": "Public",
+          "url": "https://github.com/brain-lab-research/claude-brainlab/tree/main/hermes"
         },
         {
           "name": "Lab Knowledge MCP",
@@ -3014,26 +3009,14 @@ window.RESEARCH_LOOP = {
         {
           "name": "MemPalace",
           "what": "Agent memory between sessions",
-          "access": "Public",
+          "access": "third-party open-source project",
           "url": "https://github.com/MemPalace/mempalace"
         },
         {
           "name": "Zotero MCP",
           "what": "Paper library and full texts for the agent",
-          "access": "Public",
+          "access": "third-party open-source project",
           "url": "https://github.com/54yyyu/zotero-mcp"
-        },
-        {
-          "name": "Miro MCP",
-          "what": "Boards for diagrams and exploring ideas",
-          "access": "Public",
-          "url": "https://github.com/k-jarzyna/mcp-miro"
-        },
-        {
-          "name": "Hermes prompts",
-          "what": "Production agent profiles: SOUL.md and scheduler jobs",
-          "access": "Public",
-          "url": "https://github.com/Vepricov/claude-brainlab/tree/main/hermes"
         }
       ]
     },

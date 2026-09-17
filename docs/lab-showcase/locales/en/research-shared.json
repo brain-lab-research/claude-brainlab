@@ -841,7 +841,7 @@
   "57674517c20b": "73 public skills, plus agents, hooks, and rules",
   "4090a869f933": "Public",
   "dab78c758c5f": "Project agent environment: profile, task queue, and scheduler",
-  "aa59b3613872": "External open-source project",
+  "aa59b3613872": "third-party open-source project",
   "e6858e45b5f4": "Shared database: claims, runs, measurements, and rules",
   "da96938572d0": "By approved request",
   "b7379778fe50": "Calls, from recording to publication of confirmed content",
@@ -849,5 +849,8 @@
   "7d618f157dab": "Paper library and full texts for the agent",
   "8b45cc3a1fae": "Boards for diagrams and exploring ideas",
   "a75236dd7147": "Hermes prompts",
-  "e55376b80bba": "Production agent profiles: SOUL.md and scheduler jobs"
+  "e55376b80bba": "Production agent profiles: SOUL.md and scheduler jobs",
+  "ab4a5a107cac": "Get the source code",
+  "13e45a39d1e9": "Clone the repositories you need. Skills, agents, hooks, and Hermes prompts are included in claude-brainlab; the other tools have separate repositories.",
+  "ca231da493b7": "Follow each project’s README for setup. Hermes prompts are in claude-brainlab/hermes. Cloning Lab Knowledge MCP and Brain Call requires access to their private repositories."
 }

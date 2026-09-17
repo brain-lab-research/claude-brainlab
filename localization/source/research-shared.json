@@ -6021,59 +6021,24 @@
       ]
     },
     {
-      "id": "22c26188beec",
-      "text": "Поставить весь набор сразу",
+      "id": "ab4a5a107cac",
+      "text": "Исходники всей системы",
       "paths": [
         "meta/toolkit/title"
       ]
     },
     {
-      "id": "039ed2bd6504",
-      "text": "Одна установка кладёт к вам навыки, агентов, хуки, скрипты и правила для Claude Code. Остальные части системы живут отдельно и ставятся по своим ссылкам.",
+      "id": "13e45a39d1e9",
+      "text": "Скопируйте нужные репозитории. Навыки, агенты, хуки и промпты Hermes входят в claude-brainlab; остальные инструменты скачиваются отдельно.",
       "paths": [
         "meta/toolkit/lead"
       ]
     },
     {
-      "id": "917b465fea4e",
-      "text": "bash install/bootstrap.sh    # спросит про хранилище и ключи, всё лишнее пропускается Enter",
-      "paths": [
-        "meta/toolkit/install/2"
-      ]
-    },
-    {
-      "id": "19746beecec7",
-      "text": "bash install/setup.sh        # разложит по ~/.claude, старое положит в бэкап",
-      "paths": [
-        "meta/toolkit/install/3"
-      ]
-    },
-    {
-      "id": "e0604817ad2c",
-      "text": "Дальше перезапустите Claude Code. Откатиться: bash install/uninstall.sh. Проверить, ничего не меняя: bash install/setup.sh --dry-run.",
+      "id": "ca231da493b7",
+      "text": "Настройка — в README каждого проекта. Промпты Hermes — в claude-brainlab/hermes. Для клонирования Lab Knowledge MCP и Brain Call нужен доступ к их закрытым репозиториям.",
       "paths": [
         "meta/toolkit/after"
-      ]
-    },
-    {
-      "id": "866ea09d58f8",
-      "text": "Репозиторий",
-      "paths": [
-        "meta/toolkit/links/0/label"
-      ]
-    },
-    {
-      "id": "de2998f2c539",
-      "text": "Что спрашивает bootstrap.sh",
-      "paths": [
-        "meta/toolkit/links/1/label"
-      ]
-    },
-    {
-      "id": "1de3cf16b525",
-      "text": "Что делает setup.sh",
-      "paths": [
-        "meta/toolkit/links/2/label"
       ]
     },
     {
@@ -6088,10 +6053,7 @@
       "text": "открыто",
       "paths": [
         "meta/toolkit/pieces/0/access",
-        "meta/toolkit/pieces/4/access",
-        "meta/toolkit/pieces/5/access",
-        "meta/toolkit/pieces/6/access",
-        "meta/toolkit/pieces/7/access"
+        "meta/toolkit/pieces/2/access"
       ]
     },
     {
@@ -6105,64 +6067,59 @@
       "id": "aa59b3613872",
       "text": "чужой открытый проект",
       "paths": [
-        "meta/toolkit/pieces/1/access"
-      ]
-    },
-    {
-      "id": "e6858e45b5f4",
-      "text": "общая база: утверждения, прогоны, измерения, правила",
-      "paths": [
-        "meta/toolkit/pieces/2/what"
-      ]
-    },
-    {
-      "id": "da96938572d0",
-      "text": "по заявке",
-      "paths": [
-        "meta/toolkit/pieces/2/access",
-        "meta/toolkit/pieces/3/access"
-      ]
-    },
-    {
-      "id": "b7379778fe50",
-      "text": "созвон от записи до публикации подтверждённого",
-      "paths": [
-        "meta/toolkit/pieces/3/what"
-      ]
-    },
-    {
-      "id": "da7009df8824",
-      "text": "память агента между сессиями",
-      "paths": [
-        "meta/toolkit/pieces/4/what"
-      ]
-    },
-    {
-      "id": "7d618f157dab",
-      "text": "библиотека статей и полные тексты для агента",
-      "paths": [
-        "meta/toolkit/pieces/5/what"
-      ]
-    },
-    {
-      "id": "8b45cc3a1fae",
-      "text": "доски для схем и разбора идей",
-      "paths": [
-        "meta/toolkit/pieces/6/what"
+        "meta/toolkit/pieces/1/access",
+        "meta/toolkit/pieces/5/access",
+        "meta/toolkit/pieces/6/access"
       ]
     },
     {
       "id": "a75236dd7147",
       "text": "Промпты Hermes",
       "paths": [
-        "meta/toolkit/pieces/7/name"
+        "meta/toolkit/pieces/2/name"
       ]
     },
     {
       "id": "e55376b80bba",
       "text": "боевые профили агентов: SOUL.md и задания планировщика",
       "paths": [
-        "meta/toolkit/pieces/7/what"
+        "meta/toolkit/pieces/2/what"
+      ]
+    },
+    {
+      "id": "e6858e45b5f4",
+      "text": "общая база: утверждения, прогоны, измерения, правила",
+      "paths": [
+        "meta/toolkit/pieces/3/what"
+      ]
+    },
+    {
+      "id": "da96938572d0",
+      "text": "по заявке",
+      "paths": [
+        "meta/toolkit/pieces/3/access",
+        "meta/toolkit/pieces/4/access"
+      ]
+    },
+    {
+      "id": "b7379778fe50",
+      "text": "созвон от записи до публикации подтверждённого",
+      "paths": [
+        "meta/toolkit/pieces/4/what"
+      ]
+    },
+    {
+      "id": "da7009df8824",
+      "text": "память агента между сессиями",
+      "paths": [
+        "meta/toolkit/pieces/5/what"
+      ]
+    },
+    {
+      "id": "7d618f157dab",
+      "text": "библиотека статей и полные тексты для агента",
+      "paths": [
+        "meta/toolkit/pieces/6/what"
       ]
     }
   ]
