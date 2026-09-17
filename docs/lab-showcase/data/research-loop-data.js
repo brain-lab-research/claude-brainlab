@@ -16377,42 +16377,37 @@ window.RESEARCH_LOOP={
   "verified": "06.09.2026",
   "registryCount": 206,
   "toolkit": {
-   "title": "Поставить весь набор сразу",
-   "lead": "Одна установка кладёт к вам навыки, агентов, хуки, скрипты и правила для Claude Code. Остальные части системы живут отдельно и ставятся по своим ссылкам.",
+   "title": "Исходники всей системы",
+   "lead": "Скопируйте нужные репозитории. Навыки, агенты, хуки и промпты Hermes входят в claude-brainlab; остальные инструменты скачиваются отдельно.",
    "install": [
-    "git clone https://github.com/Vepricov/claude-brainlab.git ~/claude-brainlab",
-    "cd ~/claude-brainlab",
-    "bash install/bootstrap.sh    # спросит про хранилище и ключи, всё лишнее пропускается Enter",
-    "bash install/setup.sh        # разложит по ~/.claude, старое положит в бэкап"
+    "git clone https://github.com/brain-lab-research/claude-brainlab.git",
+    "git clone https://github.com/NousResearch/hermes-agent.git",
+    "git clone https://github.com/MemPalace/mempalace.git",
+    "git clone https://github.com/54yyyu/zotero-mcp.git",
+    "git clone https://github.com/brain-lab-research/lab-knowledge.git",
+    "git clone https://github.com/Vepricov/brain-call.git"
    ],
-   "after": "Дальше перезапустите Claude Code. Откатиться: bash install/uninstall.sh. Проверить, ничего не меняя: bash install/setup.sh --dry-run.",
+   "after": "Настройка — в README каждого проекта. Промпты Hermes — в claude-brainlab/hermes. Для клонирования Lab Knowledge MCP и Brain Call нужен доступ к их закрытым репозиториям.",
    "components": "skills · commands · agents · hooks · scripts · rules",
-   "links": [
-    {
-     "label": "Репозиторий",
-     "url": "https://github.com/Vepricov/claude-brainlab"
-    },
-    {
-     "label": "Что спрашивает bootstrap.sh",
-     "url": "https://github.com/Vepricov/claude-brainlab/blob/main/install/bootstrap.sh"
-    },
-    {
-     "label": "Что делает setup.sh",
-     "url": "https://github.com/Vepricov/claude-brainlab/blob/main/install/setup.sh"
-    }
-   ],
+   "links": [],
    "pieces": [
     {
      "name": "claude-brainlab",
      "what": "73 публичных навыка, агенты, хуки и правила",
      "access": "открыто",
-     "url": "https://github.com/Vepricov/claude-brainlab"
+     "url": "https://github.com/brain-lab-research/claude-brainlab"
     },
     {
      "name": "Hermes Agent",
      "what": "среда агента проекта: профиль, очередь задач, планировщик",
      "access": "чужой открытый проект",
      "url": "https://github.com/NousResearch/hermes-agent"
+    },
+    {
+     "name": "Промпты Hermes",
+     "what": "боевые профили агентов: SOUL.md и задания планировщика",
+     "access": "открыто",
+     "url": "https://github.com/brain-lab-research/claude-brainlab/tree/main/hermes"
     },
     {
      "name": "Lab Knowledge MCP",
@@ -16429,26 +16424,14 @@ window.RESEARCH_LOOP={
     {
      "name": "MemPalace",
      "what": "память агента между сессиями",
-     "access": "открыто",
+     "access": "чужой открытый проект",
      "url": "https://github.com/MemPalace/mempalace"
     },
     {
      "name": "Zotero MCP",
      "what": "библиотека статей и полные тексты для агента",
-     "access": "открыто",
+     "access": "чужой открытый проект",
      "url": "https://github.com/54yyyu/zotero-mcp"
-    },
-    {
-     "name": "Miro MCP",
-     "what": "доски для схем и разбора идей",
-     "access": "открыто",
-     "url": "https://github.com/k-jarzyna/mcp-miro"
-    },
-    {
-     "name": "Промпты Hermes",
-     "what": "боевые профили агентов: SOUL.md и задания планировщика",
-     "access": "открыто",
-     "url": "https://github.com/Vepricov/claude-brainlab/tree/main/hermes"
     }
    ]
   },
