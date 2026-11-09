@@ -96,7 +96,7 @@ def build(destination: Path, owner: str, cache: Path | None = None,
                                  'example-area/example-theme/example-work'})
         finally:
             sys.path.pop(0)
-        receipt = {'setup':'lab-atlas-2026-09-10','owner':owner,'enabled_plugins':14,
+        receipt = {'setup':'lab-atlas-2026-09-10','owner':owner,'enabled_plugins':15,
                    'downloaded_plugins':len(plugins),'display_patches':display_patches,
                    'plugin_sha256':hashes,'hermes_sample':'synthetic; no refresh scheduled'}
         (staging / '.lab-setup-receipt.json').write_text(json.dumps(receipt, ensure_ascii=False, indent=2)+'\n', encoding='utf-8')

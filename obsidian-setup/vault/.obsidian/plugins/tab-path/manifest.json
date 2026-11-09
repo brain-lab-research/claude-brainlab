@@ -1,0 +1,9 @@
+{
+  "id": "tab-path",
+  "name": "Tab Path",
+  "version": "0.1.0",
+  "minAppVersion": "1.4.0",
+  "description": "Shows parent folders before the file name in tab headers.",
+  "author": "local",
+  "isDesktopOnly": false
+}

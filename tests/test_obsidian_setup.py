@@ -68,8 +68,10 @@ class ObsidianSetupTests(unittest.TestCase):
         lock = json.loads((root/'plugins.lock.json').read_text())['plugins']
         enabled = json.loads((root/'vault/.obsidian/community-plugins.json').read_text())
         self.assertEqual(len(lock), 16)
-        self.assertEqual(set(enabled), {p['id'] for p in lock if p['enabled']})
-        self.assertEqual(len(enabled), 14)
+        local = {d.name for d in (root/'vault/.obsidian/plugins').iterdir() if (d/'main.js').exists()}
+        self.assertEqual(local, {'tab-path'})
+        self.assertEqual(set(enabled), {p['id'] for p in lock if p['enabled']} | local)
+        self.assertEqual(len(enabled), 15)
         for plugin in lock:
             self.assertTrue({'main.js','manifest.json'} <= {a['name'] for a in plugin['assets']})
             self.assertTrue(all(a['url'].startswith('https://github.com/') for a in plugin['assets']))
