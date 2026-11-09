@@ -11,9 +11,9 @@
 читают литературу, ярлык видят и идут за содержимым в тему-хозяйку; сверка с хранилищем
 его пропускает, потому что заметка в хранилище одна и ведётся по теме-хозяйке.
 
-    paper_label.py список <клон литературы>...
-    paper_label.py повесить <ключ> --хозяйка <клон> --гостья <клон>
-    paper_label.py снять    <ключ> --гостья <клон>
+    paper_label.py list <клон литературы>...
+    paper_label.py add <ключ> --home <клон> --guest <клон>
+    paper_label.py remove   <ключ> --guest <клон>
 
 Ярлык узнаётся по строке `> Разбор этой статьи ведётся в теме` в начале файла.
 """
@@ -109,20 +109,20 @@ def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="что", required=True)
-    listing = sub.add_parser("список")
+    listing = sub.add_parser("list")
     listing.add_argument("roots", type=Path, nargs="+")
-    put = sub.add_parser("повесить")
+    put = sub.add_parser("add")
     put.add_argument("ключ")
-    put.add_argument("--хозяйка", type=Path, required=True, dest="home")
-    put.add_argument("--гостья", type=Path, required=True, dest="guest")
-    off = sub.add_parser("снять")
+    put.add_argument("--home", type=Path, required=True, dest="home")
+    put.add_argument("--guest", type=Path, required=True, dest="guest")
+    off = sub.add_parser("remove")
     off.add_argument("ключ")
-    off.add_argument("--гостья", type=Path, required=True, dest="guest")
+    off.add_argument("--guest", type=Path, required=True, dest="guest")
     args = parser.parse_args(argv)
 
-    if args.что == "список":
+    if args.что == "list":
         return show(args.roots)
-    if args.что == "снять":
+    if args.что == "remove":
         target = args.guest / f"{getattr(args, 'ключ')}.md"
         if not target.exists() or not is_label(target.read_text(encoding="utf-8")):
             sys.exit(f"в «{args.guest.name}» ярлыка на {getattr(args, 'ключ')} нет")

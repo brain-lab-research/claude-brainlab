@@ -12,7 +12,7 @@ Generation using Latent Routing of LoRA Adapters» Zhan Su оба дают `su20
 виду, машине нельзя. Перед переименованием проход сам ищет ключ в `.tex` и `.bib` и
 отказывается работать, если нашёл.
 
-    rekey_paper.py <старый> <новый> --разбор <файл.md> [--заметка <файл.md>] [--fix]
+    rekey_paper.py <старый> <новый> --paper <файл.md> [--note <файл.md>] [--fix]
 """
 
 from __future__ import annotations
@@ -86,8 +86,8 @@ def main(argv: list[str]) -> int:
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("old")
     parser.add_argument("new")
-    parser.add_argument("--разбор", type=Path, required=True, dest="paper")
-    parser.add_argument("--заметка", type=Path, dest="note")
+    parser.add_argument("--paper", type=Path, required=True, dest="paper")
+    parser.add_argument("--note", type=Path, dest="note")
     parser.add_argument("--fix", action="store_true")
     args = parser.parse_args(argv)
 

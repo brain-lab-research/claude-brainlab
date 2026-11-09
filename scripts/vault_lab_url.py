@@ -22,7 +22,7 @@
 Поэтому ключ сначала ищется в своей теме, а потом во всех остальных: адрес страницы нужен
 тот, по которому она открывается, а не тот, по которому ей следовало бы лежать.
 
-    vault_lab_url.py <клон литературы>... --хранилище <папка Literature> [--fix]
+    vault_lab_url.py <клон литературы>... --vault <папка Literature> [--fix]
 """
 
 from __future__ import annotations
@@ -101,7 +101,7 @@ def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("roots", type=Path, nargs="+")
-    parser.add_argument("--хранилище", type=Path, dest="vault", required=True)
+    parser.add_argument("--vault", type=Path, dest="vault", required=True)
     parser.add_argument("--fix", action="store_true")
     args = parser.parse_args(argv)
 

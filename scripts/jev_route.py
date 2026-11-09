@@ -1040,7 +1040,7 @@ def hint(verdict: dict) -> str:
 
 
 def main() -> None:
-    if len(sys.argv) > 1 and sys.argv[1] in ("--сводка", "--summary"):
+    if len(sys.argv) > 1 and sys.argv[1] == "--summary":
         summary()
         return
     if len(sys.argv) < 2:

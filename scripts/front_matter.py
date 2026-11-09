@@ -33,7 +33,7 @@ project_url. Давайте всё вот это так хранить, и на 
   распознаёт только английское имя, переведённое молча становится обычным свойством.
 - `updated` — в формате ДД-ММ-ГГГГ. Уже стоящее значение не трогается.
 
-    front_matter.py <клон литературы>... [--хранилище <папка темы>] [--fix]
+    front_matter.py <клон литературы>... [--vault <папка темы>] [--fix]
 """
 
 from __future__ import annotations
@@ -142,7 +142,7 @@ def main(argv: list[str]) -> int:
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     parser.add_argument("roots", type=Path, nargs="+")
-    parser.add_argument("--хранилище", type=Path, dest="vault", default=None)
+    parser.add_argument("--vault", type=Path, dest="vault", default=None)
     parser.add_argument("--fix", action="store_true")
     args = parser.parse_args(argv)
 

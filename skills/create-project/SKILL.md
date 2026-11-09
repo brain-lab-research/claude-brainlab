@@ -185,8 +185,8 @@ Developer и выше; GitLab ответил 403 — остановиться и
 
 ```bash
 LAB_GITLAB_URL=$(cat ~/.config/brainlab/git-url) LAB_GITLAB_TOKEN=<ключ с правами Owner> \
-  python3 ~/brainlab/agents/services/scripts/gitlab_people.py главные \
-  --тема <направление>/<тема> --отвечает <логин>,<логин>
+  python3 ~/brainlab/agents/services/scripts/gitlab_people.py leads \
+  --theme <направление>/<тема> --owners <логин>,<логин>
 ```
 
 Без этих переменных скрипт стучится в `127.0.0.1:9080`, то есть работает только на сервере базы.

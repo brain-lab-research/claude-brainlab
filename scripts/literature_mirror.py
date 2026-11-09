@@ -290,7 +290,7 @@ def main(argv: list[str]) -> int:
     parser.add_argument("vault", type=Path, help="папка темы в хранилище Обсидиана")
     parser.add_argument("--apply", action="store_true",
                         help="перенести блок из базы в заметку")
-    parser.add_argument("--завести", action="store_true", dest="create",
+    parser.add_argument("--create", action="store_true", dest="create",
                         help="заводить заметку там, где её в хранилище нет вовсе")
     parser.add_argument("--body", action="store_true",
                         help="переносить разбор целиком, а не только «Коротко» и утверждения")
@@ -321,7 +321,7 @@ def main(argv: list[str]) -> int:
                 fixed += 1
             else:
                 trouble.append(f"{key}: в хранилище нет заметки с этим ключом и этим "
-                               f"заголовком (завести: --завести)")
+                               f"заголовком (завести: --create)")
             continue
         # Врезку Papers with Code убираем перед сверкой: она есть только в хранилище, стоит
         # внутри участка утверждений, и иначе каждая обогащённая заметка читается как

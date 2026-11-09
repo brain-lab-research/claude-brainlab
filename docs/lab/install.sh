@@ -13,6 +13,7 @@
 #   ~/.claude/skills/lab-knowledge/     навык: как пишется страница утверждения и серии.
 #   ~/.claude/skills/create-project/    навык: завести работу в GitLab и в дереве.
 #   ~/.claude/skills/call-notes/        навык: разбор созвона в предложение по работе.
+#   ~/.claude/skills/paper-ingest/      навык: разбор статьи в литературу темы.
 #   ~/.claude/hooks/lab-where-am-i.py   ГДЕ ты и что тебя ждёт. Печатает только состояние.
 #   ~/.local/bin/lab                    дерево, задачи, вердикт — из терминала.
 #   ~/brainlab                          дерево лаборатории: Obsidian-сетап (если папки ещё
@@ -48,8 +49,8 @@ echo "хук:      $hooks_dir/lab-where-am-i.py"
 skills="$home/.claude/skills"
 mkdir -p "$skills"
 # lab-knowledge — как писать в базу; create-project — завести работу; call-notes — разобрать
-# созвон в предложение. paper-ingest сюда не входит: он требует Zotero и серверный конвейер.
-for skill in lab-knowledge create-project call-notes; do
+# созвон в предложение; paper-ingest — разобрать статью в литературу темы (Zotero не нужен).
+for skill in lab-knowledge create-project call-notes paper-ingest; do
   rsync -a --delete --exclude __pycache__ "$here/skills/$skill/" "$skills/$skill/"
   echo "навык:    $skills/$skill/"
 done
