@@ -958,6 +958,11 @@ def do_wandb(tail: list) -> None:
 def main() -> None:
     args = sys.argv[1] if len(sys.argv) > 1 else ""
     tail = sys.argv[2:]
+    # `lab sync --all --help` без этой строки молча собирал всю лабораторию: флаг помощи
+    # подкоманды не разбирают, и он терялся.
+    if args != "wandb" and {"-h", "--help"} & set(tail):   # у `lab_wandb.py` своя справка
+        print(__doc__)
+        return
     if args == "sync":
         do_sync(tail)
     elif args == "here":
