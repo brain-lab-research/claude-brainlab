@@ -18,6 +18,12 @@ GitLab: работа `brainlab/<направление>/<тема>/<работа
 Иконки и цвета папок — по разделу «Иконки и цвета» в
 `~/brainlab/handbook/tools/obsidian.md`.
 
+**Что должно лежать в дереве.** Навык берёт скрипты из `brainlab/agents/services` и образец
+работы `dykaf`; по умолчанию `lab sync` их не кладёт. Нет — положить до начала:
+`lab sync agents/services` и `lab here dykaf`. Создать проект в теме может только роль
+Developer и выше; GitLab ответил 403 — остановиться и сказать человеку попросить ведущего
+темы, а не пробовать другим ключом.
+
 ## 0. Убедиться, что такой работы нет
 
 **Никогда не заводить работу, не убедившись, что её нет.** Проверять по СМЫСЛУ, а не по имени:
@@ -108,8 +114,8 @@ GitLab: работа `brainlab/<направление>/<тема>/<работа
    Позже рядом появятся `socials/` (посты) и `calls/` (разборы звонков, сырьё в `calls/raw/`).
 5. **Ведут и Команда** пишет скрипт, руками эти строки не набирать:
    ```bash
-   python3 ~/brainlab/agents/services/scripts/sostav_readme.py --работа <слаг> \
-     --ведут <логин>[,<логин>] [--команда <логин>,<логин>]
+   python3 ~/brainlab/agents/services/scripts/sostav_readme.py --work <слаг> \
+     --leads <логин>[,<логин>] [--team <логин>,<логин>]
    ```
    Кого нет ни в одном README дерева, назвать парой `логин:Имя Фамилия`. Человек без учётки в
    GitLab — `:Имя Фамилия`: он пишется текстом, без ссылки.
@@ -160,7 +166,7 @@ GitLab: работа `brainlab/<направление>/<тема>/<работа
 - `git -C <работа> config --get-all push.pushOption` — есть `merge_request.create` и
   `merge_request.assign=<ведущий>`; `git config push.default` — `current`;
 - путь в дереве совпадает с путём в GitLab, проект `internal`, `main` защищён;
-- `python3 ~/brainlab/agents/services/scripts/sostav_readme.py --работа <слаг>` показывает ведущих.
+- `python3 ~/brainlab/agents/services/scripts/sostav_readme.py --work <слаг>` показывает ведущих.
 
 Доложить отдельно: что создано, что уже было, что пропущено и что упёрлось в права.
 

@@ -20,7 +20,7 @@ finds the full path of the work by its slug, closes the local-only folders in
 `.git/info/exclude` and sets the push options. The key itself is on this machine, at
 `~/.config/brainlab/git-token`, with the base address in `git-url`; do not ask for it, and
 never use a person's token. A second clone «somewhere for myself» is not made: `lab here
-<работа> --рядом` (a clone in `<project folder>/lab-base`) is only for a machine without the
+<работа> --beside` (a clone in `<project folder>/lab-base`) is only for a machine without the
 tree.
 
 **The base is GitLab since 01-10-2026, reachable over the network.** The old path through

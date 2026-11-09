@@ -13,16 +13,16 @@
                            или «Команда», литература их тем, handbook, journal, servers и то,
                            что выбрано в ~/.config/brainlab/sync (`*` — всё)
     lab sync <часть пути>  то же для одной части дерева, разово, мимо выбора
-    lab sync --всё         всё, что тебе видно
+    lab sync --all         всё, что тебе видно
     lab here [работа]      одна работа в дереве: слаг → её место в ~/brainlab; уже там —
                            обновить вместе с кодом и статьёй. Без имени — работа, где стоишь
-    lab here <работа> --рядом   по-старому: клон в <папка проекта>/lab-base
+    lab here <работа> --beside  по-старому: клон в <папка проекта>/lab-base
     lab tasks              открытые задачи работы: кому назначены, какое утверждение
     lab take <номер>       взять задачу на себя: исполнитель и ярлык «делается»
     lab checks             что сказали проверки этому предложению
     lab search "<запрос>"  поиск по всей базе по смыслу и по словам, только в видимом тебе;
-                           --утверждения, --утверждения-статей, --статьи, --работы,
-                           --справочник, --журнал
+                           --claims, --paper-claims, --papers, --works,
+                           --handbook, --journal
     lab wandb <ссылка>     прогон из W&B — в ветку работы: страница прогона, metrics.csv и
                            строка «Прогоны» в README; --work, --branch, --objective, --dry
 
@@ -548,7 +548,7 @@ def do_sync(arguments: list[str]) -> None:
     Что брать, решает `vybrano()`; уже лежащие клоны вне выбора не трогаются. Повторный
     запуск безопасен: недостающее клонирует, остальное подтягивает, а клоны с правками и на
     ветках только называет. Часть пути берёт разово её одну (`lab sync low-rank`), мимо
-    выбора; `--всё` — всё, что видно.
+    выбора; `--all` — всё, что видно.
     """
     from concurrent.futures import ThreadPoolExecutor
 
@@ -559,7 +559,7 @@ def do_sync(arguments: list[str]) -> None:
         projects = [one for one in visible if any(
             str(put_v_dereve(one).relative_to(TREE)).startswith(prefix)
             or one["path_with_namespace"].startswith(prefix) for prefix in prefixes)]
-    elif "--всё" in arguments:
+    elif "--all" in arguments:
         projects = visible
     else:
         projects, why = vybrano(visible)
@@ -569,7 +569,7 @@ def do_sync(arguments: list[str]) -> None:
         if mimo:
             print(f"уже лежат, но вне выбора — не трогаю: {len(mimo)}")
         print(f"добавить своё: строка в {SYNC_FILE} (часть пути, `*` — всё); "
-              "разово — `lab sync <часть пути>` или `lab sync --всё`")
+              "разово — `lab sync <часть пути>` или `lab sync --all`")
     # Сначала работы и служебные, литература последней: она весит больше всего (картинки и
     # PDF разборов, 50–115 МБ на тему), а работать можно, пока она докачивается.
     projects.sort(key=lambda one: (vid(one) == "литература", one["path_with_namespace"]))
@@ -599,10 +599,10 @@ def do_sync(arguments: list[str]) -> None:
 def do_here(names: list[str]) -> None:
     """Положить работу на её место в дереве ~/brainlab, а если она уже там — обновить.
 
-    С `--рядом` — по-старому, в `<папка проекта>/lab-base`: для машин, где дерева нет, и для
+    С `--beside` — по-старому, в `<папка проекта>/lab-base`: для машин, где дерева нет, и для
     репозитория с кодом, рядом с которым удобнее держать клон.
     """
-    ryadom = "--рядом" in names
+    ryadom = "--beside" in names
     names = [one for one in names if not one.startswith("--")]
     setup_key()
     if names:
@@ -906,14 +906,14 @@ def do_search(arguments: list[str]) -> None:
     Индекс живёт рядом с GitLab и собран из тех же файлов; своей записи у него нет. Если файл
     уже лежит в дереве, печатается его место в `~/brainlab`, иначе ссылка в GitLab.
     """
-    kinds = {"--утверждения": "claim", "--утверждения-статей": "paper_claim",
-             "--статьи": "paper", "--работы": "work",
-             "--справочник": "handbook", "--журнал": "journal"}
+    kinds = {"--claims": "claim", "--paper-claims": "paper_claim",
+             "--papers": "paper", "--works": "work",
+             "--handbook": "handbook", "--journal": "journal"}
     kind = next((kinds[a] for a in arguments if a in kinds), "all")
     query = " ".join(a for a in arguments if a not in kinds).strip()
     if not query:
         sys.exit('нужен запрос: lab search "Muon без прогрева" '
-                 '[--утверждения|--утверждения-статей|--статьи|--работы]')
+                 '[--claims|--paper-claims|--papers|--works|--handbook|--journal]')
     params = urllib.parse.urlencode({"q": query, "kind": kind, "limit": 15})
     request = urllib.request.Request(f"{site()}/-/lab-search/api?{params}",
                                      headers={"PRIVATE-TOKEN": token()})

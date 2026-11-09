@@ -267,7 +267,7 @@ def pull_clone(work: str, cwd: str, root: Path | None = None) -> list[str]:
         if not LAB_CLI.is_file():
             return [f"  клона базы нет, и помощника нет: {LAB_CLI}"]
         # Есть дерево — работа ложится на своё место в нём; нет — по-старому, рядом.
-        here_args = [str(LAB_CLI), "here", work] + ([] if TREE.is_dir() else ["--рядом"])
+        here_args = [str(LAB_CLI), "here", work] + ([] if TREE.is_dir() else ["--beside"])
         done = subprocess.run(here_args, cwd=str(root.parent),
                               capture_output=True, text=True, timeout=120,
                               stdin=subprocess.DEVNULL,

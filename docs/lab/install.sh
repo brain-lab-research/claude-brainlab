@@ -11,6 +11,8 @@
 #   ~/.claude/rules/lab.md              КАК писать в базу. Читается один раз за сессию.
 #   ~/.claude/skills/lab-knowledge/references/canon.md        СВОД правил: на него ссылаются правило, навык и хуки.
 #   ~/.claude/skills/lab-knowledge/     навык: как пишется страница утверждения и серии.
+#   ~/.claude/skills/create-project/    навык: завести работу в GitLab и в дереве.
+#   ~/.claude/skills/call-notes/        навык: разбор созвона в предложение по работе.
 #   ~/.claude/hooks/lab-where-am-i.py   ГДЕ ты и что тебя ждёт. Печатает только состояние.
 #   ~/.local/bin/lab                    дерево, задачи, вердикт — из терминала.
 #   ~/brainlab                          дерево лаборатории: Obsidian-сетап (если папки ещё
@@ -45,8 +47,12 @@ echo "хук:      $hooks_dir/lab-where-am-i.py"
 # 3. навык: подробности по факту работы, не в контексте
 skills="$home/.claude/skills"
 mkdir -p "$skills"
-rsync -a --delete --exclude __pycache__ "$here/skills/lab-knowledge/" "$skills/lab-knowledge/"
-echo "навык:    $skills/lab-knowledge/"
+# lab-knowledge — как писать в базу; create-project — завести работу; call-notes — разобрать
+# созвон в предложение. paper-ingest сюда не входит: он требует Zotero и серверный конвейер.
+for skill in lab-knowledge create-project call-notes; do
+  rsync -a --delete --exclude __pycache__ "$here/skills/$skill/" "$skills/$skill/"
+  echo "навык:    $skills/$skill/"
+done
 
 # 4. помощник
 ln -sf "$here/scripts/lab" "$home/.local/bin/lab"
