@@ -1,14 +1,22 @@
-const { Plugin } = require("obsidian");
+const { Plugin, WorkspaceLeaf } = require("obsidian");
 
 const DEPTH = 1; // how many parent folders to show before the file name
 
 module.exports = class TabPath extends Plugin {
   onload() {
-    const refresh = () => this.app.workspace.iterateAllLeaves((leaf) => this.label(leaf));
-    this.registerEvent(this.app.workspace.on("layout-change", refresh));
-    this.registerEvent(this.app.workspace.on("file-open", refresh));
-    this.registerEvent(this.app.vault.on("rename", refresh));
-    this.app.workspace.onLayoutReady(refresh);
+    // Obsidian rewrites a tab title in updateHeader (open, rename, view change),
+    // so relabel right after it instead of guessing which event will fire.
+    const proto = WorkspaceLeaf.prototype;
+    const original = proto.updateHeader;
+    const label = (leaf) => this.label(leaf);
+    proto.updateHeader = function (...args) {
+      const result = original.apply(this, args);
+      label(this);
+      return result;
+    };
+    this.register(() => { proto.updateHeader = original; });
+    this.app.workspace.onLayoutReady(() =>
+      this.app.workspace.iterateAllLeaves((leaf) => this.label(leaf)));
   }
 
   label(leaf) {
