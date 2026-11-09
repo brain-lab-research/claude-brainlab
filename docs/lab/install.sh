@@ -182,14 +182,27 @@ if [ -s "$conf/git-token" ]; then
     echo "  ключ есть, но справочник не ответил — проверь адрес в $conf/git-url"
   fi
 fi
-# 5. дерево лаборатории. Сначала Obsidian-сетап — он ставится только в новую папку, — потом
-# `lab sync` наполняет её клонами. Папка уже есть — сетап не трогаем, только синхронизируем.
+# 5. дерево лаборатории. Сначала Obsidian-сетап, потом `lab sync` наполняет папку клонами.
+# Сетап ставится, пока в дереве нет `.obsidian`: так повторный запуск доставляет его и
+# тогда, когда дерево уже собрано (GitHub, откуда берутся плагины, 09-11-2026 отдавал 504
+# на все выпуски). `install.py` пишет только в новую папку, поэтому сетап собирается рядом и
+# переносится в дерево; уже лежащее в дереве не заменяется.
 tree="${BRAINLAB_TREE:-$home/brainlab}"
-if [ ! -e "$tree" ] && [ -s "$conf/gitlab-login" ]; then
+if [ ! -e "$tree/.obsidian" ] && [ -s "$conf/gitlab-login" ]; then
   echo
   echo "Obsidian: ставлю хранилище в $tree"
-  "$py" "$here/obsidian-setup/install.py" --vault "$tree" --owner "$(cat "$conf/gitlab-login")" \
-    || echo "  сетап Obsidian не встал — дерево всё равно соберётся, сетап можно поставить позже"
+  fresh="$tree.obsidian-setup-$$"
+  mkdir -p "$(dirname "$tree")"
+  if "$py" "$here/obsidian-setup/install.py" --vault "$fresh" --owner "$(cat "$conf/gitlab-login")"; then
+    mkdir -p "$tree"
+    # `cp -Rn` не заменяет то, что уже есть в дереве.
+    cp -Rn "$fresh"/. "$tree"/
+    rm -rf "$fresh"
+  else
+    rm -rf "$fresh"
+    echo "  сетап Obsidian не встал (плагины качаются с GitHub) — дерево всё равно соберётся;"
+    echo "  поставить сетап: запусти этот установщик ещё раз, он доставит только недостающее"
+  fi
 fi
 if [ -s "$conf/git-token" ]; then
   echo

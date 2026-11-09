@@ -61,15 +61,39 @@ def sanitize(title: str) -> str:
     return " ".join(out.split())[:150]
 
 
-def find_duplicate(arxiv_id: str, doi: str) -> Path | None:
-    """Заметка, где уже стоит этот номер arXiv или DOI, в любой теме дерева."""
+def find_duplicate(arxiv_id: str, doi: str) -> str:
+    """Где эта статья уже разобрана: заметка в дереве или страница в базе. Пусто — нигде.
+
+    Дерево видит только склонированные темы, поэтому после него спрашивается поиск базы:
+    точное попадание номера среди статей всей лаборатории. README темы перечисляет все её
+    статьи, и он дублем не считается.
+    """
     needles = [n for n in (arxiv_id, doi) if n]
     for folder in vse_papki():
         for note in folder.glob("*.md"):
+            if note.name == "README.md":
+                continue
             head = note.read_text(encoding="utf-8", errors="ignore")[:6000]
             if any(n in head for n in needles):
-                return note
-    return None
+                return str(note)
+    try:
+        base = (CONF / "git-url").read_text().strip()
+        token = (CONF / "git-token").read_text().strip()
+    except OSError:
+        return ""
+    for needle in needles:
+        query = urllib.parse.urlencode({"q": needle, "kind": "paper", "limit": 5})
+        try:
+            with urllib.request.urlopen(urllib.request.Request(
+                    f"{base}/-/lab-search/api?{query}", headers={"PRIVATE-TOKEN": token}),
+                    timeout=90) as answer:
+                found = json.loads(answer.read().decode("utf-8"))["results"]
+        except (OSError, ValueError, KeyError):
+            continue
+        hit = next((one for one in found if one.get("exact")), None)
+        if hit:
+            return hit.get("url") or f"{hit.get('project')}/{hit.get('path')}"
+    return ""
 
 
 def fetch_bibtex(arxiv_id: str, doi: str) -> dict:
@@ -228,7 +252,7 @@ def main() -> int:
 
     dup = find_duplicate(arxiv_id, args.doi)
     if dup and not args.force:
-        print(json.dumps({"duplicate": str(dup)}, ensure_ascii=False))
+        print(json.dumps({"duplicate": dup}, ensure_ascii=False))
         return 3
 
     meta = fetch_bibtex(arxiv_id, args.doi)

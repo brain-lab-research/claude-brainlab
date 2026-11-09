@@ -10,6 +10,7 @@ import re
 import shutil
 import sys
 import tempfile
+import time
 import urllib.request
 
 HERE = Path(__file__).resolve().parent
@@ -23,8 +24,17 @@ def read_asset(plugin: dict, asset: dict, cache: Path | None) -> bytes:
     if cache is not None:
         return (cache / plugin['id'] / asset['name']).read_bytes()
     request = urllib.request.Request(asset['url'], headers={'User-Agent':'Lab-Atlas-Obsidian-Setup'})
-    with urllib.request.urlopen(request, timeout=60) as response:
-        return response.read()
+    # GitHub отдаёт выпуски плагинов с перебоями: 09-11-2026 два прогона подряд упали на
+    # 504 и таймауте, а тот же адрес через минуту отвечал за полторы секунды.
+    for attempt in range(4):
+        try:
+            with urllib.request.urlopen(request, timeout=60) as response:
+                return response.read()
+        except OSError:
+            if attempt == 3:
+                raise
+            time.sleep(5 * (attempt + 1))
+    raise AssertionError('unreachable')
 
 
 def apply_display_patch(data: bytes, spec: dict) -> bytes:
