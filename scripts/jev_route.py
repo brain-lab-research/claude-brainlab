@@ -583,13 +583,20 @@ def clone_state(cwd: str) -> dict:
 
 
 #: Ключ в `settings.json` — это секрет открытым текстом в настройках, чего `security.md`
-#: прямо не разрешает. Поэтому порядок такой: переменная окружения, потом связка ключей
-#: macOS, потом файл с правами 600. Файл нужен ради тех, у кого связки нет: на Linux и на
-#: do-vpn ключ и так лежит в `~/.config/brainlab/openrouter-key`.
+#: прямо не разрешает. Поэтому первым идёт файл с правами 600 `~/.config/brainlab/openrouter-key`:
+#: это ключ только Джева. Переменная окружения и связка ключей macOS идут после него.
+#: 10-11-2026 `OPENROUTER_API_KEY` на маке оказался ключом Brain Call с исчерпанным лимитом, и Джев
+#: молчал с 403, хотя в файле уже лежал рабочий ключ.
 KEY_FILE = Path("~/.config/brainlab/openrouter-key").expanduser()
 
 
 def key() -> str:
+    try:
+        from_file = KEY_FILE.read_text(encoding="utf-8").strip()
+        if from_file:
+            return from_file
+    except OSError:
+        pass
     from_env = os.environ.get("OPENROUTER_API_KEY", "").strip()
     if from_env:
         return from_env
@@ -602,10 +609,7 @@ def key() -> str:
             return found
     except (OSError, subprocess.SubprocessError):
         pass
-    try:
-        return KEY_FILE.read_text(encoding="utf-8").strip()
-    except OSError:
-        return ""
+    return ""
 
 
 #: Потолок Jev — 32 тысячи токенов на состояние с вопросом. Кириллица дорогая: токен на один-два
